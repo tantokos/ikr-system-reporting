@@ -22,6 +22,7 @@ use App\Http\Controllers\MonitMtFtthController;
 use App\Http\Controllers\PeminjamanAsetController;
 use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TimDashController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\AsetIkr;
@@ -74,7 +75,7 @@ Route::group(
         //     return redirect()->intended('aset.index');
         // });
         Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
-        Route::get('/', [AsetDashController::class, 'index'])->name('aset.index');
+        Route::get('/', [ReportController::class, 'index'])->name('report.index');
         // Route::get('/employee',[EmployeeController::class,'index']);
         Route::get('/employeedata', [EmployeeController::class, 'employeeData'])->name('employee.data');
         Route::get('/employeeCreate', [EmployeeController::class, 'create']);
