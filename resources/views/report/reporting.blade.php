@@ -18,6 +18,7 @@
             </a>
         </div>
 
+        
         <div class="col">
             <a href="#" data-toggle="modal" data-target="#md-tersediaAset">
             <div class="card bg-info">
