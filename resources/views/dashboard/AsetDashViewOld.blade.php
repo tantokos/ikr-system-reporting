@@ -71,7 +71,7 @@
             </div>
         </div>
 
- 
+
 
     </div>
 @endsection
@@ -219,9 +219,16 @@
                             'rgb(153, 102, 255)',
                             'rgb(201, 203, 207)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        datalabels: {
+                            color: 'red',
+                            anchor: 'end',
+                            align: 'top'
+                        
+                    }
                     }]
                 },
+                plugins: [ChartDataLabels],
 
                 options: {
                     responsive: true,
@@ -230,10 +237,10 @@
                         y: {
                             beginAtZero: true
                         }
-                    }
-                },
-                plugins: [ChartDataLabels]
-
+                    },
+                    
+                }
+                
             });
         }
     </script>

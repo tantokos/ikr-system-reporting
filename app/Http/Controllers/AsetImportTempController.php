@@ -26,7 +26,7 @@ class AsetImportTempController extends Controller
         if ($request->hasFile('fileAset')) {
 
             $request->validate([
-                'fileAset' => ['required', 'mimes:xlsx,xls,csv']
+                'fileAset' => ['required', 'mimes:xlsx,xls,csv'] 
             ]);
 
             $akses = Auth::user()->name;

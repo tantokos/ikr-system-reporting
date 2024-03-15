@@ -5,94 +5,334 @@
 
         {{-- <div class="row"> --}}
 
-        <!-- order-card start -->
-        <div class="col">
-            <a href="#" data-toggle="modal" data-target="#md-totAset">
-                <div class="card bg-c-blue">
-                    <div class="card-block ">
-                        <h6 class="m-b-20">Total Aset</h6>
-                        <h2 class="text-right"><i class="ti-view-list-alt f-left"></i><span></span></h2>
-                        {{-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> --}}
-                    </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm">
+                                <label class="form-text">Periode</label>
+                                <input class="col form-control-sm" type="text" name="periode"
+                                    value="01/01/2018 - 01/15/2018" />
+                            </div>
+
+                            <div class="col-sm">
+                                <label class="form-text">Project</label>
+                                <select class="col form-control-sm">
+                                    <option>All</option>
+                                    <option>FTTH</option>
+                                    <option>FTTX/B</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm">
+                                <label class="form-text">Branch</label>
+                                <select class="col form-control-sm">
+                                    <option>All</option>
+                                    <option>Jakarta Selatan</option>
+                                    <option>Jakarta Timur</option>
+                                    <option>Bekasi</option>
+                                    <option>Bogor</option>
+                                    <option>Tangerang</option>
+                                    <option>Medan</option>
+                                    <option>Pangkal Pinang</option>
+                                    <option>Pontianak</option>
+                                    <option>Jambi</option>
+                                    <option>Bali</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label class="form-text">Kotamadya</label>
+                                <select class="col form-control-sm">
+                                    <option>All</option>
+                                    <option>Jakarta Selatan</option>
+                                    <option>Jakarta Pusat</option>
+                                    <option>Jakarta Utara</option>
+                                    <option>Jakarta Timur</option>
+                                    <option>Bekasi</option>
+                                    <option>Bogor</option>
+                                    <option>Tangerang</option>
+                                    <option>Medan</option>
+                                    <option>Pangkal Pinang</option>
+                                    <option>Pontianak</option>
+                                    <option>Jambi</option>
+                                    <option>Bali</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm">
+                                <label class="form-text">WO Type</label>
+                                <select class="col form-control-sm">
+                                    <option>All</option>
+                                    <option>New Installation</option>
+                                    <option>Maintenance</option>
+                                    <option>Dismantle</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </a>
+            </div>
         </div>
 
-        
-        <div class="col">
-            <a href="#" data-toggle="modal" data-target="#md-tersediaAset">
-            <div class="card bg-info">
-                <div class="card-block">
-                    <h6 class="m-b-20">Aset Tersedia</h6>
-                    <h2 class="text-right"><i class="ti-list f-left"></i><span></span></h2>
-                    {{-- <p class="m-b-0">This Month<span class="f-right">213</span></p> --}}
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="TotWoIb"></canvas>
                 </div>
             </div>
-            </a>
         </div>
-        <div class="col">
-            <a href="#" data-toggle="modal" data-target="#md-distribusiAset">
-            <div class="card bg-c-green ">
-                <div class="card-block">
-                    <h6 class="m-b-20">Aset Terdistribusi</h6>
-                    <h2 class="text-right"><i class="ti-write f-left"></i><span></span></h2>
-                    {{-- <p class="m-b-0">This Month<span class="f-right">213</span></p> --}}
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="TotWoCloseIb"></canvas>
                 </div>
             </div>
-        </a>
         </div>
 
     </div>
 
     <div class="row">
         <div class="col">
-            <a href="#" data-toggle="modal" data-target="#md-rusakAset">
-            <div class="card bg-c-yellow ">
-                <div class="card-block">
-                    <h6 class="m-b-20">Aset Rusak</h6>
-                    <h2 class="text-right"><i class="ti-layers f-left"></i><span></span></h2>
-                    {{-- <p class="m-b-0">This Month<span class="f-right">5,032</span></p> --}}
-                </div>
-            </div>
-            </a>
-        </div>
-
-        <div class="col">
-            <a href="#" data-toggle="modal" data-target="#md-hilangAset">
-            <div class="card bg-c-pink ">
-                <div class="card-block">
-                    <h6 class="m-b-20">Aset Hilang</h6>
-                    <h2 class="text-right"><i class="ti-archive f-left"></i><span></span></h2>
-                    {{-- <p class="m-b-0">This Month<span class="f-right">542</span></p> --}}
-                </div>
-            </div>
-            </a>
-        </div>
-        <div class="col">
-            <a href="#" data-toggle="modal" data-target="#md-disposalAset">
-            <div class="card bg-info ">
-                <div class="card-block">
-                    <h6 class="m-b-20">Aset Disposal</h6>
-                    <h2 class="text-right"><i class="ti-archive f-left"></i><span></span></h2>
-                    {{-- <p class="m-b-0">This Month<span class="f-right">542</span></p> --}}
-                </div>
-            </div>
-            </a>
-        </div>
-
-
-        {{-- </div>   --}}
-        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt" width="100%"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th>Total WO</th>
+                                    <th style="text-align: center; vertical-align: middle;">Januari</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total WO</th>
+                                    <th style="text-align: center; vertical-align: middle;">3,895</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataCloseWOIb" width="100%"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th>WO Close</th>
+                                    <th style="text-align: center; vertical-align: middle;">Januari</th>
+                                    <th style="text-align: center; vertical-align: middle;">%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                    <td style="text-align: center; vertical-align: middle;">93.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                    <td style="text-align: center; vertical-align: middle;">80.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                    <td style="text-align: center; vertical-align: middle;">94%</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total WO Close</th>
+                                    <th style="text-align: center; vertical-align: middle;">3,597</th>
+                                    <th style="text-align: center; vertical-align: middle;">92.3%</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataCloseWOIb" width="100%"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th>WO Installation Failed</th>
+                                    <th style="text-align: center; vertical-align: middle;">Januari</th>
+                                    <th style="text-align: center; vertical-align: middle;">%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                    <td style="text-align: center; vertical-align: middle;">93.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                    <td style="text-align: center; vertical-align: middle;">80.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                    <td style="text-align: center; vertical-align: middle;">94%</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total WO Installation Failed</th>
+                                    <th style="text-align: center; vertical-align: middle;">26</th>
+                                    <th style="text-align: center; vertical-align: middle;">0.7%</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataCloseWOIb" width="100%"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th>WO Cancel</th>
+                                    <th style="text-align: center; vertical-align: middle;">Januari</th>
+                                    <th style="text-align: center; vertical-align: middle;">%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                    <td style="text-align: center; vertical-align: middle;">93.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                    <td style="text-align: center; vertical-align: middle;">80.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                    <td style="text-align: center; vertical-align: middle;">94%</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total WO Cancel</th>
+                                    <th style="text-align: center; vertical-align: middle;">272</th>
+                                    <th style="text-align: center; vertical-align: middle;">7%</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="TrendTotWoIb"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="TrendTotWoCloseIb"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt" width="100%"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead>
+                                <tr id="dateMonth">
+                                    <th>Installation All Branch</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="woDone">
+                                    <td>Done</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                </tr>
+                                <tr id="woPending">
+                                    <td>Installation Failed</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                </tr>
+                                <tr id="woCancel">
+                                    <td>Cancel</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+
+    
 
     {{-- modal Total detail --}}
 
@@ -107,42 +347,32 @@
                 </div>
 
                 <div class="modal-body" id="bdy-totAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataTotAsetDt" width="100%" cellspacing="0"
+                            style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Barang</th>
+                                    {{-- <th>Merk Barang</th> --}}
+                                    {{-- <th>Kondisi</th> --}}
+                                    <th>Satuan</th>
+                                    <th>Jumlah</th>
+                                    <th>Kategori</th>
+                                </tr>
+                            </thead>
 
-                    {{-- <div class="card-body"> --}}
-                        {{-- <div class="row"> --}}
-                        {{-- <div class="col"> --}}
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="dataTotAsetDt" width="100%" cellspacing="0"
-                                style="font-size: 12px">
-                                <thead>
-                                    <tr>
-                                        <th width="100%">No</th>
-                                        <th width="100%">Nama Barang</th>
-                                        {{-- <th>Merk Barang</th> --}}
-                                        {{-- <th>Kondisi</th> --}}
-                                        <th width="100%">Satuan</th>
-                                        <th width="100%">Jumlah</th>
-                                        <th width="100%">Kategori</th>
-                                    </tr>
-                                </thead>
+                            <tbody>
 
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
+                    </div>
 
 
 
 
-                        {{-- </div> --}}
-                        {{-- </div> --}}
+                    {{-- </div> --}}
+                    {{-- </div> --}}
 
                     {{-- </div> --}}
                     {{-- </div> --}}
@@ -181,34 +411,34 @@
                                 </div> --}}
 
                     {{-- <div class="card-body"> --}}
-                        {{-- <div class="row"> --}}
-                        {{-- <div class="col"> --}}
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="dataTersediaAsetDt" width="100%" cellspacing="0"
-                                style="font-size: 12px">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Barang</th>
-                                        {{-- <th>Merk Barang</th> --}}
-                                        {{-- <th>Kondisi</th> --}}
-                                        <th>Satuan</th>
-                                        <th>Jumlah</th>
-                                        <th>Kategori</th>
-                                    </tr>
-                                </thead>
+                    {{-- <div class="row"> --}}
+                    {{-- <div class="col"> --}}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataTersediaAsetDt" width="100%" cellspacing="0"
+                            style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Barang</th>
+                                    {{-- <th>Merk Barang</th> --}}
+                                    {{-- <th>Kondisi</th> --}}
+                                    <th>Satuan</th>
+                                    <th>Jumlah</th>
+                                    <th>Kategori</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
-
-
+                            </tbody>
+                        </table>
+                    </div>
 
 
-                        {{-- </div> --}}
-                        {{-- </div> --}}
+
+
+                    {{-- </div> --}}
+                    {{-- </div> --}}
 
                     {{-- </div> --}}
                     {{-- </div> --}}
@@ -247,34 +477,34 @@
                                 </div> --}}
 
                     {{-- <div class="card-body"> --}}
-                        {{-- <div class="row"> --}}
-                        {{-- <div class="col"> --}}
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="dataDistribusiAsetDt" width="100%" cellspacing="0"
-                                style="font-size: 12px">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Barang</th>
-                                        {{-- <th>Merk Barang</th> --}}
-                                        {{-- <th>Kondisi</th> --}}
-                                        <th>Satuan</th>
-                                        <th>Jumlah</th>
-                                        <th>Kategori</th>
-                                    </tr>
-                                </thead>
+                    {{-- <div class="row"> --}}
+                    {{-- <div class="col"> --}}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataDistribusiAsetDt" width="100%" cellspacing="0"
+                            style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Barang</th>
+                                    {{-- <th>Merk Barang</th> --}}
+                                    {{-- <th>Kondisi</th> --}}
+                                    <th>Satuan</th>
+                                    <th>Jumlah</th>
+                                    <th>Kategori</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
-
-
+                            </tbody>
+                        </table>
+                    </div>
 
 
-                        {{-- </div> --}}
-                        {{-- </div> --}}
+
+
+                    {{-- </div> --}}
+                    {{-- </div> --}}
 
                     {{-- </div> --}}
                     {{-- </div> --}}
@@ -314,34 +544,34 @@
                                 </div> --}}
 
                     {{-- <div class="card-body"> --}}
-                        {{-- <div class="row"> --}}
-                        {{-- <div class="col"> --}}
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="dataRusakAsetDt" width="100%" cellspacing="0"
-                                style="font-size: 12px">
-                                <thead>
-                                    <tr>
-                                        <th width="100%">No</th>
-                                        <th width="100%">Nama Barang</th>
-                                        {{-- <th>Merk Barang</th> --}}
-                                        {{-- <th>Kondisi</th> --}}
-                                        <th width="100%">Satuan</th>
-                                        <th width="100%">Jumlah</th>
-                                        <th width="100%">Kategori</th>
-                                    </tr>
-                                </thead>
+                    {{-- <div class="row"> --}}
+                    {{-- <div class="col"> --}}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataRusakAsetDt" width="100%" cellspacing="0"
+                            style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th width="100%">No</th>
+                                    <th width="100%">Nama Barang</th>
+                                    {{-- <th>Merk Barang</th> --}}
+                                    {{-- <th>Kondisi</th> --}}
+                                    <th width="100%">Satuan</th>
+                                    <th width="100%">Jumlah</th>
+                                    <th width="100%">Kategori</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
-
-
+                            </tbody>
+                        </table>
+                    </div>
 
 
-                        {{-- </div> --}}
-                        {{-- </div> --}}
+
+
+                    {{-- </div> --}}
+                    {{-- </div> --}}
 
                     {{-- </div> --}}
                     {{-- </div> --}}
@@ -381,34 +611,34 @@
                                 </div> --}}
 
                     {{-- <div class="card-body"> --}}
-                        {{-- <div class="row"> --}}
-                        {{-- <div class="col"> --}}
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="dataHilangAsetDt" width="100%" cellspacing="0"
-                                style="font-size: 12px">
-                                <thead>
-                                    <tr>
-                                        <th width="100%">No</th>
-                                        <th width="100%">Nama Barang</th>
-                                        {{-- <th>Merk Barang</th> --}}
-                                        {{-- <th>Kondisi</th> --}}
-                                        <th width="100%">Satuan</th>
-                                        <th width="100%">Jumlah</th>
-                                        <th width="100%">Kategori</th>
-                                    </tr>
-                                </thead>
+                    {{-- <div class="row"> --}}
+                    {{-- <div class="col"> --}}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataHilangAsetDt" width="100%" cellspacing="0"
+                            style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th width="100%">No</th>
+                                    <th width="100%">Nama Barang</th>
+                                    {{-- <th>Merk Barang</th> --}}
+                                    {{-- <th>Kondisi</th> --}}
+                                    <th width="100%">Satuan</th>
+                                    <th width="100%">Jumlah</th>
+                                    <th width="100%">Kategori</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
-
-
+                            </tbody>
+                        </table>
+                    </div>
 
 
-                        {{-- </div> --}}
-                        {{-- </div> --}}
+
+
+                    {{-- </div> --}}
+                    {{-- </div> --}}
 
                     {{-- </div> --}}
                     {{-- </div> --}}
@@ -448,34 +678,34 @@
                                 </div> --}}
 
                     {{-- <div class="card-body"> --}}
-                        {{-- <div class="row"> --}}
-                        {{-- <div class="col"> --}}
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="dataDisposalAsetDt" width="100%" cellspacing="0"
-                                style="font-size: 12px">
-                                <thead>
-                                    <tr>
-                                        <th width="100%">No</th>
-                                        <th width="100%">Nama Barang</th>
-                                        {{-- <th>Merk Barang</th> --}}
-                                        {{-- <th>Kondisi</th> --}}
-                                        <th width="100%">Satuan</th>
-                                        <th width="100%">Jumlah</th>
-                                        <th width="100%">Kategori</th>
-                                    </tr>
-                                </thead>
+                    {{-- <div class="row"> --}}
+                    {{-- <div class="col"> --}}
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataDisposalAsetDt" width="100%" cellspacing="0"
+                            style="font-size: 12px">
+                            <thead>
+                                <tr>
+                                    <th width="100%">No</th>
+                                    <th width="100%">Nama Barang</th>
+                                    {{-- <th>Merk Barang</th> --}}
+                                    {{-- <th>Kondisi</th> --}}
+                                    <th width="100%">Satuan</th>
+                                    <th width="100%">Jumlah</th>
+                                    <th width="100%">Kategori</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
-
-
+                            </tbody>
+                        </table>
+                    </div>
 
 
-                        {{-- </div> --}}
-                        {{-- </div> --}}
+
+
+                    {{-- </div> --}}
+                    {{-- </div> --}}
 
                     {{-- </div> --}}
                     {{-- </div> --}}
@@ -493,7 +723,213 @@
         </div>
     </div>
     {{-- end modal disposal detail --}}
-
 @endsection
 
+@section('script')
+    {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.js"></script>
+
+    {{-- <script src="{{ $chart->cdn() }}"></script> --}}
+
+    {{-- {{ $chart->script() }} --}}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script type="text/javascript">
+        $('input[name="periode"]').daterangepicker();
+
+        // const daysInSeptember = getDaysInMonth(2024, 1); // Returns 31
+
+        var day = new Date(2024,1,0).getDate();
+        var daytb;
+        var donetb;
+
+        for (var dt=1; dt<=day; dt++) {
+            daytb = document.createElement('th');
+            daytb.append(dt);
+            document.getElementById('dateMonth').appendChild(daytb)
+            
+            donetb = document.createElement('td');
+            donetb.append(20);
+            document.getElementById('woDone').appendChild(donetb)
+
+            pendingtb = document.createElement('td');
+            pendingtb.append(10);
+            document.getElementById('woPending').appendChild(pendingtb)
+
+            canceltb = document.createElement('td');
+            canceltb.append(1);
+            document.getElementById('woCancel').appendChild(canceltb)
+        }
+
+            daytb = document.createElement('th');
+            daytb.append("Total");
+            document.getElementById('dateMonth').appendChild(daytb)   
+            
+            daytb = document.createElement('th');
+            daytb.append("%");
+            document.getElementById('dateMonth').appendChild(daytb)
+
+        // $('#dataTotAsetDt').DataTable();
+    </script>
+
+
+
+    <script>
+        const ctx = document.getElementById('TotWoIb');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        align: "start"
+                    },
+                    title: {
+                        display: true,
+                        text: 'WO Installation FTTH Januari 2024',
+                        align: 'start',
+                    }
+                }
+            }
+        });
+
+        const ctxCloseIB = document.getElementById('TotWoCloseIb');
+
+        new Chart(ctxCloseIB, {
+            type: 'pie',
+            data: {
+                labels: ['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        align: "start"
+                    },
+                    title: {
+                        display: true,
+                        text: 'WO Close Installation FTTH Januari 2024',
+                        align: 'start',
+                    }
+                }
+            }
+        });
+
+        const ctxTrendTotWoIB = document.getElementById('TrendTotWoIb');
+
+        new Chart(ctxTrendTotWoIB, {
+            type: 'line',
+            data: {
+                labels: ['Dec-23', 'Jan-24'],
+                datasets: [{
+                    // label: '# of Votes',
+                    data: [3291, 3895],
+                    borderWidth: 1,
+                    
+                }]
+            },
+            
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+
+                    },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Trend WO Installation All Branch',
+                        align: 'start',
+                    },
+                    
+                },
+                scales: {
+                    y: {
+                        display: false, //this will remove all the x-axis grid lines
+                    }
+                }
+            },
+            plugins: [ChartDataLabels],
+            
+        });
+
+        const ctxTrendTotWoCloseIB = document.getElementById('TrendTotWoCloseIb');
+
+        new Chart(ctxTrendTotWoCloseIB, {
+            type: 'line',
+            data: {
+                labels: ['Dec-23', 'Jan-24'],
+                datasets: [{
+                    // label: '# of Votes',
+                    data: [3082, 3597],
+                    borderWidth: 1,
+                    
+                }]
+            },
+            
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+
+                    },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Trend WO Installation Close All Branch',
+                        align: 'start',
+                    },
+                    
+                },
+                scales: {
+                    y: {
+                        display: false, //this will remove all the x-axis grid lines
+                    }
+                }
+            },
+            plugins: [ChartDataLabels],
+            
+        });
+    </script>
+@endsection

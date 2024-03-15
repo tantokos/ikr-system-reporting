@@ -5,14 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use ArielMejiaDev\LarapexCharts\LarapexChart;
+use App\Charts\MonthlyWoChart;
+
 class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(MonthlyWoChart $chart)
     {
-        return view('report.reporting');
+        // $chart = (new LarapexChart)->pieChart()
+        // ->setTitle('Total Users Monthly')
+        // ->setSubtitle('From January to March')
+        // ->setXAxis(['Jan', 'Feb', 'Mar'])
+        // ->setDataset([
+        //     [
+        //         'name'  =>  'Active Users',
+        //         'data'  =>  [250, 700, 1200]
+        //     ]
+        // ]);
+
+        return view('report.reporting',['chart' => $chart->build()]);
     }
 
     /**

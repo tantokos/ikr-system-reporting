@@ -49,10 +49,10 @@
                                 <ul class="pcoded-item pcoded-left-item">
                                     
                                     
-                                    <li class="{{ request()->is('dashAset*') ? 'active' : '' }}">
-                                        <a href="{{ route('dashAset.index') }}">
-                                            <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                            <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard Aset</span>
+                                    <li class="{{ request()->is('report*','/') ? 'active' : '' }}">
+                                        <a href="{{ route('report.index') }}">
+                                            <span class="pcoded-micon"><i class="ti-home"></i><b>I</b></span>
+                                            <span class="pcoded-mtext" data-i18n="nav.dash.main">Ikr Monthly Report</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
                                     </li>
@@ -62,7 +62,7 @@
                                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li
-                                        class="pcoded-hasmenu pcoded-trigger {{ request()->is('employee*', 'branch*', 'callsignLead*', 'callsignTim*','fat*','aset*') ? 'active' : '' }}">
+                                        class="pcoded-hasmenu pcoded-trigger {{ request()->is('importftthmt*', 'branch*', 'callsignLead*', 'callsignTim*','fat*','aset*') ? 'active' : '' }}">
                                         <a href="javascript:void(0)">
                                             <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
                                             <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Data Master</span>
@@ -71,10 +71,10 @@
                                         <ul class="pcoded-submenu">
                                             
                                             
-                                            <li class="{{ request()->is('aset*') ? 'active' : '' }}">
-                                                <a href="{{ route('aset.index') }}">
+                                            <li class="{{ request()->is('importftthmt*') ? 'active' : '' }}">
+                                                <a href="{{ route('import.ftthmttempIndex') }}">
                                                     <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Data Asset</span>
+                                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth MT</span>
                                                     <span class="pcoded-mcaret"></span>
                                                 </a>
                                             </li>
