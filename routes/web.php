@@ -16,6 +16,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDashController;
 use App\Http\Controllers\FatController;
 use App\Http\Controllers\ImportexcelController;
+use App\Http\Controllers\ImportFtthMtTempController;
 use App\Http\Controllers\KaryawanImportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitMtFtthController;
@@ -56,13 +57,13 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/reg',[LoginController::class,'register'])->name('reg');
 Route::post('/reg-proses',[LoginController::class,'register_prosess'])->name('register.proses');
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('autologin', function () {
-        $user = $_GET['id'];
-        Auth::loginUsingId($user, true);
-        return redirect()->route('aset.index');
-    });
-});
+// Route::group(['middleware' => ['web']], function () {
+//     Route::get('autologin', function () {
+//         $user = $_GET['id'];
+//         Auth::loginUsingId($user, true);
+//         return redirect()->route('report.index');
+//     });
+// });
 
 
 Route::group(
@@ -76,6 +77,12 @@ Route::group(
         // });
         Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
         Route::get('/', [ReportController::class, 'index'])->name('report.index');
+
+        Route::get('/importftthmttemp', [ImportFtthMtTempController::class , 'index'])->name('import.ftthmttempIndex');
+        Route::get('/DataImportFtthMtTemp', [ImportFtthMtTempController::class, 'dataImportFtthTemp'])->name('import.dataImportFtthMtTemp');
+        Route::post('/import-FtthMtTemp', [ImportFtthMtTempController::class, 'importFtthMtTemp'])->name('import.ImportFtthMtTemp');
+        Route::get('/import-SummaryTemp', [ImportFtthMtTempController::class, 'show_summary'])->name('import.summaryImportFtthMtTemp');
+
         // Route::get('/employee',[EmployeeController::class,'index']);
         Route::get('/employeedata', [EmployeeController::class, 'employeeData'])->name('employee.data');
         Route::get('/employeeCreate', [EmployeeController::class, 'create']);

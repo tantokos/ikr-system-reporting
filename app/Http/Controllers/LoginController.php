@@ -17,8 +17,8 @@ class LoginController extends Controller
         //     dd("User is not login.");
         // }
 
-        // return view('auth.login');
-        return redirect('http://127.0.0.1:8000');
+        return view('auth.login');
+        // return redirect('http://127.0.0.1:8000');
     }
 
     public function login_proses(Request $request)
@@ -41,7 +41,7 @@ class LoginController extends Controller
 
             
         
-            return redirect()->route('aset.index')->with(['user' => $user]);
+            return redirect()->route('report.index')->with(['user' => $user]);
             // return redirect('http://127.0.0.1:8000')->with(['user' => $user]);
         } else {
             return redirect()->route('login')->with('failed', 'Email atau Password Salah');

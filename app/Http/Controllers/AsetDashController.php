@@ -18,7 +18,6 @@ class AsetDashController extends Controller
      */
     public function index()
     {
-        
 
         $portal_menu = "inventory Assets";
         $totAset = AsetIkr::all()->sum('jumlah');
