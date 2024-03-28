@@ -121,6 +121,8 @@ class ImportFtthMT implements ToModel, WithHeadingRow
             'remark_status2' => $row['remark_status2'],
             'login' => $this->login
         ]);
+
+        
     }
 
     public function startRow(): int

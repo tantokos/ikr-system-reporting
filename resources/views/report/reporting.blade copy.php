@@ -11,41 +11,34 @@
                     <form>
                         <div class="row">
                             <div class="col-sm">
-                                <label class="form-text">Bulan Laporan</label>
-                                <select class="col form-control-sm" id="bulanReport" name="bulanReport">
-                                    <option value=""></option>
-                                    @foreach ($trendMonthly as $bulan)
-                                        <option value="{{ $bulan->bulan }}">{{ $bulan->bulan }}</option>
-                                    @endforeach
-                                    {{-- <option>All</option>
-                                    <option>FTTH</option>
-                                    <option>FTTX/B</option> --}}
-                                </select>
-                            </div>
-
-                            <div class="col-sm">
-                                <label class="form-text">Periode Tanggal</label>
+                                <label class="form-text">Periode</label>
                                 <input class="col form-control-sm" type="text" name="periode"
                                     value="01/01/2018 - 01/15/2018" />
                             </div>
 
-                            {{-- <div class="col-sm">
+                            <div class="col-sm">
                                 <label class="form-text">Project</label>
                                 <select class="col form-control-sm">
                                     <option>All</option>
                                     <option>FTTH</option>
                                     <option>FTTX/B</option>
                                 </select>
-                            </div> --}}
+                            </div>
 
                             <div class="col-sm">
                                 <label class="form-text">Branch</label>
                                 <select class="col form-control-sm">
                                     <option>All</option>
-                                    @foreach ($branches as $branch)
-                                        <option value="{{ $branch->nama_branch }}">{{ $branch->nama_branch }}</option>
-                                    @endforeach
-
+                                    <option>Jakarta Selatan</option>
+                                    <option>Jakarta Timur</option>
+                                    <option>Bekasi</option>
+                                    <option>Bogor</option>
+                                    <option>Tangerang</option>
+                                    <option>Medan</option>
+                                    <option>Pangkal Pinang</option>
+                                    <option>Pontianak</option>
+                                    <option>Jambi</option>
+                                    <option>Bali</option>
                                 </select>
                             </div>
 
@@ -68,7 +61,7 @@
                                 </select>
                             </div>
 
-                            {{-- <div class="col-sm">
+                            <div class="col-sm">
                                 <label class="form-text">WO Type</label>
                                 <select class="col form-control-sm">
                                     <option>All</option>
@@ -76,7 +69,7 @@
                                     <option>Maintenance</option>
                                     <option>Dismantle</option>
                                 </select>
-                            </div> --}}
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -91,7 +84,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <canvas id="TotWoMt"></canvas>
+                    <canvas id="TotWoIb"></canvas>
                 </div>
             </div>
         </div>
@@ -99,7 +92,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <canvas id="TotWoMtClose"></canvas>
+                    <canvas id="TotWoCloseIb"></canvas>
                 </div>
             </div>
         </div>
@@ -111,28 +104,32 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt" style="font-size: 12px">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt" width="100%"
+                            cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr>
                                     <th>Total WO</th>
-                                    <th style="text-align: center; vertical-align: middle;"></th>
+                                    <th style="text-align: center; vertical-align: middle;">Januari</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($totWoMtBranch as $totWoRetail)
-                                    <tr>
-                                        <td>{{ $totWoRetail->nama_branch }}</td>
-                                        <td style="text-align: center">{{ number_format($totWoRetail->total) }}</td>
-                                    </tr>
-                                @endforeach
-
-
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Total WO</th>
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        {{ number_format($totWoMtBranch->sum('total')) }}</th>
+                                    <th style="text-align: center; vertical-align: middle;">3,895</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -155,24 +152,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($totWoMtBranch as $totWoMtDone)
-                                    <tr>
-                                        <td>{{ $totWoMtDone->nama_branch }}</td>
-                                        <td style="text-align: center">{{ $totWoMtDone->done }}</td>
-                                        <td style="text-align: center">
-                                            {{ number_format($totWoMtDone->persenDone, 1) . '%' }}
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                    <td style="text-align: center; vertical-align: middle;">93.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                    <td style="text-align: center; vertical-align: middle;">80.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                    <td style="text-align: center; vertical-align: middle;">94%</td>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Total WO Close</th>
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        {{ number_format($totWoMtBranch->sum('done')) }}</th>
-                                    <th style="text-align: center;">
-                                        {{ number_format(($totWoMtBranch->sum('done') * 100) / $totWoMtBranch->sum('total'), 1) . '%' }}
-                                    </th>
+                                    <th style="text-align: center; vertical-align: middle;">3,597</th>
+                                    <th style="text-align: center; vertical-align: middle;">92.3%</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -189,29 +189,33 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr>
-                                    <th>WO Maintenance Failed</th>
+                                    <th>WO Installation Failed</th>
                                     <th style="text-align: center; vertical-align: middle;">Januari</th>
                                     <th style="text-align: center; vertical-align: middle;">%</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($totWoMtBranch as $totWoMtPending)
-                                    <tr>
-                                        <td>{{ $totWoMtPending->nama_branch }}</td>
-                                        <td style="text-align: center">{{ $totWoMtPending->pending }}</td>
-                                        <td style="text-align: center">
-                                            {{ number_format($totWoMtPending->persenPending, 1) . '%' }}</td>
-                                    </tr>
-                                @endforeach
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                    <td style="text-align: center; vertical-align: middle;">93.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                    <td style="text-align: center; vertical-align: middle;">80.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                    <td style="text-align: center; vertical-align: middle;">94%</td>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Total WO Maintenance Failed</th>
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        {{ number_format($totWoMtBranch->sum('pending')) }}</th>
-                                    <th style="text-align: center;">
-                                        {{ number_format(($totWoMtBranch->sum('pending') * 100) / $totWoMtBranch->sum('total'), 1) . '%' }}
-                                    </th>
+                                    <th>Total WO Installation Failed</th>
+                                    <th style="text-align: center; vertical-align: middle;">26</th>
+                                    <th style="text-align: center; vertical-align: middle;">0.7%</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -234,24 +238,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($totWoMtBranch as $totWoMtCancel)
-                                    <tr>
-                                        <td>{{ $totWoMtCancel->nama_branch }}</td>
-                                        <td style="text-align: center">{{ $totWoMtCancel->cancel }}</td>
-                                        <td style="text-align: center">
-                                            {{ number_format($totWoMtCancel->persenCancel, 1) . '%' }}</td>
-                                    </tr>
-                                @endforeach
-
+                                <tr>
+                                    <td>Jakarta Timur</td>
+                                    <td style="text-align: center; vertical-align: middle;">857</td>
+                                    <td style="text-align: center; vertical-align: middle;">93.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta Selatan</td>
+                                    <td style="text-align: center; vertical-align: middle;">545</td>
+                                    <td style="text-align: center; vertical-align: middle;">80.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Bekasi</td>
+                                    <td style="text-align: center; vertical-align: middle;">770</td>
+                                    <td style="text-align: center; vertical-align: middle;">94%</td>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Total WO Cancel</th>
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        {{ number_format($totWoMtBranch->sum('cancel')) }}</th>
-                                    <th style="text-align: center;">
-                                        {{ number_format(($totWoMtBranch->sum('cancel') * 100) / $totWoMtBranch->sum('total'), 1) . '%' }}
-                                    </th>
+                                    <th style="text-align: center; vertical-align: middle;">272</th>
+                                    <th style="text-align: center; vertical-align: middle;">7%</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -266,7 +273,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <canvas id="TrendTotWoMt" style="align-content: center; align-items: center"></canvas>
+                    <canvas id="TrendTotWoIb"></canvas>
                 </div>
             </div>
         </div>
@@ -274,7 +281,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <canvas id="TrendTotWoMtClose"></canvas>
+                    <canvas id="TrendTotWoCloseIb"></canvas>
                 </div>
             </div>
         </div>
@@ -286,11 +293,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
-                            width="100%" cellspacing="0" style="font-size: 12px">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt" width="100%"
+                            cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="dateMonth">
-                                    <th>Maintenance All Branch</th>
+                                    <th>Installation All Branch</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
@@ -310,7 +317,7 @@
                                 </tr>
                             </tbody>
                             <tfoot>
-                                <tr id="totWo">
+                                <tr>
                                     <th>Total WO</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
@@ -321,11 +328,11 @@
             </div>
         </div>
 
-
+        
 
     </div>
 
-
+    
 
     {{-- modal Total detail --}}
 
@@ -740,177 +747,54 @@
 
     <script type="text/javascript">
         $('input[name="periode"]').daterangepicker();
-    </script>
 
-    <script type="text/javascript">
-        $('#bulanReport').on('change', function(e) {
+        // const daysInSeptember = getDaysInMonth(2024, 1); // Returns 31
 
-            e.preventDefault();
-            let bulanReport = $(this).val();
-            var dataResult;
-            // console.log(bulanReport);
+        var day = new Date(2024,1,0).getDate();
+        var daytb;
+        var donetb;
 
-            $.ajax({
-                url: "{{ route('getTabelStatus') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport
+        for (var dt=1; dt<=day; dt++) {
+            daytb = document.createElement('th');
+            daytb.append(dt);
+            document.getElementById('dateMonth').appendChild(daytb)
+            
+            donetb = document.createElement('td');
+            donetb.append(20);
+            document.getElementById('woDone').appendChild(donetb)
 
-                },
-                success: function(data) {
+            pendingtb = document.createElement('td');
+            pendingtb.append(10);
+            document.getElementById('woPending').appendChild(pendingtb)
 
-                    // var day = new Date(tahun, bulan, 0).getDate();
-                    console.log(data);
-                    var day = [];
-                    var daytb;
-                    var donetb;
-                    var totDone = 0;
-                    var totPending = 0;
-                    var totCancel = 0;
-                    var totWo = 0;
-                    var total = 0;
+            canceltb = document.createElement('td');
+            canceltb.append(1);
+            document.getElementById('woCancel').appendChild(canceltb)
+        }
 
-                    $.each(data, function(key, item) {
-                        // day.push(new Date(item.tgl_ikr).getDate());
+            daytb = document.createElement('th');
+            daytb.append("Total");
+            document.getElementById('dateMonth').appendChild(daytb)   
+            
+            daytb = document.createElement('th');
+            daytb.append("%");
+            document.getElementById('dateMonth').appendChild(daytb)
 
-                        daytb = document.createElement('th');
-                        daytb.append(new Date(item.tgl_ikr).getDate());
-                        document.getElementById('dateMonth').appendChild(daytb)
-
-                        donetb = document.createElement('td');
-                        donetb.append(item.Done);
-                        document.getElementById('woDone').appendChild(donetb)
-
-                        totDone += item.Done;
-
-                        pendingtb = document.createElement('td');
-                        pendingtb.append(item.Pending);
-                        document.getElementById('woPending').appendChild(pendingtb)
-
-                        totPending += item.Pending;
-                        totCancel += item.Cancel;
-
-                        canceltb = document.createElement('td');
-                        canceltb.append(item.Cancel);
-                        document.getElementById('woCancel').appendChild(canceltb)
-
-                        totWo = item.Done + item.Pending + item.Cancel
-
-                        tottb = document.createElement('td');
-                        tottb.append(totWo.toLocaleString());
-                        document.getElementById('totWo').appendChild(tottb)
-
-                    });
-
-
-                    // var bulanTahun = new Date(document.getElementById('bulanReport').value)
-                    // var bulan = bulanTahun.getMonth() + 1;
-                    // var tahun = bulanTahun.getFullYear()
-
-
-
-
-
-                    // for (var dt = 1; dt <= data.length; dt++) {
-
-                    // daytb = document.createElement('th');
-                    // daytb.append(dt);
-                    // document.getElementById('dateMonth').appendChild(daytb)
-
-
-                    // donetb = document.createElement('td');
-                    // donetb.append(200);
-                    // document.getElementById('woDone').appendChild(donetb)
-
-                    // pendingtb = document.createElement('td');
-                    // pendingtb.append(10);
-                    // document.getElementById('woPending').appendChild(pendingtb)
-
-                    // canceltb = document.createElement('td');
-                    // canceltb.append(1);
-                    // document.getElementById('woCancel').appendChild(canceltb)
-                    // }
-
-                    daytb = document.createElement('th');
-                    daytb.append("Total");
-                    document.getElementById('dateMonth').appendChild(daytb)
-
-                    donetb = document.createElement('th');
-                    donetb.append(totDone.toLocaleString());
-                    document.getElementById('woDone').appendChild(donetb)
-
-                    pendingtb = document.createElement('th');
-                    pendingtb.append(totPending.toLocaleString());
-                    document.getElementById('woPending').appendChild(pendingtb)
-
-                    canceltb = document.createElement('th');
-                    canceltb.append(totCancel.toLocaleString());
-                    document.getElementById('woCancel').appendChild(canceltb)
-                    
-                    total = totDone + totPending + totCancel
-
-                    tottb = document.createElement('th');
-                    tottb.append(total.toLocaleString());
-                    document.getElementById('totWo').appendChild(tottb)
-
-                    
-                    daytb = document.createElement('th');
-                    daytb.append("%");
-                    document.getElementById('dateMonth').appendChild(daytb)
-                    
-
-                    donePer = document.createElement('th');
-                    donePer.append(parseFloat((totDone*100)/total).toFixed(2)+"%");
-                    document.getElementById('woDone').appendChild(donePer)
-
-                    pendingtb = document.createElement('th');
-                    pendingtb.append(parseFloat((totPending*100)/total).toFixed(2)+"%");
-                    document.getElementById('woPending').appendChild(pendingtb)
-
-                    canceltb = document.createElement('th');
-                    canceltb.append(parseFloat((totCancel*100)/total).toFixed(2)+"%");
-                    document.getElementById('woCancel').appendChild(canceltb)
-                }
-
-            })
-            // });
-
-
-
-        });
+        // $('#dataTotAsetDt').DataTable();
     </script>
 
 
 
     <script>
-        const ctx = document.getElementById('TotWoMt');
-
-        var totWoMt = {!! $totWoMtBranch !!}
-
-        // console.log(totWoMt)
-
-        var branch = [];
-        var totWo = [];
-        var totWoDone = [];
-
-
-        $.each(totWoMt, function(key, item) {
-
-            branch.push(item.nama_branch);
-            totWo.push(item.total);
-            totWoDone.push(item.done);
-
-
-
-        });
+        const ctx = document.getElementById('TotWoIb');
 
         new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
+                labels: ['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
                 datasets: [{
-                    label: 'Jumlah WO',
-                    data: totWo, //[12, 19, 3, 5, 2, 3],
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
                     borderWidth: 1
                 }]
             },
@@ -925,22 +809,22 @@
                     },
                     title: {
                         display: true,
-                        text: 'WO Maintenance FTTH Januari 2024',
+                        text: 'WO Installation FTTH Januari 2024',
                         align: 'start',
                     }
                 }
             }
         });
 
-        const ctxMtClose = document.getElementById('TotWoMtClose');
+        const ctxCloseIB = document.getElementById('TotWoCloseIb');
 
-        new Chart(ctxMtClose, {
+        new Chart(ctxCloseIB, {
             type: 'pie',
             data: {
-                labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
+                labels: ['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
                 datasets: [{
-                    label: 'Jumlah WO',
-                    data: totWoDone, //[12, 19, 3, 5, 2, 3],
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
                     borderWidth: 1
                 }]
             },
@@ -955,47 +839,27 @@
                     },
                     title: {
                         display: true,
-                        text: 'WO Close Maintenance FTTH Januari 2024',
+                        text: 'WO Close Installation FTTH Januari 2024',
                         align: 'start',
                     }
                 }
             }
         });
 
-        var trendWoMt = {!! $trendMonthly !!}
+        const ctxTrendTotWoIB = document.getElementById('TrendTotWoIb');
 
-        // console.log(totWoMt)
-
-        var trendMonth = [''];
-        var trendTotMt = ['null'];
-        var trendMtDone = ['null'];
-
-        $.each(trendWoMt, function(key, item) {
-
-            trendMonth.push(item.bulan);
-            trendTotMt.push(item.trendMtTotal);
-            trendMtDone.push(item.trendMtDone);
-
-        });
-
-        trendMonth.push('');
-        trendTotMt.push('null');
-        trendMtDone.push('null');
-
-        const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
-
-        new Chart(ctxTrendTotWoMt, {
+        new Chart(ctxTrendTotWoIB, {
             type: 'line',
             data: {
-                labels: trendMonth, //['Jan-24'],
+                labels: ['Dec-23', 'Jan-24'],
                 datasets: [{
                     // label: '# of Votes',
-                    data: trendTotMt, //[3895],
+                    data: [3291, 3895],
                     borderWidth: 1,
-
+                    
                 }]
             },
-
+            
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -1010,10 +874,10 @@
                     },
                     title: {
                         display: true,
-                        text: 'Trend WO Maintenance All Branch',
+                        text: 'Trend WO Installation All Branch',
                         align: 'start',
                     },
-
+                    
                 },
                 scales: {
                     y: {
@@ -1022,23 +886,23 @@
                 }
             },
             plugins: [ChartDataLabels],
-
+            
         });
 
-        const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
+        const ctxTrendTotWoCloseIB = document.getElementById('TrendTotWoCloseIb');
 
-        new Chart(ctxTrendTotWoMtClose, {
+        new Chart(ctxTrendTotWoCloseIB, {
             type: 'line',
             data: {
-                labels: trendMonth, //['Dec-23', 'Jan-24'],
+                labels: ['Dec-23', 'Jan-24'],
                 datasets: [{
                     // label: '# of Votes',
-                    data: trendMtDone, //[3082, 3597],
+                    data: [3082, 3597],
                     borderWidth: 1,
-
+                    
                 }]
             },
-
+            
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -1053,10 +917,10 @@
                     },
                     title: {
                         display: true,
-                        text: 'Trend WO Maintenance Close All Branch',
+                        text: 'Trend WO Installation Close All Branch',
                         align: 'start',
                     },
-
+                    
                 },
                 scales: {
                     y: {
@@ -1065,7 +929,7 @@
                 }
             },
             plugins: [ChartDataLabels],
-
+            
         });
     </script>
 @endsection

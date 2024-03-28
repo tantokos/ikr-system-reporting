@@ -28,8 +28,6 @@ class MonitMtFtthController extends Controller
         ->leftjoin('callsign_tims', 'callsign_tims.callsign_tim','=','monit_mt_ftths.callsign')
         ->leftjoin('callsign_leads','callsign_leads.id','=','callsign_tims.lead_callsign')
         ->leftjoin('employees','employees.id','=','callsign_leads.lead_callsign');
-        // ->where('batchwos.batch_wo','=',$request->batch_wo)
-        // ->select('batchwos.*', 'fats.area as areaFat','fats.cluster as clusterFat', 'branches.nama_branch');
 
         if($request->batch_wo != Null) {
             $datas = $datas->where('monit_mt_ftths.batch_wo','=',$request->batch_wo);
