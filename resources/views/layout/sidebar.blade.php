@@ -8,83 +8,72 @@
         </div>
     </div>
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
-    <ul class="pcoded-item pcoded-left-item">
-
-
-        <li class="{{ request()->is('dashAset*') ? 'active' : '' }}">
-            <a href="{{ route('dashAset.index') }}">
-                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard Aset</span>
+    {{-- <ul class="pcoded-item pcoded-left-item">
+                                    
+                                    
+        <li class="{{ request()->is('report*','/') ? 'active' : '' }}">
+            <a href="{{ route('report.index') }}">
+                <span class="pcoded-micon"><i class="ti-home"></i><b>I</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main">Ikr Monthly Report</span>
                 <span class="pcoded-mcaret"></span>
             </a>
+            
         </li>
         
+    </ul> --}}
+
+    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li
+            class="pcoded-hasmenu pcoded-trigger {{ request()->is('report*', '/') ? 'active' : '' }}">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
+                <span class="pcoded-mtext" data-i18n="nav.basic-components.main">IKR Monthly Report</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+            <ul class="pcoded-submenu">
+                
+                <li class="{{ request()->is('reportMtFtth*') ? 'active' : '' }}">
+                    <a href="{{ route('reportMtFtth.index') }}">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report MT FTTH</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                
+            </ul>
+        </li>
     </ul>
+
+
     
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
     <ul class="pcoded-item pcoded-left-item">
         <li
-            class="pcoded-hasmenu pcoded-trigger {{ request()->is('employee*', 'branch*', 'callsignLead*', 'callsignTim*','fat*','aset*') ? 'active' : '' }}">
+            class="pcoded-hasmenu pcoded-trigger {{ request()->is('importftthmt*') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
                 <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Data Master</span>
                 <span class="pcoded-mcaret"></span>
             </a>
             <ul class="pcoded-submenu">
-
-
-                <li class="{{ request()->is('aset*') ? 'active' : '' }}">
-                    <a href="{{ route('aset.index') }}">
+                
+                
+                <li class="{{ request()->is('importftthmt*') ? 'active' : '' }}">
+                    <a href="{{ route('import.ftthmttempIndex') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Data Asset</span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth MT</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-             </ul>
+                
+            </ul>
+        </li>
     </ul>
 
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
-
-    <ul class="pcoded-item pcoded-left-item">
-        <li
-            class="pcoded-hasmenu pcoded-trigger {{ request()->is('transaksi*') ? 'active' : '' }}">
-            <a href="javascript:void(0)">
-                <span class="pcoded-micon"><i class="ti-menu-alt"></i></span>
-                <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Transaksi</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-            <ul class="pcoded-submenu">
-                <li class="{{ request()->is('peminjaman*') ? 'active' : '' }}  ">
-                    <a href="{{ route('peminjaman.index') }}">
-                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Distribusi Aset</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                </li>
-
-                <li class="{{ request()->is('pengembalian*') ? 'active' : '' }}  ">
-                    <a href="{{ route('pengembalian.index') }}">
-                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Pengembalian Aset</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                </li>
-
-                <li class="{{ request()->is('disposal*') ? 'active' : '' }}  ">
-                    <a href="{{ route('disposal.index') }}">
-                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Disposal Aset</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                </li>
-
-
-            </ul>
-    </ul>
-
     
-
-
-    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Other</div>
+    
+    
   
 </div>

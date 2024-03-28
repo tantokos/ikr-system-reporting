@@ -35,93 +35,8 @@
                         
                        
                         <!-- aset nav -->
-                            {{-- @include('layout.sidebarAset') --}}
-                            <div class="pcoded-inner-navbar main-menu">
-
-                                <div class="pcoded-search">
-                                    <span class="searchbar-toggle"> </span>
-                                    <div class="pcoded-search-box ">
-                                        <input type="text" placeholder="Search">
-                                        <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
-                                <ul class="pcoded-item pcoded-left-item">
-                                    
-                                    
-                                    <li class="{{ request()->is('report*','/') ? 'active' : '' }}">
-                                        <a href="{{ route('report.index') }}">
-                                            <span class="pcoded-micon"><i class="ti-home"></i><b>I</b></span>
-                                            <span class="pcoded-mtext" data-i18n="nav.dash.main">Ikr Monthly Report</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    
-                                </ul>
-                                
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
-                                <ul class="pcoded-item pcoded-left-item">
-                                    <li
-                                        class="pcoded-hasmenu pcoded-trigger {{ request()->is('importftthmt*', 'branch*', 'callsignLead*', 'callsignTim*','fat*','aset*') ? 'active' : '' }}">
-                                        <a href="javascript:void(0)">
-                                            <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
-                                            <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Data Master</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                        <ul class="pcoded-submenu">
-                                            
-                                            
-                                            <li class="{{ request()->is('importftthmt*') ? 'active' : '' }}">
-                                                <a href="{{ route('import.ftthmttempIndex') }}">
-                                                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth MT</span>
-                                                    <span class="pcoded-mcaret"></span>
-                                                </a>
-                                            </li>
-                                            
-                                        </ul>
-                                </ul>
-                            
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
-                            
-                                <ul class="pcoded-item pcoded-left-item">
-                                    <li
-                                        class="pcoded-hasmenu pcoded-trigger {{ request()->is('peminjaman*','pengembalian*','disposal*') ? 'active' : '' }}">
-                                        <a href="javascript:void(0)">
-                                            <span class="pcoded-micon"><i class="ti-menu-alt"></i></span>
-                                            <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Transaksi</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                        <ul class="pcoded-submenu">
-                                            <li class="{{ request()->is('peminjaman*') ? 'active' : '' }}  ">
-                                                <a href="{{ route('peminjaman.index') }}">
-                                                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Distribusi Aset</span>
-                                                    <span class="pcoded-mcaret"></span>
-                                                </a>
-                                            </li>
-                            
-                                            <li class="{{ request()->is('pengembalian*') ? 'active' : '' }}  ">
-                                                <a href="{{ route('pengembalian.index') }}">
-                                                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Pengembalian Aset</span>
-                                                    <span class="pcoded-mcaret"></span>
-                                                </a>
-                                            </li>
-
-                                            <li class="{{ request()->is('disposal*') ? 'active' : '' }}  ">
-                                                <a href="{{ route('disposal.index') }}">
-                                                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Disposal Aset</span>
-                                                    <span class="pcoded-mcaret"></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                </ul>
-                            
-                            
-                               
-                            </div>
+                            @include('layout.sidebar')
+                           
 
                         <!-- End aset nav -->
                         
@@ -134,35 +49,11 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
 								
-									<!-- Page-header start -->
-                                    {{-- <div class="page-header card">
-                                        <div class="card-block">
-                                            <h5 class="m-b-10">Sample Page</h5>
-                                            <p class="text-muted m-b-10">lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                            <ul class="breadcrumb-title b-t-default p-t-10">
-                                                <li class="breadcrumb-item">
-                                                    <a href="index.html"> <i class="fa fa-home"></i> </a>
-                                                </li>
-                                                <li class="breadcrumb-item"><a href="#!">Pages</a></li>
-                                                <li class="breadcrumb-item"><a href="#!">Sample page</a></li>
-                                            </ul>
-                                        </div>
-                                    </div> --}}
-                                    <!-- Page-header end -->
-                                    
-                                    <!-- awal Content -->
+
                                     <div class="page-body">
-                                        {{-- <div class="row"> --}}
-                                            {{-- <div class="col-sm-12"> --}}
-                                                {{-- <div class="card"> --}}
-                                                    {{-- <div class="card-header"> --}}
 
                                                         @yield('content')
 
-                                                    {{-- </div>  --}}
-                                                {{-- </div> --}}
-                                            {{-- </div> --}}
-                                        {{-- </div> --}}
                                     </div>
                                     <!-- akhir Content -->
                                 </div>
