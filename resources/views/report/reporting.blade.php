@@ -13,7 +13,7 @@
                             <div class="col-sm">
                                 <label class="form-text">Bulan Laporan</label>
                                 <select class="col form-control-sm" id="bulanReport" name="bulanReport">
-                                    <option value=""></option>
+                                    <option value="pilihBulan">Pilih Bulan Report</option>
                                     @foreach ($trendMonthly as $bulan)
                                         <option value="{{ $bulan->bulan }}">{{ $bulan->bulan }}</option>
                                     @endforeach
@@ -111,28 +111,29 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt" style="font-size: 12px">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
+                            style="font-size: 12px">
                             <thead>
                                 <tr>
                                     <th>Total WO</th>
                                     <th style="text-align: center; vertical-align: middle;"></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($totWoMtBranch as $totWoRetail)
+                            <tbody id="totWoBranch">
+                                {{-- @foreach ($totWoMtBranch as $totWoRetail)
                                     <tr>
                                         <td>{{ $totWoRetail->nama_branch }}</td>
                                         <td style="text-align: center">{{ number_format($totWoRetail->total) }}</td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
 
 
                             </tbody>
                             <tfoot>
-                                <tr>
+                                <tr id="totalWo">
                                     <th>Total WO</th>
-                                    <th style="text-align: center; vertical-align: middle;">
-                                        {{ number_format($totWoMtBranch->sum('total')) }}</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">
+                                        {{ number_format($totWoMtBranch->sum('total')) }}</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -154,8 +155,8 @@
                                     <th style="text-align: center; vertical-align: middle;">%</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($totWoMtBranch as $totWoMtDone)
+                            <tbody id="totWoCloseBranch">
+                                {{-- @foreach ($totWoMtBranch as $totWoMtDone)
                                     <tr>
                                         <td>{{ $totWoMtDone->nama_branch }}</td>
                                         <td style="text-align: center">{{ $totWoMtDone->done }}</td>
@@ -163,16 +164,16 @@
                                             {{ number_format($totWoMtDone->persenDone, 1) . '%' }}
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                             <tfoot>
-                                <tr>
+                                <tr id="totWoClose">
                                     <th>Total WO Close</th>
-                                    <th style="text-align: center; vertical-align: middle;">
+                                    {{-- <th style="text-align: center; vertical-align: middle;">
                                         {{ number_format($totWoMtBranch->sum('done')) }}</th>
                                     <th style="text-align: center;">
                                         {{ number_format(($totWoMtBranch->sum('done') * 100) / $totWoMtBranch->sum('total'), 1) . '%' }}
-                                    </th>
+                                    </th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -194,24 +195,24 @@
                                     <th style="text-align: center; vertical-align: middle;">%</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($totWoMtBranch as $totWoMtPending)
+                            <tbody id="totWoPendingBranch">
+                                {{-- @foreach ($totWoMtBranch as $totWoMtPending)
                                     <tr>
                                         <td>{{ $totWoMtPending->nama_branch }}</td>
                                         <td style="text-align: center">{{ $totWoMtPending->pending }}</td>
                                         <td style="text-align: center">
                                             {{ number_format($totWoMtPending->persenPending, 1) . '%' }}</td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                             <tfoot>
-                                <tr>
+                                <tr id="totWoPending">
                                     <th>Total WO Maintenance Failed</th>
-                                    <th style="text-align: center; vertical-align: middle;">
+                                    {{-- <th style="text-align: center; vertical-align: middle;">
                                         {{ number_format($totWoMtBranch->sum('pending')) }}</th>
                                     <th style="text-align: center;">
                                         {{ number_format(($totWoMtBranch->sum('pending') * 100) / $totWoMtBranch->sum('total'), 1) . '%' }}
-                                    </th>
+                                    </th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -233,25 +234,25 @@
                                     <th style="text-align: center; vertical-align: middle;">%</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($totWoMtBranch as $totWoMtCancel)
+                            <tbody id="totWoCancelBranch">
+                                {{-- @foreach ($totWoMtBranch as $totWoMtCancel)
                                     <tr>
                                         <td>{{ $totWoMtCancel->nama_branch }}</td>
                                         <td style="text-align: center">{{ $totWoMtCancel->cancel }}</td>
                                         <td style="text-align: center">
                                             {{ number_format($totWoMtCancel->persenCancel, 1) . '%' }}</td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
 
                             </tbody>
                             <tfoot>
-                                <tr>
+                                <tr id="totWoCancel">
                                     <th>Total WO Cancel</th>
-                                    <th style="text-align: center; vertical-align: middle;">
+                                    {{-- <th style="text-align: center; vertical-align: middle;">
                                         {{ number_format($totWoMtBranch->sum('cancel')) }}</th>
                                     <th style="text-align: center;">
                                         {{ number_format(($totWoMtBranch->sum('cancel') * 100) / $totWoMtBranch->sum('total'), 1) . '%' }}
-                                    </th>
+                                    </th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -301,7 +302,7 @@
                                     {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
                                 </tr>
                                 <tr id="woPending">
-                                    <td>Installation Failed</td>
+                                    <td>Maintenance Failed</td>
                                     {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
                                 </tr>
                                 <tr id="woCancel">
@@ -312,6 +313,94 @@
                             <tfoot>
                                 <tr id="totWo">
                                     <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead id="rootCouseHead">
+                                {{-- <tr> --}}
+                                    {{-- <th>Root Couse</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                {{-- </tr> --}}
+                            </thead>
+                            <tbody id="rootCouseTb">
+                                {{-- <tr id="woDone"> --}}
+                                {{-- <td>Done</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woPending"> --}}
+                                {{-- <td>Installation Failed</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woCancel"> --}}
+                                {{-- <td>Cancel</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                {{-- </tr> --}}
+                            </tbody>
+                            <tfoot>
+                                <tr id="totRootCouse">
+                                    <th>Total</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead id="rootCouseHeadPending">
+                                {{-- <tr> --}}
+                                    {{-- <th>Root Couse</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                {{-- </tr> --}}
+                            </thead>
+                            <tbody id="rootCouseTbPending">
+                                {{-- <tr id="woDone"> --}}
+                                {{-- <td>Done</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woPending"> --}}
+                                {{-- <td>Installation Failed</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woCancel"> --}}
+                                {{-- <td>Cancel</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                {{-- </tr> --}}
+                            </tbody>
+                            <tfoot>
+                                <tr id="totRootCousePending">
+                                    <th>Total</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
@@ -732,6 +821,7 @@
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.js"></script>
 
+
     {{-- <script src="{{ $chart->cdn() }}"></script> --}}
 
     {{-- {{ $chart->script() }} --}}
@@ -745,10 +835,210 @@
     <script type="text/javascript">
         $('#bulanReport').on('change', function(e) {
 
+            console.log($(this).val())
+
+
             e.preventDefault();
             let bulanReport = $(this).val();
             var dataResult;
+
+
             // console.log(bulanReport);
+
+
+
+            let chart;
+
+            $.ajax({
+                url: "{{ route('getTotalWoBranch') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
+                },
+                success: function(dataTotalWo) {
+
+                    // console.log(dataTotalWo);
+
+                    const ctx = document.getElementById('TotWoMt');
+
+                    var graphTotWoMt = Chart.getChart('totWoMt');
+                    if (graphTotWoMt) {
+                        graphTotWoMt.destroy();
+                    }
+
+                    // var totWoMt = $totWoMtBranch
+                    var totWoMt = dataTotalWo;
+
+                    var branch = [];
+                    var totWo = [];
+                    var totWoDone = [];
+
+
+                    $.each(totWoMt, function(key, item) {
+
+                        branch.push(item.nama_branch);
+                        totWo.push(item.total);
+                        totWoDone.push(item.done);
+
+                    });
+
+
+
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
+                            datasets: [{
+                                label: 'Jumlah WO',
+                                data: totWo, //[12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    align: "start"
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'WO Maintenance FTTH Januari 2024',
+                                    align: 'start',
+                                }
+                            }
+                        }
+                    });
+
+
+
+                    const ctxMtClose = document.getElementById('TotWoMtClose');
+
+                    var graphTotWoMtClose = Chart.getChart('TotWoMtClose');
+                    if (graphTotWoMtClose) {
+                        graphTotWoMtClose.destroy();
+                    }
+
+                    new Chart(ctxMtClose, {
+                        type: 'pie',
+                        data: {
+                            labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
+                            datasets: [{
+                                label: 'Jumlah WO',
+                                data: totWoDone, //[12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    align: "start"
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'WO Close Maintenance FTTH Januari 2024',
+                                    align: 'start',
+                                }
+                            }
+                        }
+                    });
+
+                    var totWo = 0;
+                    var totWoClose = 0;
+                    var totWoPending = 0;
+                    var totWoCancel = 0;
+
+                    $.each(dataTotalWo, function(key, item) {
+
+                        let tbTotalWo = `
+                            <tr>
+                                <td>${item.nama_branch}</td>
+                                <td style="text-align: center">${item.total.toLocaleString()}</td>
+                            </tr>    
+                        `;
+
+                        totWo = Number(totWo) + Number(item.total);
+                        $('#totWoBranch').append(tbTotalWo);
+
+
+                        let tbWoClose = `
+                            <tr>
+                                <td>${item.nama_branch}</td>
+                                <td style="text-align: center">${item.done.toLocaleString()}</td>
+                                <td style="text-align: center">${item.persenDone.toFixed(1) + "%"}</td>
+                            </tr>    
+                        `;
+
+                        totWoClose = Number(totWoClose) + Number(item.done);
+                        $('#totWoCloseBranch').append(tbWoClose);
+
+                        let tbWoPending = `
+                            <tr>
+                                <td>${item.nama_branch}</td>
+                                <td style="text-align: center">${item.pending.toLocaleString()}</td>
+                                <td style="text-align: center">${item.persenPending.toFixed(1) + "%"}</td>
+                            </tr>    
+                        `;
+
+                        totWoPending = Number(totWoPending) + Number(item.pending);
+                        $('#totWoPendingBranch').append(tbWoPending);
+
+                        let tbWoCancel = `
+                            <tr>
+                                <td>${item.nama_branch}</td>
+                                <td style="text-align: center">${item.cancel.toLocaleString()}</td>
+                                <td style="text-align: center">${item.persenCancel.toFixed(1) + "%"}</td>
+                            </tr>    
+                        `;
+
+                        totWoCancel = Number(totWoCancel) + Number(item.cancel);
+                        $('#totWoCancelBranch').append(tbWoCancel);
+
+
+                    });
+
+                    let isiTotalWo = `
+                        <th style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
+                    `;
+                    $('#totalWo').append(isiTotalWo);
+
+                    persenTotClose = (Number(totWoClose) * 100) / Number(totWo);
+
+                    let isiTotalWoClose = `
+                        <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1) + "%"}</th>
+                    `;
+                    $('#totWoClose').append(isiTotalWoClose);
+
+                    persenTotPending = (Number(totWoPending) * 100) / Number(totWo);
+
+                    let isiTotalWoPending = `
+                        <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1) + "%"}</th>
+                    `;
+                    $('#totWoPending').append(isiTotalWoPending);
+
+                    persenTotCancel = (totWoCancel * 100) / totWo;
+
+                    let isiTotalWoCancel = `
+                        <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1) + "%"}</th>
+                    `;
+                    $('#totWoCancel').append(isiTotalWoCancel);
+
+
+
+
+                }
+
+
+            })
 
             $.ajax({
                 url: "{{ route('getTabelStatus') }}",
@@ -760,7 +1050,7 @@
                 success: function(data) {
 
                     // var day = new Date(tahun, bulan, 0).getDate();
-                    console.log(data);
+                    // console.log(data);
                     var day = [];
                     var daytb;
                     var donetb;
@@ -802,35 +1092,6 @@
 
                     });
 
-
-                    // var bulanTahun = new Date(document.getElementById('bulanReport').value)
-                    // var bulan = bulanTahun.getMonth() + 1;
-                    // var tahun = bulanTahun.getFullYear()
-
-
-
-
-
-                    // for (var dt = 1; dt <= data.length; dt++) {
-
-                    // daytb = document.createElement('th');
-                    // daytb.append(dt);
-                    // document.getElementById('dateMonth').appendChild(daytb)
-
-
-                    // donetb = document.createElement('td');
-                    // donetb.append(200);
-                    // document.getElementById('woDone').appendChild(donetb)
-
-                    // pendingtb = document.createElement('td');
-                    // pendingtb.append(10);
-                    // document.getElementById('woPending').appendChild(pendingtb)
-
-                    // canceltb = document.createElement('td');
-                    // canceltb.append(1);
-                    // document.getElementById('woCancel').appendChild(canceltb)
-                    // }
-
                     daytb = document.createElement('th');
                     daytb.append("Total");
                     document.getElementById('dateMonth').appendChild(daytb)
@@ -846,225 +1107,232 @@
                     canceltb = document.createElement('th');
                     canceltb.append(totCancel.toLocaleString());
                     document.getElementById('woCancel').appendChild(canceltb)
-                    
+
                     total = totDone + totPending + totCancel
 
                     tottb = document.createElement('th');
                     tottb.append(total.toLocaleString());
                     document.getElementById('totWo').appendChild(tottb)
 
-                    
+
                     daytb = document.createElement('th');
                     daytb.append("%");
                     document.getElementById('dateMonth').appendChild(daytb)
-                    
+
 
                     donePer = document.createElement('th');
-                    donePer.append(parseFloat((totDone*100)/total).toFixed(2)+"%");
+                    donePer.append(parseFloat((totDone * 100) / total).toFixed(2) + "%");
                     document.getElementById('woDone').appendChild(donePer)
 
                     pendingtb = document.createElement('th');
-                    pendingtb.append(parseFloat((totPending*100)/total).toFixed(2)+"%");
+                    pendingtb.append(parseFloat((totPending * 100) / total).toFixed(2) + "%");
                     document.getElementById('woPending').appendChild(pendingtb)
 
                     canceltb = document.createElement('th');
-                    canceltb.append(parseFloat((totCancel*100)/total).toFixed(2)+"%");
+                    canceltb.append(parseFloat((totCancel * 100) / total).toFixed(2) + "%");
                     document.getElementById('woCancel').appendChild(canceltb)
                 }
 
             })
-            // });
 
-
-
-        });
-    </script>
-
-
-
-    <script>
-        const ctx = document.getElementById('TotWoMt');
-
-        var totWoMt = {!! $totWoMtBranch !!}
-
-        // console.log(totWoMt)
-
-        var branch = [];
-        var totWo = [];
-        var totWoDone = [];
-
-
-        $.each(totWoMt, function(key, item) {
-
-            branch.push(item.nama_branch);
-            totWo.push(item.total);
-            totWoDone.push(item.done);
-
-
-
-        });
-
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
-                datasets: [{
-                    label: 'Jumlah WO',
-                    data: totWo, //[12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'right',
-                        align: "start"
-                    },
-                    title: {
-                        display: true,
-                        text: 'WO Maintenance FTTH Januari 2024',
-                        align: 'start',
-                    }
-                }
-            }
-        });
-
-        const ctxMtClose = document.getElementById('TotWoMtClose');
-
-        new Chart(ctxMtClose, {
-            type: 'pie',
-            data: {
-                labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
-                datasets: [{
-                    label: 'Jumlah WO',
-                    data: totWoDone, //[12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'right',
-                        align: "start"
-                    },
-                    title: {
-                        display: true,
-                        text: 'WO Close Maintenance FTTH Januari 2024',
-                        align: 'start',
-                    }
-                }
-            }
-        });
-
-        var trendWoMt = {!! $trendMonthly !!}
-
-        // console.log(totWoMt)
-
-        var trendMonth = [''];
-        var trendTotMt = ['null'];
-        var trendMtDone = ['null'];
-
-        $.each(trendWoMt, function(key, item) {
-
-            trendMonth.push(item.bulan);
-            trendTotMt.push(item.trendMtTotal);
-            trendMtDone.push(item.trendMtDone);
-
-        });
-
-        trendMonth.push('');
-        trendTotMt.push('null');
-        trendMtDone.push('null');
-
-        const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
-
-        new Chart(ctxTrendTotWoMt, {
-            type: 'line',
-            data: {
-                labels: trendMonth, //['Jan-24'],
-                datasets: [{
-                    // label: '# of Votes',
-                    data: trendTotMt, //[3895],
-                    borderWidth: 1,
-
-                }]
-            },
-
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-
-                    },
-                    datalabels: {
-                        anchor: 'end',
-                        align: 'top'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Trend WO Maintenance All Branch',
-                        align: 'start',
-                    },
+            $.ajax({
+                url: "{{ route('getTrendMonthly') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport
 
                 },
-                scales: {
-                    y: {
-                        display: false, //this will remove all the x-axis grid lines
+                success: function(dataTrendMonthly) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    var trendWoMt = dataTrendMonthly;
+
+                    // console.log(totWoMt)
+
+                    var trendMonth = [''];
+                    var trendTotMt = ['null'];
+                    var trendMtDone = ['null'];
+
+                    $.each(trendWoMt, function(key, item) {
+
+                        trendMonth.push(item.bulan);
+                        trendTotMt.push(item.trendMtTotal);
+                        trendMtDone.push(item.trendMtDone);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotMt.push('null');
+                    trendMtDone.push('null');
+
+                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
+
+                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
+                    if (graphTrendTotWoMt) {
+                        graphTrendTotWoMt.destroy();
                     }
+
+
+
+                    new Chart(ctxTrendTotWoMt, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotMt, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Maintenance All Branch',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
+
+                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
+                    if (graphTrendTotWoMtClose) {
+                        graphTrendTotWoMtClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoMtClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendMtDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Maintenance Close All Branch',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
                 }
-            },
-            plugins: [ChartDataLabels],
 
-        });
+            })
 
-        const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
-
-        new Chart(ctxTrendTotWoMtClose, {
-            type: 'line',
-            data: {
-                labels: trendMonth, //['Dec-23', 'Jan-24'],
-                datasets: [{
-                    // label: '# of Votes',
-                    data: trendMtDone, //[3082, 3597],
-                    borderWidth: 1,
-
-                }]
-            },
-
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-
-                    },
-                    datalabels: {
-                        anchor: 'end',
-                        align: 'top'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Trend WO Maintenance Close All Branch',
-                        align: 'start',
-                    },
-
+            $.ajax({
+                url: "{{ route('getRootCouseDone') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
                 },
-                scales: {
-                    y: {
-                        display: false, //this will remove all the x-axis grid lines
-                    }
+                success: function(dataRootCouse) {
+
+                    let hdRootCouse = `
+                        <tr>
+                                <th>RootCouse</th>
+                                <th style="text-align: center">${bulanReport}</th>
+                        </tr>`;
+
+                    $('#rootCouseHead').append(hdRootCouse);
+
+                    $.each(dataRootCouse, function(key, item) {
+
+                        let tbRootCouse = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                <td style="text-align: center">-</td>
+                            </tr>
+                        `;
+
+                        // totWo = Number(totWo) + Number(item.total);
+                        $('#rootCouseTb').append(tbRootCouse);
+
+                    });
                 }
-            },
-            plugins: [ChartDataLabels],
+
+            });
+
+            $.ajax({
+                url: "{{ route('getRootCousePending') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
+                },
+                success: function(dataRootCousePending) {
+
+                    console.log(dataRootCousePending)
+
+                    let hdRootCousePending = `
+                        <tr>
+                                <th>RootCouse</th>
+                                <th style="text-align: center">${bulanReport}</th>
+                        </tr>`;
+
+                    $('#rootCouseHeadPending').append(hdRootCousePending);
+
+                    $.each(dataRootCousePending, function(key, item) {
+
+                        let tbRootCousePending = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                <td style="text-align: center">-</td>
+                            </tr>
+                        `;
+
+                        // totWo = Number(totWo) + Number(item.total);
+                        $('#rootCouseTbPending').append(tbRootCousePending);
+
+                    });
+                }
+
+            });
 
         });
     </script>

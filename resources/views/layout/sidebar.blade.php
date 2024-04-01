@@ -36,7 +36,39 @@
                 <li class="{{ request()->is('reportMtFtth*') ? 'active' : '' }}">
                     <a href="{{ route('reportMtFtth.index') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report MT FTTH</span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report MT FTTH Montly</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('reportIBFtth*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report IB FTTH Monthly</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('reportDismantleFtth*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report Dismantle FTTH Monthly</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('reportMtFttx*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report MT FTTX/B Monthly</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('reportIbFttx*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report IB FTTX/B Monthly</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
@@ -53,7 +85,7 @@
             class="pcoded-hasmenu pcoded-trigger {{ request()->is('importftthmt*') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
-                <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Data Master</span>
+                <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Import Data</span>
                 <span class="pcoded-mcaret"></span>
             </a>
             <ul class="pcoded-submenu">
@@ -63,6 +95,38 @@
                     <a href="{{ route('import.ftthmttempIndex') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth MT</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('importftthib*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth IB</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('importftthDismantle*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth Dismantle</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('importfttxib*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Fttx MT</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('importfttxmt*') ? 'active' : '' }}">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Fttx IB</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>

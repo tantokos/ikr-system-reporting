@@ -30,23 +30,28 @@
 
                 <div class="col">
                     {{-- <form action="{{ route('import.store') }}" method="POST" enctype="multipart/form-data"> --}}
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('saveImportMtFtth')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label class="col-sm-3 form-text">Import By : </label>
+                            <label class="col-sm-2 form-text">Import By : </label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control-sm border-secondary" name="akses"
                                     value="{{ $akses }}" readonly>
                             </div>
-                            <label class="col-sm-3 form-text">Periode Report : </label>
+                            
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-3 form-text">Jumlah Data :</label>
+                            <label class="col-sm-2 form-text">Jumlah Data :</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control-sm border-secondary" id="jmlImport"
-                                    name="jmlImport" value="{{ $jmlImport }}" readonly>
+                                    name="jmlImport" value="{{ $jmlImport }}" readonly required>
                             </div>
+                            
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-text">Periode Report : </label>
                             <label class="col-sm-4 form-text" style="font-weight: bold">{{ $tglIkr->min('tgl_ikr') }} s/d {{ $tglIkr->max('tgl_ikr') }}</label>
                         </div>
 
@@ -54,8 +59,8 @@
                             <div class="col">
                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
                                     data-target="#md-showSummary">Show Summary</button>
-                                <button type="submit" class="btn btn-sm btn-primary">Simpan data Import</button>
-                                <button type="button" class="btn btn-sm btn-secondary">Batal</button>
+                                <button type="submit" class="btn btn-sm btn-primary" name="action" value="simpan">Simpan data Import</button>
+                                <button type="submit" class="btn btn-sm btn-secondary" name="action" value="batal">Batalkan Import</button>
                             </div>
                         </div>
                     </form>
@@ -541,7 +546,7 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                fetch_data()
+                fetch_data()    
 
                 function fetch_data() {
                     $('#dataTempFtthMt').DataTable({
@@ -578,7 +583,7 @@
                         },
                         ajax: {
                             url: "{{ route('import.dataImportFtthMtTemp') }}",
-                            // type: "get"
+                            type: "get"
 
                         },
                         columns: [{

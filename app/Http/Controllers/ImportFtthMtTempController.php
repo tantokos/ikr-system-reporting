@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportFtthMT;
 use App\Imports\ImportFtthMTSortir;
+use App\Models\DataFtthMtOri;
+use App\Models\DataFtthMtSortir;
 use App\Models\ImportFtthMtSortirTemp;
 use Yajra\DataTables\DataTables;
 use App\Models\ImportFtthMtTemp;
@@ -286,5 +288,47 @@ class ImportFtthMtTempController extends Controller
                 ->toJson(); //merubah response dalam bentuk Json
             // ->make(true);
         }
+    }
+
+    public function saveImportFtthMt(Request $request)
+    {
+        $akses = Auth::user()->name;
+
+        switch ($request->input('action')) {
+
+            case 'simpan':
+
+                // ===== copy data Ftth MT Ori Temporary ke table Data Ftth MT Ori ======//
+                $dataimportFtthMtOri = ImportFtthMtTemp::where('login', '=', $akses)->get()
+                    ->each(function ($item) {
+                        $dataFtthMtOri = $item->replicate();
+                        $dataFtthMtOri->setTable('data_ftth_mt_oris');
+                        $dataFtthMtOri->save();
+                    });
+
+                if ($dataimportFtthMtOri) {
+
+                    // ==== copy data Ftth Mt Sortir Temporary ke table Data Ftth Mt Sortir =======//
+                    $dataimportFtthMtSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->get()
+                        ->each(function ($item) {
+                            $dataFtthMtSortir = $item->replicate();
+                            $dataFtthMtSortir->setTable('data_ftth_mt_sortirs');
+                            $dataFtthMtSortir->save();
+                        });
+
+                    ImportFtthMtTemp::where('login', '=', $akses)->delete();
+                    ImportFtthMtSortirTemp::where('login', '=', $akses)->delete();
+                }
+
+                break;
+
+            case 'batal':
+                ImportFtthMtTemp::where('login', '=', $akses)->delete();
+                ImportFtthMtSortirTemp::where('login', '=', $akses)->delete();
+
+                break;
+        }
+
+        return back();
     }
 }
