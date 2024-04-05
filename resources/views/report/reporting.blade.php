@@ -335,9 +335,9 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead id="rootCouseHead">
                                 {{-- <tr> --}}
-                                    {{-- <th>Root Couse</th> --}}
-                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                {{-- <th>Root Couse</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 {{-- </tr> --}}
                             </thead>
                             <tbody id="rootCouseTb">
@@ -375,13 +375,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
+                        <table class="table table-striped table-bordered border-secondary" id="rootCousePendingtable"
                             cellspacing="0" style="font-size: 12px">
                             <thead id="rootCouseHeadPending">
                                 {{-- <tr> --}}
-                                    {{-- <th>Root Couse</th> --}}
-                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                {{-- <th>Root Couse</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 {{-- </tr> --}}
                             </thead>
                             <tbody id="rootCouseTbPending">
@@ -400,6 +400,50 @@
                             </tbody>
                             <tfoot>
                                 <tr id="totRootCousePending">
+                                    <th>Total</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead id="rootCouseHeadCancel">
+                                {{-- <tr> --}}
+                                {{-- <th>Root Couse</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                {{-- </tr> --}}
+                            </thead>
+                            <tbody id="rootCouseTbCancel">
+                                {{-- <tr id="woDone"> --}}
+                                {{-- <td>Done</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woPending"> --}}
+                                {{-- <td>Installation Failed</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woCancel"> --}}
+                                {{-- <td>Cancel</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                {{-- </tr> --}}
+                            </tbody>
+                            <tfoot>
+                                <tr id="totRootCouseCancel">
                                     <th>Total</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
@@ -835,19 +879,12 @@
     <script type="text/javascript">
         $('#bulanReport').on('change', function(e) {
 
-            console.log($(this).val())
-
+            // console.log($(this).val())
 
             e.preventDefault();
             let bulanReport = $(this).val();
+            let trendWoMt;
             var dataResult;
-
-
-            // console.log(bulanReport);
-
-
-
-            let chart;
 
             $.ajax({
                 url: "{{ route('getTotalWoBranch') }}",
@@ -857,22 +894,18 @@
                 },
                 success: function(dataTotalWo) {
 
-                    // console.log(dataTotalWo);
-
                     const ctx = document.getElementById('TotWoMt');
 
-                    var graphTotWoMt = Chart.getChart('totWoMt');
-                    if (graphTotWoMt) {
+                    let graphTotWoMt = Chart.getChart(ctx);
+                    if (graphTotWoMt != undefined) {
                         graphTotWoMt.destroy();
                     }
 
-                    // var totWoMt = $totWoMtBranch
                     var totWoMt = dataTotalWo;
 
                     var branch = [];
                     var totWo = [];
                     var totWoDone = [];
-
 
                     $.each(totWoMt, function(key, item) {
 
@@ -883,8 +916,7 @@
                     });
 
 
-
-                    new Chart(ctx, {
+                    chart1 = new Chart(ctx, {
                         type: 'pie',
                         data: {
                             labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
@@ -905,14 +937,12 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'WO Maintenance FTTH Januari 2024',
+                                    text: 'WO Maintenance FTTH ' + bulanReport,
                                     align: 'start',
                                 }
                             }
                         }
                     });
-
-
 
                     const ctxMtClose = document.getElementById('TotWoMtClose');
 
@@ -942,7 +972,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'WO Close Maintenance FTTH Januari 2024',
+                                    text: 'WO Close Maintenance FTTH ' + bulanReport,
                                     align: 'start',
                                 }
                             }
@@ -954,6 +984,11 @@
                     var totWoPending = 0;
                     var totWoCancel = 0;
 
+                    $('#totWoBranch').find("tr").remove();
+                    $('#totWoCloseBranch').find("tr").remove();
+                    $('#totWoPendingBranch').find("tr").remove();
+                    $('#totWoCancelBranch').find("tr").remove();
+
                     $.each(dataTotalWo, function(key, item) {
 
                         let tbTotalWo = `
@@ -964,6 +999,7 @@
                         `;
 
                         totWo = Number(totWo) + Number(item.total);
+
                         $('#totWoBranch').append(tbTotalWo);
 
 
@@ -976,6 +1012,7 @@
                         `;
 
                         totWoClose = Number(totWoClose) + Number(item.done);
+
                         $('#totWoCloseBranch').append(tbWoClose);
 
                         let tbWoPending = `
@@ -1003,22 +1040,33 @@
 
                     });
 
+                    $('#totalWo').find("th").remove();
+                    $('#totWoClose').find("th").remove();
+                    $('#totWoPending').find("th").remove();
+                    $('#totWoCancel').find("th").remove();
+
                     let isiTotalWo = `
+                        <th>Total WO Close</th>
                         <th style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
                     `;
+
                     $('#totalWo').append(isiTotalWo);
 
                     persenTotClose = (Number(totWoClose) * 100) / Number(totWo);
 
                     let isiTotalWoClose = `
+                    <th>Total WO Close</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
                         <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1) + "%"}</th>
                     `;
+
+
                     $('#totWoClose').append(isiTotalWoClose);
 
                     persenTotPending = (Number(totWoPending) * 100) / Number(totWo);
 
                     let isiTotalWoPending = `
+                    <th>Total WO Maintenance Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
                         <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1) + "%"}</th>
                     `;
@@ -1027,6 +1075,7 @@
                     persenTotCancel = (totWoCancel * 100) / totWo;
 
                     let isiTotalWoCancel = `
+                    <th>Total WO Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
                         <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1) + "%"}</th>
                     `;
@@ -1050,7 +1099,6 @@
                 success: function(data) {
 
                     // var day = new Date(tahun, bulan, 0).getDate();
-                    // console.log(data);
                     var day = [];
                     var daytb;
                     var donetb;
@@ -1060,77 +1108,87 @@
                     var totWo = 0;
                     var total = 0;
 
+                    $('#dateMonth').find("th").remove();
+                    $('#dateMonth').append("<th>Maintenance All Branch</th>")
+
+                    $('#woDone').find("td").remove();
+                    $('#woDone').find("th").remove();
+                    $('#woDone').append("<td>Done</td>")
+
+                    $('#woPending').find("td").remove();
+                    $('#woPending').find("th").remove();
+                    $('#woPending').append("<td>Maintenance Failed</td>")
+
+                    $('#woCancel').find("td").remove();
+                    $('#woCancel').find("th").remove();
+                    $('#woCancel').append("<td>Cancel</td>")
+
+                    $('#totWo').find("td").remove()
+                    $('#totWo').find("th").remove()
+                    $('#totWo').append("<th>Total Wo</th>")
+
+
                     $.each(data, function(key, item) {
                         // day.push(new Date(item.tgl_ikr).getDate());
+                        let htgl = `
+                           <th>${new Date(item.tgl_ikr).getDate()}</th>
+                        `;
 
-                        daytb = document.createElement('th');
-                        daytb.append(new Date(item.tgl_ikr).getDate());
-                        document.getElementById('dateMonth').appendChild(daytb)
+                        $('#dateMonth').append(htgl);
 
-                        donetb = document.createElement('td');
-                        donetb.append(item.Done);
-                        document.getElementById('woDone').appendChild(donetb)
+                        let dtDone = `
+                            <td>${item.Done.toLocaleString()}</td>
+                        `;
+
+                        $('#woDone').append(dtDone);
 
                         totDone += item.Done;
 
-                        pendingtb = document.createElement('td');
-                        pendingtb.append(item.Pending);
-                        document.getElementById('woPending').appendChild(pendingtb)
+                        let dtPending = `
+                            <td>${item.Pending.toLocaleString()}</td>
+                        `;
+
+                        $('#woPending').append(dtPending);
 
                         totPending += item.Pending;
                         totCancel += item.Cancel;
 
-                        canceltb = document.createElement('td');
-                        canceltb.append(item.Cancel);
-                        document.getElementById('woCancel').appendChild(canceltb)
+                        let dtCancel = `
+                            <td>${item.Cancel.toLocaleString()}</td>
+                        `;
+
+                        $('#woCancel').append(dtCancel)
 
                         totWo = item.Done + item.Pending + item.Cancel
 
-                        tottb = document.createElement('td');
-                        tottb.append(totWo.toLocaleString());
-                        document.getElementById('totWo').appendChild(tottb)
+                        let dtTotWo = `
+                            <td>${totWo.toLocaleString()}</td>
+                        `;
+
+                        $('#totWo').append(dtTotWo);
+
 
                     });
 
-                    daytb = document.createElement('th');
-                    daytb.append("Total");
-                    document.getElementById('dateMonth').appendChild(daytb)
+                    $('#dateMonth').append("<th>Total</th>")
 
-                    donetb = document.createElement('th');
-                    donetb.append(totDone.toLocaleString());
-                    document.getElementById('woDone').appendChild(donetb)
+                    $('#woDone').append(`<th>${totDone.toLocaleString()}</th>`)
 
-                    pendingtb = document.createElement('th');
-                    pendingtb.append(totPending.toLocaleString());
-                    document.getElementById('woPending').appendChild(pendingtb)
+                    $('#woPending').append(`<th>${totPending.toLocaleString()}</th>`)
 
-                    canceltb = document.createElement('th');
-                    canceltb.append(totCancel.toLocaleString());
-                    document.getElementById('woCancel').appendChild(canceltb)
+                    $('#woCancel').append(`<th>${totCancel.toLocaleString()}</th>`)
 
                     total = totDone + totPending + totCancel
 
-                    tottb = document.createElement('th');
-                    tottb.append(total.toLocaleString());
-                    document.getElementById('totWo').appendChild(tottb)
+                    $('#totWo').append(`<th>${total.toLocaleString()}</th>`)
 
+                    $('#dateMonth').append(`<th>%</th>`)
 
-                    daytb = document.createElement('th');
-                    daytb.append("%");
-                    document.getElementById('dateMonth').appendChild(daytb)
-
-
-                    donePer = document.createElement('th');
-                    donePer.append(parseFloat((totDone * 100) / total).toFixed(2) + "%");
-                    document.getElementById('woDone').appendChild(donePer)
-
-                    pendingtb = document.createElement('th');
-                    pendingtb.append(parseFloat((totPending * 100) / total).toFixed(2) + "%");
-                    document.getElementById('woPending').appendChild(pendingtb)
-
-                    canceltb = document.createElement('th');
-                    canceltb.append(parseFloat((totCancel * 100) / total).toFixed(2) + "%");
-                    document.getElementById('woCancel').appendChild(canceltb)
+                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(2)}%</th>`)
+                    $('#woPending').append(
+                        `<th>${parseFloat((totPending * 100) / total).toFixed(2)}%</th>`)
+                    $('#woCancel').append(
+                        `<th>${parseFloat((totCancel * 100) / total).toFixed(2)}%</th>`)
                 }
 
             })
@@ -1144,9 +1202,7 @@
                 },
                 success: function(dataTrendMonthly) {
                     // var trendWoMt = {!! $trendMonthly !!}
-                    var trendWoMt = dataTrendMonthly;
-
-                    // console.log(totWoMt)
+                    trendWoMt = dataTrendMonthly;
 
                     var trendMonth = [''];
                     var trendTotMt = ['null'];
@@ -1274,27 +1330,76 @@
                 },
                 success: function(dataRootCouse) {
 
+                    $('#rootCouseHead').find("tr").remove();
+                    $('#rootCouseTb').find("tr").remove();
+                    $('#totRootCouse').find("th").remove();
+
+                    var TotRootDone = 0;
+                    let tbRootCouse;
                     let hdRootCouse = `
                         <tr>
-                                <th>RootCouse</th>
-                                <th style="text-align: center">${bulanReport}</th>
+                                <th>RootCouse Done</th>
                         </tr>`;
-
+                    
                     $('#rootCouseHead').append(hdRootCouse);
+
+                    for (b = 0; b < trendWoMt.length; b++) {
+                        $('#rootCouseHead').find("tr").append(
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                    }
 
                     $.each(dataRootCouse, function(key, item) {
 
-                        let tbRootCouse = `
+                        if(item.penagihan == 'total_done') {
+                            tbRootCouse = `
+                            <tr>
+                                <th>Total</th>
+                                
+                            `;
+                        }else {
+                            tbRootCouse = `
                             <tr>
                                 <td>${item.penagihan}</td>
-                                <td style="text-align: center">-</td>
-                            </tr>
-                        `;
+                                
+                            `;
+                        }
+                        
+                        if(item.penagihan == 'total_done'){
+                        for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbRootCouse = tbRootCouse +
+                                `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                        }
 
-                        // totWo = Number(totWo) + Number(item.total);
+                        }else{
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbRootCouse = tbRootCouse +
+                                `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }    
+                        }
+                    
+                        // }
+                        
+
+                        // if (item.penagihan == 'total_done') {
+                        //     tbTotalRootCouse = `
+                        //         <th>Total</td>
+                                
+                        //     `;
+                        
+                        //     for (bln = 0; bln < trendWoMt.length; bln++) {
+                        //         tbTotalRootCouse = tbTotalRootCouse +
+                        //             `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+
+                        //     }
+                        // }
+
+                        tbRootCouse = tbRootCouse + `</tr>`;
                         $('#rootCouseTb').append(tbRootCouse);
 
                     });
+
+                    // $('#totRootCouse').append(tbTotalRootCouse);  
                 }
 
             });
@@ -1307,29 +1412,99 @@
                 },
                 success: function(dataRootCousePending) {
 
-                    console.log(dataRootCousePending)
+                    $('#rootCouseHeadPending').find("tr").remove();
+                    $('#rootCouseTbPending').find("tr").remove();
+                    $('#totRootCousePending').find("th").remove();
 
+                    var TotRootDonePending = 0;
+                    let tbRootCousePending;
                     let hdRootCousePending = `
                         <tr>
-                                <th>RootCouse</th>
-                                <th style="text-align: center">${bulanReport}</th>
+                                <th>RootCouse Pending</th>
                         </tr>`;
-
+                    
                     $('#rootCouseHeadPending').append(hdRootCousePending);
+
+                    for (b = 0; b < trendWoMt.length; b++) {
+                        $('#rootCouseHeadPending').find("tr").append(
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                    }
 
                     $.each(dataRootCousePending, function(key, item) {
 
-                        let tbRootCousePending = `
+                        if(item.penagihan == 'total_pending') {
+                            tbRootCousePending = `
+                            <tr>
+                                <th>Total</th>
+                                
+                            `;
+                        }else {
+                            tbRootCousePending = `
                             <tr>
                                 <td>${item.penagihan}</td>
-                                <td style="text-align: center">-</td>
-                            </tr>
-                        `;
+                                
+                            `;
+                        }
+                        
+                        if(item.penagihan == 'total_pending'){
+                        for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbRootCousePending = tbRootCousePending +
+                                `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                        }
 
-                        // totWo = Number(totWo) + Number(item.total);
+                        }else{
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbRootCousePending = tbRootCousePending +
+                                `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }    
+                        }
+
+                        tbRootCousePending = tbRootCousePending + `</tr>`;
                         $('#rootCouseTbPending').append(tbRootCousePending);
 
                     });
+                }
+
+            });
+
+            $.ajax({
+                url: "{{ route('getRootCouseCancel') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
+                },
+                success: function(dataRootCouseCancel) {
+
+                    var TotRootCancel = 0;
+
+                    let hdRootCouseCancel = `
+                        <tr>
+                                <th>RootCouse Cancel</th>
+                                <th style="text-align: center">${bulanReport}</th>
+                        </tr>`;
+
+                    $('#rootCouseHeadCancel').append(hdRootCouseCancel);
+
+                    $.each(dataRootCouseCancel, function(key, item) {
+
+                        let tbRootCouseCancel = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                <td style="text-align: center">${item.jml.toLocaleString()}</td>
+                            </tr>
+                        `;
+
+                        TotRootCancel = Number(TotRootCancel) + Number(item.jml);
+                        $('#rootCouseTbCancel').append(tbRootCouseCancel);
+
+                    });
+
+                    let totalRootCouseCancel = `
+                        <th style="text-align: center; vertical-align: middle;">${TotRootCancel.toLocaleString()}</th>
+                        `;
+
+                    $('#totRootCouseCancel').append(totalRootCouseCancel);
                 }
 
             });

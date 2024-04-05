@@ -24,6 +24,17 @@
                                 <button type="submit" class="btn btn-sm btn-success">Import Data Aset</button>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col form-text">Informasi Data Import</label>
+                            <div class="col">
+                                @if ($croscekData <> "-")
+                                <span class="error" >{{ $croscekData }}</span>
+                                @else
+                                <span class="error" >-</span>
+                                @endif
+                            </div>
+                        </div>
                     </form>
                     <hr>
                 </div>
@@ -33,17 +44,17 @@
                     <form action="{{ route('saveImportMtFtth')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label class="col-sm-2 form-text">Import By : </label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control form-control-sm border-secondary" name="akses"
+                            <label class="col-sm-4 form-text">Import By : </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm border-secondary" name="akses" id="akses"
                                     value="{{ $akses }}" readonly>
                             </div>
                             
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 form-text">Jumlah Data :</label>
-                            <div class="col-sm-4">
+                            <label class="col-sm-4 form-text">Jumlah Data :</label>
+                            <div class="col-sm-6">
                                 <input type="text" class="form-control form-control-sm border-secondary" id="jmlImport"
                                     name="jmlImport" value="{{ $jmlImport }}" readonly required>
                             </div>
@@ -51,16 +62,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 form-text">Periode Report : </label>
-                            <label class="col-sm-4 form-text" style="font-weight: bold">{{ $tglIkr->min('tgl_ikr') }} s/d {{ $tglIkr->max('tgl_ikr') }}</label>
+                            <label class="col-sm-4 form-text">Periode Report : </label>
+                            <label class="col-sm-6 form-text" style="font-weight: bold">{{ $tglIkr->min('tgl_ikr') }} s/d {{ $tglIkr->max('tgl_ikr') }}</label>
                         </div>
 
                         <div class="form-group">
                             <div class="col">
                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
                                     data-target="#md-showSummary">Show Summary</button>
-                                <button type="submit" class="btn btn-sm btn-primary" name="action" value="simpan">Simpan data Import</button>
-                                <button type="submit" class="btn btn-sm btn-secondary" name="action" value="batal">Batalkan Import</button>
+                                <button onclick="return confirm('Simpan hasil import Data Ori Maintenance?')" type="submit" class="btn btn-sm btn-primary" name="action" value="simpan">Simpan data Import</button>
+                                <button onclick="return confirm('Hapus hasil import Data Ori Maintenance?')"type="submit" class="btn btn-sm btn-secondary" name="action" value="batal">Batalkan Import</button>
                             </div>
                         </div>
                     </form>
@@ -546,6 +557,8 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
+
+                akses = $('#akses').val();
                 fetch_data()    
 
                 function fetch_data() {
@@ -583,7 +596,11 @@
                         },
                         ajax: {
                             url: "{{ route('import.dataImportFtthMtTemp') }}",
-                            type: "get"
+                            type: "get",
+                            dataType: "json",
+                            data: {
+                                akses: akses,
+                            }
 
                         },
                         columns: [{

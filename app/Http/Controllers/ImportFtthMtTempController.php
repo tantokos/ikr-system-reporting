@@ -13,6 +13,7 @@ use App\Models\DataFtthMtSortir;
 use App\Models\ImportFtthMtSortirTemp;
 use Yajra\DataTables\DataTables;
 use App\Models\ImportFtthMtTemp;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
@@ -40,7 +41,6 @@ class ImportFtthMtTempController extends Controller
             ->whereNotIn('type_wo', ['Dismantle', 'Additional'])->count('status_wo');
 
         $tglIkr = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('tgl_ikr'))->distinct()->get();
-        // dd($tglIkr->pluck('tgl_ikr'));
 
         $detPenagihan = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, count(penagihan) as jml'))
             ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
@@ -83,16 +83,28 @@ class ImportFtthMtTempController extends Controller
             // ->distinct()
             ->groupBy('penagihan', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
 
-        // dd($doneSortir);
-
         // end query data Sortir
 
+        $TglMin = $tglIkr->min('tgl_ikr');
+        $TglMax = $tglIkr->max('tgl_ikr');
+
+        $CekBulanThnImport = DataFtthMtOri::whereBetween('tgl_ikr',[$TglMin, $TglMax])->get();
+        // dump($CekBulanThnImport->count());
+
+        if($CekBulanThnImport->count() > 0) {
+            $croscekData = "Data Tanggal $TglMin - $TglMax Sudah Pernah di Import";
+        }
+        else
+        {
+            $croscekData = "-";
+        }
 
 
         return view('importWo.FtthMtTempIndex', [
             'title' => 'Import Data FTTH MT', 'akses' => $akses, 'jmlImport' => $jmlData,
             'done' => $done, 'pending' => $pending, 'cancel' => $cancel, 'sitePenagihan' => $sitePenagihan,
-            'branch' => $branch, 'kotamadyaPenagihan' => $kotamadyaPenagihan, 'tglIkr' => $tglIkr, 'statusWo' => $statWo, 'penagihan' => $penagihan,
+            'branch' => $branch, 'kotamadyaPenagihan' => $kotamadyaPenagihan, 'tglIkr' => $tglIkr, 'croscekData' => $croscekData,
+            'statusWo' => $statWo, 'penagihan' => $penagihan,
             'detPenagihan' => $detPenagihan, 'detCouseCode' => $detCouseCode, 'detRootCouse' => $detRootCouse,
             'doneSortir' => $doneSortir->count(), 'pendingSortir' => $pendingSortir->count(), 'cancelSortir' => $cancelSortir->count(),
             'detPenagihanSortir' => $detPenagihanSortir, 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
@@ -265,7 +277,6 @@ class ImportFtthMtTempController extends Controller
                     'login' => $akses
                 ]);
             }
-
 
             return back();
         }
