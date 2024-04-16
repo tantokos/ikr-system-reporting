@@ -47,6 +47,7 @@ class DataFtthMtOri extends Model
         'weather',
         'remark_status',
         'action_status',
+        'visit_novisit',
         'start_ikr_wa',
         'end_ikr_wa',
         'validasi_start',

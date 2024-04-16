@@ -88,6 +88,16 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Maintenance FTTH - All Branch & Apartement</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -141,6 +151,8 @@
                 </div>
             </div>
         </div>
+
+        
 
         <div class="col">
             <div class="card">
@@ -264,6 +276,16 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Report Maintenance FTTH - All Branch & Apartment</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -327,6 +349,16 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Root Cause Closing WO Maintenance FTTH - All Branch & Apartment (Penagihan)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -368,6 +400,104 @@
 
 
 
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Root Cause Closing WO Maintenance FTTH - All Branch & Apartment (Aplikasi)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row">
+
+        {{-- Root Couse Sortir MT --}}
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
+                    <thead>
+                        <tr id="rootCouseHeadAPK">
+                            {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
+                            {{-- <th></th> --}}
+                            {{-- <th></th> --}}
+                            {{-- <th style="text-align: center">Jumlah</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody id="bodyRootCouseAPK">
+                        {{-- <ul style="font-size: 12px"> --}}
+                        {{-- @for ($x = 0; $x < count($detPenagihanSortir); $x++) --}}
+                            {{-- <tr id="penagihanAPK" class="table-secondary"> --}}
+                                {{-- <th> --}}
+                                    {{-- {{ $detPenagihanSortir[$x]->penagihan }} --}}
+                                {{-- </th> --}}
+                                {{-- <th></th> --}}
+                                {{-- <th></th> --}}
+                                {{-- <th style="text-align: center"> --}}
+                                    {{-- {{ number_format($detPenagihanSortir[$x]->jml) }} --}}
+                                {{-- </th> --}}
+                            {{-- </tr> --}}
+                            {{-- <ul> --}}
+                            {{-- {{dd($detCouseCodeSortir->pluck('couse_code'))}} --}}
+                            {{-- @for ($y = 0; $y < count($detCouseCodeSortir); $y++) --}}
+                                {{-- @if ($detPenagihanSortir[$x]->penagihan == $detCouseCodeSortir[$y]->penagihan) --}}
+                                    {{-- <tr id="couseCodePenagihanAPK"> --}}
+                                        {{-- <th></th> --}}
+                                        {{-- <th class="table-info"> --}}
+
+                                            {{-- {{ $detCouseCodeSortir[$y]->couse_code }} --}}
+                                        {{-- </th> --}}
+                                        {{-- <th class="table-info"></th> --}}
+                                        {{-- <th class="table-info" style="text-align: center"> --}}
+                                            {{-- {{ number_format($detCouseCodeSortir[$y]->jml) }} --}}
+                                        {{-- </th> --}}
+                                    {{-- </tr> --}}
+
+                                    {{-- <ul> --}}
+                                    {{-- @for ($z = 0; $z < count($detRootCouseSortir); $z++) --}}
+                                        {{-- @if ( --}}
+                                            {{-- $detPenagihanSortir[$x]->penagihan == $detRootCouseSortir[$z]->penagihan && --}}
+                                                {{-- $detCouseCodeSortir[$y]->couse_code == $detRootCouseSortir[$z]->couse_code) --}}
+                                            {{-- <tr id="rootCousePenagihanAPK"> --}}
+                                                {{-- <td></td> --}}
+                                                {{-- <td></td> --}}
+                                                {{-- <td> --}}
+                                                    {{-- {{ $detRootCouseSortir[$z]->root_couse }} --}}
+                                                {{-- </td> --}}
+                                                {{-- <td style="text-align: center"> --}}
+                                                    {{-- {{ number_format($detRootCouseSortir[$z]->jml) }} --}}
+                                                {{-- </td> --}}
+                                            {{-- </tr> --}}
+                                        {{-- @endif --}}
+                                    {{-- @endfor --}}
+
+                                {{-- @endif --}}
+                            {{-- @endfor --}}
+                        {{-- @endfor --}}
+                        {{-- <tr> --}}
+                            {{-- <th class="table-dark">TOTAL</th> --}}
+                            {{-- <th class="table-dark"></th> --}}
+                            {{-- <th class="table-dark"></th> --}}
+                            {{-- <th class="table-dark" style="text-align: center">{{ number_format($detRootCouseSortir->sum('jml')) }}</th> --}}
+                        {{-- </tr> --}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{-- End Root Couse Sortir MT --}}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Root Cause Maintenance Failed FTTH - All Branch & Apartment</h5>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -415,6 +545,16 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Root Cause Cancel Maintenance FTTH - All Branch & Apartment</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -456,6 +596,162 @@
 
 
 
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary WO Maintenance Back To Normal</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="GraphWoBTN"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        {{-- Back To Normal Sortir MT --}}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered border-secondary" style="font-size: 11px; table-layout: fixed;">
+                    <thead>
+                        <tr id="backToNormalHead">
+                        </tr>
+                    </thead>
+                    <tbody id="bodyBackToNormal">
+                    </tbody>
+                    <tfoot>
+                        <tr id="totSysProblem">
+                            {{-- <th class="table-dark">Total</th>
+                            <th class="table-dark"></th> --}}
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+                </div>
+            </div>
+        {{-- End Back To Normal Sortir MT --}}
+    </div>
+
+    <div class="row">
+
+        {{-- Back To Normal 2 Sortir MT --}}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered border-secondary" style="font-size: 11px; table-layout: fixed;">
+                    <thead>
+                        <tr id="PersenBackToNormalHead">
+                            {{-- <th>Persentase WO Back To Normal</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody id="PersenBodyBackToNormal">
+                        <tr id="totWoMT">
+                            {{-- <th>Total WO Maintenance</th> --}}
+                        </tr>
+                        <tr id="totWoBtn">
+                            {{-- <th>Total WO Back To Normal</th> --}}
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr id="PersenTotSysProblem">
+                            {{-- <th class="table-dark">Total</th> --}}
+                            {{-- <th class="table-dark"></th> --}}
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+                </div>
+            </div>
+        {{-- End Back To Normal 2 Sortir MT --}}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary WO Maintenance FTTH Apartment All Area</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">Trend WO Maintenance Apartment All Branch</div>
+                <div class="card-body">
+                    
+                    <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">Trend WO Maintenance Close Apartment All Branch</div>
+                <div class="card-body">
+                    <canvas id="TrendTotWoMtCloseApart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotWOApart"
+                            width="100%" cellspacing="0" style="font-size: 12px">
+                            <thead>
+                                <tr id="dateMonthApart">
+                                    <th>Maintenance Apartment All Branch</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="woDoneApart">
+                                    <td>Done</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                </tr>
+                                <tr id="woPendingApart">
+                                    <td>Maintenance Failed</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                </tr>
+                                <tr id="woCancelApart">
+                                    <td>Cancel</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr id="totWoApart">
+                                    <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -874,6 +1170,19 @@
 
     <script type="text/javascript">
         $('input[name="periode"]').daterangepicker();
+        
+        // var tableRootCouseAPK = document.getElementById('bodyRootCouseAPK');
+
+        // var trRCPenagihanAPK = tableRootCouseAPK.createElement('tr');
+        // trRCPenagihanAPK.attr('id', "rootCousePenagihanAPK");
+
+        // var trCCPenagihanAPK = tableRootCouseAPK.createElement('tr');
+        // trCCPenagihanAPK.attr('id', "rootCousePenagihanAPK");
+
+        // var trRCPenagihanAPK = tableRootCouseAPK.createElement('tr');
+        // trRCPenagihanAPK.attr('id', "rootCousePenagihanAPK");
+
+
     </script>
 
     <script type="text/javascript">
@@ -1476,38 +1785,453 @@
                 },
                 success: function(dataRootCouseCancel) {
 
-                    var TotRootCancel = 0;
+                    $('#rootCouseHeadCancel').find("tr").remove();
+                    $('#rootCouseTbCancel').find("tr").remove();
+                    $('#totRootCouseCancel').find("th").remove();
 
+                    var TotRootDoneCancel = 0;
+                    let tbRootCouseCancel;
                     let hdRootCouseCancel = `
                         <tr>
                                 <th>RootCouse Cancel</th>
-                                <th style="text-align: center">${bulanReport}</th>
                         </tr>`;
-
+                    
                     $('#rootCouseHeadCancel').append(hdRootCouseCancel);
+
+                    for (b = 0; b < trendWoMt.length; b++) {
+                        $('#rootCouseHeadCancel').find("tr").append(
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                    }
 
                     $.each(dataRootCouseCancel, function(key, item) {
 
-                        let tbRootCouseCancel = `
+                        if(item.penagihan == 'total_cancel') {
+                            tbRootCouseCancel = `
+                            <tr>
+                                <th>Total</th>
+                                
+                            `;
+                        }else {
+                            tbRootCouseCancel = `
                             <tr>
                                 <td>${item.penagihan}</td>
-                                <td style="text-align: center">${item.jml.toLocaleString()}</td>
-                            </tr>
-                        `;
+                                
+                            `;
+                        }
+                        
+                        if(item.penagihan == 'total_cancel'){
+                        for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbRootCouseCancel = tbRootCouseCancel +
+                                `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                        }
 
-                        TotRootCancel = Number(TotRootCancel) + Number(item.jml);
+                        }else{
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbRootCouseCancel = tbRootCouseCancel +
+                                `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }    
+                        }
+
+                        tbRootCouseCancel = tbRootCouseCancel + `</tr>`;
                         $('#rootCouseTbCancel').append(tbRootCouseCancel);
 
                     });
-
-                    let totalRootCouseCancel = `
-                        <th style="text-align: center; vertical-align: middle;">${TotRootCancel.toLocaleString()}</th>
-                        `;
-
-                    $('#totRootCouseCancel').append(totalRootCouseCancel);
                 }
 
             });
+
+            $.ajax({
+                url: "{{ route('getRootCouseAPK') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
+                },
+                success: function(apk) {
+
+                    $('#rootCouseHeadAPK').find("th").remove();
+                    $('#bodyRootCouseAPK').find("tr").remove();
+                    $('#penagihanAPK').find("th").remove();
+                    $('#couseCodePenagihanAPK').find("th").remove();
+                    $('#rootCousePenagihanAPK').find("td").remove();
+
+                    let TotPenagihan = 0;
+                    let tbPenagihanAPK;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>RootCouse Aplikasi ${bulanReport}</th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align: center">Jumlah</th>`;
+                    
+                    $('#rootCouseHeadAPK').append(hdRootCouseAPK);
+
+
+
+                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+                        
+                        tbPenagihanAPK = `
+                                <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
+                                <th class="table-secondary"></th>
+                                <th class="table-secondary"></th>
+                                <th class="table-secondary" style="text-align: center">${itemPenagihan.jml}</th></tr>
+                            `;
+                        // $('#penagihanAPK').append(tbPenagihanAPK);
+                        $('#bodyRootCouseAPK').append(tbPenagihanAPK);
+
+                        TotPenagihan += itemPenagihan.jml;
+
+                        $.each(apk.detCouseCodeSortir, function(key,itemCouseCode) {
+                            if(itemPenagihan.penagihan == itemCouseCode.penagihan ){
+                                tbCouseCodeAPK = `
+                                    <tr><th></th>
+                                    <th class="table-info">${itemCouseCode.couse_code}</th>
+                                    <th class="table-info"></th>
+                                    <th class="table-info" style="text-align: center">${itemCouseCode.jml}</th></tr>
+                                `;
+                        //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
+                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK);
+
+
+                                $.each(apk.detRootCouseSortir, function(key,itemRootCouse) {
+                                    if(itemPenagihan.penagihan==itemRootCouse.penagihan && itemCouseCode.couse_code==itemRootCouse.couse_code) {
+                                        tbRootCouseAPK = `
+                                            <tr><td></td>
+                                            <td></td>
+                                            <td>${itemRootCouse.root_couse}</td>
+                                            <td style="text-align: center">${itemRootCouse.jml}</td></tr>
+                                        `;
+
+                        //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
+                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK);
+                                    }
+
+                                });
+                            }
+
+
+                        });
+
+                    });
+
+                    let totRootCouseAPK = `
+                        <tr><th class="table-dark">TOTAL</th>
+                            <th class="table-dark"></th>
+                            <th class="table-dark"></th>
+                            <th class="table-dark" style="text-align: center">${TotPenagihan}</th></tr>`;
+                    
+                    $('#bodyRootCouseAPK').append(totRootCouseAPK);
+                }
+
+            });
+
+            $.ajax({
+                url: "{{ route('getCancelSystemProblem') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
+                },
+                success: function(btn) {
+
+                    var btnMonth = [];
+                    var btnTotMt = [];
+                    var btnTot = [];
+                    
+                    $('#backToNormalHead').find("th").remove();
+                    $('#bodyBackToNormal').find("tr").remove();
+                    $('#totSysProblem').find("th").remove();
+
+                    $('#totSysProblem').append(
+                        `<th class="table-dark">Total</th>
+                        <th class="table-dark"></th>`);
+
+                    $('#PersenBackToNormalHead').find("th").remove();
+                    $('#PersenBackToNormalHead').append(`<th>Persentase WO Back To Normal</th>`);
+
+                    $('#totWoMT').find("th").remove();
+                    $('#totWoMT').find("td").remove();
+                    $('#totWoMT').append(`<th>Total WO Maintenance</th>`);
+
+                    $('#totWoBtn').find("th").remove();
+                    $('#totWoBtn').find("td").remove();
+                    $('#totWoBtn').append(`<th>Total WO Back To Normal</th>`);
+
+                    $('#PersenTotSysProblem').find("th").remove();
+                    $('#PersenTotSysProblem').append(`<th class="table-dark">Total</th>`);
+
+
+
+                    var TotBtn = 0;
+                    let tbBtn;
+                    let hdBtn = `
+                                <th>WO Back To Normal</th>
+                                <th></th>`;
+                    
+                    $('#backToNormalHead').append(hdBtn);
+
+                    for (b = 0; b < trendWoMt.length; b++) {
+                        $('#backToNormalHead').append(
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                    }
+
+                    
+                                    // <th class="table-secondary"></th>
+                                    // <th class="table-secondary"></th>
+                                    // </tr>`;
+
+                    $.each(btn.statVisit, function(key, itemVisit) {
+                        tbBtn = tbBtn +
+                            `<tr><th class="table-secondary">${itemVisit.visit_novisit}</th>
+                            <th class="table-secondary"></th>`;
+
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbBtn = tbBtn +
+                                    `<th class="table-secondary" style="text-align: center">${itemVisit.bulan[trendWoMt[bln].bulan]}</th>`;
+                                
+                            }
+
+                                tbBtn = tbBtn + `</tr>`;
+
+                                $.each(btn.visitSysProblem, function(key,itemSysProblem){
+
+                                    if(itemVisit.visit_novisit == itemSysProblem.visit_novisit){
+                                        tbBtn = tbBtn +
+                                            `<tr><th></th>
+                                            <th class="table-info">${itemSysProblem.action_taken}</th>
+                                            `;
+
+                                        for(bln = 0; bln < trendWoMt.length; bln++){
+                                            tbBtn = tbBtn +
+                                            `<td class="table-info" style="text-align: center">${itemSysProblem.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                                        }
+                                    }
+                                });          
+                                
+                            
+
+                    });
+
+                    $('#bodyBackToNormal').append(tbBtn + `</tr>`);
+
+                    $.each(btn.totSysProblem, function(key, itemTot){
+                        $('#totSysProblem').append(
+                            `<th class="table-dark" style="text-align: center">${itemTot.total}</th>
+                            `);
+
+                        $('#PersenBackToNormalHead').append(
+                            `<th style="text-align: center">${itemTot.bulan}</th>`);
+
+                        $('#totWoMT').append(
+                            `<td style="text-align: center">${itemTot.totalMt.toLocaleString()}</td>`);
+
+                        $('#totWoBtn').append(
+                            `<td style="text-align: center">${itemTot.total.toLocaleString()}</td>`);
+
+                        $('#PersenTotSysProblem').append(
+                            `<th class="table-dark" style="text-align: center">${parseFloat((itemTot.total * 100) / itemTot.totalMt).toFixed(1)}%</th>`);
+
+
+                        btnMonth.push(itemTot.bulan);
+                        btnTotMt.push(itemTot.totalMt);
+                        btnTot.push(itemTot.total)
+                        
+                    });
+
+                    const ctxBtnWoMt = document.getElementById('GraphWoBTN');
+
+                    var graphBtnWoMt = Chart.getChart('GraphWoBTN');
+                    if (graphBtnWoMt) {
+                        graphBtnWoMt.destroy();
+                    }
+
+                    new Chart(ctxBtnWoMt, {
+                        type: 'bar',
+                        data: {
+                            labels: btnMonth, //['Jan-24'],
+                            datasets: [{
+                                label: 'Total WO MT',
+                                data: btnTotMt, //[3895],
+                                borderWidth: 1,
+
+                            },
+                            {
+                                label: 'Total WO Back To Normal',
+                                data: btnTot, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'bottom',
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'WO Back To Normal',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //if false, this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+
+                    
+
+
+
+                }
+
+            });
+
+            $.ajax({
+                url: "{{ route('getTrendMonthlyApart') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport
+
+                },
+                success: function(dataTrendMonthlyApart) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    trendWoMtApart = dataTrendMonthlyApart;
+
+                    var trendMonthApart = [''];
+                    var trendTotMtApart = ['null'];
+                    var trendMtDoneApart = ['null'];
+
+                    $.each(trendWoMtApart, function(key, item) {
+
+                        trendMonthApart.push(item.bulan);
+                        trendTotMtApart.push(item.trendMtTotal);
+                        trendMtDoneApart.push(item.trendMtDone);
+
+                    });
+
+                    trendMonthApart.push('');
+                    trendTotMtApart.push('null');
+                    trendMtDoneApart.push('null');
+
+                    const ctxTrendTotWoMtApart = document.getElementById('TrendTotWoMtApart');
+
+                    var graphTrendTotWoMtApart = Chart.getChart('TrendTotWoMtApart');
+                    if (graphTrendTotWoMtApart) {
+                        graphTrendTotWoMtApart.destroy();
+                    }
+
+
+
+                    new Chart(ctxTrendTotWoMtApart, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonthApart, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotMtApart, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top'
+                                },
+                                title: {
+                                    display: true,
+                                    // text: 'Trend WO Maintenance Apartment All Branch',
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoMtCloseApart = document.getElementById('TrendTotWoMtCloseApart');
+
+                    var graphTrendTotWoMtCloseApart = Chart.getChart('TrendTotWoMtCloseApart');
+                    if (graphTrendTotWoMtCloseApart) {
+                        graphTrendTotWoMtCloseApart.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoMtCloseApart, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonthApart, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendMtDoneApart, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top'
+                                },
+                                title: {
+                                    display: true,
+                                    // text: 'Trend WO Maintenance Close Apartment All Branch',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                }
+
+            });
+
 
         });
     </script>

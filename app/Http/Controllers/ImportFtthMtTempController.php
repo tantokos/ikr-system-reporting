@@ -218,6 +218,7 @@ class ImportFtthMtTempController extends Controller
                     'weather' => $importFtthMtOri->weather,
                     'remark_status' => $importFtthMtOri->remark_status,
                     'action_status' => $importFtthMtOri->action_status,
+                    'visit_novisit' => $importFtthMtOri->visit_novisit,
                     'start_ikr_wa' => $importFtthMtOri->start_ikr_wa,
                     'end_ikr_wa' => $importFtthMtOri->end_ikr_wa,
                     'validasi_start' => $importFtthMtOri->validasi_start,

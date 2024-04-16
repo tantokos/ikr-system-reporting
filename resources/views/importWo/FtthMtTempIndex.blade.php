@@ -21,7 +21,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <button type="submit" class="btn btn-sm btn-success">Import Data Aset</button>
+                                <button type="submit" class="btn btn-sm btn-success">Import Data FTTH MT Original</button>
                             </div>
                         </div>
 
