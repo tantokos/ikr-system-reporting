@@ -33,7 +33,7 @@
             </a>
             <ul class="pcoded-submenu">
                 
-                <li class="{{ request()->is('reportMtFtth*') ? 'active' : '' }}">
+                <li class="{{ request()->is('reportMtFtth*','/') ? 'active' : '' }}">
                     <a href="{{ route('reportMtFtth.index') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report MT FTTH Montly</span>

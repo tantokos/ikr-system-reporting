@@ -63,6 +63,7 @@ class ImportFtthMT implements ToModel, WithHeadingRow
             'weather' => $row['weather'],
             'remark_status' => $row['remark_status'],
             'action_status' => $row['action_status'],
+            'visit_novisit' =>$row['visit_novisit'],
             'start_ikr_wa' => $row['start_ikr_wa'],
             'end_ikr_wa' => $row['end_ikr_wa'],
             'validasi_start' => $row['validasi_start'],
