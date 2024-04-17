@@ -555,6 +555,324 @@ class ReportController extends Controller
         ]);
     }
 
+    public function getRootCousePendingApart(Request $request)
+    {
+
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $RootPendingMonthlyApart = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+            ->whereYear('tgl_ikr', '=', $tahun)
+            ->distinct()->get();
+
+        $rootCousePendingApart = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Pending')->get();
+
+        for ($x = 0; $x < $rootCousePendingApart->count(); $x++) {
+            for ($b = 0; $b < $RootPendingMonthlyApart->count(); $b++) {
+
+                $bln = \Carbon\Carbon::parse($RootPendingMonthlyApart[$b]->bulan)->month;
+                $thn = \Carbon\Carbon::parse($RootPendingMonthlyApart[$b]->bulan)->year;
+
+                $jmlBln = $RootPendingMonthlyApart[$b]->bulan;
+
+                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCousePendingApart[$x]->penagihan)
+                    ->where('site_penagihan','=','Apartement')
+                    ->whereMonth('tgl_ikr', '=', $bln)
+                    ->whereYear('tgl_ikr', '=', $thn)
+                    ->count();
+
+                $rootCousePendingApart[$x]->bulan[$jmlBln] = $jml;
+            }
+        }
+
+        for ($b = 0; $b < $RootPendingMonthlyApart->count(); $b++) {
+            $bln = \Carbon\Carbon::parse($RootPendingMonthlyApart[$b]->bulan)->month;
+            $thn = \Carbon\Carbon::parse($RootPendingMonthlyApart[$b]->bulan)->year;
+
+            $tot = DataFtthMtSortir::where('status_wo', '=', 'Pending')
+            ->where('site_penagihan','=','Apartement')
+            ->whereMonth('tgl_ikr', '=', $bln)
+            ->whereYear('tgl_ikr', '=', $thn)->count();
+
+            $rootCousePendingApart[$rootCousePendingApart->count() - 1]->bulan[$RootPendingMonthlyApart[$b]->bulan] = $tot;
+        }
+
+        return response()->json($rootCousePendingApart);
+    }
+
+    public function getRootCouseCancelApart(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $RootCancelMonthlyApart = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+            ->whereYear('tgl_ikr', '=', $tahun)
+            ->distinct()->get();
+
+        $rootCouseCancelApart = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Cancel')->get();
+
+        for ($x = 0; $x < $rootCouseCancelApart->count(); $x++) {
+            for ($b = 0; $b < $RootCancelMonthlyApart->count(); $b++) {
+
+                $bln = \Carbon\Carbon::parse($RootCancelMonthlyApart[$b]->bulan)->month;
+                $thn = \Carbon\Carbon::parse($RootCancelMonthlyApart[$b]->bulan)->year;
+
+                $jmlBln = $RootCancelMonthlyApart[$b]->bulan;
+
+                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseCancelApart[$x]->penagihan)
+                    ->where('site_penagihan','=','Apartement')
+                    ->whereMonth('tgl_ikr', '=', $bln)
+                    ->whereYear('tgl_ikr', '=', $thn)
+                    ->count();
+
+                $rootCouseCancelApart[$x]->bulan[$jmlBln] = $jml;
+            }
+        }
+
+        for ($b = 0; $b < $RootCancelMonthlyApart->count(); $b++) {
+            $bln = \Carbon\Carbon::parse($RootCancelMonthlyApart[$b]->bulan)->month;
+            $thn = \Carbon\Carbon::parse($RootCancelMonthlyApart[$b]->bulan)->year;
+
+            $tot = DataFtthMtSortir::where('status_wo', '=', 'Cancel')
+                ->where('site_penagihan','=','Apartement')
+                ->whereMonth('tgl_ikr', '=', $bln)
+                ->whereYear('tgl_ikr', '=', $thn)->count();
+
+            $rootCouseCancelApart[$rootCouseCancelApart->count() - 1]->bulan[$RootCancelMonthlyApart[$b]->bulan] = $tot;
+        }
+
+        return response()->json($rootCouseCancelApart);
+    }
+
+    public function getTrendMonthlyUG(Request $request)
+    {
+        $trendMonthlyUG = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))->distinct()->get();
+
+        // dd(\Carbon\Carbon::parse($trendMonthly[0]->bulan)->year);
+
+        for ($m = 0; $m < $trendMonthlyUG->count(); $m++) {
+            $totMtMontly = DB::table('data_ftth_mt_sortirs')
+                ->where('site_penagihan','=','Underground')
+                ->whereMonth('tgl_ikr', \Carbon\Carbon::parse($trendMonthlyUG[$m]->bulan)->month)
+                ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendMonthlyUG[$m]->bulan)->year)
+                ->count();
+            $totMtMontlyDone = DB::table('data_ftth_mt_sortirs')
+                ->where('site_penagihan','=','Underground')
+                ->whereMonth('tgl_ikr', \Carbon\Carbon::parse($trendMonthlyUG[$m]->bulan)->month)
+                ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendMonthlyUG[$m]->bulan)->year)
+                ->where('status_wo', '=', 'Done')
+                ->count();
+
+            $trendMonthlyUG[$m]->trendMtTotal = $totMtMontly;
+            $trendMonthlyUG[$m]->trendMtDone = $totMtMontlyDone;
+        }
+
+        return response()->json($trendMonthlyUG);
+    }
+
+    public function getTabelStatusUG(Request $request)
+    {
+        // dd($request);
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+        $jmlHari = \Carbon\Carbon::parse($request->bulanTahunReport)->daysInMonth;
+
+        // for ($x=0; $x < $jmlHari; $x++ ){
+
+        $tblStatusUG = DB::table('data_ftth_mt_sortirs')->select(DB::raw('tgl_ikr,count(if(status_wo = "Done" and site_penagihan="Underground", 1, NULL)) as Done, 
+        count(if(status_wo = "Pending" and site_penagihan="Underground", 1, NULL)) as Pending, count(if(status_wo = "Cancel" and site_penagihan="Underground", 1, NULL)) as Cancel'))
+            // ->where('site_penagihan','=','Apartement')
+            // ->whereDay('tgl_ikr',$x)
+            ->whereMonth('tgl_ikr', $bulan)
+            ->whereYear('tgl_ikr', $tahun)
+            ->orderBy('tgl_ikr')
+            ->groupBy('tgl_ikr')->get();
+            
+        // }
+
+        // dd($tblStatusApart);
+        return response()->json($tblStatusUG);
+    }
+
+    public function getRootCouseDoneUG(Request $request)
+    {
+
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $RootDoneMonthlyUG = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+            ->whereYear('tgl_ikr', '=', $tahun)
+            ->distinct()->get();
+
+        $rootCouseDoneUG = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Done')->get();
+
+        for ($x = 0; $x < $rootCouseDoneUG->count(); $x++) {
+            for ($b = 0; $b < $RootDoneMonthlyUG->count(); $b++) {
+
+                $bln = \Carbon\Carbon::parse($RootDoneMonthlyUG[$b]->bulan)->month;
+                $thn = \Carbon\Carbon::parse($RootDoneMonthlyUG[$b]->bulan)->year;
+
+                $jmlBln = $RootDoneMonthlyUG[$b]->bulan;
+
+                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseDoneUG[$x]->penagihan)
+                    ->where('site_penagihan','=','Underground')
+                    ->whereMonth('tgl_ikr', '=', $bln)
+                    ->whereYear('tgl_ikr', '=', $thn)
+                    ->count();
+
+                $rootCouseDoneUG[$x]->bulan[$jmlBln] = $jml;
+            }
+        }
+
+        for ($b = 0; $b < $RootDoneMonthlyUG->count(); $b++) {
+            $bln = \Carbon\Carbon::parse($RootDoneMonthlyUG[$b]->bulan)->month;
+            $thn = \Carbon\Carbon::parse($RootDoneMonthlyUG[$b]->bulan)->year;
+
+            $tot = DataFtthMtSortir::where('status_wo', '=', 'Done')
+                    ->where('site_penagihan','=','Underground')
+                    ->whereMonth('tgl_ikr', '=', $bln)->whereYear('tgl_ikr', '=', $thn)->count();
+
+            $rootCouseDoneUG[$rootCouseDoneUG->count() - 1]->bulan[$RootDoneMonthlyUG[$b]->bulan] = $tot;
+        }
+
+        return response()->json($rootCouseDoneUG);
+    }
+
+    public function getRootCouseAPKUG(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        // $rootCousePenagihan = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Done')->get();
+
+        // query data Sortir
+
+        $detPenagihanSortirUG = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan, count(data_ftth_mt_sortirs.penagihan) as jml'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('site_penagihan','=','Underground')
+            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+            ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        // // dd($detPenagihanSortir);
+
+        $detCouseCodeSortirUG = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code, count(*) as jml'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('site_penagihan','=','Underground')
+            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+            ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        $detRootCouseSortirUG = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse, count(*) as jml'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('site_penagihan','=','Underground')
+            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+            ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        // end query data Sortir
+
+        return response()->json([
+            'detPenagihanSortirUG' => $detPenagihanSortirUG,
+            'detCouseCodeSortirUG' => $detCouseCodeSortirUG, 'detRootCouseSortirUG' => $detRootCouseSortirUG
+        ]);
+    }
+
+    public function getRootCousePendingUG(Request $request)
+    {
+
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $RootPendingMonthlyUG = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+            ->whereYear('tgl_ikr', '=', $tahun)
+            ->distinct()->get();
+
+        $rootCousePendingUG = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Pending')->get();
+
+        for ($x = 0; $x < $rootCousePendingUG->count(); $x++) {
+            for ($b = 0; $b < $RootPendingMonthlyUG->count(); $b++) {
+
+                $bln = \Carbon\Carbon::parse($RootPendingMonthlyUG[$b]->bulan)->month;
+                $thn = \Carbon\Carbon::parse($RootPendingMonthlyUG[$b]->bulan)->year;
+
+                $jmlBln = $RootPendingMonthlyUG[$b]->bulan;
+
+                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCousePendingUG[$x]->penagihan)
+                    ->where('site_penagihan','=','Underground')
+                    ->whereMonth('tgl_ikr', '=', $bln)
+                    ->whereYear('tgl_ikr', '=', $thn)
+                    ->count();
+
+                $rootCousePendingUG[$x]->bulan[$jmlBln] = $jml;
+            }
+        }
+
+        for ($b = 0; $b < $RootPendingMonthlyUG->count(); $b++) {
+            $bln = \Carbon\Carbon::parse($RootPendingMonthlyUG[$b]->bulan)->month;
+            $thn = \Carbon\Carbon::parse($RootPendingMonthlyUG[$b]->bulan)->year;
+
+            $tot = DataFtthMtSortir::where('status_wo', '=', 'Pending')
+            ->where('site_penagihan','=','Underground')
+            ->whereMonth('tgl_ikr', '=', $bln)
+            ->whereYear('tgl_ikr', '=', $thn)->count();
+
+            $rootCousePendingUG[$rootCousePendingUG->count() - 1]->bulan[$RootPendingMonthlyUG[$b]->bulan] = $tot;
+        }
+
+        return response()->json($rootCousePendingUG);
+    }
+
+    public function getRootCouseCancelUG(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $RootCancelMonthlyUG = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+            ->whereYear('tgl_ikr', '=', $tahun)
+            ->distinct()->get();
+
+        $rootCouseCancelUG = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Cancel')->get();
+
+        for ($x = 0; $x < $rootCouseCancelUG->count(); $x++) {
+            for ($b = 0; $b < $RootCancelMonthlyUG->count(); $b++) {
+
+                $bln = \Carbon\Carbon::parse($RootCancelMonthlyUG[$b]->bulan)->month;
+                $thn = \Carbon\Carbon::parse($RootCancelMonthlyUG[$b]->bulan)->year;
+
+                $jmlBln = $RootCancelMonthlyUG[$b]->bulan;
+
+                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseCancelUG[$x]->penagihan)
+                    ->where('site_penagihan','=','Underground')
+                    ->whereMonth('tgl_ikr', '=', $bln)
+                    ->whereYear('tgl_ikr', '=', $thn)
+                    ->count();
+
+                $rootCouseCancelUG[$x]->bulan[$jmlBln] = $jml;
+            }
+        }
+
+        for ($b = 0; $b < $RootCancelMonthlyUG->count(); $b++) {
+            $bln = \Carbon\Carbon::parse($RootCancelMonthlyUG[$b]->bulan)->month;
+            $thn = \Carbon\Carbon::parse($RootCancelMonthlyUG[$b]->bulan)->year;
+
+            $tot = DataFtthMtSortir::where('status_wo', '=', 'Cancel')
+                ->where('site_penagihan','=','Underground')
+                ->whereMonth('tgl_ikr', '=', $bln)
+                ->whereYear('tgl_ikr', '=', $thn)->count();
+
+            $rootCouseCancelUG[$rootCouseCancelUG->count() - 1]->bulan[$RootCancelMonthlyUG[$b]->bulan] = $tot;
+        }
+
+        return response()->json($rootCouseCancelUG);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
