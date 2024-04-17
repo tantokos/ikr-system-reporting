@@ -8,7 +8,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form action="#">
                         <div class="row">
                             <div class="col-sm">
                                 <label class="form-text">Bulan Laporan</label>
@@ -78,6 +78,17 @@
                                 </select>
                             </div> --}}
                         </div>
+
+                        <div class="row">
+                            {{-- <div class="form-group"> --}}
+                            <div class="col-sm-2">
+                                
+                                <button type="submit" class="btn btn-sm btn-success">Filter</button>
+                            </div>
+                            {{-- </div> --}}
+                            
+                        </div>
+
                     </form>
                 </div>
             </div>

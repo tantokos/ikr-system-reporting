@@ -22,7 +22,12 @@ class ReportController extends Controller
     {
         $akses = Auth::user()->name;
 
-        $branchPenagihan = Branch::select('id', 'nama_branch')->orderBy('id')->get();
+        // $branchPenagihan = Branch::select('id', 'nama_branch')->orderBy('id')->get();
+        $branchPenagihan = DB::table('branches as b')->Join('data_ftth_mt_sortirs as d','b.nama_branch', '=','d.branch')
+                        ->select('b.id','d.branch as nama_branch')
+                        ->distinct()
+                        ->orderBy('b.id')
+                        ->get();
 
         $tgl = ImportFtthMtSortirTemp::select('tgl_ikr')->distinct()->get();
 
