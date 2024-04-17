@@ -83,7 +83,10 @@ Route::group(
         Route::get('/getRootCouseAPK', [ReportController::class, 'getRootCouseAPK'])->name('getRootCouseAPK');
         Route::get('/getCancelSystemProblem', [ReportController::class, 'getCancelSystemProblem'])->name('getCancelSystemProblem');
         Route::get('/getTrendMonthlyApart', [ReportController::class, 'getTrendMonthlyApart'])->name('getTrendMonthlyApart');
-
+        Route::get('/getTabelStatusApart', [ReportController::class, 'getTabelStatusApart'])->name('getTabelStatusApart');
+        Route::get('/getRootCouseDoneApart', [ReportController::class, 'getRootCouseDoneApart'])->name('getRootCouseDoneApart');
+        Route::get('/getRootCouseAPKApart', [ReportController::class, 'getRootCouseAPKApart'])->name('getRootCouseAPKApart');
+        
         Route::get('/importftthmttemp', [ImportFtthMtTempController::class , 'index'])->name('import.ftthmttempIndex');
         Route::get('/DataImportFtthMtTemp', [ImportFtthMtTempController::class, 'dataImportFtthTemp'])->name('import.dataImportFtthMtTemp');
         Route::post('/import-FtthMtTemp', [ImportFtthMtTempController::class, 'importFtthMtTemp'])->name('import.ImportFtthMtTemp');

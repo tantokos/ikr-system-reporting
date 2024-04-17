@@ -440,6 +440,121 @@ class ReportController extends Controller
         return response()->json($trendMonthlyApart);
     }
 
+    public function getTabelStatusApart(Request $request)
+    {
+        // dd($request);
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+        $jmlHari = \Carbon\Carbon::parse($request->bulanTahunReport)->daysInMonth;
+
+        // for ($x=0; $x < $jmlHari; $x++ ){
+
+        $tblStatusApart = DB::table('data_ftth_mt_sortirs')->select(DB::raw('tgl_ikr,count(if(status_wo = "Done" and site_penagihan="Apartement", 1, NULL)) as Done, 
+        count(if(status_wo = "Pending" and site_penagihan="Apartement", 1, NULL)) as Pending, count(if(status_wo = "Cancel" and site_penagihan="Apartement", 1, NULL)) as Cancel'))
+            // ->where('site_penagihan','=','Apartement')
+            // ->whereDay('tgl_ikr',$x)
+            ->whereMonth('tgl_ikr', $bulan)
+            ->whereYear('tgl_ikr', $tahun)
+            ->orderBy('tgl_ikr')
+            ->groupBy('tgl_ikr')->get();
+            
+        // }
+
+        // dd($tblStatusApart);
+        return response()->json($tblStatusApart);
+    }
+
+    public function getRootCouseDoneApart(Request $request)
+    {
+
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $RootDoneMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+            ->whereYear('tgl_ikr', '=', $tahun)
+            ->distinct()->get();
+
+        $rootCouseDoneApart = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Done')->get();
+
+        for ($x = 0; $x < $rootCouseDoneApart->count(); $x++) {
+            for ($b = 0; $b < $RootDoneMonthly->count(); $b++) {
+
+                $bln = \Carbon\Carbon::parse($RootDoneMonthly[$b]->bulan)->month;
+                $thn = \Carbon\Carbon::parse($RootDoneMonthly[$b]->bulan)->year;
+
+                $jmlBln = $RootDoneMonthly[$b]->bulan;
+
+                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseDoneApart[$x]->penagihan)
+                    ->where('site_penagihan','=','Apartement')
+                    ->whereMonth('tgl_ikr', '=', $bln)
+                    ->whereYear('tgl_ikr', '=', $thn)
+                    ->count();
+
+                $rootCouseDoneApart[$x]->bulan[$jmlBln] = $jml;
+            }
+        }
+
+        for ($b = 0; $b < $RootDoneMonthly->count(); $b++) {
+            $bln = \Carbon\Carbon::parse($RootDoneMonthly[$b]->bulan)->month;
+            $thn = \Carbon\Carbon::parse($RootDoneMonthly[$b]->bulan)->year;
+
+            $tot = DataFtthMtSortir::where('status_wo', '=', 'Done')
+                    ->where('site_penagihan','=','Apartement')
+                    ->whereMonth('tgl_ikr', '=', $bln)->whereYear('tgl_ikr', '=', $thn)->count();
+
+            $rootCouseDoneApart[$rootCouseDoneApart->count() - 1]->bulan[$RootDoneMonthly[$b]->bulan] = $tot;
+        }
+
+        return response()->json($rootCouseDoneApart);
+    }
+
+
+    public function getRootCouseAPKApart(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        // $rootCousePenagihan = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Done')->get();
+
+        // query data Sortir
+
+        $detPenagihanSortirApart = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan, count(data_ftth_mt_sortirs.penagihan) as jml'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('site_penagihan','=','Apartement')
+            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+            ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        // // dd($detPenagihanSortir);
+
+        $detCouseCodeSortirApart = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code, count(*) as jml'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('site_penagihan','=','Apartement')
+            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+            ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        $detRootCouseSortirApart = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse, count(*) as jml'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('site_penagihan','=','Apartement')
+            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+            ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        // end query data Sortir
+
+        return response()->json([
+            'detPenagihanSortirApart' => $detPenagihanSortirApart,
+            'detCouseCodeSortirApart' => $detCouseCodeSortirApart, 'detRootCouseSortirApart' => $detRootCouseSortirApart
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

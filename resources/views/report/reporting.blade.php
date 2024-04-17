@@ -152,7 +152,7 @@
             </div>
         </div>
 
-        
+
 
         <div class="col">
             <div class="card">
@@ -412,7 +412,7 @@
         </div>
     </div>
 
-    
+
     <div class="row">
 
         {{-- Root Couse Sortir MT --}}
@@ -428,61 +428,6 @@
                         </tr>
                     </thead>
                     <tbody id="bodyRootCouseAPK">
-                        {{-- <ul style="font-size: 12px"> --}}
-                        {{-- @for ($x = 0; $x < count($detPenagihanSortir); $x++) --}}
-                            {{-- <tr id="penagihanAPK" class="table-secondary"> --}}
-                                {{-- <th> --}}
-                                    {{-- {{ $detPenagihanSortir[$x]->penagihan }} --}}
-                                {{-- </th> --}}
-                                {{-- <th></th> --}}
-                                {{-- <th></th> --}}
-                                {{-- <th style="text-align: center"> --}}
-                                    {{-- {{ number_format($detPenagihanSortir[$x]->jml) }} --}}
-                                {{-- </th> --}}
-                            {{-- </tr> --}}
-                            {{-- <ul> --}}
-                            {{-- {{dd($detCouseCodeSortir->pluck('couse_code'))}} --}}
-                            {{-- @for ($y = 0; $y < count($detCouseCodeSortir); $y++) --}}
-                                {{-- @if ($detPenagihanSortir[$x]->penagihan == $detCouseCodeSortir[$y]->penagihan) --}}
-                                    {{-- <tr id="couseCodePenagihanAPK"> --}}
-                                        {{-- <th></th> --}}
-                                        {{-- <th class="table-info"> --}}
-
-                                            {{-- {{ $detCouseCodeSortir[$y]->couse_code }} --}}
-                                        {{-- </th> --}}
-                                        {{-- <th class="table-info"></th> --}}
-                                        {{-- <th class="table-info" style="text-align: center"> --}}
-                                            {{-- {{ number_format($detCouseCodeSortir[$y]->jml) }} --}}
-                                        {{-- </th> --}}
-                                    {{-- </tr> --}}
-
-                                    {{-- <ul> --}}
-                                    {{-- @for ($z = 0; $z < count($detRootCouseSortir); $z++) --}}
-                                        {{-- @if ( --}}
-                                            {{-- $detPenagihanSortir[$x]->penagihan == $detRootCouseSortir[$z]->penagihan && --}}
-                                                {{-- $detCouseCodeSortir[$y]->couse_code == $detRootCouseSortir[$z]->couse_code) --}}
-                                            {{-- <tr id="rootCousePenagihanAPK"> --}}
-                                                {{-- <td></td> --}}
-                                                {{-- <td></td> --}}
-                                                {{-- <td> --}}
-                                                    {{-- {{ $detRootCouseSortir[$z]->root_couse }} --}}
-                                                {{-- </td> --}}
-                                                {{-- <td style="text-align: center"> --}}
-                                                    {{-- {{ number_format($detRootCouseSortir[$z]->jml) }} --}}
-                                                {{-- </td> --}}
-                                            {{-- </tr> --}}
-                                        {{-- @endif --}}
-                                    {{-- @endfor --}}
-
-                                {{-- @endif --}}
-                            {{-- @endfor --}}
-                        {{-- @endfor --}}
-                        {{-- <tr> --}}
-                            {{-- <th class="table-dark">TOTAL</th> --}}
-                            {{-- <th class="table-dark"></th> --}}
-                            {{-- <th class="table-dark"></th> --}}
-                            {{-- <th class="table-dark" style="text-align: center">{{ number_format($detRootCouseSortir->sum('jml')) }}</th> --}}
-                        {{-- </tr> --}}
                     </tbody>
                 </table>
             </div>
@@ -539,9 +484,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
     <div class="row">
@@ -593,9 +535,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
     <div class="row">
@@ -621,63 +560,65 @@
     <div class="row">
 
         {{-- Back To Normal Sortir MT --}}
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered border-secondary" style="font-size: 11px; table-layout: fixed;">
-                    <thead>
-                        <tr id="backToNormalHead">
-                        </tr>
-                    </thead>
-                    <tbody id="bodyBackToNormal">
-                    </tbody>
-                    <tfoot>
-                        <tr id="totSysProblem">
-                            {{-- <th class="table-dark">Total</th>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered border-secondary"
+                            style="font-size: 11px; table-layout: fixed;">
+                            <thead>
+                                <tr id="backToNormalHead">
+                                </tr>
+                            </thead>
+                            <tbody id="bodyBackToNormal">
+                            </tbody>
+                            <tfoot>
+                                <tr id="totSysProblem">
+                                    {{-- <th class="table-dark">Total</th>
                             <th class="table-dark"></th> --}}
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
+        </div>
         {{-- End Back To Normal Sortir MT --}}
     </div>
 
     <div class="row">
 
         {{-- Back To Normal 2 Sortir MT --}}
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered border-secondary" style="font-size: 11px; table-layout: fixed;">
-                    <thead>
-                        <tr id="PersenBackToNormalHead">
-                            {{-- <th>Persentase WO Back To Normal</th> --}}
-                        </tr>
-                    </thead>
-                    <tbody id="PersenBodyBackToNormal">
-                        <tr id="totWoMT">
-                            {{-- <th>Total WO Maintenance</th> --}}
-                        </tr>
-                        <tr id="totWoBtn">
-                            {{-- <th>Total WO Back To Normal</th> --}}
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr id="PersenTotSysProblem">
-                            {{-- <th class="table-dark">Total</th> --}}
-                            {{-- <th class="table-dark"></th> --}}
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary"
+                            style="font-size: 11px; table-layout: fixed;">
+                            <thead>
+                                <tr id="PersenBackToNormalHead">
+                                    {{-- <th>Persentase WO Back To Normal</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody id="PersenBodyBackToNormal">
+                                <tr id="totWoMT">
+                                    {{-- <th>Total WO Maintenance</th> --}}
+                                </tr>
+                                <tr id="totWoBtn">
+                                    {{-- <th>Total WO Back To Normal</th> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr id="PersenTotSysProblem">
+                                    {{-- <th class="table-dark">Total</th> --}}
+                                    {{-- <th class="table-dark"></th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
+        </div>
         {{-- End Back To Normal 2 Sortir MT --}}
     </div>
 
@@ -696,7 +637,7 @@
             <div class="card">
                 <div class="card-header">Trend WO Maintenance Apartment All Branch</div>
                 <div class="card-body">
-                    
+
                     <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas>
                 </div>
             </div>
@@ -753,6 +694,92 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Root Cause Closing WO Maintenance Apartment</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
+                            cellspacing="0" style="font-size: 12px; table-layout: fixed">
+                            <thead id="rootCouseHeadApart">
+                                {{-- <tr> --}}
+                                {{-- <th>Root Couse</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                {{-- </tr> --}}
+                            </thead>
+                            <tbody id="rootCouseTbApart">
+                                {{-- <tr id="woDone"> --}}
+                                {{-- <td>Done</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woPending"> --}}
+                                {{-- <td>Installation Failed</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                {{-- </tr> --}}
+                                {{-- <tr id="woCancel"> --}}
+                                {{-- <td>Cancel</td> --}}
+                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                {{-- </tr> --}}
+                            </tbody>
+                            <tfoot>
+                                <tr id="totRootCouseApart">
+                                    <th>Total</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5>Summary Root Cause Closing WO Maintenance FTTH Apartment (Aplikasi)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Root Couse Sortir MT --}}
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
+                            <thead>
+                                <tr id="rootCouseHeadAPKApart">
+                                    {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
+                                    {{-- <th></th> --}}
+                                    {{-- <th></th> --}}
+                                    {{-- <th style="text-align: center">Jumlah</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody id="bodyRootCouseAPKApart">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Root Couse Sortir MT --}}
 
 
 
@@ -1170,7 +1197,7 @@
 
     <script type="text/javascript">
         $('input[name="periode"]').daterangepicker();
-        
+
         // var tableRootCouseAPK = document.getElementById('bodyRootCouseAPK');
 
         // var trRCPenagihanAPK = tableRootCouseAPK.createElement('tr');
@@ -1181,8 +1208,6 @@
 
         // var trRCPenagihanAPK = tableRootCouseAPK.createElement('tr');
         // trRCPenagihanAPK.attr('id', "rootCousePenagihanAPK");
-
-
     </script>
 
     <script type="text/javascript">
@@ -1649,59 +1674,45 @@
                         <tr>
                                 <th>RootCouse Done</th>
                         </tr>`;
-                    
+
                     $('#rootCouseHead').append(hdRootCouse);
 
                     for (b = 0; b < trendWoMt.length; b++) {
                         $('#rootCouseHead').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
                     }
 
                     $.each(dataRootCouse, function(key, item) {
 
-                        if(item.penagihan == 'total_done') {
+                        if (item.penagihan == 'total_done') {
                             tbRootCouse = `
                             <tr>
                                 <th>Total</th>
                                 
                             `;
-                        }else {
+                        } else {
                             tbRootCouse = `
                             <tr>
                                 <td>${item.penagihan}</td>
                                 
                             `;
                         }
-                        
-                        if(item.penagihan == 'total_done'){
-                        for (bln = 0; bln < trendWoMt.length; bln++) {
-                            tbRootCouse = tbRootCouse +
-                                `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                        }
 
-                        }else{
+                        if (item.penagihan == 'total_done') {
                             for (bln = 0; bln < trendWoMt.length; bln++) {
-                            tbRootCouse = tbRootCouse +
-                                `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                                tbRootCouse = tbRootCouse +
+                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                            }
 
-                            }    
+                        } else {
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbRootCouse = tbRootCouse +
+                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }
                         }
-                    
-                        // }
-                        
 
-                        // if (item.penagihan == 'total_done') {
-                        //     tbTotalRootCouse = `
-                        //         <th>Total</td>
-                                
-                        //     `;
-                        
-                        //     for (bln = 0; bln < trendWoMt.length; bln++) {
-                        //         tbTotalRootCouse = tbTotalRootCouse +
-                        //             `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-
-                        //     }
-                        // }
 
                         tbRootCouse = tbRootCouse + `</tr>`;
                         $('#rootCouseTb').append(tbRootCouse);
@@ -1731,42 +1742,43 @@
                         <tr>
                                 <th>RootCouse Pending</th>
                         </tr>`;
-                    
+
                     $('#rootCouseHeadPending').append(hdRootCousePending);
 
                     for (b = 0; b < trendWoMt.length; b++) {
                         $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
                     }
 
                     $.each(dataRootCousePending, function(key, item) {
 
-                        if(item.penagihan == 'total_pending') {
+                        if (item.penagihan == 'total_pending') {
                             tbRootCousePending = `
                             <tr>
                                 <th>Total</th>
                                 
                             `;
-                        }else {
+                        } else {
                             tbRootCousePending = `
                             <tr>
                                 <td>${item.penagihan}</td>
                                 
                             `;
                         }
-                        
-                        if(item.penagihan == 'total_pending'){
-                        for (bln = 0; bln < trendWoMt.length; bln++) {
-                            tbRootCousePending = tbRootCousePending +
-                                `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                        }
 
-                        }else{
+                        if (item.penagihan == 'total_pending') {
                             for (bln = 0; bln < trendWoMt.length; bln++) {
-                            tbRootCousePending = tbRootCousePending +
-                                `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                                tbRootCousePending = tbRootCousePending +
+                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                            }
 
-                            }    
+                        } else {
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }
                         }
 
                         tbRootCousePending = tbRootCousePending + `</tr>`;
@@ -1795,42 +1807,43 @@
                         <tr>
                                 <th>RootCouse Cancel</th>
                         </tr>`;
-                    
+
                     $('#rootCouseHeadCancel').append(hdRootCouseCancel);
 
                     for (b = 0; b < trendWoMt.length; b++) {
                         $('#rootCouseHeadCancel').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
                     }
 
                     $.each(dataRootCouseCancel, function(key, item) {
 
-                        if(item.penagihan == 'total_cancel') {
+                        if (item.penagihan == 'total_cancel') {
                             tbRootCouseCancel = `
                             <tr>
                                 <th>Total</th>
                                 
                             `;
-                        }else {
+                        } else {
                             tbRootCouseCancel = `
                             <tr>
                                 <td>${item.penagihan}</td>
                                 
                             `;
                         }
-                        
-                        if(item.penagihan == 'total_cancel'){
-                        for (bln = 0; bln < trendWoMt.length; bln++) {
-                            tbRootCouseCancel = tbRootCouseCancel +
-                                `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                        }
 
-                        }else{
+                        if (item.penagihan == 'total_cancel') {
                             for (bln = 0; bln < trendWoMt.length; bln++) {
-                            tbRootCouseCancel = tbRootCouseCancel +
-                                `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                                tbRootCouseCancel = tbRootCouseCancel +
+                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                            }
 
-                            }    
+                        } else {
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbRootCouseCancel = tbRootCouseCancel +
+                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }
                         }
 
                         tbRootCouseCancel = tbRootCouseCancel + `</tr>`;
@@ -1864,13 +1877,13 @@
                         <th></th>
                         <th></th>
                         <th style="text-align: center">Jumlah</th>`;
-                    
+
                     $('#rootCouseHeadAPK').append(hdRootCouseAPK);
 
 
 
                     $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
-                        
+
                         tbPenagihanAPK = `
                                 <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
                                 <th class="table-secondary"></th>
@@ -1882,20 +1895,24 @@
 
                         TotPenagihan += itemPenagihan.jml;
 
-                        $.each(apk.detCouseCodeSortir, function(key,itemCouseCode) {
-                            if(itemPenagihan.penagihan == itemCouseCode.penagihan ){
+                        $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
+                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
                                 tbCouseCodeAPK = `
                                     <tr><th></th>
                                     <th class="table-info">${itemCouseCode.couse_code}</th>
                                     <th class="table-info"></th>
                                     <th class="table-info" style="text-align: center">${itemCouseCode.jml}</th></tr>
                                 `;
-                        //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
+                                //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
                                 $('#bodyRootCouseAPK').append(tbCouseCodeAPK);
 
 
-                                $.each(apk.detRootCouseSortir, function(key,itemRootCouse) {
-                                    if(itemPenagihan.penagihan==itemRootCouse.penagihan && itemCouseCode.couse_code==itemRootCouse.couse_code) {
+                                $.each(apk.detRootCouseSortir, function(key,
+                                    itemRootCouse) {
+                                    if (itemPenagihan.penagihan == itemRootCouse
+                                        .penagihan && itemCouseCode
+                                        .couse_code == itemRootCouse.couse_code
+                                        ) {
                                         tbRootCouseAPK = `
                                             <tr><td></td>
                                             <td></td>
@@ -1903,8 +1920,9 @@
                                             <td style="text-align: center">${itemRootCouse.jml}</td></tr>
                                         `;
 
-                        //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
-                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK);
+                                        //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
+                                        $('#bodyRootCouseAPK').append(
+                                            tbRootCouseAPK);
                                     }
 
                                 });
@@ -1920,7 +1938,7 @@
                             <th class="table-dark"></th>
                             <th class="table-dark"></th>
                             <th class="table-dark" style="text-align: center">${TotPenagihan}</th></tr>`;
-                    
+
                     $('#bodyRootCouseAPK').append(totRootCouseAPK);
                 }
 
@@ -1937,7 +1955,7 @@
                     var btnMonth = [];
                     var btnTotMt = [];
                     var btnTot = [];
-                    
+
                     $('#backToNormalHead').find("th").remove();
                     $('#bodyBackToNormal').find("tr").remove();
                     $('#totSysProblem').find("th").remove();
@@ -1967,55 +1985,53 @@
                     let hdBtn = `
                                 <th>WO Back To Normal</th>
                                 <th></th>`;
-                    
+
                     $('#backToNormalHead').append(hdBtn);
 
                     for (b = 0; b < trendWoMt.length; b++) {
                         $('#backToNormalHead').append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`)
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
                     }
 
-                    
-                                    // <th class="table-secondary"></th>
-                                    // <th class="table-secondary"></th>
-                                    // </tr>`;
 
                     $.each(btn.statVisit, function(key, itemVisit) {
                         tbBtn = tbBtn +
                             `<tr><th class="table-secondary">${itemVisit.visit_novisit}</th>
                             <th class="table-secondary"></th>`;
 
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                        for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbBtn = tbBtn +
+                                `<th class="table-secondary" style="text-align: center">${itemVisit.bulan[trendWoMt[bln].bulan]}</th>`;
+
+                        }
+
+                        tbBtn = tbBtn + `</tr>`;
+
+                        $.each(btn.visitSysProblem, function(key, itemSysProblem) {
+
+                            if (itemVisit.visit_novisit == itemSysProblem
+                                .visit_novisit) {
                                 tbBtn = tbBtn +
-                                    `<th class="table-secondary" style="text-align: center">${itemVisit.bulan[trendWoMt[bln].bulan]}</th>`;
-                                
-                            }
-
-                                tbBtn = tbBtn + `</tr>`;
-
-                                $.each(btn.visitSysProblem, function(key,itemSysProblem){
-
-                                    if(itemVisit.visit_novisit == itemSysProblem.visit_novisit){
-                                        tbBtn = tbBtn +
-                                            `<tr><th></th>
+                                    `<tr><th></th>
                                             <th class="table-info">${itemSysProblem.action_taken}</th>
                                             `;
 
-                                        for(bln = 0; bln < trendWoMt.length; bln++){
-                                            tbBtn = tbBtn +
-                                            `<td class="table-info" style="text-align: center">${itemSysProblem.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                                for (bln = 0; bln < trendWoMt.length; bln++) {
+                                    tbBtn = tbBtn +
+                                        `<td class="table-info" style="text-align: center">${itemSysProblem.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
 
-                                        }
-                                    }
-                                });          
-                                
-                            
+                                }
+                            }
+                        });
+
+
 
                     });
 
                     $('#bodyBackToNormal').append(tbBtn + `</tr>`);
 
-                    $.each(btn.totSysProblem, function(key, itemTot){
+                    $.each(btn.totSysProblem, function(key, itemTot) {
                         $('#totSysProblem').append(
                             `<th class="table-dark" style="text-align: center">${itemTot.total}</th>
                             `);
@@ -2024,19 +2040,22 @@
                             `<th style="text-align: center">${itemTot.bulan}</th>`);
 
                         $('#totWoMT').append(
-                            `<td style="text-align: center">${itemTot.totalMt.toLocaleString()}</td>`);
+                            `<td style="text-align: center">${itemTot.totalMt.toLocaleString()}</td>`
+                            );
 
                         $('#totWoBtn').append(
-                            `<td style="text-align: center">${itemTot.total.toLocaleString()}</td>`);
+                            `<td style="text-align: center">${itemTot.total.toLocaleString()}</td>`
+                            );
 
                         $('#PersenTotSysProblem').append(
-                            `<th class="table-dark" style="text-align: center">${parseFloat((itemTot.total * 100) / itemTot.totalMt).toFixed(1)}%</th>`);
+                            `<th class="table-dark" style="text-align: center">${parseFloat((itemTot.total * 100) / itemTot.totalMt).toFixed(1)}%</th>`
+                            );
 
 
                         btnMonth.push(itemTot.bulan);
                         btnTotMt.push(itemTot.totalMt);
                         btnTot.push(itemTot.total)
-                        
+
                     });
 
                     const ctxBtnWoMt = document.getElementById('GraphWoBTN');
@@ -2051,17 +2070,18 @@
                         data: {
                             labels: btnMonth, //['Jan-24'],
                             datasets: [{
-                                label: 'Total WO MT',
-                                data: btnTotMt, //[3895],
-                                borderWidth: 1,
+                                    label: 'Total WO MT',
+                                    data: btnTotMt, //[3895],
+                                    borderWidth: 1,
 
-                            },
-                            {
-                                label: 'Total WO Back To Normal',
-                                data: btnTot, //[3895],
-                                borderWidth: 1,
+                                },
+                                {
+                                    label: 'Total WO Back To Normal',
+                                    data: btnTot, //[3895],
+                                    borderWidth: 1,
 
-                            }]
+                                }
+                            ]
                         },
 
                         options: {
@@ -2094,11 +2114,6 @@
 
                     });
 
-
-                    
-
-
-
                 }
 
             });
@@ -2111,7 +2126,6 @@
 
                 },
                 success: function(dataTrendMonthlyApart) {
-                    // var trendWoMt = {!! $trendMonthly !!}
                     trendWoMtApart = dataTrendMonthlyApart;
 
                     var trendMonthApart = [''];
@@ -2228,6 +2242,269 @@
 
                     });
 
+                }
+
+            });
+
+            $.ajax({
+                url: "{{ route('getTabelStatusApart') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport
+
+                },
+                success: function(dataApart) {
+
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var dayApart = [];
+                    var daytbApart;
+                    var donetbApart;
+                    var totDoneApart = 0;
+                    var totPendingApart = 0;
+                    var totCancelApart = 0;
+                    var totWoApart = 0;
+                    var totalApart = 0;
+
+                    $('#dateMonthApart').find("th").remove();
+                    $('#dateMonthApart').append("<th>Maintenance Apartment All Branch</th>")
+
+                    $('#woDoneApart').find("td").remove();
+                    $('#woDoneApart').find("th").remove();
+                    $('#woDoneApart').append("<td>Done</td>")
+
+                    $('#woPendingApart').find("td").remove();
+                    $('#woPendingApart').find("th").remove();
+                    $('#woPendingApart').append("<td>Maintenance Failed</td>")
+
+                    $('#woCancelApart').find("td").remove();
+                    $('#woCancelApart').find("th").remove();
+                    $('#woCancelApart').append("<td>Cancel</td>")
+
+                    $('#totWoApart').find("td").remove()
+                    $('#totWoApart').find("th").remove()
+                    $('#totWoApart').append("<th>Total Wo</th>")
+
+                    $.each(dataApart, function(key, itemApart) {
+
+                        let htglApart = `
+                           <th>${new Date(itemApart.tgl_ikr).getDate()}</th>
+                        `;
+
+                        $('#dateMonthApart').append(htglApart);
+
+                        let dtDoneApart = `
+                            <td>${itemApart.Done.toLocaleString()}</td>
+                        `;
+
+                        $('#woDoneApart').append(dtDoneApart);
+
+                        totDoneApart += itemApart.Done;
+
+                        let dtPendingApart = `
+                            <td>${itemApart.Pending.toLocaleString()}</td>
+                        `;
+
+                        $('#woPendingApart').append(dtPendingApart);
+
+                        totPendingApart += itemApart.Pending;
+                        totCancelApart += itemApart.Cancel;
+
+                        let dtCancelApart = `
+                            <td>${itemApart.Cancel.toLocaleString()}</td>
+                        `;
+
+                        $('#woCancelApart').append(dtCancelApart)
+
+                        totWoApart = itemApart.Done + itemApart.Pending + itemApart.Cancel
+
+                        let dtTotWoApart = `
+                            <td>${totWoApart.toLocaleString()}</td>
+                        `;
+
+                        $('#totWoApart').append(dtTotWoApart);
+
+
+                    });
+
+                    $('#dateMonthApart').append("<th>Total</th>")
+
+                    $('#woDoneApart').append(`<th>${totDoneApart.toLocaleString()}</th>`)
+
+                    $('#woPendingApart').append(`<th>${totPendingApart.toLocaleString()}</th>`)
+
+                    $('#woCancelApart').append(`<th>${totCancelApart.toLocaleString()}</th>`)
+
+                    totalApart = totDoneApart + totPendingApart + totCancelApart
+
+                    $('#totWoApart').append(`<th>${totalApart.toLocaleString()}</th>`)
+
+                    $('#dateMonthApart').append(`<th>%</th>`)
+
+                    $('#woDoneApart').append(
+                        `<th>${parseFloat((totDoneApart * 100) / totalApart).toFixed(2)}%</th>`)
+                    $('#woPendingApart').append(
+                        `<th>${parseFloat((totPendingApart * 100) / totalApart).toFixed(2)}%</th>`)
+                    $('#woCancelApart').append(
+                        `<th>${parseFloat((totCancelApart * 100) / totalApart).toFixed(2)}%</th>`)
+                }
+
+            })
+
+            $.ajax({
+                url: "{{ route('getRootCouseDoneApart') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
+                },
+                success: function(dataRootCouseApart) {
+
+                    $('#rootCouseHeadApart').find("tr").remove();
+                    $('#rootCouseTbApart').find("tr").remove();
+                    $('#totRootCouseApart').find("th").remove();
+
+                    var TotRootDoneApart = 0;
+                    let tbRootCouseApart;
+                    let hdRootCouseApart = `
+                        <tr>
+                                <th>RootCouse Done</th>
+                        </tr>`;
+
+                    $('#rootCouseHeadApart').append(hdRootCouseApart);
+
+                    for (b = 0; b < trendWoMt.length; b++) {
+                        $('#rootCouseHeadApart').find("tr").append(
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
+                    }
+
+                    $.each(dataRootCouseApart, function(key, item) {
+
+                        if (item.penagihan == 'total_done') {
+                            tbRootCouseApart = `
+                            <tr>
+                                <th>Total</th>
+                                
+                            `;
+                        } else {
+                            tbRootCouseApart = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                
+                            `;
+                        }
+
+                        if (item.penagihan == 'total_done') {
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbRootCouseApart = tbRootCouseApart +
+                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                            }
+
+                        } else {
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbRootCouseApart = tbRootCouseApart +
+                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }
+                        }
+
+                        tbRootCouseApart = tbRootCouseApart + `</tr>`;
+                        $('#rootCouseTbApart').append(tbRootCouseApart);
+
+                    });
+
+                    // $('#totRootCouse').append(tbTotalRootCouse);  
+                }
+
+            });
+
+            $.ajax({
+                url: "{{ route('getRootCouseAPKApart') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport
+                },
+                success: function(apkApart) {
+
+                    $('#rootCouseHeadAPKApart').find("th").remove();
+                    $('#bodyRootCouseAPKApart').find("tr").remove();
+                    $('#penagihanAPKApart').find("th").remove();
+                    $('#couseCodePenagihanAPKApart').find("th").remove();
+                    $('#rootCousePenagihanAPKApart').find("td").remove();
+
+                    let TotPenagihanApart = 0;
+                    let tbPenagihanAPKApart;
+                    let tbCouseCodeAPKApart;
+                    let tbRootCouseAPKApart;
+                    let hdRootCouseAPKApart = `
+                        <th>RootCouse Aplikasi ${bulanReport}</th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align: center">Jumlah</th>`;
+
+                    $('#rootCouseHeadAPKApart').append(hdRootCouseAPKApart);
+
+
+
+                    $.each(apkApart.detPenagihanSortirApart, function(key, itemPenagihanApart) {
+
+                        tbPenagihanAPKApart = `
+                                <tr class="table-secondary"><th>${itemPenagihanApart.penagihan}</th>
+                                <th class="table-secondary"></th>
+                                <th class="table-secondary"></th>
+                                <th class="table-secondary" style="text-align: center">${itemPenagihanApart.jml}</th></tr>
+                            `;
+                        // $('#penagihanAPK').append(tbPenagihanAPK);
+                        $('#bodyRootCouseAPKApart').append(tbPenagihanAPKApart);
+
+                        TotPenagihanApart += itemPenagihanApart.jml;
+
+                        $.each(apkApart.detCouseCodeSortirApart, function(key,
+                            itemCouseCodeApart) {
+                            if (itemPenagihanApart.penagihan == itemCouseCodeApart
+                                .penagihan) {
+                                tbCouseCodeAPKApart = `
+                                    <tr><th></th>
+                                    <th class="table-info">${itemCouseCodeApart.couse_code}</th>
+                                    <th class="table-info"></th>
+                                    <th class="table-info" style="text-align: center">${itemCouseCodeApart.jml}</th></tr>
+                                `;
+                                //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
+                                $('#bodyRootCouseAPKApart').append(tbCouseCodeAPKApart);
+
+
+                                $.each(apkApart.detRootCouseSortirApart, function(key,
+                                    itemRootCouseApart) {
+                                    if (itemPenagihanApart.penagihan ==
+                                        itemRootCouseApart.penagihan &&
+                                        itemCouseCodeApart.couse_code ==
+                                        itemRootCouseApart.couse_code) {
+                                        tbRootCouseAPKApart = `
+                                            <tr><td></td>
+                                            <td></td>
+                                            <td>${itemRootCouseApart.root_couse}</td>
+                                            <td style="text-align: center">${itemRootCouseApart.jml}</td></tr>
+                                        `;
+
+                                        //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
+                                        $('#bodyRootCouseAPKApart').append(
+                                            tbRootCouseAPKApart);
+                                    }
+
+                                });
+                            }
+
+
+                        });
+
+                    });
+
+                    let totRootCouseAPKApart = `
+                        <tr><th class="table-dark">TOTAL</th>
+                            <th class="table-dark"></th>
+                            <th class="table-dark"></th>
+                            <th class="table-dark" style="text-align: center">${TotPenagihanApart}</th></tr>`;
+
+                    $('#bodyRootCouseAPKApart').append(totRootCouseAPKApart);
                 }
 
             });
