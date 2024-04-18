@@ -1448,7 +1448,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
@@ -1461,6 +1461,8 @@
     {{-- {{ $chart->script() }} --}}
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
     <script type="text/javascript">
         $('input[name="periode"]').daterangepicker();
@@ -1532,7 +1534,7 @@
                             maintainAspectRatio: false,
                             plugins: {
                                 legend: {
-                                    display: true,
+                                    display: false,
                                     position: 'right',
                                     align: "start"
                                 },
@@ -1540,9 +1542,11 @@
                                     display: true,
                                     text: 'WO Maintenance FTTH ' + bulanReport,
                                     align: 'start',
-                                }
-                            }
-                        }
+                                },
+                                
+                            },
+                        },
+                        plugins: [ChartDataLabels]
                     });
 
                     const ctxMtClose = document.getElementById('TotWoMtClose');
