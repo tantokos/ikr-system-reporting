@@ -28,10 +28,10 @@
                         <div class="form-group">
                             <label class="col form-text">Informasi Data Import</label>
                             <div class="col">
-                                @if ($croscekData <> "-")
-                                <span class="error" >{{ $croscekData }}</span>
+                                @if ($croscekData != '-')
+                                    <span class="error">{{ $croscekData }}</span>
                                 @else
-                                <span class="error" >-</span>
+                                    <span class="error">-</span>
                                 @endif
                             </div>
                         </div>
@@ -41,15 +41,15 @@
 
                 <div class="col">
                     {{-- <form action="{{ route('import.store') }}" method="POST" enctype="multipart/form-data"> --}}
-                    <form action="{{ route('saveImportMtFtth')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('saveImportMtFtth') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label class="col-sm-4 form-text">Import By : </label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-sm border-secondary" name="akses" id="akses"
-                                    value="{{ $akses }}" readonly>
+                                <input type="text" class="form-control form-control-sm border-secondary" name="akses"
+                                    id="akses" value="{{ $akses }}" readonly>
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row">
@@ -58,20 +58,23 @@
                                 <input type="text" class="form-control form-control-sm border-secondary" id="jmlImport"
                                     name="jmlImport" value="{{ $jmlImport }}" readonly required>
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 form-text">Periode Report : </label>
-                            <label class="col-sm-6 form-text" style="font-weight: bold">{{ $tglIkr->min('tgl_ikr') }} s/d {{ $tglIkr->max('tgl_ikr') }}</label>
+                            <label class="col-sm-6 form-text" style="font-weight: bold">{{ $tglIkr->min('tgl_ikr') }} s/d
+                                {{ $tglIkr->max('tgl_ikr') }}</label>
                         </div>
 
                         <div class="form-group">
                             <div class="col">
                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
                                     data-target="#md-showSummary">Show Summary</button>
-                                <button onclick="return confirm('Simpan hasil import Data Ori Maintenance?')" type="submit" class="btn btn-sm btn-primary" name="action" value="simpan">Simpan data Import</button>
-                                <button onclick="return confirm('Hapus hasil import Data Ori Maintenance?')"type="submit" class="btn btn-sm btn-secondary" name="action" value="batal">Batalkan Import</button>
+                                <button onclick="return confirm('Simpan hasil import Data Ori Maintenance?')" type="submit"
+                                    class="btn btn-sm btn-primary" name="action" value="simpan">Simpan data Import</button>
+                                <button onclick="return confirm('Hapus hasil import Data Ori Maintenance?')"type="submit"
+                                    class="btn btn-sm btn-secondary" name="action" value="batal">Batalkan Import</button>
                             </div>
                         </div>
                     </form>
@@ -194,7 +197,7 @@
         </div>
     </div>
 
-    {{-- Modal Input Baru --}}
+    {{-- Modal Show Summary --}}
     <div class="modal fade" id="md-showSummary" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
         aria-hidden="true" data-keyboard="false">
         <div class="modal-dialog modal-lg mw-100 w-75" role="document">
@@ -215,7 +218,7 @@
                                     <thead>
                                         <tr>
                                             <th>Site (Penagihan) </th>
-                                            <th><select class="col" name="sitePenagihanOri">
+                                            <th><select class="col" name="FiltersitePenagihan" id="sitePenagihanOri">
                                                     <option value="ALL">ALL</option>
                                                     @foreach ($sitePenagihan as $site)
                                                         <option value="{{ $site->site_penagihan }}">
@@ -226,7 +229,7 @@
                                         </tr>
                                         <tr>
                                             <th>Branch </th>
-                                            <th><select class="col" name="branchOri">
+                                            <th><select class="col" name="branchOri" id="branchOri">
                                                     <option value="ALL">ALL</option>
                                                     @foreach ($branch as $bran)
                                                         <option value="{{ $bran->branch }}">{{ $bran->branch }}</option>
@@ -235,7 +238,8 @@
                                         </tr>
                                         <tr>
                                             <th>Kotamadya (Penagihan) </th>
-                                            <th><select class="col" name="kotamadyaPenagihanOri">
+                                            <th><select class="col" name="kotamadyaPenagihanOri"
+                                                    id="kotamadyaPenagihanOri">
                                                     <option value="ALL">ALL</option>
                                                     @foreach ($kotamadyaPenagihan as $kotamadya)
                                                         <option value="{{ $kotamadya->kotamadya_penagihan }}">
@@ -246,12 +250,15 @@
 
                                         <tr>
                                             <th colspan="2" style="text-align: center">
-                                            <button type="button" class="btn btn-sm btn-primary">Filter</button>
-                                            <button type="button" class="btn btn-sm btn-warning">Show ALL</button>
-                                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" aria-label="Close">Back</button>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary filterSummary" id="filterSummary">Filter</button>
+                                                <button type="button" class="btn btn-sm btn-warning filterAll" id="filterAll">Show
+                                                    ALL</button>
+                                                <button type="button" class="btn btn-sm btn-secondary"
+                                                    data-dismiss="modal" aria-label="Close">Back</button>
                                             </th>
                                         </tr>
-                                        
+
 
                                     </thead>
                                 </table>
@@ -265,7 +272,7 @@
                                     <thead>
                                         <tr>
                                             <th>Tanggal IKR</th>
-                                            <th><select class="col" name="tglIkr">
+                                            <th><select class="col" name="tglIkr" id="tglIkr">
                                                     <option value="ALL">ALL</option>
                                                     @foreach ($tglIkr as $tgl)
                                                         <option value="{{ $tgl->tgl_ikr }}">{{ $tgl->tgl_ikr }}
@@ -277,7 +284,7 @@
 
                                         <tr>
                                             <th>Penagihan</th>
-                                            <th><select class="col" name="penagihan">
+                                            <th><select class="col" name="RootPenagihan" id="RootPenagihan">
                                                     <option value="ALL">ALL</option>
                                                     @foreach ($penagihan as $penagih)
                                                         <option value="{{ $penagih->penagihan }}">
@@ -287,7 +294,7 @@
                                         </tr>
                                         <tr>
                                             <th>Status WO</th>
-                                            <th><select class="col" name="statusWo">
+                                            <th><select class="col" name="statusWo" id="statusWo">
                                                     <option value="ALL">ALL</option>
                                                     @foreach ($statusWo as $status)
                                                         <option value="{{ $status->status_wo }}">{{ $status->status_wo }}
@@ -319,29 +326,31 @@
                                         <th style="text-align: center">Jumlah</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Done</td>
-                                            <td style="text-align: center">{{ number_format($done) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pending</td>
-                                            <td style="text-align: center">{{ number_format($pending) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cancel</td>
-                                            <td style="text-align: center">{{ number_format($cancel) }}</td>
-                                        </tr>
-                                        <tr class="table-active">
-                                            <th>Total</th>
-                                            <th style="text-align: center">{{ number_format($done + $pending + $cancel) }}</td>
-                                        </tr>
+                                    <tbody id=tbodyStatusWoOri>
+                                        {{-- <tr> --}}
+                                            {{-- <td>Done</td> --}}
+                                            {{-- <td style="text-align: center">{{ number_format($done) }}</td> --}}
+                                        {{-- </tr> --}}
+                                        {{-- <tr> --}}
+                                            {{-- <td>Pending</td> --}}
+                                            {{-- <td style="text-align: center">{{ number_format($pending) }}</td> --}}
+                                        {{-- </tr> --}}
+                                        {{-- <tr> --}}
+                                            {{-- <td>Cancel</td> --}}
+                                            {{-- <td style="text-align: center">{{ number_format($cancel) }}</td> --}}
+                                        {{-- </tr> --}}
+                                        {{-- <tr class="table-active"> --}}
+                                            {{-- <th>Total</th> --}}
+                                            {{-- <th style="text-align: center">{{ number_format($done + $pending + $cancel) }} --}}
+                                                {{-- </th> --}}
+                                        {{-- </tr> --}}
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
 
-                        
+
                         <div class="col-sm-6">
                             <div class="table-responsive">
                                 <h6>Summary Data Sortir MT FTTH</h6>
@@ -351,23 +360,24 @@
                                         <th style="text-align: center">Jumlah</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Done</td>
-                                            <td style="text-align: center">{{ number_format($doneSortir) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pending</td>
-                                            <td style="text-align: center">{{ number_format($pendingSortir) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cancel</td>
-                                            <td style="text-align: center">{{ number_format($cancelSortir) }}</td>
-                                        </tr>
-                                        <tr class="table-active">
-                                            <th>Total</th>
-                                            <th style="text-align: center">{{ number_format($doneSortir + $pendingSortir + $cancelSortir) }}</td>
-                                        </tr>
+                                    <tbody id="tbodyStatusWoSortir">
+                                        {{-- <tr> --}}
+                                            {{-- <td>Done</td> --}}
+                                            {{-- <td style="text-align: center">{{ number_format($doneSortir) }}</td> --}}
+                                        {{-- </tr> --}}
+                                        {{-- <tr> --}}
+                                            {{-- <td>Pending</td> --}}
+                                            {{-- <td style="text-align: center">{{ number_format($pendingSortir) }}</td> --}}
+                                        {{-- </tr> --}}
+                                        {{-- <tr> --}}
+                                            {{-- <td>Cancel</td> --}}
+                                            {{-- <td style="text-align: center">{{ number_format($cancelSortir) }}</td> --}}
+                                        {{-- </tr> --}}
+                                        {{-- <tr class="table-active"> --}}
+                                            {{-- <th>Total</th> --}}
+                                            {{-- <th style="text-align: center"> --}}
+                                                {{-- {{ number_format($doneSortir + $pendingSortir + $cancelSortir) }}</td> --}}
+                                        {{-- </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -390,53 +400,53 @@
                                             <th style="text-align: center">Jumlah</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbodyRootCouseOri">
 
-                                        @for ($x = 0; $x < count($detPenagihan); $x++)
-                                            <tr>
-                                                <th>
-                                                    {{ $detPenagihan[$x]->penagihan }}
-                                                </th>
-                                                <th style="text-align: center">
-                                                    {{ number_format($detPenagihan[$x]->jml) }}
-                                                </th>
-                                            </tr>
+                                        {{-- @for ($x = 0; $x < count($detPenagihan); $x++) --}}
+                                            {{-- <tr> --}}
+                                                {{-- <th> --}}
+                                                    {{-- {{ $detPenagihan[$x]->penagihan }} --}}
+                                                {{-- </th> --}}
+                                                {{-- <th style="text-align: center"> --}}
+                                                    {{-- {{ number_format($detPenagihan[$x]->jml) }} --}}
+                                                {{-- </th> --}}
+                                            {{-- </tr> --}}
 
-                                            @for ($y = 0; $y < count($detCouseCode); $y++)
-                                                @if ($detPenagihan[$x]->penagihan == $detCouseCode[$y]->penagihan)
-                                                    <tr>
-                                                        <th style="text-indent: 20px">
+                                            {{-- @for ($y = 0; $y < count($detCouseCode); $y++) --}}
+                                                {{-- @if ($detPenagihan[$x]->penagihan == $detCouseCode[$y]->penagihan) --}}
+                                                    {{-- <tr> --}}
+                                                        {{-- <th style="text-indent: 20px"> --}}
 
-                                                            {{ $detCouseCode[$y]->couse_code }}
-                                                        </th>
-                                                        <th style="text-align: center">
-                                                            {{ number_format($detCouseCode[$y]->jml) }}
-                                                        </th>
-                                                    </tr>
+                                                            {{-- {{ $detCouseCode[$y]->couse_code }} --}}
+                                                        {{-- </th> --}}
+                                                        {{-- <th style="text-align: center"> --}}
+                                                            {{-- {{ number_format($detCouseCode[$y]->jml) }} --}}
+                                                        {{-- </th> --}}
+                                                    {{-- </tr> --}}
 
-                                                    @for ($z = 0; $z < count($detRootCouse); $z++)
-                                                        @if (
-                                                            $detPenagihan[$x]->penagihan == $detRootCouse[$z]->penagihan &&
-                                                                $detCouseCode[$y]->couse_code == $detRootCouse[$z]->couse_code)
-                                                            <tr>
-                                                                <td style="text-indent: 40px">
-                                                                    {{ $detRootCouse[$z]->root_couse }}
-                                                                </td>
-                                                                <td style="text-align: center">
-                                                                    {{ number_format($detRootCouse[$z]->jml) }}
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @endfor
-
-                                                @endif
-                                            @endfor
-
-                                        @endfor
-                                        <tr>
-                                            <th>TOTAL</th>
-                                            <th style="text-align: center">{{ number_format($detRootCouse->sum('jml')) }}</th>
-                                        </tr>
+                                                    {{-- @for ($z = 0; $z < count($detRootCouse); $z++) --}}
+                                                        {{-- @if ( --}}
+                                                            {{-- $detPenagihan[$x]->penagihan == $detRootCouse[$z]->penagihan && --}}
+                                                                {{-- $detCouseCode[$y]->couse_code == $detRootCouse[$z]->couse_code) --}}
+                                                            {{-- <tr> --}}
+                                                                {{-- <td style="text-indent: 40px"> --}}
+                                                                    {{-- {{ $detRootCouse[$z]->root_couse }} --}}
+                                                                {{-- </td> --}}
+                                                                {{-- <td style="text-align: center"> --}}
+                                                                    {{-- {{ number_format($detRootCouse[$z]->jml) }} --}}
+                                                                {{-- </td> --}}
+                                                            {{-- </tr> --}}
+                                                        {{-- @endif --}}
+                                                    {{-- @endfor --}}
+                                                {{-- @endif --}}
+                                            {{-- @endfor --}}
+                                        {{-- @endfor --}}
+                                        {{-- <tr> --}}
+                                            {{-- <th>TOTAL</th> --}}
+                                            {{-- <th style="text-align: center">{{ number_format($detRootCouse->sum('jml')) }} --}}
+                                            {{-- </th> --}}
+                                            
+                                        {{-- </tr> --}}
 
 
                                     </tbody>
@@ -457,64 +467,53 @@
                                             <th style="text-align: center">Jumlah</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbodyRootCouseSortir">
 
-                                        {{-- <ul style="font-size: 12px"> --}}
-                                        @for ($x = 0; $x < count($detPenagihanSortir); $x++)
-                                            <tr>
-                                                <th>
-                                                    {{ $detPenagihanSortir[$x]->penagihan }}
-                                                </th>
-                                                <th style="text-align: center">
-                                                    {{ number_format($detPenagihanSortir[$x]->jml) }}
-                                                </th>
-                                            </tr>
-                                            {{-- <ul> --}}
-
-                                            @for ($y = 0; $y < count($detCouseCodeSortir); $y++)
-                                                @if ($detPenagihanSortir[$x]->penagihan == $detCouseCodeSortir[$y]->penagihan)
-                                                    <tr>
-                                                        <th style="text-indent: 20px">
-
-                                                            {{ $detCouseCodeSortir[$y]->couse_code }}
-                                                        </th>
-                                                        <th style="text-align: center">
-                                                            {{ number_format($detCouseCodeSortir[$y]->jml) }}
-                                                        </th>
-                                                    </tr>
-
-                                                    {{-- <ul> --}}
-                                                    @for ($z = 0; $z < count($detRootCouseSortir); $z++)
-                                                        @if (
-                                                            $detPenagihanSortir[$x]->penagihan == $detRootCouseSortir[$z]->penagihan &&
-                                                                $detCouseCodeSortir[$y]->couse_code == $detRootCouseSortir[$z]->couse_code)
-                                                            <tr>
-                                                                <td style="text-indent: 40px">
-                                                                    {{ $detRootCouseSortir[$z]->root_couse }}
-                                                                </td>
-                                                                <td style="text-align: center">
-                                                                    {{ number_format($detRootCouseSortir[$z]->jml) }}
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @endfor
-
-                                                    {{-- </ul> --}}
-                                                @endif
-                                            @endfor
-
-                                            {{-- </ul> --}}
-
-
-                                            {{-- </th> --}}
+                                        {{-- @for ($x = 0; $x < count($detPenagihanSortir); $x++) --}}
                                             {{-- <tr> --}}
+                                                {{-- <th> --}}
+                                                    {{-- {{ $detPenagihanSortir[$x]->penagihan }} --}}
+                                                {{-- </th> --}}
+                                                {{-- <th style="text-align: center"> --}}
+                                                    {{-- {{ number_format($detPenagihanSortir[$x]->jml) }} --}}
+                                                {{-- </th> --}}
+                                            {{-- </tr> --}}
 
-                                            {{-- </ul> --}}
-                                        @endfor
-                                        <tr>
-                                            <th>TOTAL</th>
-                                            <th style="text-align: center">{{ number_format($detRootCouseSortir->sum('jml')) }}</th>
-                                        </tr>
+                                            {{-- @for ($y = 0; $y < count($detCouseCodeSortir); $y++) --}}
+                                                {{-- @if ($detPenagihanSortir[$x]->penagihan == $detCouseCodeSortir[$y]->penagihan) --}}
+                                                    {{-- <tr> --}}
+                                                        {{-- <th style="text-indent: 20px"> --}}
+                                                            {{-- {{ $detCouseCodeSortir[$y]->couse_code }} --}}
+                                                        {{-- </th> --}}
+                                                        {{-- <th style="text-align: center"> --}}
+                                                            {{-- {{ number_format($detCouseCodeSortir[$y]->jml) }} --}}
+                                                        {{-- </th> --}}
+                                                    {{-- </tr> --}}
+
+                                                    {{-- @for ($z = 0; $z < count($detRootCouseSortir); $z++) --}}
+                                                        {{-- @if ( --}}
+                                                            {{-- $detPenagihanSortir[$x]->penagihan == $detRootCouseSortir[$z]->penagihan && --}}
+                                                                {{-- $detCouseCodeSortir[$y]->couse_code == $detRootCouseSortir[$z]->couse_code) --}}
+                                                            {{-- <tr> --}}
+                                                                {{-- <td style="text-indent: 40px"> --}}
+                                                                    {{-- {{ $detRootCouseSortir[$z]->root_couse }} --}}
+                                                                {{-- </td> --}}
+                                                                {{-- <td style="text-align: center"> --}}
+                                                                    {{-- {{ number_format($detRootCouseSortir[$z]->jml) }} --}}
+                                                                {{-- </td> --}}
+                                                            {{-- </tr> --}}
+                                                        {{-- @endif --}}
+                                                    {{-- @endfor --}}
+
+                                                {{-- @endif --}}
+                                            {{-- @endfor --}}
+
+                                        {{-- @endfor --}}
+                                        {{-- <tr> --}}
+                                            {{-- <th>TOTAL</th> --}}
+                                            {{-- <th style="text-align: center"> --}}
+                                                {{-- {{ number_format($detRootCouseSortir->sum('jml')) }}</th> --}}
+                                        {{-- </tr> --}}
 
 
                                     </tbody>
@@ -523,9 +522,7 @@
                             </div>
 
                         </div>
-                        {{-- End Root Couse Sortir MT --}}
                     </div>
-                    {{-- End Root Couse --}}
 
                     <div class="modal-footer">
                         {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
@@ -556,10 +553,211 @@
 
 
         <script type="text/javascript">
-            $(document).ready(function() {
 
+            var _token = $('meta[name=csrf-token]').attr('content');
+
+            $(document).on('click','.filterAll', function(){
+                $('#sitePenagihanOri').val('ALL');
+                $('#branchOri').val('ALL');
+                $('#kotamadyaPenagihanOri').val('ALL');
+                $('#tglIkr').val('ALL');
+                $('#RootPenagihan').val('ALL');
+                $('#statusWo').val('ALL');
+
+                document.getElementById('filterSummary').click();
+            })
+
+            $(document).on('click', '.filterSummary', function() {
+
+                let fSitePenagihan = $('#sitePenagihanOri').val();
+                let fbranch = $('#branchOri').val();
+                let fkotamadya = $('#kotamadyaPenagihanOri').val();
+                let ftglIkr = $('#tglIkr').val();
+                let frootPenagihan = $('#RootPenagihan').val();
+                let fstatusWo = $('#statusWo').val();
+
+                var _token = $('meta[name=csrf-token]').attr('content');
+
+                $('#tbodyRootCouseOri').empty();
+                $('#tbodyRootCouseSortir').empty();
+                $('#tbodyStatusWoOri').empty();
+                $('#tbodyStatusWoSortir').empty();
+
+                $.ajax({
+                    url: "{{ route('getFilterSummary') }}",
+                    type: "get",
+                    data: {
+                        // bulanTahunReport: bulanReport,
+                        filSitePenagihan: fSitePenagihan,
+                        filBranch: fbranch,
+                        filKotamadya: fkotamadya,
+                        filTglIkr: ftglIkr,
+                        filRootPenagihan: frootPenagihan,
+                        filStatusWo: fstatusWo,
+                        _token : _token
+                    },
+                    success: function(summary) {
+
+                        let totRootOri = 0;
+                        let totRootSortir = 0;
+
+                        console.log(summary);
+
+                        $('#tbodyStatusWoOri').append(`
+                            <tr>
+                                <td>Done</td>
+                                <td style="text-align: center">${summary.done.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Pending</td>
+                                <td style="text-align: center">${summary.pending.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Cancel</td>
+                                <td style="text-align: center">${summary.cancel.toLocaleString()}</td>
+                            </tr>
+                            <tr class="table-active">
+                                <th>Total</th>
+                                <th style="text-align: center">${(summary.done + summary.pending + summary.cancel).toLocaleString()}</th>
+                            </tr>
+                        `);
+
+                        $('#tbodyStatusWoSortir').append(`
+                            <tr>
+                                <td>Done</td>
+                                <td style="text-align: center">${summary.doneSortir.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Pending</td>
+                                <td style="text-align: center">${summary.pendingSortir.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Cancel</td>
+                                <td style="text-align: center">${summary.cancelSortir.toLocaleString()}</td>
+                            </tr>
+                            <tr class="table-active">
+                                <th>Total</th>
+                                <th style="text-align: center">${(summary.doneSortir + summary.pendingSortir + summary.cancelSortir).toLocaleString()}</th>
+                            </tr>
+                        `);
+
+                        for(x=0; x < summary.detPenagihan.length; x++) {
+
+                            $('#tbodyRootCouseOri').append(`
+                                <tr>
+                                    <th>${summary.detPenagihan[x].penagihan}</th>
+                                    <th style="text-align: center">
+                                        ${summary.detPenagihan[x].jml.toLocaleString()}
+                                    </th>
+                                </tr>
+                            `);
+
+                            for(y=0; y < summary.detCouseCode.length; y++) {
+
+                                if(summary.detPenagihan[x].penagihan == summary.detCouseCode[y].penagihan) {
+                                    $('#tbodyRootCouseOri').append(`
+                                        <tr>
+                                            <th style="text-indent: 20px">${summary.detCouseCode[y].couse_code}</th>
+                                            <th style="text-align: center">
+                                                ${summary.detCouseCode[y].jml.toLocaleString()}
+                                            </th>
+                                        </tr>
+                                    `);
+
+                                    for(z=0; z < summary.detRootCouse.length; z++) {
+
+                                        if(summary.detPenagihan[x].penagihan == summary.detRootCouse[z].penagihan &&
+                                            summary.detCouseCode[y].couse_code== summary.detRootCouse[z].couse_code) {
+                                                $('#tbodyRootCouseOri').append(`
+                                                    <tr>
+                                                        <td style="text-indent: 40px">
+                                                            ${summary.detRootCouse[z].root_couse}
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            ${summary.detRootCouse[z].jml.toLocaleString()}
+                                                        </td>
+                                                    </tr>
+                                                `);
+
+                                                totRootOri = totRootOri + summary.detRootCouse[z].jml
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                        //rootcouse Sortir
+                        for(x=0; x < summary.detPenagihanSortir.length; x++) {
+
+                            $('#tbodyRootCouseSortir').append(`
+                                <tr>
+                                    <th>${summary.detPenagihanSortir[x].penagihan}</th>
+                                    <th style="text-align: center">
+                                        ${summary.detPenagihanSortir[x].jml.toLocaleString()}
+                                    </th>
+                                </tr>
+                            `);
+
+                            for(y=0; y < summary.detCouseCodeSortir.length; y++) {
+
+                                if(summary.detPenagihanSortir[x].penagihan == summary.detCouseCodeSortir[y].penagihan) {
+                                    $('#tbodyRootCouseSortir').append(`
+                                        <tr>
+                                            <th style="text-indent: 20px">${summary.detCouseCodeSortir[y].couse_code}</th>
+                                            <th style="text-align: center">
+                                                ${summary.detCouseCodeSortir[y].jml.toLocaleString()}
+                                            </th>
+                                        </tr>
+                                    `);
+
+                                    for(z=0; z < summary.detRootCouseSortir.length; z++) {
+
+                                        if(summary.detPenagihanSortir[x].penagihan == summary.detRootCouseSortir[z].penagihan &&
+                                            summary.detCouseCodeSortir[y].couse_code== summary.detRootCouseSortir[z].couse_code) {
+                                                $('#tbodyRootCouseSortir').append(`
+                                                    <tr>
+                                                        <td style="text-indent: 40px">
+                                                            ${summary.detRootCouseSortir[z].root_couse}
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            ${summary.detRootCouseSortir[z].jml.toLocaleString()}
+                                                        </td>
+                                                    </tr>
+                                                `);
+
+                                                totRootSortir = totRootSortir + summary.detRootCouseSortir[z].jml
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                        $('#tbodyRootCouseOri').append(`
+                            <tr>
+                                <th>Total</th>
+                                <th style="text-align: center">${totRootOri.toLocaleString()}</th>
+                            </tr>
+                        `);
+
+                        $('#tbodyRootCouseSortir').append(`
+                            <tr>
+                                <th>Total</th>
+                                <th style="text-align: center">${totRootSortir.toLocaleString()}</th>
+                            </tr>
+                        `);
+
+                    }
+
+                });
+            });
+
+
+            $(document).ready(function() {
+                
                 akses = $('#akses').val();
-                fetch_data()    
+                fetch_data()
 
                 function fetch_data() {
                     $('#dataTempFtthMt').DataTable({
@@ -572,7 +770,6 @@
                             // leftColumns: 4,
                             rightColumns: 1
                         },
-
 
                         scrollCollapse: true,
                         scrollX: true,
@@ -596,10 +793,11 @@
                         },
                         ajax: {
                             url: "{{ route('import.dataImportFtthMtTemp') }}",
-                            type: "get",
+                            type: "post",
                             dataType: "json",
                             data: {
                                 akses: akses,
+                                _token : _token
                             }
 
                         },

@@ -36,7 +36,7 @@
                 <li class="{{ request()->is('reportMtFtth*','/') ? 'active' : '' }}">
                     <a href="{{ route('reportMtFtth.index') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report MT FTTH Montly</span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTH Maintenance</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
@@ -44,7 +44,7 @@
                 <li class="{{ request()->is('reportIBFtth*') ? 'active' : '' }}">
                     <a href="#">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report IB FTTH Monthly</span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTH New Installation</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
@@ -52,7 +52,7 @@
                 <li class="{{ request()->is('reportDismantleFtth*') ? 'active' : '' }}">
                     <a href="#">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report Dismantle FTTH Monthly</span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTH Dismantle</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
@@ -60,7 +60,7 @@
                 <li class="{{ request()->is('reportMtFttx*') ? 'active' : '' }}">
                     <a href="#">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report MT FTTX/B Monthly</span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTX/B Maintenance</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
@@ -68,7 +68,7 @@
                 <li class="{{ request()->is('reportIbFttx*') ? 'active' : '' }}">
                     <a href="#">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report IB FTTX/B Monthly</span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTX/B New Installation</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>

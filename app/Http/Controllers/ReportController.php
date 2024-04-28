@@ -29,6 +29,15 @@ class ReportController extends Controller
                         ->orderBy('b.id')
                         ->get();
 
+        $kotamadyaPenagihan = DB::table('data_ftth_mt_sortirs')
+                        ->select('kotamadya_penagihan')
+                        // ->where('branch','=','Jakarta Timur')
+                        ->distinct()
+                        ->orderBy('kotamadya_penagihan')
+                        ->get();
+
+        // dd($kotamadyaPenagihan);
+
         $tgl = ImportFtthMtSortirTemp::select('tgl_ikr')->distinct()->get();
 
         $trendMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))->distinct()->get();
@@ -69,12 +78,115 @@ class ReportController extends Controller
         return view(
             'report.reporting',
             [
-                'trendMonthly' => $trendMonthly, 'branches' => $branchPenagihan, 'det',
-                'detPenagihanSortir' => $detPenagihanSortir, 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
+                'trendMonthly' => $trendMonthly, 'branches' => $branchPenagihan, 
+                'kota_penagihan' => $kotamadyaPenagihan,
+                'detPenagihanSortir' => $detPenagihanSortir, 'detCouseCodeSortir' => $detCouseCodeSortir,
+                'detRootCouseSortir' => $detRootCouseSortir
             ]
         );
 
         // 'totWoMtBranch' => $branchPenagihan, 
+    }
+
+    public function getFilterBranch(Request $request) 
+    {
+
+        $kotamadyaPenagihan = DB::table('data_ftth_mt_sortirs')
+                        ->select('kotamadya_penagihan');
+                        // ->where('branch','=',$request->branchReport)
+                        // ->distinct()
+                        // ->orderBy('kotamadya_penagihan')
+                        // ->get();
+
+        if($request->branchReport != "All"){
+            $kotamadyaPenagihan = $kotamadyaPenagihan->where('branch','=',$request->branchReport);
+        }
+
+        $kotamadyaPenagihan = $kotamadyaPenagihan->distinct()
+                        ->orderBy('kotamadya_penagihan')
+                        ->get();
+
+
+        return response()->json($kotamadyaPenagihan);
+    }
+
+    public function getFilterDashboard(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->filterBulan)->month;
+        $tahun = \Carbon\Carbon::parse($request->filterBulan)->year;
+
+        $branchPenagihan = DB::table('data_ftth_mt_sortirs as d')
+                            ->select('b.id', 'd.branch as nama_branch')
+                            ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+                            ->whereMonth('tgl_ikr','=', $bulan)->whereYear('tgl_ikr','=',$tahun);
+
+        if($request->filterSite != "All"){
+            $branchPenagihan = $branchPenagihan->where('d.site_penagihan','=', $request->filterSite);
+        }
+        if($request->filterBranch != "All"){
+            $branchPenagihan = $branchPenagihan->where('d.branch','=', $request->filterBranch);
+        }
+
+        $branchPenagihan = $branchPenagihan->distinct()->orderBy('id')->get();
+
+        // dd($branchPenagihan[0]->nama_branch);
+
+        
+        
+
+
+        
+
+        // dd($branchPenagihan);
+        for ($b = 0; $b < $branchPenagihan->count(); $b++) {
+            if ($request->filterSite == "Apartement") {
+                $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Apartement')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->where('branch','=',$branchPenagihan[$b]->nama_branch)->select('status_wo')->count();
+                $totWoDone = DataFtthMtSortir::where('site_penagihan', '=', 'Apartement')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('branch','=',$branchPenagihan[$b]->nama_branch)->where('status_wo', '=', 'Done')->count();
+                $totWoPending = DataFtthMtSortir::where('site_penagihan', '=', 'Apartement')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('branch','=',$branchPenagihan[$b]->nama_branch)->where('status_wo', '=', 'Pending')->count();
+                $totWoCancel = DataFtthMtSortir::where('site_penagihan', '=', 'Apartement')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('branch','=',$branchPenagihan[$b]->nama_branch)->where('status_wo', '=', 'Cancel')->count();
+
+                $branchPenagihan[$b]->total = $totWo;
+                $branchPenagihan[$b]->done = $totWoDone;
+                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
+                $branchPenagihan[$b]->pending = $totWoPending;
+                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
+                $branchPenagihan[$b]->cancel = $totWoCancel;
+                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+            } elseif ($request->filterSite == "Underground") {
+                $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->where('branch','=',$branchPenagihan[$b]->nama_branch)->select('status_wo')->count();
+                $totWoDone = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('branch','=',$branchPenagihan[$b]->nama_branch)->where('status_wo', '=', 'Done')->count();
+                $totWoPending = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('branch','=',$branchPenagihan[$b]->nama_branch)->where('status_wo', '=', 'Pending')->count();
+                $totWoCancel = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('branch','=',$branchPenagihan[$b]->nama_branch)->where('status_wo', '=', 'Cancel')->count();
+
+                $branchPenagihan[$b]->total = $totWo;
+                $branchPenagihan[$b]->done = $totWoDone;
+                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
+                $branchPenagihan[$b]->pending = $totWoPending;
+                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
+                $branchPenagihan[$b]->cancel = $totWoCancel;
+                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+            } elseif (($request->filterSite <> "Apartement" && $branchPenagihan[$b]->nama_branch <> "Underground")) {
+                $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Retail')->where('branch', '=', $branchPenagihan[$b]->nama_branch)
+                    ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->count();
+                $totWoDone = DataFtthMtSortir::where('site_penagihan', '=', 'Retail')->where('branch', '=', $branchPenagihan[$b]->nama_branch)
+                    ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('status_wo', '=', 'Done')->count();
+                $totWoPending = DataFtthMtSortir::where('site_penagihan', '=', 'Retail')->where('branch', '=', $branchPenagihan[$b]->nama_branch)
+                    ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('status_wo', '=', 'Pending')->count();
+                $totWoCancel = DataFtthMtSortir::where('site_penagihan', '=', 'Retail')->where('branch', '=', $branchPenagihan[$b]->nama_branch)
+                    ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
+                
+                $branchPenagihan[$b]->total = $totWo;
+                $branchPenagihan[$b]->done = $totWoDone;
+                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
+                $branchPenagihan[$b]->pending = $totWoPending;
+                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
+                $branchPenagihan[$b]->cancel = $totWoCancel;
+                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+            }
+        }
+
+        return response()->json($branchPenagihan);
+
     }
 
     public function getTotalWoBranch(Request $request)
@@ -82,8 +194,11 @@ class ReportController extends Controller
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
+        
+        
         $branchPenagihan = Branch::select('id', 'nama_branch')->orderBy('id')->get();
 
+        // dd($branchPenagihan);
         for ($b = 0; $b < $branchPenagihan->count(); $b++) {
             if ($branchPenagihan[$b]->nama_branch == "Apartement") {
                 $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Apartement')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->count();
@@ -138,7 +253,7 @@ class ReportController extends Controller
     {
         $trendMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))->distinct()->get();
 
-        // dd(\Carbon\Carbon::parse($trendMonthly[0]->bulan)->year);
+        // dd(\Carbon\Carbon::parse($trendMonthly));
 
         for ($m = 0; $m < $trendMonthly->count(); $m++) {
             $totMtMontly = DB::table('data_ftth_mt_sortirs')
