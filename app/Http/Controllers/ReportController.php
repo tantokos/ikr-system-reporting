@@ -129,15 +129,6 @@ class ReportController extends Controller
 
         $branchPenagihan = $branchPenagihan->distinct()->orderBy('id')->get();
 
-        // dd($branchPenagihan[0]->nama_branch);
-
-        
-        
-
-
-        
-
-        // dd($branchPenagihan);
         for ($b = 0; $b < $branchPenagihan->count(); $b++) {
             if ($request->filterSite == "Apartement") {
                 $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Apartement')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->where('branch','=',$branchPenagihan[$b]->nama_branch)->select('status_wo')->count();
@@ -194,11 +185,8 @@ class ReportController extends Controller
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
-        
-        
         $branchPenagihan = Branch::select('id', 'nama_branch')->orderBy('id')->get();
 
-        // dd($branchPenagihan);
         for ($b = 0; $b < $branchPenagihan->count(); $b++) {
             if ($branchPenagihan[$b]->nama_branch == "Apartement") {
                 $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Apartement')->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->select('status_wo')->count();
@@ -251,20 +239,50 @@ class ReportController extends Controller
 
     public function getTrendMonthly(Request $request)
     {
-        $trendMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))->distinct()->get();
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
-        // dd(\Carbon\Carbon::parse($trendMonthly));
+        $trendMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+                        ->whereYear('tgl_ikr', '=', $tahun)
+                        ->whereMonth('tgl_ikr','<=', $bulan); //->distinct()->get();
+
+        if($request->filterSite != "All"){
+            $trendMonthly = $trendMonthly->where('site_penagihan','=', $request->filterSite);
+        }
+        if($request->filterBranch != "All"){
+            $trendMonthly = $trendMonthly->where('branch','=', $request->filterBranch);
+        }
+        $trendMonthly = $trendMonthly->distinct()->get();
 
         for ($m = 0; $m < $trendMonthly->count(); $m++) {
             $totMtMontly = DB::table('data_ftth_mt_sortirs')
                 ->whereMonth('tgl_ikr', \Carbon\Carbon::parse($trendMonthly[$m]->bulan)->month)
-                ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendMonthly[$m]->bulan)->year)
-                ->count();
+                ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendMonthly[$m]->bulan)->year);
+                // ->count();
+
+            if($request->filterSite != "All"){
+                $totMtMontly = $totMtMontly->where('site_penagihan','=', $request->filterSite);
+            }
+            if($request->filterBranch != "All"){
+                $totMtMontly = $totMtMontly->where('branch','=', $request->filterBranch);
+            }
+
+            $totMtMontly = $totMtMontly->count();
+
             $totMtMontlyDone = DB::table('data_ftth_mt_sortirs')
                 ->whereMonth('tgl_ikr', \Carbon\Carbon::parse($trendMonthly[$m]->bulan)->month)
                 ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendMonthly[$m]->bulan)->year)
-                ->where('status_wo', '=', 'Done')
-                ->count();
+                ->where('status_wo', '=', 'Done');
+                // ->count();
+
+            if($request->filterSite != "All"){
+                $totMtMontlyDone = $totMtMontlyDone->where('site_penagihan','=', $request->filterSite);
+            }
+            if($request->filterBranch != "All"){
+                $totMtMontlyDone = $totMtMontlyDone->where('branch','=', $request->filterBranch);
+            }
+    
+            $totMtMontlyDone = $totMtMontlyDone->count();
 
             $trendMonthly[$m]->trendMtTotal = $totMtMontly;
             $trendMonthly[$m]->trendMtDone = $totMtMontlyDone;
@@ -276,18 +294,47 @@ class ReportController extends Controller
 
     public function getTabelStatus(Request $request)
     {
-        // dd($request);
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+        $tgl = [];
 
-        $tblStatus = DataFtthMtSortir::select(DB::raw('tgl_ikr, count(if(status_wo = "Done", 1, NULL)) as Done, 
-        count(if(status_wo = "Pending", 1, NULL)) as Pending, count(if(status_wo = "Cancel", 1, NULL)) as Cancel'))
-            ->whereMonth('tgl_ikr', $bulan)
-            ->whereYear('tgl_ikr', $tahun)
-            ->orderBy('tgl_ikr')
-            ->groupBy('tgl_ikr')->get();
+        $dayMonth = \Carbon\CarbonPeriod::between(now()->month($bulan)->startOfMonth(),now()->month($bulan)->endOfMonth());
 
-        return response()->json($tblStatus);
+        foreach($dayMonth as $date) {
+            $tgl[] = ['tgl_ikr' => $date->format('Y-m-d')]; 
+        }
+        // dd($tgl);
+
+        for($d=0 ; $d < count($tgl); $d++){
+            $tblStatus = DataFtthMtSortir::where('tgl_ikr','=', $tgl[$d]) //->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
+            ->select(DB::raw('tgl_ikr, count(if(status_wo = "Done", 1, NULL)) as Done, 
+            count(if(status_wo = "Pending", 1, NULL)) as Pending, count(if(status_wo = "Cancel", 1, NULL)) as Cancel'));
+                // ->whereDay('tgl_ikr', $dayMonth);
+
+            
+
+            // dd($tblStatus);
+            if($request->filterSite != "All"){
+                $tblStatus = $tblStatus->where('site_penagihan','=', $request->filterSite);
+            }
+            if($request->filterBranch != "All"){
+                $tblStatus = $tblStatus->where('branch','=', $request->filterBranch);
+            }
+
+            $tblStatus = $tblStatus->orderBy('tgl_ikr')
+                ->groupBy('tgl_ikr')->first();
+
+            // dd($tblStatus->Done);
+            $tgl[$d]['Done'] = $tblStatus->Done ?? 0;
+            $tgl[$d]['Pending'] = $tblStatus->Pending ?? 0;
+            $tgl[$d]['Cancel'] = $tblStatus->Cancel ?? 0;
+
+            
+        }
+
+        // dd($tgl);
+
+        return response()->json($tgl);
     }
 
     public function getRootCouseDone(Request $request)
