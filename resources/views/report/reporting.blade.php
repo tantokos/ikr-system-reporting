@@ -26,7 +26,7 @@
                                 {{-- <div class="row"> --}}
                                 <div class="form-group">
                                     <div class="col-sm-2">
-                                        <button type="button" class="btn btn-sm btn-success filterDashBoard">Filter</button>
+                                        <button type="button" class="btn btn-sm btn-success filterDashBoard" id="filterDashBoard">Filter</button>
                                     </div>
                                 </div>
 
@@ -1526,7 +1526,7 @@
             $('#canvasTotWOMt').empty();
         })
 
-        $(document).on('click', '.filterDashBoard', function() {
+        $(document).on('click', '.filterDashBoarddd', function() {
             let filBulanReport = $('#bulanReport').val();
             let filTglPeriode = $('#periode').val();
             let filSite = $('#site').val();
@@ -1551,12 +1551,13 @@
             console.log(filBulanReport, filSite, filBranch, filKotamadya);
         })
 
-        $('#bulanReport').on('change', function(e) {
+        // $('#bulanReport').on('change', function(e) {
+        $('#filterDashBoard').on('click', function(e) {
 
             // console.log($(this).val())
 
             e.preventDefault();
-            let bulanReport = $(this).val();
+            let bulanReport = $('#bulanReport').val();
             let trendWoMt;
             var dataResult;
 
@@ -1915,7 +1916,11 @@
                 url: "{{ route('getTrendMonthly') }}",
                 type: 'GET',
                 data: {
-                    bulanTahunReport: bulanReport
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterKotamadya: filKotamadya
 
                 },
                 success: function(dataTrendMonthly) {
@@ -2045,7 +2050,11 @@
                 url: "{{ route('getTabelStatus') }}",
                 type: 'GET',
                 data: {
-                    bulanTahunReport: bulanReport
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterKotamadya: filKotamadya
 
                 },
                 success: function(data) {
