@@ -111,8 +111,9 @@ class ImportFtthMtTempController extends Controller
         ]);
     }
 
-    public function showSummary()
+    public function showSummary(Request $request)
     {
+
         $akses = Auth::user()->name;
         $done = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Done')->count('status_wo');
         $pending = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Pending')->count('status_wo');
@@ -126,6 +127,153 @@ class ImportFtthMtTempController extends Controller
 
         $detRootCouse = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan,couse_code,root_couse, count(*) as jml'))
             ->distinct()->groupBy('penagihan', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
+    }
+
+    public function getFilterSummary(Request $request)
+    {
+        
+        $akses = Auth::user()->name;
+
+        // query status data ORI
+        $done = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Done')
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']); //->count('status_wo');
+        $pending = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Pending')
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']); //->count('status_wo');
+        $cancel = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Cancel')
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']); //->count('status_wo');
+        // end query status date ORI
+
+        // query status data Sortir
+        $doneSortir = DB::table('import_ftth_mt_sortir_temps')->where('status_wo', '=', 'Done'); //->count('status_wo'); //->get();
+
+        $pendingSortir = DB::table('import_ftth_mt_sortir_temps')->where('status_wo', '=', 'Pending'); //->count('status_wo'); //->get();
+    
+        $cancelSortir = DB::table('import_ftth_mt_sortir_temps')->where('status_wo', '=', 'Cancel'); //->count('status_wo'); //->get();
+    
+        // $donePendingSortir = $doneSortir->merge($pendingSortir);
+        // $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
+        // end query status data Sortir
+
+        $tglIkr = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('tgl_ikr'))->distinct()->get();
+
+        $detPenagihan = ImportFtthMtTemp::where('login', '=', $akses)
+            ->leftjoin('root_couse_penagihan','root_couse_penagihan.penagihan', '=', 'import_ftth_mt_temps.penagihan')
+            ->select(DB::raw('import_ftth_mt_temps.penagihan, import_ftth_mt_temps.status_wo, count(import_ftth_mt_temps.penagihan) as jml'))
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+
+        $detCouseCode = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code, count(*) as jml'))
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+
+        $detRootCouse = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code,root_couse, count(*) as jml'))
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+
+
+        $detPenagihanSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)
+            ->leftjoin('root_couse_penagihan','root_couse_penagihan.penagihan', '=', 'import_ftth_mt_sortir_temps.penagihan')
+            ->select(DB::raw('import_ftth_mt_sortir_temps.penagihan,import_ftth_mt_sortir_temps.status_wo, count(import_ftth_mt_sortir_temps.penagihan) as jml'))
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            // ->groupBy('penagihan')->orderBy('penagihan')->get();
+
+        $detCouseCodeSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code, count(*) as jml'))
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            // ->distinct()
+            // ->groupBy('penagihan', 'couse_code')->orderBy('penagihan')->get();
+
+        $detRootCouseSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code,root_couse, count(*) as jml'))
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            // ->distinct()
+            // ->groupBy('penagihan', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
+
+        if ($request->filSitePenagihan != "ALL"){
+            $detPenagihan = $detPenagihan->where('site_penagihan','=',$request->filSitePenagihan);
+            $detCouseCode = $detCouseCode->where('site_penagihan','=',$request->filSitePenagihan);
+            $detRootCouse = $detRootCouse->where('site_penagihan','=',$request->filSitePenagihan);
+
+            $detPenagihanSortir = $detPenagihanSortir->where('site_penagihan','=',$request->filSitePenagihan);
+            $detCouseCodeSortir = $detCouseCodeSortir->where('site_penagihan','=',$request->filSitePenagihan);
+            $detRootCouseSortir = $detRootCouseSortir->where('site_penagihan','=',$request->filSitePenagihan);
+
+        }
+        if ($request->filBranch != "ALL"){
+            $done = $done->where('branch', '=', $request->filBranch);            
+            $pending = $pending->where('branch', '=', $request->filBranch);
+            $cancel = $cancel->where('branch', '=', $request->filBranch);
+
+            $doneSortir = $doneSortir->where('branch', '=', $request->filBranch);            
+            $pendingSortir = $pendingSortir->where('branch', '=', $request->filBranch);
+            $cancelSortir = $cancelSortir->where('branch', '=', $request->filBranch);
+
+            $detPenagihan = $detPenagihan->where('branch','=',$request->filBranch);
+            $detCouseCode = $detCouseCode->where('branch','=',$request->filBranch);
+            $detRootCouse = $detRootCouse->where('branch','=',$request->filBranch);
+
+            $detPenagihanSortir = $detPenagihanSortir->where('branch','=',$request->filBranch);
+            $detCouseCodeSortir = $detCouseCodeSortir->where('branch','=',$request->filBranch);
+            $detRootCouseSortir = $detRootCouseSortir->where('branch','=',$request->filBranch);
+
+        }
+        if ($request->filKotamadya != "ALL"){
+            $detPenagihan = $detPenagihan->where('kotamadya','=',$request->filKotamadya);
+            $detCouseCode = $detCouseCode->where('kotamadya','=',$request->filKotamadya);
+            $detRootCouse = $detRootCouse->where('kotamadya','=',$request->filKotamadya);
+
+            $detPenagihanSortir = $detPenagihanSortir->where('kotamadya','=',$request->filKotamadya);
+            $detCouseCodeSortir = $detCouseCodeSortir->where('kotamadya','=',$request->filKotamadya);
+            $detRootCouseSortir = $detRootCouseSortir->where('kotamadya','=',$request->filKotamadya);
+
+        }
+        if ($request->filRootPenagihan != "ALL"){
+            $detPenagihan = $detPenagihan->where('import_ftth_mt_temps.penagihan','=',$request->filRootPenagihan);
+            $detCouseCode = $detCouseCode->where('penagihan','=',$request->filRootPenagihan);
+            $detRootCouse = $detRootCouse->where('penagihan','=',$request->filRootPenagihan);
+
+            $detPenagihanSortir = $detPenagihanSortir->where('import_ftth_mt_sortir_temps.penagihan','=',$request->filRootPenagihan);
+            $detCouseCodeSortir = $detCouseCodeSortir->where('penagihan','=',$request->filRootPenagihan);
+            $detRootCouseSortir = $detRootCouseSortir->where('penagihan','=',$request->filRootPenagihan);
+
+        }
+        if ($request->filStatusWo != "ALL"){
+            $detPenagihan = $detPenagihan->where('status_wo','=',$request->filStatusWo);
+            $detCouseCode = $detCouseCode->where('status_wo','=',$request->filStatusWo);
+            $detRootCouse = $detRootCouse->where('status_wo','=',$request->filStatusWo);
+
+            $detPenagihanSortir = $detPenagihanSortir->where('status_wo','=',$request->filStatusWo);
+            $detCouseCodeSortir = $detCouseCodeSortir->where('status_wo','=',$request->filStatusWo);
+            $detRootCouseSortir = $detRootCouseSortir->where('status_wo','=',$request->filStatusWo);
+
+        }
+        if ($request->filTglIkr != "ALL"){
+            $detPenagihan = $detPenagihan->where('tgl_ikr','=',$request->filTglIkr);
+            $detCouseCode = $detCouseCode->where('tgl_ikr','=',$request->filTglIkr);
+            $detRootCouse = $detRootCouse->where('tgl_ikr','=',$request->filTglIkr);
+
+            $detPenagihanSortir = $detPenagihanSortir->where('tgl_ikr','=',$request->filTglIkr);
+            $detCouseCodeSortir = $detCouseCodeSortir->where('tgl_ikr','=',$request->filTglIkr);
+            $detRootCouseSortir = $detRootCouseSortir->where('tgl_ikr','=',$request->filTglIkr);
+        }
+
+        $done = $done->count('status_wo');
+        $pending = $pending->count('status_wo');
+        $cancel = $cancel->count('status_wo');
+
+        $doneSortir = $doneSortir->count('status_wo'); //->get();
+        $pendingSortir = $pendingSortir->count('status_wo'); //->get();
+        $cancelSortir = $cancelSortir->count('status_wo'); //->get();
+
+        $detPenagihan = $detPenagihan->groupBy('import_ftth_mt_temps.penagihan', 'import_ftth_mt_temps.status_wo','root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $detCouseCode = $detCouseCode->distinct()->groupBy('penagihan', 'status_wo', 'couse_code')->orderBy('penagihan')->get();
+        $detRootCouse = $detRootCouse->distinct()->groupBy('penagihan', 'status_wo', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
+     
+        $detPenagihanSortir = $detPenagihanSortir->groupBy('import_ftth_mt_sortir_temps.penagihan', 'import_ftth_mt_sortir_temps.status_wo','root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $detCouseCodeSortir = $detCouseCodeSortir->groupBy('penagihan', 'status_wo', 'couse_code')->orderBy('penagihan')->get();
+        $detRootCouseSortir = $detRootCouseSortir->groupBy('penagihan', 'status_wo', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
+
+        return response()->json([
+            'done' => $done, 'pending' => $pending, 'cancel' => $cancel,
+            'doneSortir' => $doneSortir, 'pendingSortir' => $pendingSortir, 'cancelSortir' => $cancelSortir,
+            'detPenagihan' => $detPenagihan, 'detCouseCode' => $detCouseCode, 'detRootCouse' => $detRootCouse,
+            'detPenagihanSortir' => $detPenagihanSortir, 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
+            ]);
     }
 
 
