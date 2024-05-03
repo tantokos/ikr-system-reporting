@@ -14,7 +14,7 @@
                                 <div class="form-group">
                                     <label class="form-text">Bulan Laporan</label>
                                     <select class="col form-control-sm" id="bulanReport" name="bulanReport" required>
-                                        <option value="pilihBulan">Pilih Bulan Report</option>
+                                        <option value="">Pilih Bulan Report</option>
                                         @foreach ($trendMonthly as $bulan)
                                             <option value="{{ $bulan->bulan }}">{{ $bulan->bulan }}</option>
                                         @endforeach
@@ -70,13 +70,13 @@
                                 </select>
                             </div>
 
-                            <div class="col-sm-2">
-                                <label class="form-text">Kotamadya</label>
-                                <select class="col form-control-sm" id="kotamadya">
-                                    <option value="All">All</option>
-                                    @foreach ($kota_penagihan as $kotamadya)
-                                        <option value="{{ $kotamadya->kotamadya_penagihan}}">{{ $kotamadya->kotamadya_penagihan }}</option>
-                                    @endforeach
+                            {{-- <div class="col-sm-2"> --}}
+                                {{-- <label class="form-text">Kotamadya</label> --}}
+                                {{-- <select class="col form-control-sm" id="kotamadya"> --}}
+                                    {{-- <option value="All">All</option> --}}
+                                    {{-- @foreach ($kota_penagihan as $kotamadya) --}}
+                                        {{-- <option value="{{ $kotamadya->kotamadya_penagihan}}">{{ $kotamadya->kotamadya_penagihan }}</option> --}}
+                                    {{-- @endforeach --}}
                                     {{-- <option>Jakarta Selatan</option> --}}
                                     {{-- <option>Jakarta Pusat</option> --}}
                                     {{-- <option>Jakarta Utara</option> --}}
@@ -89,8 +89,8 @@
                                     {{-- <option>Pontianak</option> --}}
                                     {{-- <option>Jambi</option> --}}
                                     {{-- <option>Bali</option> --}}
-                                </select>
-                            </div>
+                                {{-- </select> --}}
+                            {{-- </div> --}}
 
                             {{-- <div class="col-sm">
                                 <label class="form-text">WO Type</label>
@@ -118,7 +118,7 @@
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5>Summary Maintenance FTTH - All Branch & Apartement</h5>
+                    <h6>Summary WO Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartement, Underground)</h5></h6>
                 </div>
             </div>
         </div>
@@ -308,7 +308,7 @@
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5>Summary Report Maintenance FTTH - All Branch & Apartment</h5>
+                    <h6>Summary Report Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartement, Underground)<h5></h6>
                 </div>
             </div>
         </div>
@@ -388,11 +388,11 @@
 
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5>Summary Root Cause Closing WO Maintenance FTTH - All Branch & Apartment (Penagihan)</h5>
+                    <h6>Summary Root Cause Closing WO Maintenance FTTH - Penagihan<h5 id="CardTitle">All Branch - All Site (Retail, Apartement, Underground)<h5></h6>
                 </div>
             </div>
         </div>
@@ -406,39 +406,19 @@
                         <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
                             cellspacing="0" style="font-size: 12px">
                             <thead id="rootCouseHead">
-                                {{-- <tr> --}}
-                                {{-- <th>Root Couse</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
-                                {{-- </tr> --}}
                             </thead>
                             <tbody id="rootCouseTb">
-                                {{-- <tr id="woDone"> --}}
-                                {{-- <td>Done</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woPending"> --}}
-                                {{-- <td>Installation Failed</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woCancel"> --}}
-                                {{-- <td>Cancel</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
-                                {{-- </tr> --}}
                             </tbody>
                             <tfoot>
                                 <tr id="totRootCouse">
                                     <th>Total</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
-
-
+        </div> --}}
 
     </div>
 
@@ -446,7 +426,18 @@
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5>Summary Root Cause Closing WO Maintenance FTTH - All Branch & Apartment (Aplikasi)</h5>
+                    <h6>Summary Root Cause Closing WO Maintenance FTTH<h5 id="CardTitle">All Branch - All Site (Retail, Apartement, Underground)<h5></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body" id="canvasRootCouseAPK">
+
+                    {{-- <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -479,7 +470,18 @@
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5>Summary Root Cause Maintenance Failed FTTH - All Branch & Apartment</h5>
+                    <h5>Summary Root Cause Maintenance Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartement, Underground)<h5></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body" id="canvasRootCouseAPKPending">
+
+                    {{-- <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -512,7 +514,18 @@
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5>Summary Root Cause Cancel Maintenance FTTH - All Branch & Apartment</h5>
+                    <h6>Summary Root Cause Cancel Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartement, Underground)<h5></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body" id="canvasRootCouseAPKCancel">
+
+                    {{-- <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -563,7 +576,7 @@
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5>Summary WO Maintenance Back To Normal</h5>
+                    <h6>Summary WO Maintenance Cancel System Problem - Back To Normal - <h5 id="CardTitle">All Branch - All Site (Retail, Apartement, Underground)<h5></h6>
                 </div>
             </div>
         </div>
@@ -644,7 +657,7 @@
         {{-- End Back To Normal 2 Sortir MT --}}
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -652,9 +665,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">Trend WO Maintenance Apartment All Branch</div>
@@ -674,11 +687,11 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 
 
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -688,28 +701,22 @@
                             <thead>
                                 <tr id="dateMonthApart">
                                     <th>Maintenance Apartment All Branch</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr id="woDoneApart">
                                     <td>Done</td>
-                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
                                 </tr>
                                 <tr id="woPendingApart">
                                     <td>Maintenance Failed</td>
-                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
                                 </tr>
                                 <tr id="woCancelApart">
                                     <td>Cancel</td>
-                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr id="totWoApart">
                                     <th>Total WO</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -717,9 +724,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -727,9 +734,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -737,30 +744,12 @@
                         <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
                             cellspacing="0" style="font-size: 12px; table-layout: fixed">
                             <thead id="rootCouseHeadApart">
-                                {{-- <tr> --}}
-                                {{-- <th>Root Couse</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
-                                {{-- </tr> --}}
                             </thead>
                             <tbody id="rootCouseTbApart">
-                                {{-- <tr id="woDone"> --}}
-                                {{-- <td>Done</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woPending"> --}}
-                                {{-- <td>Installation Failed</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woCancel"> --}}
-                                {{-- <td>Cancel</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
-                                {{-- </tr> --}}
                             </tbody>
                             <tfoot>
                                 <tr id="totRootCouseApart">
                                     <th>Total</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -768,9 +757,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -778,10 +767,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Root Couse Sortir MT --}}
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -789,10 +778,6 @@
                         <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
                             <thead>
                                 <tr id="rootCouseHeadAPKApart">
-                                    {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
-                                    {{-- <th></th> --}}
-                                    {{-- <th></th> --}}
-                                    {{-- <th style="text-align: center">Jumlah</th> --}}
                                 </tr>
                             </thead>
                             <tbody id="bodyRootCouseAPKApart">
@@ -802,10 +787,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- End Root Couse Sortir MT --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -813,9 +798,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -836,9 +821,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -846,9 +831,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -862,7 +847,6 @@
                             <tfoot>
                                 <tr id="totRootCouseCancelApart">
                                     <th>Total</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -870,9 +854,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -880,9 +864,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">Trend WO Maintenance Underground All Branch</div>
@@ -902,9 +886,9 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -914,28 +898,22 @@
                             <thead>
                                 <tr id="dateMonthUG">
                                     <th>Maintenance Underground All Branch</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr id="woDoneUG">
                                     <td>Done</td>
-                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
                                 </tr>
                                 <tr id="woPendingUG">
                                     <td>Maintenance Failed</td>
-                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
                                 </tr>
                                 <tr id="woCancelUG">
                                     <td>Cancel</td>
-                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr id="totWoUG">
                                     <th>Total WO</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -943,9 +921,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -953,9 +931,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -976,9 +954,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -986,10 +964,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Root Couse Sortir MT --}}
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -997,10 +975,6 @@
                         <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
                             <thead>
                                 <tr id="rootCouseHeadAPKUG">
-                                    {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
-                                    {{-- <th></th> --}}
-                                    {{-- <th></th> --}}
-                                    {{-- <th style="text-align: center">Jumlah</th> --}}
                                 </tr>
                             </thead>
                             <tbody id="bodyRootCouseAPKUG">
@@ -1010,10 +984,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- End Root Couse Sortir MT --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -1021,9 +995,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -1044,9 +1018,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -1054,9 +1028,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -1070,7 +1044,6 @@
                             <tfoot>
                                 <tr id="totRootCouseCancelUG">
                                     <th>Total</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -1078,199 +1051,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
-    {{-- modal Total detail --}}
-
-    <div class="modal fade" id="md-totAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Total Aset</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-totAset">
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataTotAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th>Satuan</th>
-                                    <th>Jumlah</th>
-                                    <th>Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal total detail --}}
-
-    {{-- modal tersedia detail --}}
-    <div class="modal fade" id="md-tersediaAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Aset Tersedia</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-tersediaAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
-
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataTersediaAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th>Satuan</th>
-                                    <th>Jumlah</th>
-                                    <th>Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal tersedia detail --}}
-
-    {{-- modal distribusi detail --}}
-    <div class="modal fade" id="md-distribusiAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Aset Terdistribusi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-distribusiAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
-
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataDistribusiAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th>Satuan</th>
-                                    <th>Jumlah</th>
-                                    <th>Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal distribusi detail --}}
-
-    {{-- modal rusak detail --}}
+   {{-- modal rusak detail --}}
 
     <div class="modal fade" id="md-rusakAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
         aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -1481,14 +1265,37 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script> --}}
+    <script src="{{ asset('assets/js/chartjs-plugin-datalabels.min.js')}}"></script>
 
     <script type="text/javascript">
-        $('#periode').daterangepicker();
 
-    </script>
+        let firstDate;
+        let lastDate;
 
-    <script type="text/javascript">
+        $('#periode').daterangepicker({
+            startDate: moment().startOf(),
+            endDate: moment().startOf(),
+            locale: {
+                format: 'DD-MM-YYYY'
+            }
+        });
+
+
+        
+        $(document).on('change', '#bulanReport', function(){
+            bln = new Date($(this).val()).getMonth();
+            thn = new Date($(this).val()).getFullYear();
+
+            firstDate = moment([thn, bln]);
+            lastDate = moment(firstDate).endOf('month');
+            // console.log("firsDate : ", firstDate.toDate());
+            // console.log("lastDate : ", lastDate.toDate());
+
+            $('#periode').data('daterangepicker').setStartDate(firstDate);
+            $('#periode').data('daterangepicker').setEndDate(lastDate);
+
+        });
         
         
         $(document).on('change', '#branch', function(){
@@ -1526,51 +1333,63 @@
             $('#canvasTotWOMt').empty();
         })
 
-        $(document).on('click', '.filterDashBoarddd', function() {
-            let filBulanReport = $('#bulanReport').val();
-            let filTglPeriode = $('#periode').val();
-            let filSite = $('#site').val();
-            let filBranch = $('#branch').val();
-            let filKotamadya = $('#kotamadya').val();
-            // let filStartPeriode = $('#periode').data('daterangepicker').startDate._d;
-
-            $.ajax({
-                url: "{{ route('getFilterDashboard') }}",
-                type: "GET",
-                data: {
-                    filterBulan: filBulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterKotamadya: filKotamadya
-                },
-                success: function(dataDashboard) {
-                    console.log(dataDashboard);
-                }
-            });
-            console.log(filBulanReport, filSite, filBranch, filKotamadya);
-        })
-
-        // $('#bulanReport').on('change', function(e) {
         $('#filterDashBoard').on('click', function(e) {
 
-            // console.log($(this).val())
+            // console.log($('#periode').data('daterangepicker').startDate.format("YYYY-MM-DD"))
+            // console.log($('#periode').data('daterangepicker').endDate.format("YYYY-MM-DD"))
 
+            
             e.preventDefault();
+            if($('#bulanReport').val() === ""){
+                alert('Pilih Bulan Report');
+                return;
+            }
+
             let bulanReport = $('#bulanReport').val();
+
+            // console.log(moment([new Date(bulanReport).getFullYear(), new Date(bulanReport).getMonth()]).format("DD-MM-YYYY"));
             let trendWoMt;
             var dataResult;
 
             let filBulanReport = $('#bulanReport').val();
             let filTglPeriode = $('#periode').val();
+            let filPeriodeStart = $('#periode').data('daterangepicker').startDate.format("YYYY-MM-DD");
+            let filPeriodeEnd = $('#periode').data('daterangepicker').endDate.format("YYYY-MM-DD");
             let filSite = $('#site').val();
             let filBranch = $('#branch').val();
             let filKotamadya = $('#kotamadya').val();
 
+            let titleBranch;
+            let titleSite;
+
+            if(filBranch == "All"){
+                titleBranch = "All Branch";
+            } else {
+                titleBranch = "Branch " + filBranch;
+            }
+
+            if(filSite == "All"){
+                titleSite = "All Site (Retail, Apartement, Underground)";
+            } else {
+                titleSite = "Site " + filSite;
+            }
+            
+            document.querySelectorAll('#CardTitle').forEach(function(elem){
+                elem.innerText = titleBranch + " - " + titleSite; 
+            })
+            // console.log($('#CardTitle').html("testing"));
+
+            let uri;
+            if ((filSite == "All") && (filBranch == "All")){
+                uri = "{{ route('getTotalWoBranch')}}";
+            }else {
+                uri = "{{ route('getFilterDashboard')}}";
+            }
+            
 
             $.ajax({
                 // url: "{{ route('getTotalWoBranch') }}",
-                url: ( filSite == "All") ? "{{ route('getTotalWoBranch')}}" : "{{ route('getFilterDashboard')}}",
+                url: uri, //( filSite == "All" ) ? "{{ route('getTotalWoBranch')}}" : "{{ route('getFilterDashboard')}}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1578,10 +1397,10 @@
                     filterTgl: filTglPeriode,
                     filterSite: filSite,
                     filterBranch: filBranch,
-                    filterKotamadya: filKotamadya
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
                 },
                 success: function(dataTotalWo) {
-
 
 
                     // const ctx = document.getElementById('TotWoMt');
@@ -1600,53 +1419,27 @@
 
                     $.each(totWoMt, function(key, item) {
 
-                        branch.push(item.nama_branch);
+                        // console.log(item.site_penagihan);
+                        // console.log(item.nama_branch);
+                        // if(item.site_penagihan == "Retail"){
+                            branch.push(item.nama_branch);
+                            totWoDone.push([item.nama_branch + " " + item.done, item.done]);
+                            branchWTot.push([item.nama_branch + " " + item.total, item.total]);
+                        // }
+                        // if((item.site_penagihan == "Apartement") || (item.site_penagihan == "Underground") ){
+                            // branch.push(item.site_penagihan);
+                            // totWoDone.push([item.site_penagihan + " " + item.done, item.done]);
+                            // branchWTot.push([item.site_penagihan + " " + item.total, item.total]);
+                        // }
+                        
                         totWo.push(item.total);
-                        totWoDone.push([item.nama_branch + " " + item.done, item.done]);
-                        branchWTot.push([item.nama_branch + " " + item.total, item.total]);
+                        
+                        
                     });
 
-                    // chart1 = new Chart(ctx, {
-                    //     type: 'pie',
-                    //     data: {
-                    //         labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
-                    //         datasets: [{
-                    //             label: 'Jumlah WO',
-                    //             data: totWo, //[12, 19, 3, 5, 2, 3],
-                    //             borderWidth: 1
-                    //         }]
-                    //     },
-                    //     options: {
-                    //         responsive: true,
-                    //         maintainAspectRatio: false,
-                    //         plugins: {
-                    //             legend: {
-                    //                 display: false,
-                    //                 position: 'right',
-                    //                 align: "start"
-                    //             },
-                    //             title: {
-                    //                 display: true,
-                    //                 text: 'WO Maintenance FTTH ' + bulanReport,
-                    //                 align: 'start',
-                    //             },
-
-                    //         },
-                    //     },
-                    //     plugins: [ChartDataLabels]
-                    // });
-
+                    
                     $('#canvasTotWOMt').empty();
-                    // let chartWoType = `
-                // <br>
-                // <br>
-                // <button class='btn btn-sm btn-primary closeDetailToday'> Close Detail</button>
-                // <figure class="highcharts-figure">
-                //     <div id="container7"></div>
-                // </figure>
-                // <br>
-                // <br>
-                // `;
+                    
 
                     let chartWoType = `
 					<figure class="highcharts-figure">
@@ -1688,52 +1481,9 @@
                         }]
                     });
 
-                    // const ctxMtClose = document.getElementById('TotWoMtClose');
-
-                    // var graphTotWoMtClose = Chart.getChart('TotWoMtClose');
-                    // if (graphTotWoMtClose) {
-                    //     graphTotWoMtClose.destroy();
-                    // }
-
-                    // new Chart(ctxMtClose, {
-                    //     type: 'pie',
-                    //     data: {
-                    //         labels: branch, //['Jakarta Timur', 'Jakarta Selatan', 'Bekasi', 'Bogor', 'Tangerang', 'Medan'],
-                    //         datasets: [{
-                    //             label: 'Jumlah WO',
-                    //             data: totWoDone, //[12, 19, 3, 5, 2, 3],
-                    //             borderWidth: 1
-                    //         }]
-                    //     },
-                    //     options: {
-                    //         responsive: true,
-                    //         maintainAspectRatio: false,
-                    //         plugins: {
-                    //             legend: {
-                    //                 display: true,
-                    //                 position: 'right',
-                    //                 align: "start"
-                    //             },
-                    //             title: {
-                    //                 display: true,
-                    //                 text: 'WO Close Maintenance FTTH ' + bulanReport,
-                    //                 align: 'start',
-                    //             }
-                    //         }
-                    //     }
-                    // });
+                   
 
                     $('#canvasTotWOMtClose').empty();
-                    // let chartWoType = `
-                // <br>
-                // <br>
-                // <button class='btn btn-sm btn-primary closeDetailToday'> Close Detail</button>
-                // <figure class="highcharts-figure">
-                //     <div id="container7"></div>
-                // </figure>
-                // <br>
-                // <br>
-                // `;
 
                     let chartWoTypeClose = `
 					<figure class="highcharts-figure">
@@ -1812,11 +1562,20 @@
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
+                    let nmBranch;
+
                     $.each(dataTotalWo, function(key, item) {
+                        
+                        // if(item.site_penagihan == "Retail"){
+                            nmBranch = item.nama_branch;
+                        // }
+                        // if((item.site_penagihan == "Apartement") || (item.site_penagihan == "Underground")){
+                            // nmBranch = item.site_penagihan;
+                        // }
 
                         let tbTotalWo = `
                             <tr>
-                                <td>${item.nama_branch}</td>
+                                <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.total.toLocaleString()}</td>
                             </tr>    
                         `;
@@ -1828,7 +1587,7 @@
 
                         let tbWoClose = `
                             <tr>
-                                <td>${item.nama_branch}</td>
+                                <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.done.toLocaleString()}</td>
                                 <td style="text-align: center">${item.persenDone.toFixed(1) + "%"}</td>
                             </tr>    
@@ -1840,7 +1599,7 @@
 
                         let tbWoPending = `
                             <tr>
-                                <td>${item.nama_branch}</td>
+                                <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.pending.toLocaleString()}</td>
                                 <td style="text-align: center">${item.persenPending.toFixed(1) + "%"}</td>
                             </tr>    
@@ -1851,7 +1610,7 @@
 
                         let tbWoCancel = `
                             <tr>
-                                <td>${item.nama_branch}</td>
+                                <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.cancel.toLocaleString()}</td>
                                 <td style="text-align: center">${item.persenCancel.toFixed(1) + "%"}</td>
                             </tr>    
@@ -1869,7 +1628,7 @@
                     $('#totWoCancel').find("th").remove();
 
                     let isiTotalWo = `
-                        <th>Total</th>
+                        <th>Total WO Maintenance</th>
                         <th style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
                     `;
 
@@ -1920,7 +1679,8 @@
                     filterTgl: filTglPeriode,
                     filterSite: filSite,
                     filterBranch: filBranch,
-                    filterKotamadya: filKotamadya
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
 
                 },
                 success: function(dataTrendMonthly) {
@@ -2052,9 +1812,12 @@
                 data: {
                     bulanTahunReport: bulanReport,
                     filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
                     filterSite: filSite,
                     filterBranch: filBranch,
-                    filterKotamadya: filKotamadya
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
 
                 },
                 success: function(data) {
@@ -2073,7 +1836,7 @@
                     var total = 0;
 
                     $('#dateMonth').find("th").remove();
-                    $('#dateMonth').append("<th>Maintenance All Branch</th>")
+                    $('#dateMonth').append(`<th>Maintenance ${titleBranch}</th>`)
 
                     $('#woDone').find("td").remove();
                     $('#woDone').find("th").remove();
@@ -2175,7 +1938,7 @@
                     Highcharts.chart('conTrendDialyWo', {
 
                         title: {
-                            text: 'Status WO Maintenance FTTH All Branch ' + bulanReport,
+                            text: 'Status WO Maintenance FTTH - ' + titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
 
@@ -2246,84 +2009,498 @@
 
             })
 
-
-
             $.ajax({
-                url: "{{ route('getRootCouseDone') }}",
-                type: "GET",
+                url: "{{ route('getRootCouseAPKGraph') }}",
+                type: 'GET',
                 data: {
-                    bulanTahunReport: bulanReport
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
                 },
-                success: function(dataRootCouse) {
+                success: function(data) {
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var dayGraph = [];
+                    var nameGraph = [];
+                    var nameDataGraph = [];
+                    var objDataGraph = {};
+                    var dayApk = [];
+                    var pendingDay = [];
+                    var cancelDay = [];
+                    var donetb;
+                    var totDone = 0;
+                    var totPending = 0;
+                    var totCancel = 0;
+                    var totWo = 0;
+                    var total = 0;
 
-                    $('#rootCouseHead').find("tr").remove();
-                    $('#rootCouseTb').find("tr").remove();
-                    $('#totRootCouse').find("th").remove();
+                    for(tg=0;tg<data.tglGraphAPK.length;tg++){
+                        // console.log(data.tglGraphAPK[tg].tgl_ikr)
+                        dayGraph.push(new Date(data.tglGraphAPK[tg].tgl_ikr).getDate())
+                        
 
-                    var TotRootDone = 0;
-                    let tbRootCouse;
-                    let hdRootCouse = `
-                        <tr>
-                                <th>RootCouse Done</th>
-                        </tr>`;
-
-                    $('#rootCouseHead').append(hdRootCouse);
-
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHead').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
                     }
 
-                    $.each(dataRootCouse, function(key, item) {
+                    for(nm=0;nm<data.nameGraphAPK.length;nm++){
+                        // console.log(data.nameGraphAPK[nm].penagihan);
+                        nameGraph.push({name: data.nameGraphAPK[nm].penagihan});
+                        // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
 
-                        if (item.penagihan == 'total_done') {
-                            tbRootCouse = `
-                            <tr>
-                                <th>Total</th>
-                                
-                            `;
-                        } else {
-                            tbRootCouse = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        }
+                        // for(dt=0;dt<data.dataGraphAPK.length;dt++){
+                            // console.log(data.dataGraphAPK[dt].data);
+                            nameGraph[nm]['data'] = data.dataGraphAPK[nm].data
+                        // }
+                        
+                    }
+                    
+                    // graph line dialy //
 
-                        if (item.penagihan == 'total_done') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouse = tbRootCouse +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                    $('#canvasRootCouseAPK').empty();
+
+                    let chartRootCouseAPKDialy = `
+					<figure class="highcharts-figure">
+					    <div id="conRooCouseAPKDialy"></div>
+					</figure>
+				    `;
+
+                    $('#canvasRootCouseAPK').append(chartRootCouseAPKDialy);
+
+                    Highcharts.chart('conRooCouseAPKDialy', {
+
+                        title: {
+                            text: 'Root Couse WO Maintenance Close FTTH Dialy - ' + titleBranch + ' ' + bulanReport,
+                            align: 'left'
+                        },
+
+
+                        xAxis: {
+                            categories: dayGraph
+                        },
+
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
                             }
+                        },
 
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouse = tbRootCouse +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                        series: nameGraph, //[{
+                            // name: 'WO Done',
+                            // data: doneDay //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        // }, {
+                            // name: 'WO Pending',
+                            // data: pendingDay //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        // }, {
+                            // name: 'WO Cancel',
+                            // data: cancelDay //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        // }],
 
-                            }
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
                         }
-
-
-                        tbRootCouse = tbRootCouse + `</tr>`;
-                        $('#rootCouseTb').append(tbRootCouse);
 
                     });
 
-                    // $('#totRootCouse').append(tbTotalRootCouse);  
                 }
 
-            });
+            })
+
+            $.ajax({
+                url: "{{ route('getRootCousePendingGraph') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(data) {
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var dayGraphPending = [];
+                    var nameGraphPending = [];
+                    var nameDataGraphPending = [];
+                    var objDataGraph = {};
+                    var dayApk = [];
+                    var pendingDay = [];
+                    var cancelDay = [];
+                    var donetb;
+                    var totDone = 0;
+                    var totPending = 0;
+                    var totCancel = 0;
+                    var totWo = 0;
+                    var total = 0;
+
+                    for(tg=0;tg<data.tglGraphAPKPending.length;tg++){
+                        // console.log(data.tglGraphAPK[tg].tgl_ikr)
+                        dayGraphPending.push(new Date(data.tglGraphAPKPending[tg].tgl_ikr).getDate())
+                        
+
+                    }
+
+                    for(nm=0;nm<data.nameGraphAPKPending.length;nm++){
+                        // console.log(data.nameGraphAPK[nm].penagihan);
+                        nameGraphPending.push({name: data.nameGraphAPKPending[nm].penagihan});
+                        // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
+
+                        // for(dt=0;dt<data.dataGraphAPK.length;dt++){
+                            // console.log(data.dataGraphAPK[dt].data);
+                            nameGraphPending[nm]['data'] = data.dataGraphAPKPending[nm].data
+                        // }
+                        
+                    }
+                    
+                    // graph line dialy //
+
+                    $('#canvasRootCouseAPKPending').empty();
+
+                    let chartRootCouseAPKDialy = `
+					<figure class="highcharts-figure">
+					    <div id="conRooCouseAPKDialyPending"></div>
+					</figure>
+				    `;
+
+                    $('#canvasRootCouseAPKPending').append(chartRootCouseAPKDialy);
+
+                    Highcharts.chart('conRooCouseAPKDialyPending', {
+
+                        title: {
+                            text: 'Root Couse WO Maintenance Failed FTTH Dialy - ' + titleBranch + ' ' + bulanReport,
+                            align: 'left'
+                        },
+
+
+                        xAxis: {
+                            categories: dayGraphPending
+                        },
+
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: nameGraphPending, //[{
+                            // name: 'WO Done',
+                            // data: doneDay //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        // }, {
+                            // name: 'WO Pending',
+                            // data: pendingDay //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        // }, {
+                            // name: 'WO Cancel',
+                            // data: cancelDay //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        // }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                }
+
+            })
+
+            $.ajax({
+                url: "{{ route('getRootCouseCancelGraph') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(data) {
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var dayGraphCancel = [];
+                    var nameGraphCancel = [];
+                    var nameDataGraphCancel = [];
+                    var objDataGraph = {};
+                    var dayApk = [];
+                    var pendingDay = [];
+                    var cancelDay = [];
+                    var donetb;
+                    var totDone = 0;
+                    var totPending = 0;
+                    var totCancel = 0;
+                    var totWo = 0;
+                    var total = 0;
+
+                    for(tg=0;tg<data.tglGraphAPKCancel.length;tg++){
+                        // console.log(data.tglGraphAPK[tg].tgl_ikr)
+                        dayGraphCancel.push(new Date(data.tglGraphAPKCancel[tg].tgl_ikr).getDate())
+                        
+
+                    }
+
+                    for(nm=0;nm<data.nameGraphAPKCancel.length;nm++){
+                        // console.log(data.nameGraphAPK[nm].penagihan);
+                        nameGraphCancel.push({name: data.nameGraphAPKCancel[nm].penagihan});
+                        // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
+
+                        // for(dt=0;dt<data.dataGraphAPK.length;dt++){
+                            // console.log(data.dataGraphAPK[dt].data);
+                            nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
+                        // }
+                        
+                    }
+                    
+                    // graph line dialy //
+
+                    $('#canvasRootCouseAPKCancel').empty();
+
+                    let chartRootCouseAPKDialyCancel = `
+					<figure class="highcharts-figure">
+					    <div id="conRooCouseAPKDialyCancel"></div>
+					</figure>
+				    `;
+
+                    $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialyCancel);
+
+                    Highcharts.chart('conRooCouseAPKDialyCancel', {
+
+                        title: {
+                            text: 'Root Couse WO Maintenance Cancel FTTH Dialy - ' + titleBranch + ' ' + bulanReport,
+                            align: 'left'
+                        },
+
+
+                        xAxis: {
+                            categories: dayGraphCancel
+                        },
+
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: nameGraphCancel, //[{
+                            // name: 'WO Done',
+                            // data: doneDay //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        // }, {
+                            // name: 'WO Pending',
+                            // data: pendingDay //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        // }, {
+                            // name: 'WO Cancel',
+                            // data: cancelDay //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        // }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                }
+
+            })
+
+
+
+            // $.ajax({
+            //     url: "{{ route('getRootCouseDone') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport,
+            //         filterTgl: filTglPeriode,
+            //         filterSite: filSite,
+            //         filterBranch: filBranch,
+            //         filterKotamadya: filKotamadya
+            //     },
+            //     success: function(dataRootCouse) {
+
+            //         $('#rootCouseHead').find("tr").remove();
+            //         $('#rootCouseTb').find("tr").remove();
+            //         $('#totRootCouse').find("th").remove();
+
+            //         var TotRootDone = 0;
+            //         let tbRootCouse;
+            //         let hdRootCouse = `
+            //             <tr>
+            //                     <th>RootCouse Done</th>
+            //             </tr>`;
+
+            //         $('#rootCouseHead').append(hdRootCouse);
+
+            //         for (b = 0; b < trendWoMt.length; b++) {
+            //             $('#rootCouseHead').find("tr").append(
+            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
+
+            //         $.each(dataRootCouse, function(key, item) {
+
+            //             if (item.penagihan == 'total_done') {
+            //                 tbRootCouse = `
+            //                 <tr>
+            //                     <th>Total</th>
+                                
+            //                 `;
+            //             } else {
+            //                 tbRootCouse = `
+            //                 <tr>
+            //                     <td>${item.penagihan}</td>
+                                
+            //                 `;
+            //             }
+
+            //             if (item.penagihan == 'total_done') {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouse = tbRootCouse +
+            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                 }
+
+            //             } else {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouse = tbRootCouse +
+            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+            //                 }
+            //             }
+
+
+            //             tbRootCouse = tbRootCouse + `</tr>`;
+            //             $('#rootCouseTb').append(tbRootCouse);
+
+            //         });
+
+            //         // $('#totRootCouse').append(tbTotalRootCouse);  
+            //     }
+
+            // });
 
             $.ajax({
                 url: "{{ route('getRootCousePending') }}",
                 type: "GET",
                 data: {
-                    bulanTahunReport: bulanReport
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
                 },
                 success: function(dataRootCousePending) {
-
+                    console.log(dataRootCousePending);
                     $('#rootCouseHeadPending').find("tr").remove();
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
@@ -2385,7 +2562,12 @@
                 url: "{{ route('getRootCouseCancel') }}",
                 type: "GET",
                 data: {
-                    bulanTahunReport: bulanReport
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
                 },
                 success: function(dataRootCouseCancel) {
 
@@ -2450,9 +2632,14 @@
                 url: "{{ route('getRootCouseAPK') }}",
                 type: "GET",
                 data: {
-                    bulanTahunReport: bulanReport
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
                 },
-                success: function(apk) {
+                success: function(apk) {    
 
                     $('#rootCouseHeadAPK').find("th").remove();
                     $('#bodyRootCouseAPK').find("tr").remove();
@@ -2460,18 +2647,22 @@
                     $('#couseCodePenagihanAPK').find("th").remove();
                     $('#rootCousePenagihanAPK').find("td").remove();
 
-                    let TotPenagihan = 0;
+                    let TotPenagihan = [];
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
                     let hdRootCouseAPK = `
-                        <th>RootCouse Aplikasi ${bulanReport}</th>
-                        <th></th>
-                        <th></th>
-                        <th style="text-align: center">Jumlah</th>`;
+                        <th>Penagihan</th>
+                        <th>Couse Code</th>
+                        <th>Root Couse</th>`;
+                        // <th style="text-align: center">Jumlah</th>`;
 
-                    $('#rootCouseHeadAPK').append(hdRootCouseAPK);
+                    for (h = 0;h < trendWoMt.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                    }
 
+                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
 
 
                     $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
@@ -2479,28 +2670,33 @@
                         tbPenagihanAPK = `
                                 <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
                                 <th class="table-secondary"></th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary" style="text-align: center">${itemPenagihan.jml}</th></tr>
-                            `;
-                        // $('#penagihanAPK').append(tbPenagihanAPK);
-                        $('#bodyRootCouseAPK').append(tbPenagihanAPK);
+                                <th class="table-secondary"></th>`;
+                        
+                        for (p=0;p<trendWoMt.length; p++) {
+                            tbPenagihanAPK = tbPenagihanAPK +
+                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p]}</th>`;
+   
+                        }
 
-                        TotPenagihan += itemPenagihan.jml;
+                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
 
                         $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
                             if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
                                 tbCouseCodeAPK = `
                                     <tr><th></th>
                                     <th class="table-info">${itemCouseCode.couse_code}</th>
-                                    <th class="table-info"></th>
-                                    <th class="table-info" style="text-align: center">${itemCouseCode.jml}</th></tr>
-                                `;
-                                //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
-                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK);
+                                    <th class="table-info"></th>`;
+
+                                for (cc = 0;cc < trendWoMt.length; cc++) {
+                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                }
+
+                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
 
 
                                 $.each(apk.detRootCouseSortir, function(key,
                                     itemRootCouse) {
+
                                     if (itemPenagihan.penagihan == itemRootCouse
                                         .penagihan && itemCouseCode
                                         .couse_code == itemRootCouse.couse_code
@@ -2508,30 +2704,37 @@
                                         tbRootCouseAPK = `
                                             <tr><td></td>
                                             <td></td>
-                                            <td>${itemRootCouse.root_couse}</td>
-                                            <td style="text-align: center">${itemRootCouse.jml}</td></tr>
-                                        `;
+                                            <td>${itemRootCouse.root_couse}</td>`;
 
-                                        //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
-                                        $('#bodyRootCouseAPK').append(
-                                            tbRootCouseAPK);
+                                        for (rc = 0; rc < trendWoMt.length; rc++) {
+                                            tbRootCouseAPK = tbRootCouseAPK +
+                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                        }
+                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
                                     }
-
                                 });
                             }
-
-
                         });
-
                     });
+
+                    
 
                     let totRootCouseAPK = `
                         <tr><th class="table-dark">TOTAL</th>
                             <th class="table-dark"></th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark" style="text-align: center">${TotPenagihan}</th></tr>`;
+                            <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
 
-                    $('#bodyRootCouseAPK').append(totRootCouseAPK);
+                    for (p=0;p<trendWoMt.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                    }
+
+                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
                 }
 
             });
@@ -2540,7 +2743,12 @@
                 url: "{{ route('getCancelSystemProblem') }}",
                 type: "GET",
                 data: {
-                    bulanTahunReport: bulanReport
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
                 },
                 success: function(btn) {
 
@@ -2710,1047 +2918,1047 @@
 
             });
 
-            $.ajax({
-                url: "{{ route('getTrendMonthlyApart') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport
-
-                },
-                success: function(dataTrendMonthlyApart) {
-                    trendWoMtApart = dataTrendMonthlyApart;
-
-                    var trendMonthApart = [''];
-                    var trendTotMtApart = ['null'];
-                    var trendMtDoneApart = ['null'];
-
-                    $.each(trendWoMtApart, function(key, item) {
-
-                        trendMonthApart.push(item.bulan);
-                        trendTotMtApart.push(item.trendMtTotal);
-                        trendMtDoneApart.push(item.trendMtDone);
-
-                    });
-
-                    trendMonthApart.push('');
-                    trendTotMtApart.push('null');
-                    trendMtDoneApart.push('null');
-
-                    const ctxTrendTotWoMtApart = document.getElementById('TrendTotWoMtApart');
-
-                    var graphTrendTotWoMtApart = Chart.getChart('TrendTotWoMtApart');
-                    if (graphTrendTotWoMtApart) {
-                        graphTrendTotWoMtApart.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoMtApart, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonthApart, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotMtApart, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top'
-                                },
-                                title: {
-                                    display: true,
-                                    // text: 'Trend WO Maintenance Apartment All Branch',
-                                    // align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoMtCloseApart = document.getElementById('TrendTotWoMtCloseApart');
-
-                    var graphTrendTotWoMtCloseApart = Chart.getChart('TrendTotWoMtCloseApart');
-                    if (graphTrendTotWoMtCloseApart) {
-                        graphTrendTotWoMtCloseApart.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoMtCloseApart, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonthApart, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendMtDoneApart, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
+            // $.ajax({
+            //     url: "{{ route('getTrendMonthlyApart') }}",
+            //     type: 'GET',
+            //     data: {
+            //         bulanTahunReport: bulanReport
+
+            //     },
+            //     success: function(dataTrendMonthlyApart) {
+            //         trendWoMtApart = dataTrendMonthlyApart;
+
+            //         var trendMonthApart = [''];
+            //         var trendTotMtApart = ['null'];
+            //         var trendMtDoneApart = ['null'];
+
+            //         $.each(trendWoMtApart, function(key, item) {
+
+            //             trendMonthApart.push(item.bulan);
+            //             trendTotMtApart.push(item.trendMtTotal);
+            //             trendMtDoneApart.push(item.trendMtDone);
+
+            //         });
+
+            //         trendMonthApart.push('');
+            //         trendTotMtApart.push('null');
+            //         trendMtDoneApart.push('null');
+
+            //         const ctxTrendTotWoMtApart = document.getElementById('TrendTotWoMtApart');
+
+            //         var graphTrendTotWoMtApart = Chart.getChart('TrendTotWoMtApart');
+            //         if (graphTrendTotWoMtApart) {
+            //             graphTrendTotWoMtApart.destroy();
+            //         }
+
+
+
+            //         new Chart(ctxTrendTotWoMtApart, {
+            //             type: 'line',
+            //             data: {
+            //                 labels: trendMonthApart, //['Jan-24'],
+            //                 datasets: [{
+            //                     // label: '# of Votes',
+            //                     data: trendTotMtApart, //[3895],
+            //                     borderWidth: 1,
+
+            //                 }]
+            //             },
+
+            //             options: {
+            //                 responsive: true,
+            //                 maintainAspectRatio: false,
+            //                 plugins: {
+            //                     legend: {
+            //                         display: false,
+
+            //                     },
+            //                     datalabels: {
+            //                         anchor: 'end',
+            //                         align: 'top'
+            //                     },
+            //                     title: {
+            //                         display: true,
+            //                         // text: 'Trend WO Maintenance Apartment All Branch',
+            //                         // align: 'start',
+            //                     },
+
+            //                 },
+            //                 scales: {
+            //                     y: {
+            //                         display: false, //this will remove all the x-axis grid lines
+            //                     }
+            //                 }
+            //             },
+            //             plugins: [ChartDataLabels],
+
+            //         });
+
+            //         const ctxTrendTotWoMtCloseApart = document.getElementById('TrendTotWoMtCloseApart');
+
+            //         var graphTrendTotWoMtCloseApart = Chart.getChart('TrendTotWoMtCloseApart');
+            //         if (graphTrendTotWoMtCloseApart) {
+            //             graphTrendTotWoMtCloseApart.destroy();
+            //         }
+
+            //         new Chart(ctxTrendTotWoMtCloseApart, {
+            //             type: 'line',
+            //             data: {
+            //                 labels: trendMonthApart, //['Dec-23', 'Jan-24'],
+            //                 datasets: [{
+            //                     // label: '# of Votes',
+            //                     data: trendMtDoneApart, //[3082, 3597],
+            //                     borderWidth: 1,
+
+            //                 }]
+            //             },
+
+            //             options: {
+            //                 responsive: true,
+            //                 maintainAspectRatio: false,
+            //                 plugins: {
+            //                     legend: {
+            //                         display: false,
 
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top'
-                                },
-                                title: {
-                                    display: true,
-                                    // text: 'Trend WO Maintenance Close Apartment All Branch',
-                                    align: 'start',
-                                },
+            //                     },
+            //                     datalabels: {
+            //                         anchor: 'end',
+            //                         align: 'top'
+            //                     },
+            //                     title: {
+            //                         display: true,
+            //                         // text: 'Trend WO Maintenance Close Apartment All Branch',
+            //                         align: 'start',
+            //                     },
 
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
+            //                 },
+            //                 scales: {
+            //                     y: {
+            //                         display: false, //this will remove all the x-axis grid lines
+            //                     }
+            //                 }
+            //             },
+            //             plugins: [ChartDataLabels],
 
-                    });
+            //         });
 
-                }
+            //     }
 
-            });
+            // });
 
-            $.ajax({
-                url: "{{ route('getTabelStatusApart') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport
+            // $.ajax({
+            //     url: "{{ route('getTabelStatusApart') }}",
+            //     type: 'GET',
+            //     data: {
+            //         bulanTahunReport: bulanReport
 
-                },
-                success: function(dataApart) {
+            //     },
+            //     success: function(dataApart) {
 
-                    // var day = new Date(tahun, bulan, 0).getDate();
-                    var dayApart = [];
-                    var daytbApart;
-                    var donetbApart;
-                    var totDoneApart = 0;
-                    var totPendingApart = 0;
-                    var totCancelApart = 0;
-                    var totWoApart = 0;
-                    var totalApart = 0;
+            //         // var day = new Date(tahun, bulan, 0).getDate();
+            //         var dayApart = [];
+            //         var daytbApart;
+            //         var donetbApart;
+            //         var totDoneApart = 0;
+            //         var totPendingApart = 0;
+            //         var totCancelApart = 0;
+            //         var totWoApart = 0;
+            //         var totalApart = 0;
 
-                    $('#dateMonthApart').find("th").remove();
-                    $('#dateMonthApart').append("<th>Maintenance Apartment All Branch</th>")
+            //         $('#dateMonthApart').find("th").remove();
+            //         $('#dateMonthApart').append("<th>Maintenance Apartment All Branch</th>")
 
-                    $('#woDoneApart').find("td").remove();
-                    $('#woDoneApart').find("th").remove();
-                    $('#woDoneApart').append("<td>Done</td>")
+            //         $('#woDoneApart').find("td").remove();
+            //         $('#woDoneApart').find("th").remove();
+            //         $('#woDoneApart').append("<td>Done</td>")
 
-                    $('#woPendingApart').find("td").remove();
-                    $('#woPendingApart').find("th").remove();
-                    $('#woPendingApart').append("<td>Maintenance Failed</td>")
+            //         $('#woPendingApart').find("td").remove();
+            //         $('#woPendingApart').find("th").remove();
+            //         $('#woPendingApart').append("<td>Maintenance Failed</td>")
 
-                    $('#woCancelApart').find("td").remove();
-                    $('#woCancelApart').find("th").remove();
-                    $('#woCancelApart').append("<td>Cancel</td>")
+            //         $('#woCancelApart').find("td").remove();
+            //         $('#woCancelApart').find("th").remove();
+            //         $('#woCancelApart').append("<td>Cancel</td>")
 
-                    $('#totWoApart').find("td").remove()
-                    $('#totWoApart').find("th").remove()
-                    $('#totWoApart').append("<th>Total Wo</th>")
+            //         $('#totWoApart').find("td").remove()
+            //         $('#totWoApart').find("th").remove()
+            //         $('#totWoApart').append("<th>Total Wo</th>")
 
-                    $.each(dataApart, function(key, itemApart) {
+            //         $.each(dataApart, function(key, itemApart) {
 
-                        let htglApart = `
-                           <th>${new Date(itemApart.tgl_ikr).getDate()}</th>
-                        `;
+            //             let htglApart = `
+            //                <th>${new Date(itemApart.tgl_ikr).getDate()}</th>
+            //             `;
 
-                        $('#dateMonthApart').append(htglApart);
+            //             $('#dateMonthApart').append(htglApart);
 
-                        let dtDoneApart = `
-                            <td>${itemApart.Done.toLocaleString()}</td>
-                        `;
+            //             let dtDoneApart = `
+            //                 <td>${itemApart.Done.toLocaleString()}</td>
+            //             `;
 
-                        $('#woDoneApart').append(dtDoneApart);
+            //             $('#woDoneApart').append(dtDoneApart);
 
-                        totDoneApart += itemApart.Done;
+            //             totDoneApart += itemApart.Done;
 
-                        let dtPendingApart = `
-                            <td>${itemApart.Pending.toLocaleString()}</td>
-                        `;
+            //             let dtPendingApart = `
+            //                 <td>${itemApart.Pending.toLocaleString()}</td>
+            //             `;
 
-                        $('#woPendingApart').append(dtPendingApart);
+            //             $('#woPendingApart').append(dtPendingApart);
 
-                        totPendingApart += itemApart.Pending;
-                        totCancelApart += itemApart.Cancel;
+            //             totPendingApart += itemApart.Pending;
+            //             totCancelApart += itemApart.Cancel;
 
-                        let dtCancelApart = `
-                            <td>${itemApart.Cancel.toLocaleString()}</td>
-                        `;
+            //             let dtCancelApart = `
+            //                 <td>${itemApart.Cancel.toLocaleString()}</td>
+            //             `;
 
-                        $('#woCancelApart').append(dtCancelApart)
+            //             $('#woCancelApart').append(dtCancelApart)
 
-                        totWoApart = itemApart.Done + itemApart.Pending + itemApart.Cancel
+            //             totWoApart = itemApart.Done + itemApart.Pending + itemApart.Cancel
 
-                        let dtTotWoApart = `
-                            <td>${totWoApart.toLocaleString()}</td>
-                        `;
+            //             let dtTotWoApart = `
+            //                 <td>${totWoApart.toLocaleString()}</td>
+            //             `;
 
-                        $('#totWoApart').append(dtTotWoApart);
+            //             $('#totWoApart').append(dtTotWoApart);
 
 
-                    });
+            //         });
 
-                    $('#dateMonthApart').append("<th>Total</th>")
+            //         $('#dateMonthApart').append("<th>Total</th>")
 
-                    $('#woDoneApart').append(`<th>${totDoneApart.toLocaleString()}</th>`)
+            //         $('#woDoneApart').append(`<th>${totDoneApart.toLocaleString()}</th>`)
 
-                    $('#woPendingApart').append(`<th>${totPendingApart.toLocaleString()}</th>`)
+            //         $('#woPendingApart').append(`<th>${totPendingApart.toLocaleString()}</th>`)
 
-                    $('#woCancelApart').append(`<th>${totCancelApart.toLocaleString()}</th>`)
+            //         $('#woCancelApart').append(`<th>${totCancelApart.toLocaleString()}</th>`)
 
-                    totalApart = totDoneApart + totPendingApart + totCancelApart
+            //         totalApart = totDoneApart + totPendingApart + totCancelApart
 
-                    $('#totWoApart').append(`<th>${totalApart.toLocaleString()}</th>`)
+            //         $('#totWoApart').append(`<th>${totalApart.toLocaleString()}</th>`)
 
-                    $('#dateMonthApart').append(`<th>%</th>`)
+            //         $('#dateMonthApart').append(`<th>%</th>`)
 
-                    $('#woDoneApart').append(
-                        `<th>${parseFloat((totDoneApart * 100) / totalApart).toFixed(2)}%</th>`)
-                    $('#woPendingApart').append(
-                        `<th>${parseFloat((totPendingApart * 100) / totalApart).toFixed(2)}%</th>`)
-                    $('#woCancelApart').append(
-                        `<th>${parseFloat((totCancelApart * 100) / totalApart).toFixed(2)}%</th>`)
-                }
+            //         $('#woDoneApart').append(
+            //             `<th>${parseFloat((totDoneApart * 100) / totalApart).toFixed(2)}%</th>`)
+            //         $('#woPendingApart').append(
+            //             `<th>${parseFloat((totPendingApart * 100) / totalApart).toFixed(2)}%</th>`)
+            //         $('#woCancelApart').append(
+            //             `<th>${parseFloat((totCancelApart * 100) / totalApart).toFixed(2)}%</th>`)
+            //     }
 
-            })
+            // })
 
-            $.ajax({
-                url: "{{ route('getRootCouseDoneApart') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(dataRootCouseApart) {
+            // $.ajax({
+            //     url: "{{ route('getRootCouseDoneApart') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(dataRootCouseApart) {
 
-                    $('#rootCouseHeadApart').find("tr").remove();
-                    $('#rootCouseTbApart').find("tr").remove();
-                    $('#totRootCouseApart').find("th").remove();
+            //         $('#rootCouseHeadApart').find("tr").remove();
+            //         $('#rootCouseTbApart').find("tr").remove();
+            //         $('#totRootCouseApart').find("th").remove();
 
-                    var TotRootDoneApart = 0;
-                    let tbRootCouseApart;
-                    let hdRootCouseApart = `
-                        <tr>
-                                <th>RootCouse Done</th>
-                        </tr>`;
+            //         var TotRootDoneApart = 0;
+            //         let tbRootCouseApart;
+            //         let hdRootCouseApart = `
+            //             <tr>
+            //                     <th>RootCouse Done</th>
+            //             </tr>`;
 
-                    $('#rootCouseHeadApart').append(hdRootCouseApart);
+            //         $('#rootCouseHeadApart').append(hdRootCouseApart);
 
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadApart').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
+            //         for (b = 0; b < trendWoMt.length; b++) {
+            //             $('#rootCouseHeadApart').find("tr").append(
+            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
 
-                    $.each(dataRootCouseApart, function(key, item) {
+            //         $.each(dataRootCouseApart, function(key, item) {
 
-                        if (item.penagihan == 'total_done') {
-                            tbRootCouseApart = `
-                            <tr>
-                                <th>Total</th>
+            //             if (item.penagihan == 'total_done') {
+            //                 tbRootCouseApart = `
+            //                 <tr>
+            //                     <th>Total</th>
                                 
-                            `;
-                        } else {
-                            tbRootCouseApart = `
-                            <tr>
-                                <td>${item.penagihan}</td>
+            //                 `;
+            //             } else {
+            //                 tbRootCouseApart = `
+            //                 <tr>
+            //                     <td>${item.penagihan}</td>
                                 
-                            `;
-                        }
+            //                 `;
+            //             }
 
-                        if (item.penagihan == 'total_done') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseApart = tbRootCouseApart +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
+            //             if (item.penagihan == 'total_done') {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseApart = tbRootCouseApart +
+            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                 }
 
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseApart = tbRootCouseApart +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //             } else {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseApart = tbRootCouseApart +
+            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
 
-                            }
-                        }
+            //                 }
+            //             }
 
-                        tbRootCouseApart = tbRootCouseApart + `</tr>`;
-                        $('#rootCouseTbApart').append(tbRootCouseApart);
+            //             tbRootCouseApart = tbRootCouseApart + `</tr>`;
+            //             $('#rootCouseTbApart').append(tbRootCouseApart);
 
-                    });
+            //         });
 
-                    // $('#totRootCouse').append(tbTotalRootCouse);  
-                }
+            //         // $('#totRootCouse').append(tbTotalRootCouse);  
+            //     }
 
-            });
+            // });
 
-            $.ajax({
-                url: "{{ route('getRootCouseAPKApart') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(apkApart) {
+            // $.ajax({
+            //     url: "{{ route('getRootCouseAPKApart') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(apkApart) {
 
-                    $('#rootCouseHeadAPKApart').find("th").remove();
-                    $('#bodyRootCouseAPKApart').find("tr").remove();
-                    $('#penagihanAPKApart').find("th").remove();
-                    $('#couseCodePenagihanAPKApart').find("th").remove();
-                    $('#rootCousePenagihanAPKApart').find("td").remove();
+            //         $('#rootCouseHeadAPKApart').find("th").remove();
+            //         $('#bodyRootCouseAPKApart').find("tr").remove();
+            //         $('#penagihanAPKApart').find("th").remove();
+            //         $('#couseCodePenagihanAPKApart').find("th").remove();
+            //         $('#rootCousePenagihanAPKApart').find("td").remove();
 
-                    let TotPenagihanApart = 0;
-                    let tbPenagihanAPKApart;
-                    let tbCouseCodeAPKApart;
-                    let tbRootCouseAPKApart;
-                    let hdRootCouseAPKApart = `
-                        <th>RootCouse Aplikasi ${bulanReport}</th>
-                        <th></th>
-                        <th></th>
-                        <th style="text-align: center">Jumlah</th>`;
+            //         let TotPenagihanApart = 0;
+            //         let tbPenagihanAPKApart;
+            //         let tbCouseCodeAPKApart;
+            //         let tbRootCouseAPKApart;
+            //         let hdRootCouseAPKApart = `
+            //             <th>RootCouse Aplikasi ${bulanReport}</th>
+            //             <th></th>
+            //             <th></th>
+            //             <th style="text-align: center">Jumlah</th>`;
 
-                    $('#rootCouseHeadAPKApart').append(hdRootCouseAPKApart);
-
-
-
-                    $.each(apkApart.detPenagihanSortirApart, function(key, itemPenagihanApart) {
-
-                        tbPenagihanAPKApart = `
-                                <tr class="table-secondary"><th>${itemPenagihanApart.penagihan}</th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary" style="text-align: center">${itemPenagihanApart.jml}</th></tr>
-                            `;
-                        // $('#penagihanAPK').append(tbPenagihanAPK);
-                        $('#bodyRootCouseAPKApart').append(tbPenagihanAPKApart);
-
-                        TotPenagihanApart += itemPenagihanApart.jml;
-
-                        $.each(apkApart.detCouseCodeSortirApart, function(key,
-                            itemCouseCodeApart) {
-                            if (itemPenagihanApart.penagihan == itemCouseCodeApart
-                                .penagihan) {
-                                tbCouseCodeAPKApart = `
-                                    <tr><th></th>
-                                    <th class="table-info">${itemCouseCodeApart.couse_code}</th>
-                                    <th class="table-info"></th>
-                                    <th class="table-info" style="text-align: center">${itemCouseCodeApart.jml}</th></tr>
-                                `;
-                                //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
-                                $('#bodyRootCouseAPKApart').append(tbCouseCodeAPKApart);
+            //         $('#rootCouseHeadAPKApart').append(hdRootCouseAPKApart);
 
 
-                                $.each(apkApart.detRootCouseSortirApart, function(key,
-                                    itemRootCouseApart) {
-                                    if (itemPenagihanApart.penagihan ==
-                                        itemRootCouseApart.penagihan &&
-                                        itemCouseCodeApart.couse_code ==
-                                        itemRootCouseApart.couse_code) {
-                                        tbRootCouseAPKApart = `
-                                            <tr><td></td>
-                                            <td></td>
-                                            <td>${itemRootCouseApart.root_couse}</td>
-                                            <td style="text-align: center">${itemRootCouseApart.jml}</td></tr>
-                                        `;
 
-                                        //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
-                                        $('#bodyRootCouseAPKApart').append(
-                                            tbRootCouseAPKApart);
-                                    }
+            //         $.each(apkApart.detPenagihanSortirApart, function(key, itemPenagihanApart) {
 
-                                });
-                            }
+            //             tbPenagihanAPKApart = `
+            //                     <tr class="table-secondary"><th>${itemPenagihanApart.penagihan}</th>
+            //                     <th class="table-secondary"></th>
+            //                     <th class="table-secondary"></th>
+            //                     <th class="table-secondary" style="text-align: center">${itemPenagihanApart.jml}</th></tr>
+            //                 `;
+            //             // $('#penagihanAPK').append(tbPenagihanAPK);
+            //             $('#bodyRootCouseAPKApart').append(tbPenagihanAPKApart);
+
+            //             TotPenagihanApart += itemPenagihanApart.jml;
+
+            //             $.each(apkApart.detCouseCodeSortirApart, function(key,
+            //                 itemCouseCodeApart) {
+            //                 if (itemPenagihanApart.penagihan == itemCouseCodeApart
+            //                     .penagihan) {
+            //                     tbCouseCodeAPKApart = `
+            //                         <tr><th></th>
+            //                         <th class="table-info">${itemCouseCodeApart.couse_code}</th>
+            //                         <th class="table-info"></th>
+            //                         <th class="table-info" style="text-align: center">${itemCouseCodeApart.jml}</th></tr>
+            //                     `;
+            //                     //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
+            //                     $('#bodyRootCouseAPKApart').append(tbCouseCodeAPKApart);
 
 
-                        });
+            //                     $.each(apkApart.detRootCouseSortirApart, function(key,
+            //                         itemRootCouseApart) {
+            //                         if (itemPenagihanApart.penagihan ==
+            //                             itemRootCouseApart.penagihan &&
+            //                             itemCouseCodeApart.couse_code ==
+            //                             itemRootCouseApart.couse_code) {
+            //                             tbRootCouseAPKApart = `
+            //                                 <tr><td></td>
+            //                                 <td></td>
+            //                                 <td>${itemRootCouseApart.root_couse}</td>
+            //                                 <td style="text-align: center">${itemRootCouseApart.jml}</td></tr>
+            //                             `;
 
-                    });
+            //                             //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
+            //                             $('#bodyRootCouseAPKApart').append(
+            //                                 tbRootCouseAPKApart);
+            //                         }
 
-                    let totRootCouseAPKApart = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark" style="text-align: center">${TotPenagihanApart}</th></tr>`;
+            //                     });
+            //                 }
 
-                    $('#bodyRootCouseAPKApart').append(totRootCouseAPKApart);
-                }
 
-            });
+            //             });
 
-            $.ajax({
-                url: "{{ route('getRootCousePendingApart') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(dataRootCousePendingApart) {
+            //         });
 
-                    $('#rootCouseHeadPendingApart').find("tr").remove();
-                    $('#rootCouseTbPendingApart').find("tr").remove();
-                    $('#totRootCousePendingApart').find("th").remove();
+            //         let totRootCouseAPKApart = `
+            //             <tr><th class="table-dark">TOTAL</th>
+            //                 <th class="table-dark"></th>
+            //                 <th class="table-dark"></th>
+            //                 <th class="table-dark" style="text-align: center">${TotPenagihanApart}</th></tr>`;
 
-                    var TotRootDonePendingApart = 0;
-                    let tbRootCousePendingApart;
-                    let hdRootCousePendingApart = `
-                        <tr>
-                                <th>RootCouse Pending</th>
-                        </tr>`;
+            //         $('#bodyRootCouseAPKApart').append(totRootCouseAPKApart);
+            //     }
 
-                    $('#rootCouseHeadPendingApart').append(hdRootCousePendingApart);
+            // });
 
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadPendingApart').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
+            // $.ajax({
+            //     url: "{{ route('getRootCousePendingApart') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(dataRootCousePendingApart) {
 
-                    $.each(dataRootCousePendingApart, function(key, item) {
+            //         $('#rootCouseHeadPendingApart').find("tr").remove();
+            //         $('#rootCouseTbPendingApart').find("tr").remove();
+            //         $('#totRootCousePendingApart').find("th").remove();
 
-                        if (item.penagihan == 'total_pending') {
-                            tbRootCousePendingApart = `
-                            <tr>
-                                <th>Total</th>
+            //         var TotRootDonePendingApart = 0;
+            //         let tbRootCousePendingApart;
+            //         let hdRootCousePendingApart = `
+            //             <tr>
+            //                     <th>RootCouse Pending</th>
+            //             </tr>`;
+
+            //         $('#rootCouseHeadPendingApart').append(hdRootCousePendingApart);
+
+            //         for (b = 0; b < trendWoMt.length; b++) {
+            //             $('#rootCouseHeadPendingApart').find("tr").append(
+            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
+
+            //         $.each(dataRootCousePendingApart, function(key, item) {
+
+            //             if (item.penagihan == 'total_pending') {
+            //                 tbRootCousePendingApart = `
+            //                 <tr>
+            //                     <th>Total</th>
                                 
-                            `;
-                        } else {
-                            tbRootCousePendingApart = `
-                            <tr>
-                                <td>${item.penagihan}</td>
+            //                 `;
+            //             } else {
+            //                 tbRootCousePendingApart = `
+            //                 <tr>
+            //                     <td>${item.penagihan}</td>
                                 
-                            `;
-                        }
+            //                 `;
+            //             }
 
-                        if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePendingApart = tbRootCousePendingApart +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
+            //             if (item.penagihan == 'total_pending') {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCousePendingApart = tbRootCousePendingApart +
+            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                 }
 
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePendingApart = tbRootCousePendingApart +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //             } else {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCousePendingApart = tbRootCousePendingApart +
+            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
 
-                            }
-                        }
+            //                 }
+            //             }
 
-                        tbRootCousePendingApart = tbRootCousePendingApart + `</tr>`;
-                        $('#rootCouseTbPendingApart').append(tbRootCousePendingApart);
+            //             tbRootCousePendingApart = tbRootCousePendingApart + `</tr>`;
+            //             $('#rootCouseTbPendingApart').append(tbRootCousePendingApart);
 
-                    });
-                }
+            //         });
+            //     }
 
-            });
+            // });
 
-            $.ajax({
-                url: "{{ route('getRootCouseCancelApart') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(dataRootCouseCancelApart) {
+            // $.ajax({
+            //     url: "{{ route('getRootCouseCancelApart') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(dataRootCouseCancelApart) {
 
-                    $('#rootCouseHeadCancelApart').find("tr").remove();
-                    $('#rootCouseTbCancelApart').find("tr").remove();
-                    $('#totRootCouseCancelApart').find("th").remove();
+            //         $('#rootCouseHeadCancelApart').find("tr").remove();
+            //         $('#rootCouseTbCancelApart').find("tr").remove();
+            //         $('#totRootCouseCancelApart').find("th").remove();
 
-                    var TotRootDoneCancelApart = 0;
-                    let tbRootCouseCancelApart;
-                    let hdRootCouseCancelApart = `
-                        <tr>
-                                <th>RootCouse Cancel</th>
-                        </tr>`;
+            //         var TotRootDoneCancelApart = 0;
+            //         let tbRootCouseCancelApart;
+            //         let hdRootCouseCancelApart = `
+            //             <tr>
+            //                     <th>RootCouse Cancel</th>
+            //             </tr>`;
 
-                    $('#rootCouseHeadCancelApart').append(hdRootCouseCancelApart);
+            //         $('#rootCouseHeadCancelApart').append(hdRootCouseCancelApart);
 
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadCancelApart').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
+            //         for (b = 0; b < trendWoMt.length; b++) {
+            //             $('#rootCouseHeadCancelApart').find("tr").append(
+            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
 
-                    $.each(dataRootCouseCancelApart, function(key, item) {
+            //         $.each(dataRootCouseCancelApart, function(key, item) {
 
-                        if (item.penagihan == 'total_cancel') {
-                            tbRootCouseCancelApart = `
-                            <tr>
-                                <th>Total</th>
+            //             if (item.penagihan == 'total_cancel') {
+            //                 tbRootCouseCancelApart = `
+            //                 <tr>
+            //                     <th>Total</th>
                                 
-                            `;
-                        } else {
-                            tbRootCouseCancelApart = `
-                            <tr>
-                                <td>${item.penagihan}</td>
+            //                 `;
+            //             } else {
+            //                 tbRootCouseCancelApart = `
+            //                 <tr>
+            //                     <td>${item.penagihan}</td>
                                 
-                            `;
-                        }
-
-                        if (item.penagihan == 'total_cancel') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseCancelApart = tbRootCouseCancelApart +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
-
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseCancelApart = tbRootCouseCancelApart +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
-
-                            }
-                        }
-
-                        tbRootCouseCancelApart = tbRootCouseCancelApart + `</tr>`;
-                        $('#rootCouseTbCancelApart').append(tbRootCouseCancelApart);
-
-                    });
-                }
-
-            });
-
-            $.ajax({
-                url: "{{ route('getTrendMonthlyUG') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport
-
-                },
-                success: function(dataTrendMonthlyUG) {
-                    trendWoMtUG = dataTrendMonthlyUG;
-
-                    var trendMonthUG = [''];
-                    var trendTotMtUG = ['null'];
-                    var trendMtDoneUG = ['null'];
-
-                    $.each(trendWoMtUG, function(key, item) {
-
-                        trendMonthUG.push(item.bulan);
-                        trendTotMtUG.push(item.trendMtTotal);
-                        trendMtDoneUG.push(item.trendMtDone);
-
-                    });
-
-                    trendMonthUG.push('');
-                    trendTotMtUG.push('null');
-                    trendMtDoneUG.push('null');
-
-                    const ctxTrendTotWoMtUG = document.getElementById('TrendTotWoMtUG');
-
-                    var graphTrendTotWoMtUG = Chart.getChart('TrendTotWoMtUG');
-                    if (graphTrendTotWoMtUG) {
-                        graphTrendTotWoMtUG.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoMtUG, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonthUG, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotMtUG, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top'
-                                },
-                                title: {
-                                    display: true,
-                                    // text: 'Trend WO Maintenance Apartment All Branch',
-                                    // align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoMtCloseUG = document.getElementById('TrendTotWoMtCloseUG');
-
-                    var graphTrendTotWoMtCloseUG = Chart.getChart('TrendTotWoMtCloseUG');
-                    if (graphTrendTotWoMtCloseUG) {
-                        graphTrendTotWoMtCloseUG.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoMtCloseUG, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonthUG, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendMtDoneUG, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top'
-                                },
-                                title: {
-                                    display: true,
-                                    // text: 'Trend WO Maintenance Close Apartment All Branch',
-                                    align: 'start',
-                                },
+            //                 `;
+            //             }
+
+            //             if (item.penagihan == 'total_cancel') {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseCancelApart = tbRootCouseCancelApart +
+            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                 }
+
+            //             } else {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseCancelApart = tbRootCouseCancelApart +
+            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+            //                 }
+            //             }
+
+            //             tbRootCouseCancelApart = tbRootCouseCancelApart + `</tr>`;
+            //             $('#rootCouseTbCancelApart').append(tbRootCouseCancelApart);
+
+            //         });
+            //     }
+
+            // });
+
+            // $.ajax({
+            //     url: "{{ route('getTrendMonthlyUG') }}",
+            //     type: 'GET',
+            //     data: {
+            //         bulanTahunReport: bulanReport
+
+            //     },
+            //     success: function(dataTrendMonthlyUG) {
+            //         trendWoMtUG = dataTrendMonthlyUG;
+
+            //         var trendMonthUG = [''];
+            //         var trendTotMtUG = ['null'];
+            //         var trendMtDoneUG = ['null'];
+
+            //         $.each(trendWoMtUG, function(key, item) {
+
+            //             trendMonthUG.push(item.bulan);
+            //             trendTotMtUG.push(item.trendMtTotal);
+            //             trendMtDoneUG.push(item.trendMtDone);
+
+            //         });
+
+            //         trendMonthUG.push('');
+            //         trendTotMtUG.push('null');
+            //         trendMtDoneUG.push('null');
+
+            //         const ctxTrendTotWoMtUG = document.getElementById('TrendTotWoMtUG');
+
+            //         var graphTrendTotWoMtUG = Chart.getChart('TrendTotWoMtUG');
+            //         if (graphTrendTotWoMtUG) {
+            //             graphTrendTotWoMtUG.destroy();
+            //         }
+
+
+
+            //         new Chart(ctxTrendTotWoMtUG, {
+            //             type: 'line',
+            //             data: {
+            //                 labels: trendMonthUG, //['Jan-24'],
+            //                 datasets: [{
+            //                     // label: '# of Votes',
+            //                     data: trendTotMtUG, //[3895],
+            //                     borderWidth: 1,
+
+            //                 }]
+            //             },
+
+            //             options: {
+            //                 responsive: true,
+            //                 maintainAspectRatio: false,
+            //                 plugins: {
+            //                     legend: {
+            //                         display: false,
+
+            //                     },
+            //                     datalabels: {
+            //                         anchor: 'end',
+            //                         align: 'top'
+            //                     },
+            //                     title: {
+            //                         display: true,
+            //                         // text: 'Trend WO Maintenance Apartment All Branch',
+            //                         // align: 'start',
+            //                     },
+
+            //                 },
+            //                 scales: {
+            //                     y: {
+            //                         display: false, //this will remove all the x-axis grid lines
+            //                     }
+            //                 }
+            //             },
+            //             plugins: [ChartDataLabels],
+
+            //         });
+
+            //         const ctxTrendTotWoMtCloseUG = document.getElementById('TrendTotWoMtCloseUG');
+
+            //         var graphTrendTotWoMtCloseUG = Chart.getChart('TrendTotWoMtCloseUG');
+            //         if (graphTrendTotWoMtCloseUG) {
+            //             graphTrendTotWoMtCloseUG.destroy();
+            //         }
+
+            //         new Chart(ctxTrendTotWoMtCloseUG, {
+            //             type: 'line',
+            //             data: {
+            //                 labels: trendMonthUG, //['Dec-23', 'Jan-24'],
+            //                 datasets: [{
+            //                     // label: '# of Votes',
+            //                     data: trendMtDoneUG, //[3082, 3597],
+            //                     borderWidth: 1,
+
+            //                 }]
+            //             },
+
+            //             options: {
+            //                 responsive: true,
+            //                 maintainAspectRatio: false,
+            //                 plugins: {
+            //                     legend: {
+            //                         display: false,
+
+            //                     },
+            //                     datalabels: {
+            //                         anchor: 'end',
+            //                         align: 'top'
+            //                     },
+            //                     title: {
+            //                         display: true,
+            //                         // text: 'Trend WO Maintenance Close Apartment All Branch',
+            //                         align: 'start',
+            //                     },
 
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
+            //                 },
+            //                 scales: {
+            //                     y: {
+            //                         display: false, //this will remove all the x-axis grid lines
+            //                     }
+            //                 }
+            //             },
+            //             plugins: [ChartDataLabels],
 
-                    });
+            //         });
 
-                }
+            //     }
 
-            });
+            // });
 
-            $.ajax({
-                url: "{{ route('getTabelStatusUG') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport
+            // $.ajax({
+            //     url: "{{ route('getTabelStatusUG') }}",
+            //     type: 'GET',
+            //     data: {
+            //         bulanTahunReport: bulanReport
 
-                },
-                success: function(dataUG) {
+            //     },
+            //     success: function(dataUG) {
 
-                    // var day = new Date(tahun, bulan, 0).getDate();
-                    var dayUG = [];
-                    var daytbUG;
-                    var donetbUG;
-                    var totDoneUG = 0;
-                    var totPendingUG = 0;
-                    var totCancelUG = 0;
-                    var totWoUG = 0;
-                    var totalUG = 0;
+            //         // var day = new Date(tahun, bulan, 0).getDate();
+            //         var dayUG = [];
+            //         var daytbUG;
+            //         var donetbUG;
+            //         var totDoneUG = 0;
+            //         var totPendingUG = 0;
+            //         var totCancelUG = 0;
+            //         var totWoUG = 0;
+            //         var totalUG = 0;
 
-                    $('#dateMonthUG').find("th").remove();
-                    $('#dateMonthUG').append("<th>Maintenance Underground All Branch</th>")
+            //         $('#dateMonthUG').find("th").remove();
+            //         $('#dateMonthUG').append("<th>Maintenance Underground All Branch</th>")
 
-                    $('#woDoneUG').find("td").remove();
-                    $('#woDoneUG').find("th").remove();
-                    $('#woDoneUG').append("<td>Done</td>")
+            //         $('#woDoneUG').find("td").remove();
+            //         $('#woDoneUG').find("th").remove();
+            //         $('#woDoneUG').append("<td>Done</td>")
 
-                    $('#woPendingUG').find("td").remove();
-                    $('#woPendingUG').find("th").remove();
-                    $('#woPendingUG').append("<td>Maintenance Failed</td>")
+            //         $('#woPendingUG').find("td").remove();
+            //         $('#woPendingUG').find("th").remove();
+            //         $('#woPendingUG').append("<td>Maintenance Failed</td>")
 
-                    $('#woCancelUG').find("td").remove();
-                    $('#woCancelUG').find("th").remove();
-                    $('#woCancelUG').append("<td>Cancel</td>")
+            //         $('#woCancelUG').find("td").remove();
+            //         $('#woCancelUG').find("th").remove();
+            //         $('#woCancelUG').append("<td>Cancel</td>")
 
-                    $('#totWoUG').find("td").remove()
-                    $('#totWoUG').find("th").remove()
-                    $('#totWoUG').append("<th>Total Wo</th>")
+            //         $('#totWoUG').find("td").remove()
+            //         $('#totWoUG').find("th").remove()
+            //         $('#totWoUG').append("<th>Total Wo</th>")
 
-                    $.each(dataUG, function(key, itemUG) {
+            //         $.each(dataUG, function(key, itemUG) {
 
-                        let htglUG = `
-                           <th>${new Date(itemUG.tgl_ikr).getDate()}</th>
-                        `;
+            //             let htglUG = `
+            //                <th>${new Date(itemUG.tgl_ikr).getDate()}</th>
+            //             `;
 
-                        $('#dateMonthUG').append(htglUG);
+            //             $('#dateMonthUG').append(htglUG);
 
-                        let dtDoneUG = `
-                            <td>${itemUG.Done.toLocaleString()}</td>
-                        `;
+            //             let dtDoneUG = `
+            //                 <td>${itemUG.Done.toLocaleString()}</td>
+            //             `;
 
-                        $('#woDoneUG').append(dtDoneUG);
+            //             $('#woDoneUG').append(dtDoneUG);
 
-                        totDoneUG += itemUG.Done;
+            //             totDoneUG += itemUG.Done;
 
-                        let dtPendingUG = `
-                            <td>${itemUG.Pending.toLocaleString()}</td>
-                        `;
+            //             let dtPendingUG = `
+            //                 <td>${itemUG.Pending.toLocaleString()}</td>
+            //             `;
 
-                        $('#woPendingUG').append(dtPendingUG);
+            //             $('#woPendingUG').append(dtPendingUG);
 
-                        totPendingUG += itemUG.Pending;
-                        totCancelUG += itemUG.Cancel;
+            //             totPendingUG += itemUG.Pending;
+            //             totCancelUG += itemUG.Cancel;
 
-                        let dtCancelUG = `
-                            <td>${itemUG.Cancel.toLocaleString()}</td>
-                        `;
+            //             let dtCancelUG = `
+            //                 <td>${itemUG.Cancel.toLocaleString()}</td>
+            //             `;
 
-                        $('#woCancelUG').append(dtCancelUG)
+            //             $('#woCancelUG').append(dtCancelUG)
 
-                        totWoUG = itemUG.Done + itemUG.Pending + itemUG.Cancel
+            //             totWoUG = itemUG.Done + itemUG.Pending + itemUG.Cancel
 
-                        let dtTotWoUG = `
-                            <td>${totWoUG.toLocaleString()}</td>
-                        `;
+            //             let dtTotWoUG = `
+            //                 <td>${totWoUG.toLocaleString()}</td>
+            //             `;
 
-                        $('#totWoUG').append(dtTotWoUG);
+            //             $('#totWoUG').append(dtTotWoUG);
 
 
-                    });
+            //         });
 
-                    $('#dateMonthUG').append("<th>Total</th>")
+            //         $('#dateMonthUG').append("<th>Total</th>")
 
-                    $('#woDoneUG').append(`<th>${totDoneUG.toLocaleString()}</th>`)
+            //         $('#woDoneUG').append(`<th>${totDoneUG.toLocaleString()}</th>`)
 
-                    $('#woPendingUG').append(`<th>${totPendingUG.toLocaleString()}</th>`)
+            //         $('#woPendingUG').append(`<th>${totPendingUG.toLocaleString()}</th>`)
 
-                    $('#woCancelUG').append(`<th>${totCancelUG.toLocaleString()}</th>`)
+            //         $('#woCancelUG').append(`<th>${totCancelUG.toLocaleString()}</th>`)
 
-                    totalUG = totDoneUG + totPendingUG + totCancelUG
+            //         totalUG = totDoneUG + totPendingUG + totCancelUG
 
-                    $('#totWoUG').append(`<th>${totalUG.toLocaleString()}</th>`)
+            //         $('#totWoUG').append(`<th>${totalUG.toLocaleString()}</th>`)
 
-                    $('#dateMonthUG').append(`<th>%</th>`)
+            //         $('#dateMonthUG').append(`<th>%</th>`)
 
-                    $('#woDoneUG').append(
-                        `<th>${parseFloat((totDoneUG * 100) / totalUG).toFixed(2)}%</th>`)
-                    $('#woPendingUG').append(
-                        `<th>${parseFloat((totPendingUG * 100) / totalUG).toFixed(2)}%</th>`)
-                    $('#woCancelUG').append(
-                        `<th>${parseFloat((totCancelUG * 100) / totalUG).toFixed(2)}%</th>`)
-                }
+            //         $('#woDoneUG').append(
+            //             `<th>${parseFloat((totDoneUG * 100) / totalUG).toFixed(2)}%</th>`)
+            //         $('#woPendingUG').append(
+            //             `<th>${parseFloat((totPendingUG * 100) / totalUG).toFixed(2)}%</th>`)
+            //         $('#woCancelUG').append(
+            //             `<th>${parseFloat((totCancelUG * 100) / totalUG).toFixed(2)}%</th>`)
+            //     }
 
-            })
+            // })
 
-            $.ajax({
-                url: "{{ route('getRootCouseDoneUG') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(dataRootCouseUG) {
+            // $.ajax({
+            //     url: "{{ route('getRootCouseDoneUG') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(dataRootCouseUG) {
 
-                    $('#rootCouseHeadUG').find("tr").remove();
-                    $('#rootCouseTbUG').find("tr").remove();
-                    $('#totRootCouseUG').find("th").remove();
+            //         $('#rootCouseHeadUG').find("tr").remove();
+            //         $('#rootCouseTbUG').find("tr").remove();
+            //         $('#totRootCouseUG').find("th").remove();
 
-                    var TotRootDoneUG = 0;
-                    let tbRootCouseUG;
-                    let hdRootCouseUG = `
-                        <tr>
-                                <th>RootCouse Done</th>
-                        </tr>`;
+            //         var TotRootDoneUG = 0;
+            //         let tbRootCouseUG;
+            //         let hdRootCouseUG = `
+            //             <tr>
+            //                     <th>RootCouse Done</th>
+            //             </tr>`;
 
-                    $('#rootCouseHeadUG').append(hdRootCouseUG);
+            //         $('#rootCouseHeadUG').append(hdRootCouseUG);
 
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadUG').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
+            //         for (b = 0; b < trendWoMt.length; b++) {
+            //             $('#rootCouseHeadUG').find("tr").append(
+            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
 
-                    $.each(dataRootCouseUG, function(key, item) {
+            //         $.each(dataRootCouseUG, function(key, item) {
 
-                        if (item.penagihan == 'total_done') {
-                            tbRootCouseUG = `
-                            <tr>
-                                <th>Total</th>
+            //             if (item.penagihan == 'total_done') {
+            //                 tbRootCouseUG = `
+            //                 <tr>
+            //                     <th>Total</th>
                                 
-                            `;
-                        } else {
-                            tbRootCouseUG = `
-                            <tr>
-                                <td>${item.penagihan}</td>
+            //                 `;
+            //             } else {
+            //                 tbRootCouseUG = `
+            //                 <tr>
+            //                     <td>${item.penagihan}</td>
                                 
-                            `;
-                        }
+            //                 `;
+            //             }
 
-                        if (item.penagihan == 'total_done') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseUG = tbRootCouseUG +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
+            //             if (item.penagihan == 'total_done') {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseUG = tbRootCouseUG +
+            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                 }
 
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseUG = tbRootCouseUG +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //             } else {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseUG = tbRootCouseUG +
+            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
 
-                            }
-                        }
+            //                 }
+            //             }
 
-                        tbRootCouseUG = tbRootCouseUG + `</tr>`;
-                        $('#rootCouseTbUG').append(tbRootCouseUG);
+            //             tbRootCouseUG = tbRootCouseUG + `</tr>`;
+            //             $('#rootCouseTbUG').append(tbRootCouseUG);
 
-                    });
+            //         });
 
-                    // $('#totRootCouse').append(tbTotalRootCouse);  
-                }
+            //         // $('#totRootCouse').append(tbTotalRootCouse);  
+            //     }
 
-            });
+            // });
 
-            $.ajax({
-                url: "{{ route('getRootCouseAPKUG') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(apkUG) {
+            // $.ajax({
+            //     url: "{{ route('getRootCouseAPKUG') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(apkUG) {
 
-                    $('#rootCouseHeadAPKUG').find("th").remove();
-                    $('#bodyRootCouseAPKUG').find("tr").remove();
-                    $('#penagihanAPKUG').find("th").remove();
-                    $('#couseCodePenagihanAPKUG').find("th").remove();
-                    $('#rootCousePenagihanAPKUG').find("td").remove();
+            //         $('#rootCouseHeadAPKUG').find("th").remove();
+            //         $('#bodyRootCouseAPKUG').find("tr").remove();
+            //         $('#penagihanAPKUG').find("th").remove();
+            //         $('#couseCodePenagihanAPKUG').find("th").remove();
+            //         $('#rootCousePenagihanAPKUG').find("td").remove();
 
-                    let TotPenagihanUG = 0;
-                    let tbPenagihanAPKUG;
-                    let tbCouseCodeAPKUG;
-                    let tbRootCouseAPKUG;
-                    let hdRootCouseAPKUG = `
-                        <th>RootCouse Aplikasi ${bulanReport}</th>
-                        <th></th>
-                        <th></th>
-                        <th style="text-align: center">Jumlah</th>`;
+            //         let TotPenagihanUG = 0;
+            //         let tbPenagihanAPKUG;
+            //         let tbCouseCodeAPKUG;
+            //         let tbRootCouseAPKUG;
+            //         let hdRootCouseAPKUG = `
+            //             <th>RootCouse Aplikasi ${bulanReport}</th>
+            //             <th></th>
+            //             <th></th>
+            //             <th style="text-align: center">Jumlah</th>`;
 
-                    $('#rootCouseHeadAPKUG').append(hdRootCouseAPKUG);
-
-
-
-                    $.each(apkUG.detPenagihanSortirUG, function(key, itemPenagihanUG) {
-
-                        tbPenagihanAPKUG = `
-                                <tr class="table-secondary"><th>${itemPenagihanUG.penagihan}</th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary" style="text-align: center">${itemPenagihanUG.jml}</th></tr>
-                            `;
-                        // $('#penagihanAPK').append(tbPenagihanAPK);
-                        $('#bodyRootCouseAPKUG').append(tbPenagihanAPKUG);
-
-                        TotPenagihanUG += itemPenagihanUG.jml;
-
-                        $.each(apkUG.detCouseCodeSortirUG, function(key,
-                            itemCouseCodeUG) {
-                            if (itemPenagihanUG.penagihan == itemCouseCodeUG
-                                .penagihan) {
-                                tbCouseCodeAPKUG = `
-                                    <tr><th></th>
-                                    <th class="table-info">${itemCouseCodeUG.couse_code}</th>
-                                    <th class="table-info"></th>
-                                    <th class="table-info" style="text-align: center">${itemCouseCodeUG.jml}</th></tr>
-                                `;
-                                //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
-                                $('#bodyRootCouseAPKUG').append(tbCouseCodeAPKUG);
+            //         $('#rootCouseHeadAPKUG').append(hdRootCouseAPKUG);
 
 
-                                $.each(apkUG.detRootCouseSortirUG, function(key,
-                                    itemRootCouseUG) {
-                                    if (itemPenagihanUG.penagihan ==
-                                        itemRootCouseUG.penagihan &&
-                                        itemCouseCodeUG.couse_code ==
-                                        itemRootCouseUG.couse_code) {
-                                        tbRootCouseAPKUG = `
-                                            <tr><td></td>
-                                            <td></td>
-                                            <td>${itemRootCouseUG.root_couse}</td>
-                                            <td style="text-align: center">${itemRootCouseUG.jml}</td></tr>
-                                        `;
 
-                                        //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
-                                        $('#bodyRootCouseAPKUG').append(
-                                            tbRootCouseAPKUG);
-                                    }
+            //         $.each(apkUG.detPenagihanSortirUG, function(key, itemPenagihanUG) {
 
-                                });
-                            }
+            //             tbPenagihanAPKUG = `
+            //                     <tr class="table-secondary"><th>${itemPenagihanUG.penagihan}</th>
+            //                     <th class="table-secondary"></th>
+            //                     <th class="table-secondary"></th>
+            //                     <th class="table-secondary" style="text-align: center">${itemPenagihanUG.jml}</th></tr>
+            //                 `;
+            //             // $('#penagihanAPK').append(tbPenagihanAPK);
+            //             $('#bodyRootCouseAPKUG').append(tbPenagihanAPKUG);
+
+            //             TotPenagihanUG += itemPenagihanUG.jml;
+
+            //             $.each(apkUG.detCouseCodeSortirUG, function(key,
+            //                 itemCouseCodeUG) {
+            //                 if (itemPenagihanUG.penagihan == itemCouseCodeUG
+            //                     .penagihan) {
+            //                     tbCouseCodeAPKUG = `
+            //                         <tr><th></th>
+            //                         <th class="table-info">${itemCouseCodeUG.couse_code}</th>
+            //                         <th class="table-info"></th>
+            //                         <th class="table-info" style="text-align: center">${itemCouseCodeUG.jml}</th></tr>
+            //                     `;
+            //                     //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
+            //                     $('#bodyRootCouseAPKUG').append(tbCouseCodeAPKUG);
 
 
-                        });
+            //                     $.each(apkUG.detRootCouseSortirUG, function(key,
+            //                         itemRootCouseUG) {
+            //                         if (itemPenagihanUG.penagihan ==
+            //                             itemRootCouseUG.penagihan &&
+            //                             itemCouseCodeUG.couse_code ==
+            //                             itemRootCouseUG.couse_code) {
+            //                             tbRootCouseAPKUG = `
+            //                                 <tr><td></td>
+            //                                 <td></td>
+            //                                 <td>${itemRootCouseUG.root_couse}</td>
+            //                                 <td style="text-align: center">${itemRootCouseUG.jml}</td></tr>
+            //                             `;
 
-                    });
+            //                             //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
+            //                             $('#bodyRootCouseAPKUG').append(
+            //                                 tbRootCouseAPKUG);
+            //                         }
 
-                    let totRootCouseAPKUG = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark" style="text-align: center">${TotPenagihanUG}</th></tr>`;
+            //                     });
+            //                 }
 
-                    $('#bodyRootCouseAPKUG').append(totRootCouseAPKUG);
-                }
 
-            });
+            //             });
 
-            $.ajax({
-                url: "{{ route('getRootCousePendingUG') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(dataRootCousePendingUG) {
+            //         });
 
-                    $('#rootCouseHeadPendingUG').find("tr").remove();
-                    $('#rootCouseTbPendingUG').find("tr").remove();
-                    $('#totRootCousePendingUG').find("th").remove();
+            //         let totRootCouseAPKUG = `
+            //             <tr><th class="table-dark">TOTAL</th>
+            //                 <th class="table-dark"></th>
+            //                 <th class="table-dark"></th>
+            //                 <th class="table-dark" style="text-align: center">${TotPenagihanUG}</th></tr>`;
 
-                    var TotRootDonePendingUG = 0;
-                    let tbRootCousePendingUG;
-                    let hdRootCousePendingUG = `
-                        <tr>
-                                <th>RootCouse Pending</th>
-                        </tr>`;
+            //         $('#bodyRootCouseAPKUG').append(totRootCouseAPKUG);
+            //     }
 
-                    $('#rootCouseHeadPendingUG').append(hdRootCousePendingUG);
+            // });
 
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadPendingUG').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
+            // $.ajax({
+            //     url: "{{ route('getRootCousePendingUG') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(dataRootCousePendingUG) {
 
-                    $.each(dataRootCousePendingUG, function(key, item) {
+            //         $('#rootCouseHeadPendingUG').find("tr").remove();
+            //         $('#rootCouseTbPendingUG').find("tr").remove();
+            //         $('#totRootCousePendingUG').find("th").remove();
 
-                        if (item.penagihan == 'total_pending') {
-                            tbRootCousePendingUG = `
-                            <tr>
-                                <th>Total</th>
+            //         var TotRootDonePendingUG = 0;
+            //         let tbRootCousePendingUG;
+            //         let hdRootCousePendingUG = `
+            //             <tr>
+            //                     <th>RootCouse Pending</th>
+            //             </tr>`;
+
+            //         $('#rootCouseHeadPendingUG').append(hdRootCousePendingUG);
+
+            //         for (b = 0; b < trendWoMt.length; b++) {
+            //             $('#rootCouseHeadPendingUG').find("tr").append(
+            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
+
+            //         $.each(dataRootCousePendingUG, function(key, item) {
+
+            //             if (item.penagihan == 'total_pending') {
+            //                 tbRootCousePendingUG = `
+            //                 <tr>
+            //                     <th>Total</th>
                                 
-                            `;
-                        } else {
-                            tbRootCousePendingUG = `
-                            <tr>
-                                <td>${item.penagihan}</td>
+            //                 `;
+            //             } else {
+            //                 tbRootCousePendingUG = `
+            //                 <tr>
+            //                     <td>${item.penagihan}</td>
                                 
-                            `;
-                        }
+            //                 `;
+            //             }
 
-                        if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePendingUG = tbRootCousePendingUG +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
+            //             if (item.penagihan == 'total_pending') {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCousePendingUG = tbRootCousePendingUG +
+            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                 }
 
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePendingUG = tbRootCousePendingUG +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //             } else {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCousePendingUG = tbRootCousePendingUG +
+            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
 
-                            }
-                        }
+            //                 }
+            //             }
 
-                        tbRootCousePendingUG = tbRootCousePendingUG + `</tr>`;
-                        $('#rootCouseTbPendingUG').append(tbRootCousePendingUG);
+            //             tbRootCousePendingUG = tbRootCousePendingUG + `</tr>`;
+            //             $('#rootCouseTbPendingUG').append(tbRootCousePendingUG);
 
-                    });
-                }
+            //         });
+            //     }
 
-            });
+            // });
 
-            $.ajax({
-                url: "{{ route('getRootCouseCancelUG') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport
-                },
-                success: function(dataRootCouseCancelUG) {
+            // $.ajax({
+            //     url: "{{ route('getRootCouseCancelUG') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport
+            //     },
+            //     success: function(dataRootCouseCancelUG) {
 
-                    $('#rootCouseHeadCancelUG').find("tr").remove();
-                    $('#rootCouseTbCancelUG').find("tr").remove();
-                    $('#totRootCouseCancelUG').find("th").remove();
+            //         $('#rootCouseHeadCancelUG').find("tr").remove();
+            //         $('#rootCouseTbCancelUG').find("tr").remove();
+            //         $('#totRootCouseCancelUG').find("th").remove();
 
-                    var TotRootDoneCancelUG = 0;
-                    let tbRootCouseCancelUG;
-                    let hdRootCouseCancelUG = `
-                        <tr>
-                                <th>RootCouse Cancel</th>
-                        </tr>`;
+            //         var TotRootDoneCancelUG = 0;
+            //         let tbRootCouseCancelUG;
+            //         let hdRootCouseCancelUG = `
+            //             <tr>
+            //                     <th>RootCouse Cancel</th>
+            //             </tr>`;
 
-                    $('#rootCouseHeadCancelUG').append(hdRootCouseCancelUG);
+            //         $('#rootCouseHeadCancelUG').append(hdRootCouseCancelUG);
 
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadCancelUG').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
+            //         for (b = 0; b < trendWoMt.length; b++) {
+            //             $('#rootCouseHeadCancelUG').find("tr").append(
+            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
 
-                    $.each(dataRootCouseCancelUG, function(key, item) {
+            //         $.each(dataRootCouseCancelUG, function(key, item) {
 
-                        if (item.penagihan == 'total_cancel') {
-                            tbRootCouseCancelUG = `
-                            <tr>
-                                <th>Total</th>
+            //             if (item.penagihan == 'total_cancel') {
+            //                 tbRootCouseCancelUG = `
+            //                 <tr>
+            //                     <th>Total</th>
                                 
-                            `;
-                        } else {
-                            tbRootCouseCancelUG = `
-                            <tr>
-                                <td>${item.penagihan}</td>
+            //                 `;
+            //             } else {
+            //                 tbRootCouseCancelUG = `
+            //                 <tr>
+            //                     <td>${item.penagihan}</td>
                                 
-                            `;
-                        }
+            //                 `;
+            //             }
 
-                        if (item.penagihan == 'total_cancel') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseCancelUG = tbRootCouseCancelUG +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
+            //             if (item.penagihan == 'total_cancel') {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseCancelUG = tbRootCouseCancelUG +
+            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                 }
 
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseCancelUG = tbRootCouseCancelUG +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //             } else {
+            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                     tbRootCouseCancelUG = tbRootCouseCancelUG +
+            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
 
-                            }
-                        }
+            //                 }
+            //             }
 
-                        tbRootCouseCancelUG = tbRootCouseCancelUG + `</tr>`;
-                        $('#rootCouseTbCancelUG').append(tbRootCouseCancelUG);
+            //             tbRootCouseCancelUG = tbRootCouseCancelUG + `</tr>`;
+            //             $('#rootCouseTbCancelUG').append(tbRootCouseCancelUG);
 
-                    });
-                }
+            //         });
+            //     }
 
-            });
+            // });
 
 
         });
