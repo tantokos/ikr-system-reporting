@@ -84,8 +84,11 @@ Route::group(
         Route::get('/getTrendMonthly', [ReportController::class, 'getTrendMonthly'])->name('getTrendMonthly');
         Route::get('/getRootCouseDone', [ReportController::class, 'getRootCouseDone'])->name('getRootCouseDone');
         Route::get('/getRootCousePending', [ReportController::class, 'getRootCousePending'])->name('getRootCousePending');
+        Route::get('/getRootCousePendingGraph', [ReportController::class, 'getRootCousePendingGraph'])->name('getRootCousePendingGraph');
         Route::get('/getRootCouseCancel', [ReportController::class, 'getRootCouseCancel'])->name('getRootCouseCancel');
+        Route::get('/getRootCouseCancelGraph', [ReportController::class, 'getRootCouseCancelGraph'])->name('getRootCouseCancelGraph');
         Route::get('/getRootCouseAPK', [ReportController::class, 'getRootCouseAPK'])->name('getRootCouseAPK');
+        Route::get('/getRootCouseAPKGraph', [ReportController::class, 'getRootCouseAPKGraph'])->name('getRootCouseAPKGraph');
         Route::get('/getCancelSystemProblem', [ReportController::class, 'getCancelSystemProblem'])->name('getCancelSystemProblem');
         
         Route::get('/getTrendMonthlyApart', [ReportController::class, 'getTrendMonthlyApart'])->name('getTrendMonthlyApart');
