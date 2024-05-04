@@ -99,8 +99,8 @@
                     </a>
                 </li>
 
-                <li class="{{ request()->is('importftthib*') ? 'active' : '' }}">
-                    <a href="#">
+                <li class="{{ request()->is('importftthIB*') ? 'active' : '' }}">
+                    <a href="{{ route('import.ftthIBtempIndex') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth IB</span>
                         <span class="pcoded-mcaret"></span>

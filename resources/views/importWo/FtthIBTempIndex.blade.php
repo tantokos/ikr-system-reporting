@@ -2,22 +2,22 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5 id="CardTitle">Import Data FTTH Maintenance (MT)<h5>
-                </div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 id="CardTitle">Import Data FTTH New Installation (IB)<h5>
             </div>
         </div>
     </div>
+</div>
     {{-- <h1 class="h3 mb-2 text-gray-800">{{ $title }}</h1> --}}
 
     <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <form action="{{ route('import.ImportFtthMtTemp') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('import.ImportFtthIBTemp') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label class="col form-text"></label>
@@ -31,7 +31,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <button type="submit" class="btn btn-sm btn-success">Import Data FTTH MT Original</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Import Data FTTH IB Original</button>
                             </div>
                         </div>
 
@@ -51,7 +51,7 @@
 
                 <div class="col">
                     {{-- <form action="{{ route('import.store') }}" method="POST" enctype="multipart/form-data"> --}}
-                    <form action="{{ route('saveImportMtFtth') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('saveImportIbFtth') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label class="col-sm-4 form-text">Import By : </label>
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-4 form-text">Jumlah Data :</label>
+                            <label class="col-sm-4 form-text">Jumlah Data IB :</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control form-control-sm border-secondary" id="jmlImport"
                                     name="jmlImport" value="{{ $jmlImport }}" readonly required>
@@ -81,9 +81,9 @@
                             <div class="col">
                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
                                     data-target="#md-showSummary">Show Summary</button>
-                                <button onclick="return confirm('Simpan hasil import Data Ori Maintenance?')" type="submit"
+                                <button onclick="return confirm('Simpan hasil import Data Ori New Installation?')" type="submit"
                                     class="btn btn-sm btn-primary" name="action" value="simpan">Simpan data Import</button>
-                                <button onclick="return confirm('Hapus hasil import Data Ori Maintenance?')"type="submit"
+                                <button onclick="return confirm('Hapus hasil import Data Ori New Installation?')"type="submit"
                                     class="btn btn-sm btn-secondary" name="action" value="batal">Batalkan Import</button>
                             </div>
                         </div>
@@ -96,104 +96,104 @@
 
         <div class="card-block">
             <div class="table-responsive">
-                <table class="table table-striped" id="dataTempFtthMt" width="100%" cellspacing="0"
+                <table class="table table-striped" id="dataTempFtthIb" width="100%" cellspacing="0"
                     style="font-size: 12px">
                     <thead>
                         <tr>
                             <th>No</th>
                             {{-- <th>pic_monitoring</th> --}}
-                            <th>type_wo</th>
-                            <th>no_wo</th>
-                            {{-- <th>no_ticket</th> --}}
-                            <th>cust_id</th>
-                            <th>nama_cust</th>
-                            {{-- <th>cust_address1</th> --}}
-                            {{-- <th>cust_address2</th> --}}
-                            {{-- <th>type_maintenance</th> --}}
-                            <th>kode_fat</th>
-                            <th>kode_wilayah</th>
-                            <th>cluster</th>
-                            <th>kotamadya</th>
-                            <th>kotamadya_penagihan</th>
-                            <th>branch</th>
-                            <th>tgl_ikr</th>
-                            <th>slot_time_leader</th>
-                            <th>slot_time_apk</th>
-                            <th>sesi</th>
-                            <th>remark_traffic</th>
-                            <th>callsign</th>
-                            <th>leader</th>
-                            <th>teknisi1</th>
-                            <th>teknisi2</th>
-                            <th>teknisi3</th>
-                            <th>status_wo</th>
-                            <th>couse_code</th>
-                            <th>root_couse</th>
-                            <th>penagihan</th>
-                            <th>alasan_tag_alarm</th>
-                            <th>tgl_jam_reschedule</th>
-                            <th>tgl_jam_fat_on</th>
-                            <th>action_taken</th>
-                            <th>panjang_kabel</th>
-                            <th>weather</th>
-                            <th>remark_status</th>
-                            <th>action_status</th>
-                            <th>start_ikr_wa</th>
-                            <th>end_ikr_wa</th>
-                            <th>validasi_start</th>
-                            <th>validasi_end</th>
-                            <th>checkin_apk</th>
-                            <th>checkout_apk</th>
-                            <th>status_apk</th>
-                            {{-- <th>keterangan</th> --}}
-                            <th>ms_regular</th>
-                            <th>wo_date_apk</th>
-                            <th>wo_date_mail_reschedule</th>
-                            <th>wo_date_slot_tim_apk</th>
-                            <th>actual_sla_wo_minute_apk</th>
-                            <th>actual_sla_wo_jam_apk</th>
-                            <th>mttr_over_apk_minute</th>
-                            <th>mttr_over_apk_jam</th>
-                            <th>mttr_over_apk_persen</th>
-                            <th>status_sla</th>
-                            <th>root_couse_before</th>
-                            <th>slot_time_assign_apk</th>
-                            <th>slot_time_apk_delay</th>
-                            <th>status_slot_time_apk_delay</th>
-                            <th>ket_delay_slot_time</th>
-                            <th>konfirmasi_customer</th>
-                            <th>ont_merk_out</th>
-                            <th>ont_sn_out</th>
-                            <th>ont_mac_out</th>
-                            <th>ont_merk_in</th>
-                            <th>ont_sn_in</th>
-                            <th>ont_mac_in</th>
-                            <th>router_merk_out</th>
-                            <th>router_sn_out</th>
-                            <th>router_mac_out</th>
-                            <th>router_merk_in</th>
-                            <th>router_sn_in</th>
-                            <th>router_mac_in</th>
-                            <th>stb_merk_out</th>
-                            <th>stb_sn_out</th>
-                            <th>stb_mac_out</th>
-                            <th>stb_merk_in</th>
-                            <th>stb_sn_in</th>
-                            <th>stb_mac_in</th>
-                            <th>dw_out</th>
-                            <th>precon_out</th>
-                            <th>bad_precon</th>
-                            <th>fast_connector</th>
-                            <th>patchcord</th>
-                            <th>terminal_box</th>
-                            <th>remote_fiberhome</th>
-                            <th>remote_extrem</th>
-                            <th>port_fat</th>
-                            <th>site_penagihan</th>
-                            <th>konfirmasi_penjadwalan</th>
-                            <th>konfirmasi_cst</th>
-                            <th>konfirmasi_dispatch</th>
-                            <th>remark_status2</th>
+                            <th>Type Wo</th>
+                            <th>No Wo</th>
+                            <th>No Ticket</th>
+                            <th>Cust Id</th>
+                            <th>Nama Cust</th>
+                            <th>Cust Address1</th>
+                            <th>Cust Address2</th>
+                            <th>Type Maintenance</th>
+                            <th>Kode Fat</th>
+                            <th>Kode Wilayah</th>
+                            <th>Cluster</th>
+                            <th>Kotamadya</th>
+                            <th>Kotamadya Penagihan</th>
+                            <th>Branch</th>
+                            <th>Tgl Ikr</th>
+                            <th>Slot Time Leader</th>
+                            <th>Slot Time Apk</th>
+                            <th>Sesi</th>
+                            <th>Callsign</th>
+                            <th>Leader</th>
+                            <th>Teknisi1</th>
+                            <th>Teknisi2</th>
+                            <th>Teknisi3</th>
+                            <th>Status Wo</th>
+                            <th>Reason Status</th>
+                            <th>Penagihan</th>
+                            <th>Tgl Jam Reschedule</th>
+                            <th>Alasan Cancel</th>
+                            <th>Alasan Pending</th>
+                            <th>Respon Konf Cst</th>
+                            <th>Jawaban Konf Cst</th>
+                            <th>Permintaan Reschedule</th>
+                            <th>Weather</th>
+                            <th>Start Ikr Wa</th>
+                            <th>End Ikr Wa</th>
+                            <th>Nama Dispatch</th>
+                            <th>Telp Dispatch</th>
+                            <th>Jam Tek Foto Rmh</th>
+                            <th>Jam Dispatch Respon Foto</th>
+                            <th>Jam Teknisi Cek Fat</th>
+                            <th>Jam Dispatch Respon Fat</th>
+                            <th>Jam Teknisi Cek Port Fat</th>
+                            <th>Jam Dispatch Respon Port Fat</th>
+                            <th>Jam Teknisi Aktifasi Perangkat</th>
+                            <th>Jam Dispatch Respon Aktifasi Perangkat</th>
+                            <th>Validasi Start</th>
+                            <th>Validasi End</th>
+                            <th>Otp Start</th>
+                            <th>Otp End</th>
+                            <th>Checkin Apk</th>
+                            <th>Checkout Apk</th>
+                            <th>Status Apk</th>
+                            <th>Keterangan</th>
+                            <th>Ms Regular</th>
+                            <th>Wo Date Apk</th>
+                            <th>Wo Date Mail Reschedule</th>
+                            <th>Wo Date Slot Time Apk</th>
+                            <th>Slot Time Assign Apk</th>
+                            <th>Slot Time Apk Delay</th>
+                            <th>Status Slot Time Apk Delay</th>
+                            <th>Ket Delay Slot Time</th>
+                            <th>Ont Merk Out</th>
+                            <th>Ont Sn Out</th>
+                            <th>Ont Mac Out</th>
+                            <th>Ont Merk In</th>
+                            <th>Ont Sn In</th>
+                            <th>Ont Mac In</th>
+                            <th>Router Merk Out</th>
+                            <th>Router Sn Out</th>
+                            <th>Router Mac Out</th>
+                            <th>Router Merk In</th>
+                            <th>Router Sn In</th>
+                            <th>Router Mac In</th>
+                            <th>Stb Merk Out</th>
+                            <th>Stb Sn Out</th>
+                            <th>Stb Mac Out</th>
+                            <th>Stb Merk In</th>
+                            <th>Stb Sn In</th>
+                            <th>Stb Mac In</th>
+                            <th>Precon Out</th>
+                            <th>Dw Out</th>
+                            <th>Kabel Utp</th>
+                            <th>Fast Connector</th>
+                            <th>Patchcord</th>
+                            <th>Pipa</th>
+                            <th>Socket Pipa</th>
+                            <th>Terminal Box</th>
+                            <th>Cable Duct</th>
+                            <th>Site Penagihan</th>
+                            <th>Marker</th>
+                            <th>Port Fat</th>
+
                             <th>login</th>
                             <th>action</th>
                         </tr>
@@ -213,7 +213,7 @@
         <div class="modal-dialog modal-lg mw-100 w-75" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Summary Data Import MT FTTH</h5>
+                    <h5 class="modal-title h5" id="myLargeModalLabel">Summary Data Import IB FTTH</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -329,7 +329,7 @@
 
                         <div class="col-sm-6">
                             <div class="table-responsive">
-                                <h6>Summary Data ORI MT FTTH</h6>
+                                <h6>Summary Data ORI IB FTTH</h6>
                                 <table class="table table-bordered" style="font-size: 12px">
                                     <tr class="table-active">
                                         <th>Status WO</th>
@@ -363,7 +363,7 @@
 
                         <div class="col-sm-6">
                             <div class="table-responsive">
-                                <h6>Summary Data Sortir MT FTTH</h6>
+                                <h6>Summary Data Sortir IB FTTH</h6>
                                 <table class="table table-bordered" style="font-size: 12px">
                                     <tr class="table-active">
                                         <th>Status WO</th>
@@ -406,7 +406,7 @@
                                 <table class="table table-bordered" style="font-size: 11px">
                                     <thead>
                                         <tr class="table-active">
-                                            <th>Root Couse Penagihan (Ori)</th>
+                                            <th>Reason Status Penagihan (Ori)</th>
                                             <th style="text-align: center">Jumlah</th>
                                         </tr>
                                     </thead>
@@ -473,7 +473,7 @@
                                 <table class="table table-bordered" style="font-size: 11px">
                                     <thead>
                                         <tr class="table-active">
-                                            <th>Root Couse Penagihan (Sortir)</th>
+                                            <th>Reason Status Penagihan (Sortir)</th>
                                             <th style="text-align: center">Jumlah</th>
                                         </tr>
                                     </thead>
@@ -594,7 +594,7 @@
                 $('#tbodyStatusWoSortir').empty();
 
                 $.ajax({
-                    url: "{{ route('getFilterSummary') }}",
+                    url: "{{ route('getFilterSummaryIB') }}",
                     type: "get",
                     data: {
                         // bulanTahunReport: bulanReport,
@@ -662,38 +662,40 @@
                                 </tr>
                             `);
 
-                            for(y=0; y < summary.detCouseCode.length; y++) {
+                            totRootOri = totRootOri + summary.detPenagihan[x].jml
 
-                                if(summary.detPenagihan[x].penagihan == summary.detCouseCode[y].penagihan) {
-                                    $('#tbodyRootCouseOri').append(`
-                                        <tr>
-                                            <th style="text-indent: 20px">${summary.detCouseCode[y].couse_code}</th>
-                                            <th style="text-align: center">
-                                                ${summary.detCouseCode[y].jml.toLocaleString()}
-                                            </th>
-                                        </tr>
-                                    `);
+                            // for(y=0; y < summary.detCouseCode.length; y++) {
 
-                                    for(z=0; z < summary.detRootCouse.length; z++) {
+                                // if(summary.detPenagihan[x].penagihan == summary.detCouseCode[y].penagihan) {
+                                    // $('#tbodyRootCouseOri').append(`
+                                        // <tr>
+                                            // <th style="text-indent: 20px">${summary.detCouseCode[y].reason_status}</th>
+                                            // <th style="text-align: center">
+                                                // ${summary.detCouseCode[y].jml.toLocaleString()}
+                                            // </th>
+                                        // </tr>
+                                    // `);
 
-                                        if(summary.detPenagihan[x].penagihan == summary.detRootCouse[z].penagihan &&
-                                            summary.detCouseCode[y].couse_code== summary.detRootCouse[z].couse_code) {
-                                                $('#tbodyRootCouseOri').append(`
-                                                    <tr>
-                                                        <td style="text-indent: 40px">
-                                                            ${summary.detRootCouse[z].root_couse}
-                                                        </td>
-                                                        <td style="text-align: center">
-                                                            ${summary.detRootCouse[z].jml.toLocaleString()}
-                                                        </td>
-                                                    </tr>
-                                                `);
+                                    // for(z=0; z < summary.detRootCouse.length; z++) {
 
-                                                totRootOri = totRootOri + summary.detRootCouse[z].jml
-                                        }
-                                    }
-                                }
-                            }
+                                        // if(summary.detPenagihan[x].penagihan == summary.detRootCouse[z].penagihan &&
+                                            // summary.detCouseCode[y].couse_code== summary.detRootCouse[z].couse_code) {
+                                                // $('#tbodyRootCouseOri').append(`
+                                                    // <tr>
+                                                        // <td style="text-indent: 40px">
+                                                            // ${summary.detRootCouse[z].root_couse}
+                                                        // </td>
+                                                        // <td style="text-align: center">
+                                                            // ${summary.detRootCouse[z].jml.toLocaleString()}
+                                                        // </td>
+                                                    // </tr>
+                                                // `);
+
+                                                // totRootOri = totRootOri + summary.detRootCouse[z].jml
+                                        // }
+                                    // }
+                                // }
+                            // }
 
                         }
 
@@ -709,38 +711,40 @@
                                 </tr>
                             `);
 
-                            for(y=0; y < summary.detCouseCodeSortir.length; y++) {
+                            totRootSortir = totRootSortir + summary.detPenagihanSortir[x].jml
 
-                                if(summary.detPenagihanSortir[x].penagihan == summary.detCouseCodeSortir[y].penagihan) {
-                                    $('#tbodyRootCouseSortir').append(`
-                                        <tr>
-                                            <th style="text-indent: 20px">${summary.detCouseCodeSortir[y].couse_code}</th>
-                                            <th style="text-align: center">
-                                                ${summary.detCouseCodeSortir[y].jml.toLocaleString()}
-                                            </th>
-                                        </tr>
-                                    `);
+                            // for(y=0; y < summary.detCouseCodeSortir.length; y++) {
 
-                                    for(z=0; z < summary.detRootCouseSortir.length; z++) {
+                                // if(summary.detPenagihanSortir[x].penagihan == summary.detCouseCodeSortir[y].penagihan) {
+                                    // $('#tbodyRootCouseSortir').append(`
+                                        // <tr>
+                                            // <th style="text-indent: 20px">${summary.detCouseCodeSortir[y].reason_status}</th>
+                                            // <th style="text-align: center">
+                                                // ${summary.detCouseCodeSortir[y].jml.toLocaleString()}
+                                            // </th>
+                                        // </tr>
+                                    // `);
 
-                                        if(summary.detPenagihanSortir[x].penagihan == summary.detRootCouseSortir[z].penagihan &&
-                                            summary.detCouseCodeSortir[y].couse_code== summary.detRootCouseSortir[z].couse_code) {
-                                                $('#tbodyRootCouseSortir').append(`
-                                                    <tr>
-                                                        <td style="text-indent: 40px">
-                                                            ${summary.detRootCouseSortir[z].root_couse}
-                                                        </td>
-                                                        <td style="text-align: center">
-                                                            ${summary.detRootCouseSortir[z].jml.toLocaleString()}
-                                                        </td>
-                                                    </tr>
-                                                `);
+                                    // for(z=0; z < summary.detRootCouseSortir.length; z++) {
 
-                                                totRootSortir = totRootSortir + summary.detRootCouseSortir[z].jml
-                                        }
-                                    }
-                                }
-                            }
+                                        // if(summary.detPenagihanSortir[x].penagihan == summary.detRootCouseSortir[z].penagihan &&
+                                            // summary.detCouseCodeSortir[y].couse_code== summary.detRootCouseSortir[z].couse_code) {
+                                                // $('#tbodyRootCouseSortir').append(`
+                                                    // <tr>
+                                                        // <td style="text-indent: 40px">
+                                                            // ${summary.detRootCouseSortir[z].root_couse}
+                                                        // </td>
+                                                        // <td style="text-align: center">
+                                                            // ${summary.detRootCouseSortir[z].jml.toLocaleString()}
+                                                        // </td>
+                                                    // </tr>
+                                                // `);
+
+                                                // totRootSortir = totRootSortir + summary.detRootCouseSortir[z].jml
+                                        // }
+                                    // }
+                                // }
+                            // }
 
                         }
 
@@ -770,7 +774,7 @@
                 fetch_data()
 
                 function fetch_data() {
-                    $('#dataTempFtthMt').DataTable({
+                    $('#dataTempFtthIb').DataTable({
                         paging: true,
                         orderClasses: false,
                         deferRender: true,
@@ -802,7 +806,7 @@
                             }
                         },
                         ajax: {
-                            url: "{{ route('import.dataImportFtthMtTemp') }}",
+                            url: "{{ route('import.dataImportFtthIBTemp') }}",
                             type: "post",
                             dataType: "json",
                             data: {
@@ -825,297 +829,99 @@
                             //     width: '5%'
 
                             // },
-                            {
-                                "data": 'type_wo',
-                                "width": '90'
-                            },
-                            {
-                                data: 'no_wo',
-                                width: '90'
-                            },
-                            // {
-                            //     data: 'no_ticket',
-                            //     width: '5%'
-                            // },
-                            {
-                                data: 'cust_id',
-                                width: '90'
-                            },
-                            {
-                                data: 'nama_cust',
-                                width: '90'
-                            },
-                            // {
-                            //     data: 'cust_address1',
-                            //     width: '90'
-                            // },
-                            // {
-                            //     data: 'cust_address2',
-                            //     width: '5%'
-                            // },
-                            // {
-                            //     data: 'type_maintenance',
-                            //     width: '90'
-                            // },
-                            {
-                                data: 'kode_fat',
-                                width: '90'
-                            },
-                            {
-                                data: 'kode_wilayah',
-                                width: '90'
-                            },
-                            {
-                                data: 'cluster',
-                                width: '90'
-                            },
-                            {
-                                data: 'kotamadya',
-                                width: '90'
-                            },
-                            {
-                                data: 'kotamadya_penagihan'
-                            },
-                            {
-                                data: 'branch'
-                            },
-                            {
-                                data: 'tgl_ikr'
-                            },
-                            {
-                                data: 'slot_time_leader'
-                            },
-                            {
-                                data: 'slot_time_apk'
-                            },
-                            {
-                                data: 'sesi'
-                            },
-                            {
-                                data: 'remark_traffic'
-                            },
-                            {
-                                data: 'callsign'
-                            },
-                            {
-                                data: 'leader'
-                            },
-                            {
-                                data: 'teknisi1'
-                            },
-                            {
-                                data: 'teknisi2'
-                            },
-                            {
-                                data: 'teknisi3'
-                            },
-                            {
-                                data: 'status_wo'
-                            },
-                            {
-                                data: 'couse_code'
-                            },
-                            {
-                                data: 'root_couse'
-                            },
-                            {
-                                data: 'penagihan'
-                            },
-                            {
-                                data: 'alasan_tag_alarm'
-                            },
-                            {
-                                data: 'tgl_jam_reschedule'
-                            },
-                            {
-                                data: 'tgl_jam_fat_on'
-                            },
-                            {
-                                data: 'action_taken'
-                            },
-                            {
-                                data: 'panjang_kabel'
-                            },
-                            {
-                                data: 'weather'
-                            },
-                            {
-                                data: 'remark_status'
-                            },
-                            {
-                                data: 'action_status'
-                            },
-                            {
-                                data: 'start_ikr_wa'
-                            },
-                            {
-                                data: 'end_ikr_wa'
-                            },
-                            {
-                                data: 'validasi_start'
-                            },
-                            {
-                                data: 'validasi_end'
-                            },
-                            {
-                                data: 'checkin_apk'
-                            },
-                            {
-                                data: 'checkout_apk'
-                            },
-                            {
-                                data: 'status_apk'
-                            },
-                            // {
-                            //     data: 'keterangan'
-                            // },
-                            {
-                                data: 'ms_regular'
-                            },
-                            {
-                                data: 'wo_date_apk'
-                            },
-                            {
-                                data: 'wo_date_mail_reschedule'
-                            },
-                            {
-                                data: 'wo_date_slot_time_apk'
-                            },
-                            {
-                                data: 'actual_sla_wo_minute_apk'
-                            },
-                            {
-                                data: 'actual_sla_wo_jam_apk'
-                            },
-                            {
-                                data: 'mttr_over_apk_minute'
-                            },
-                            {
-                                data: 'mttr_over_apk_jam'
-                            },
-                            {
-                                data: 'mttr_over_apk_persen'
-                            },
-                            {
-                                data: 'status_sla'
-                            },
-                            {
-                                data: 'root_couse_before'
-                            },
-                            {
-                                data: 'slot_time_assign_apk'
-                            },
-                            {
-                                data: 'slot_time_apk_delay'
-                            },
-                            {
-                                data: 'status_slot_time_apk_delay'
-                            },
-                            {
-                                data: 'ket_delay_slot_time'
-                            },
-                            {
-                                data: 'konfirmasi_customer'
-                            },
-                            {
-                                data: 'ont_merk_out'
-                            },
-                            {
-                                data: 'ont_sn_out'
-                            },
-                            {
-                                data: 'ont_mac_out'
-                            },
-                            {
-                                data: 'ont_merk_in'
-                            },
-                            {
-                                data: 'ont_sn_in'
-                            },
-                            {
-                                data: 'ont_mac_in'
-                            },
-                            {
-                                data: 'router_merk_out'
-                            },
-                            {
-                                data: 'router_sn_out'
-                            },
-                            {
-                                data: 'router_mac_out'
-                            },
-                            {
-                                data: 'router_merk_in'
-                            },
-                            {
-                                data: 'router_sn_in'
-                            },
-                            {
-                                data: 'router_mac_in'
-                            },
-                            {
-                                data: 'stb_merk_out'
-                            },
-                            {
-                                data: 'stb_sn_out'
-                            },
-                            {
-                                data: 'stb_mac_out'
-                            },
-                            {
-                                data: 'stb_merk_in'
-                            },
-                            {
-                                data: 'stb_sn_in'
-                            },
-                            {
-                                data: 'stb_mac_in'
-                            },
-                            {
-                                data: 'dw_out'
-                            },
-                            {
-                                data: 'precon_out'
-                            },
-                            {
-                                data: 'bad_precon'
-                            },
-                            {
-                                data: 'fast_connector'
-                            },
-                            {
-                                data: 'patchcord'
-                            },
-                            {
-                                data: 'terminal_box'
-                            },
-                            {
-                                data: 'remote_fiberhome'
-                            },
-                            {
-                                data: 'remote_extrem'
-                            },
-                            {
-                                data: 'port_fat'
-                            },
-                            {
-                                data: 'site_penagihan'
-                            },
-                            {
-                                data: 'konfirmasi_penjadwalan'
-                            },
-                            {
-                                data: 'konfirmasi_cst'
-                            },
-                            {
-                                data: 'konfirmasi_dispatch'
-                            },
-                            {
-                                data: 'remark_status2'
-                            },
-                            {
-                                data: 'login'
-                            },
+                            {data: 'type_wo'},
+                            {data: 'no_wo'},
+                            {data: 'no_ticket'},
+                            {data: 'cust_id'},
+                            {data: 'nama_cust'},
+                            {data: 'cust_address1'},
+                            {data: 'cust_address2'},
+                            {data: 'type_maintenance'},
+                            {data: 'kode_fat'},
+                            {data: 'kode_wilayah'},
+                            {data: 'cluster'},
+                            {data: 'kotamadya'},
+                            {data: 'kotamadya_penagihan'},
+                            {data: 'branch'},
+                            {data: 'tgl_ikr'},
+                            {data: 'slot_time_leader'},
+                            {data: 'slot_time_apk'},
+                            {data: 'sesi'},
+                            {data: 'callsign'},
+                            {data: 'leader'},
+                            {data: 'teknisi1'},
+                            {data: 'teknisi2'},
+                            {data: 'teknisi3'},
+                            {data: 'status_wo'},
+                            {data: 'reason_status'},
+                            {data: 'penagihan'},
+                            {data: 'tgl_jam_reschedule'},
+                            {data: 'alasan_cancel'},
+                            {data: 'alasan_pending'},
+                            {data: 'respon_konf_cst'},
+                            {data: 'jawaban_konf_cst'},
+                            {data: 'permintaan_reschedule'},
+                            {data: 'weather'},
+                            {data: 'start_ikr_wa'},
+                            {data: 'end_ikr_wa'},
+                            {data: 'nama_dispatch'},
+                            {data: 'telp_dispatch'},
+                            {data: 'jam_tek_foto_rmh'},
+                            {data: 'jam_dispatch_respon_foto'},
+                            {data: 'jam_teknisi_cek_fat'},
+                            {data: 'jam_dispatch_respon_fat'},
+                            {data: 'jam_teknisi_cek_port_fat'},
+                            {data: 'jam_dispatch_respon_port_fat'},
+                            {data: 'jam_teknisi_aktifasi_perangkat'},
+                            {data: 'jam_dispatch_respon_aktifasi_perangkat'},
+                            {data: 'validasi_start'},
+                            {data: 'validasi_end'},
+                            {data: 'otp_start'},
+                            {data: 'otp_end'},
+                            {data: 'checkin_apk'},
+                            {data: 'checkout_apk'},
+                            {data: 'status_apk'},
+                            {data: 'keterangan'},
+                            {data: 'ms_regular'},
+                            {data: 'wo_date_apk'},
+                            {data: 'wo_date_mail_reschedule'},
+                            {data: 'wo_date_slot_time_apk'},
+                            {data: 'slot_time_assign_apk'},
+                            {data: 'slot_time_apk_delay'},
+                            {data: 'status_slot_time_apk_delay'},
+                            {data: 'ket_delay_slot_time'},
+                            {data: 'ont_merk_out'},
+                            {data: 'ont_sn_out'},
+                            {data: 'ont_mac_out'},
+                            {data: 'ont_merk_in'},
+                            {data: 'ont_sn_in'},
+                            {data: 'ont_mac_in'},
+                            {data: 'router_merk_out'},
+                            {data: 'router_sn_out'},
+                            {data: 'router_mac_out'},
+                            {data: 'router_merk_in'},
+                            {data: 'router_sn_in'},
+                            {data: 'router_mac_in'},
+                            {data: 'stb_merk_out'},
+                            {data: 'stb_sn_out'},
+                            {data: 'stb_mac_out'},
+                            {data: 'stb_merk_in'},
+                            {data: 'stb_sn_in'},
+                            {data: 'stb_mac_in'},
+                            {data: 'precon_out'},
+                            {data: 'dw_out'},
+                            {data: 'kabel_utp'},
+                            {data: 'fast_connector'},
+                            {data: 'patchcord'},
+                            {data: 'pipa'},
+                            {data: 'socket_pipa'},
+                            {data: 'terminal_box'},
+                            {data: 'cable_duct'},
+                            {data: 'site_penagihan'},
+                            {data: 'marker'},
+                            {data: 'port_fat'},
+                            {data: 'login'},
+
 
                             // {
                             //     data: 'gender',
