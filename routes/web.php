@@ -16,6 +16,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDashController;
 use App\Http\Controllers\FatController;
 use App\Http\Controllers\ImportexcelController;
+use App\Http\Controllers\ImportFtthIBTempController;
 use App\Http\Controllers\ImportFtthMtTempController;
 use App\Http\Controllers\KaryawanImportController;
 use App\Http\Controllers\LoginController;
@@ -72,6 +73,8 @@ Route::group(
     ['middleware' => ['auth']],
     function () {
 
+        //=====Start Import MT FTTH======//
+
         Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
         Route::get('/', [ReportController::class, 'index'])->name('reportMtFtth.index');
         
@@ -113,6 +116,17 @@ Route::group(
         Route::get('/getFilterSummary',[ImportFtthMtTempController::class, 'getFilterSummary'])->name('getFilterSummary');
 
         Route::post('/saveImportMtFtth', [ImportFtthMtTempController::class, 'saveImportFtthMt'])->name('saveImportMtFtth');
+
+        //=====End Import MT FTTH======//
+
+        //=====Start Import IB FTTH======//
+        Route::get('/importftthIBtemp', [ImportFtthIbTempController::class , 'index'])->name('import.ftthIBtempIndex');
+        Route::post('/DataImportFtthIBTemp', [ImportFtthIbTempController::class, 'dataImportFtthIBTemp'])->name('import.dataImportFtthIBTemp');
+        Route::post('/import-FtthIBTemp', [ImportFtthIbTempController::class, 'importFtthIBTemp'])->name('import.ImportFtthIBTemp');
+
+        Route::get('/getFilterSummaryIB',[ImportFtthIbTempController::class, 'getFilterSummaryIB'])->name('getFilterSummaryIB');
+
+        Route::post('/saveImportIbFtth', [ImportFtthIbTempController::class, 'saveImportFtthIb'])->name('saveImportIbFtth');
        
     }
 );
