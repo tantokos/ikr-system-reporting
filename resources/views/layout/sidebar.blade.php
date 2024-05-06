@@ -42,7 +42,7 @@
                 </li>
 
                 <li class="{{ request()->is('reportIBFtth*') ? 'active' : '' }}">
-                    <a href="#">
+                    <a href="{{ route('reportIBFtth.index')}}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTH New Installation</span>
                         <span class="pcoded-mcaret"></span>

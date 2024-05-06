@@ -9,37 +9,38 @@
             <div class="card">
                 <div class="card-body">
                     {{-- <form action="#"> --}}
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label class="form-text">Bulan Laporan</label>
-                                    <select class="col form-control-sm" id="bulanReport" name="bulanReport" required>
-                                        <option value="">Pilih Bulan Report</option>
-                                        @foreach ($trendMonthly as $bulan)
-                                            <option value="{{ $bulan->bulan }}">{{ $bulan->bulan }}</option>
-                                        @endforeach
-                                        {{-- <option>All</option>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label class="form-text">Bulan Laporan</label>
+                                <select class="col form-control-sm" id="bulanReport" name="bulanReport" required>
+                                    <option value="">Pilih Bulan Report</option>
+                                    @foreach ($trendMonthly as $bulan)
+                                        <option value="{{ $bulan->bulan }}">{{ $bulan->bulan }}</option>
+                                    @endforeach
+                                    {{-- <option>All</option>
                                         <option>FTTH</option>
                                         <option>FTTX/B</option> --}}
-                                    </select>
+                                </select>
+                            </div>
+                            {{-- <div class="row"> --}}
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-sm btn-success filterDashBoard"
+                                        id="filterDashBoard">Filter</button>
                                 </div>
-                                {{-- <div class="row"> --}}
-                                <div class="form-group">
-                                    <div class="col-sm-2">
-                                        <button type="button" class="btn btn-sm btn-success filterDashBoard" id="filterDashBoard">Filter</button>
-                                    </div>
-                                </div>
-
-                                {{-- </div> --}}
                             </div>
 
-                            <div class="col-sm">
-                                <label class="form-text">Periode Tanggal</label>
-                                <input class="col form-control-sm" type="text" name="periode" id ="periode"
-                                    value="01/01/2018 - 01/15/2018" />
-                            </div>
+                            {{-- </div> --}}
+                        </div>
 
-                            {{-- <div class="col-sm">
+                        <div class="col-sm">
+                            <label class="form-text">Periode Tanggal</label>
+                            <input class="col form-control-sm" type="text" name="periode" id ="periode"
+                                value="01/01/2018 - 01/15/2018" />
+                        </div>
+
+                        {{-- <div class="col-sm">
                                 <label class="form-text">Project</label>
                                 <select class="col form-control-sm">
                                     <option>All</option>
@@ -48,77 +49,44 @@
                                 </select>
                             </div> --}}
 
-                            <div class="col-sm">
-                                <label class="form-text">Site</label>
-                                <select class="col form-control-sm" id="site">
-                                    <option value="All">All</option>
-                                    <option value="Retail">Retail</option>
-                                    <option value="Apartemen">Apartemen</option>
-                                    <option value="Underground">Underground</option>
+                        <div class="col-sm">
+                            <label class="form-text">Site</label>
+                            <select class="col form-control-sm" id="site">
+                                <option value="All">All</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Apartemen">Apartemen</option>
+                                <option value="Underground">Underground</option>
 
-                                </select>
-                            </div>
-
-                            <div class="col-sm">
-                                <label class="form-text">Branch</label>
-                                <select class="col form-control-sm" id="branch">
-                                    <option value="All">All</option>
-                                    @foreach ($branches as $branch)
-                                        <option value="{{ $branch->nama_branch }}">{{ $branch->nama_branch }}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-
-                            {{-- <div class="col-sm-2"> --}}
-                                {{-- <label class="form-text">Kotamadya</label> --}}
-                                {{-- <select class="col form-control-sm" id="kotamadya"> --}}
-                                    {{-- <option value="All">All</option> --}}
-                                    {{-- @foreach ($kota_penagihan as $kotamadya) --}}
-                                        {{-- <option value="{{ $kotamadya->kotamadya_penagihan}}">{{ $kotamadya->kotamadya_penagihan }}</option> --}}
-                                    {{-- @endforeach --}}
-                                    {{-- <option>Jakarta Selatan</option> --}}
-                                    {{-- <option>Jakarta Pusat</option> --}}
-                                    {{-- <option>Jakarta Utara</option> --}}
-                                    {{-- <option>Jakarta Timur</option> --}}
-                                    {{-- <option>Bekasi</option> --}}
-                                    {{-- <option>Bogor</option> --}}
-                                    {{-- <option>Tangerang</option> --}}
-                                    {{-- <option>Medan</option> --}}
-                                    {{-- <option>Pangkal Pinang</option> --}}
-                                    {{-- <option>Pontianak</option> --}}
-                                    {{-- <option>Jambi</option> --}}
-                                    {{-- <option>Bali</option> --}}
-                                {{-- </select> --}}
-                            {{-- </div> --}}
-
-                            {{-- <div class="col-sm">
-                                <label class="form-text">WO Type</label>
-                                <select class="col form-control-sm">
-                                    <option>All</option>
-                                    <option>New Installation</option>
-                                    <option>Maintenance</option>
-                                    <option>Dismantle</option>
-                                </select>
-                            </div> --}}
+                            </select>
                         </div>
 
+                        <div class="col-sm">
+                            <label class="form-text">Branch</label>
+                            <select class="col form-control-sm" id="branch">
+                                <option value="All">All</option>
+                                @foreach ($branches as $branch)
+                                    <option value="{{ $branch->nama_branch }}">{{ $branch->nama_branch }}</option>
+                                @endforeach
 
+                            </select>
+                        </div>
+
+                    </div>
 
                     {{-- </form> --}}
                 </div>
             </div>
         </div>
 
-
-
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h6>Summary WO Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)</h5></h6>
+                    <h6>Summary WO New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
+                            Underground)</h5>
+                    </h6>
                 </div>
             </div>
         </div>
@@ -127,7 +95,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
-                <div class="card-body" id="canvasTotWOMt">
+                <div class="card-body" id="canvasTotWOIB">
                     {{-- <canvas id="TotWoMt"></canvas> --}}
                 </div>
             </div>
@@ -135,15 +103,13 @@
 
         <div class="col-sm-6">
             <div class="card">
-                <div class="card-body" id="canvasTotWOMtClose">
+                <div class="card-body" id="canvasTotWOIBClose">
                     {{-- <canvas id="TotWoMtClose"></canvas> --}}
                 </div>
             </div>
         </div>
 
     </div>
-
-
 
     <div class="row">
         <div class="col-sm-3">
@@ -154,7 +120,7 @@
                             style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWo">
-                                    <th>WO Maintenance</th>
+                                    <th>WO New Installation</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;"></th> --}}
                                 </tr>
                             </thead>
@@ -191,7 +157,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoClose">
-                                    <th>WO Maintenance Close</th>
+                                    <th>WO New Installation Close</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -231,7 +197,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoPending">
-                                    <th>WO Maintenance Failed</th>
+                                    <th>WO New Installation Failed</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -270,7 +236,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoCancel">
-                                    <th>WO Maintenance Cancel</th>
+                                    <th>WO New Installation Cancel</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -306,9 +272,11 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h6>Summary Report Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary Report New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
+                            Underground)<h5>
+                    </h6>
                 </div>
             </div>
         </div>
@@ -318,7 +286,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <canvas id="TrendTotWoMt" style="align-content: center; align-items: center"></canvas>
+                    <canvas id="TrendTotWoIBFtth" style="align-content: center; align-items: center"></canvas>
                 </div>
             </div>
         </div>
@@ -326,7 +294,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <canvas id="TrendTotWoMtClose"></canvas>
+                    <canvas id="TrendTotWoIBFtthClose"></canvas>
                 </div>
             </div>
         </div>
@@ -338,7 +306,7 @@
             <div class="card">
                 <div class="card-body" id="canvasTrendDialyWo">
 
-                    {{-- <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas> --}}
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -353,7 +321,7 @@
                             width="100%" cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="dateMonth">
-                                    <th>Maintenance All Branch</th>
+                                    <th>WO New Installation</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
@@ -364,7 +332,7 @@
                                     {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
                                 </tr>
                                 <tr id="woPending">
-                                    <td>Maintenance Failed</td>
+                                    <td>New Installation Failed</td>
                                     {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
                                 </tr>
                                 <tr id="woCancel">
@@ -388,45 +356,15 @@
 
     </div>
 
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h6>Summary Root Cause Closing WO Maintenance FTTH - Penagihan<h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
-                            cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHead">
-                            </thead>
-                            <tbody id="rootCouseTb">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCouse">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h6>Summary Root Cause Closing WO Maintenance FTTH<h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary Root Cause Closing WO New Installation FTTH<h5 id="CardTitle">All Branch - All Site (Retail,
+                            Apartemen, Underground)<h5>
+                    </h6>
                 </div>
             </div>
         </div>
@@ -437,7 +375,7 @@
             <div class="card">
                 <div class="card-body" id="canvasRootCouseAPK">
 
-                    {{-- <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas> --}}
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -449,7 +387,7 @@
         {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
             <div class="table-responsive">
-                <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
+                <table class="table table-striped table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
                     <thead>
                         <tr id="rootCouseHeadAPK">
                             {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
@@ -468,9 +406,11 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h5>Summary Root Cause Maintenance Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h5>Summary Root Cause New Installation Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
+                            Apartemen, Underground)<h5>
+                                </h6>
                 </div>
             </div>
         </div>
@@ -481,7 +421,7 @@
             <div class="card">
                 <div class="card-body" id="canvasRootCouseAPKPending">
 
-                    {{-- <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas> --}}
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -512,9 +452,11 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h6>Summary Root Cause Cancel Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary Root Cause Cancel New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
+                            Apartemen, Underground)<h5>
+                    </h6>
                 </div>
             </div>
         </div>
@@ -525,7 +467,7 @@
             <div class="card">
                 <div class="card-body" id="canvasRootCouseAPKCancel">
 
-                    {{-- <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas> --}}
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -572,17 +514,19 @@
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h6>Summary WO Maintenance Cancel System Problem - Back To Normal - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary WO New Installation Cancel System Problem - Back To Normal - <h5 id="CardTitle">All Branch - All
+                            Site (Retail, Apartemen, Underground)<h5>
+                    </h6>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm">
             <div class="card">
                 <div class="card-body">
@@ -590,11 +534,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
 
-        {{-- Back To Normal Sortir MT --}}
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -609,8 +552,6 @@
                             </tbody>
                             <tfoot>
                                 <tr id="totSysProblem">
-                                    {{-- <th class="table-dark">Total</th>
-                            <th class="table-dark"></th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -618,12 +559,10 @@
                 </div>
             </div>
         </div>
-        {{-- End Back To Normal Sortir MT --}}
     </div>
 
     <div class="row">
 
-        {{-- Back To Normal 2 Sortir MT --}}
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -632,91 +571,16 @@
                             style="font-size: 11px; table-layout: fixed;">
                             <thead>
                                 <tr id="PersenBackToNormalHead">
-                                    {{-- <th>Persentase WO Back To Normal</th> --}}
                                 </tr>
                             </thead>
                             <tbody id="PersenBodyBackToNormal">
                                 <tr id="totWoMT">
-                                    {{-- <th>Total WO Maintenance</th> --}}
                                 </tr>
                                 <tr id="totWoBtn">
-                                    {{-- <th>Total WO Back To Normal</th> --}}
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr id="PersenTotSysProblem">
-                                    {{-- <th class="table-dark">Total</th> --}}
-                                    {{-- <th class="table-dark"></th> --}}
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- End Back To Normal 2 Sortir MT --}}
-    </div>
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary WO Maintenance FTTH Apartment All Area</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">Trend WO Maintenance Apartment All Branch</div>
-                <div class="card-body">
-
-                    <canvas id="TrendTotWoMtApart" style="align-content: center; align-items: center"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">Trend WO Maintenance Close Apartment All Branch</div>
-                <div class="card-body">
-                    <canvas id="TrendTotWoMtCloseApart"></canvas>
-                </div>
-            </div>
-        </div>
-
-    </div> --}}
-
-
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotWOApart"
-                            width="100%" cellspacing="0" style="font-size: 12px">
-                            <thead>
-                                <tr id="dateMonthApart">
-                                    <th>Maintenance Apartment All Branch</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="woDoneApart">
-                                    <td>Done</td>
-                                </tr>
-                                <tr id="woPendingApart">
-                                    <td>Maintenance Failed</td>
-                                </tr>
-                                <tr id="woCancelApart">
-                                    <td>Cancel</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr id="totWoApart">
-                                    <th>Total WO</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -726,522 +590,7 @@
         </div>
     </div> --}}
 
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Closing WO Maintenance Apartment</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
-                            cellspacing="0" style="font-size: 12px; table-layout: fixed">
-                            <thead id="rootCouseHeadApart">
-                            </thead>
-                            <tbody id="rootCouseTbApart">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCouseApart">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Closing WO Maintenance FTTH Apartment (Aplikasi)</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- Root Couse Sortir MT --}}
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
-                            <thead>
-                                <tr id="rootCouseHeadAPKApart">
-                                </tr>
-                            </thead>
-                            <tbody id="bodyRootCouseAPKApart">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    {{-- End Root Couse Sortir MT --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Maintenance Failed FTTH Apartment</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="rootCousePendingtable"
-                            cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHeadPendingApart">
-                            </thead>
-                            <tbody id="rootCouseTbPendingApart">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCousePendingApart">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Cancel Maintenance FTTH Apartment</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
-                            cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHeadCancelApart">
-                            </thead>
-                            <tbody id="rootCouseTbCancelApart">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCouseCancelApart">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary WO Maintenance FTTH Underground All Area</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">Trend WO Maintenance Underground All Branch</div>
-                <div class="card-body">
-
-                    <canvas id="TrendTotWoMtUG" style="align-content: center; align-items: center"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">Trend WO Maintenance Close Underground All Branch</div>
-                <div class="card-body">
-                    <canvas id="TrendTotWoMtCloseUG"></canvas>
-                </div>
-            </div>
-        </div>
-
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotWOUG"
-                            width="100%" cellspacing="0" style="font-size: 12px">
-                            <thead>
-                                <tr id="dateMonthUG">
-                                    <th>Maintenance Underground All Branch</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="woDoneUG">
-                                    <td>Done</td>
-                                </tr>
-                                <tr id="woPendingUG">
-                                    <td>Maintenance Failed</td>
-                                </tr>
-                                <tr id="woCancelUG">
-                                    <td>Cancel</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr id="totWoUG">
-                                    <th>Total WO</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Closing WO Maintenance Underground</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
-                            cellspacing="0" style="font-size: 12px; table-layout: fixed">
-                            <thead id="rootCouseHeadUG">
-                            </thead>
-                            <tbody id="rootCouseTbUG">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCouseUG">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Closing WO Maintenance Underground (Aplikasi)</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- Root Couse Sortir MT --}}
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
-                            <thead>
-                                <tr id="rootCouseHeadAPKUG">
-                                </tr>
-                            </thead>
-                            <tbody id="bodyRootCouseAPKUG">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    {{-- End Root Couse Sortir MT --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Maintenance Failed FTTH Underground</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="rootCousePendingtable"
-                            cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHeadPendingUG">
-                            </thead>
-                            <tbody id="rootCouseTbPendingUG">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCousePendingUG">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Summary Root Cause Cancel Maintenance FTTH Underground</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
-                            cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHeadCancelUG">
-                            </thead>
-                            <tbody id="rootCouseTbCancelUG">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCouseCancelUG">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-
-   {{-- modal rusak detail --}}
-
-    <div class="modal fade" id="md-rusakAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Aset Rusak</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-rusakAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
-
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataRusakAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th width="100%">No</th>
-                                    <th width="100%">Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th width="100%">Satuan</th>
-                                    <th width="100%">Jumlah</th>
-                                    <th width="100%">Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal rusak detail --}}
-
-    {{-- modal hilang detail --}}
-
-    <div class="modal fade" id="md-hilangAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Aset Hilang</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-hilangAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
-
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataHilangAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th width="100%">No</th>
-                                    <th width="100%">Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th width="100%">Satuan</th>
-                                    <th width="100%">Jumlah</th>
-                                    <th width="100%">Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal hilang detail --}}
-
-    {{-- modal disposal detail --}}
-
-    <div class="modal fade" id="md-disposalAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Disposal Aset</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-disposalAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
-
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataDisposalAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th width="100%">No</th>
-                                    <th width="100%">Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th width="100%">Satuan</th>
-                                    <th width="100%">Jumlah</th>
-                                    <th width="100%">Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal disposal detail --}}
+   
 @endsection
 
 @section('script')
@@ -1251,8 +600,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.css" rel="stylesheet">
@@ -1266,10 +613,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script> --}}
-    <script src="{{ asset('assets/js/chartjs-plugin-datalabels.min.js')}}"></script>
+    <script src="{{ asset('assets/js/chartjs-plugin-datalabels.min.js') }}"></script>
 
     <script type="text/javascript">
-
         let firstDate;
         let lastDate;
 
@@ -1282,8 +628,8 @@
         });
 
 
-        
-        $(document).on('change', '#bulanReport', function(){
+
+        $(document).on('change', '#bulanReport', function() {
             bln = new Date($(this).val()).getMonth();
             thn = new Date($(this).val()).getFullYear();
 
@@ -1296,13 +642,13 @@
             $('#periode').data('daterangepicker').setEndDate(lastDate);
 
         });
-        
-        
-        $(document).on('change', '#branch', function(){
+
+
+        $(document).on('change', '#branch', function() {
             let filBranch = $(this).val()
 
             $.ajax({
-                url: "{{ route('getFilterBranch') }}",
+                url: "{{ route('getFilterBranchIBFtth') }}",
                 type: "GET",
                 data: {
                     branchReport: filBranch
@@ -1315,7 +661,7 @@
                         <option value="All">All</option>
                     `);
 
-                    $.each(filterBranch, function(key, item){
+                    $.each(filterBranch, function(key, item) {
                         $('#kotamadya').append(`
                             <option value="${item.kotamadya_penagihan}">${item.kotamadya_penagihan}</option>
                         
@@ -1325,12 +671,12 @@
                 }
             })
         });
-
     </script>
 
     <script type="text/javascript">
         $(document).on('click', '.closeDetailToday', function() {
-            $('#canvasTotWOMt').empty();
+            $('#canvasTotWOIB').empty();
+            $('#canvasTotWOIBClose').empty();
         })
 
         $('#filterDashBoard').on('click', function(e) {
@@ -1338,9 +684,9 @@
             // console.log($('#periode').data('daterangepicker').startDate.format("YYYY-MM-DD"))
             // console.log($('#periode').data('daterangepicker').endDate.format("YYYY-MM-DD"))
 
-            
+
             e.preventDefault();
-            if($('#bulanReport').val() === ""){
+            if ($('#bulanReport').val() === "") {
                 alert('Pilih Bulan Report');
                 return;
             }
@@ -1348,7 +694,7 @@
             let bulanReport = $('#bulanReport').val();
 
             // console.log(moment([new Date(bulanReport).getFullYear(), new Date(bulanReport).getMonth()]).format("DD-MM-YYYY"));
-            let trendWoMt;
+            let trendWoIBFtth;
             var dataResult;
 
             let filBulanReport = $('#bulanReport').val();
@@ -1362,34 +708,34 @@
             let titleBranch;
             let titleSite;
 
-            if(filBranch == "All"){
+            if (filBranch == "All") {
                 titleBranch = "All Branch";
             } else {
                 titleBranch = "Branch " + filBranch;
             }
 
-            if(filSite == "All"){
+            if (filSite == "All") {
                 titleSite = "All Site (Retail, Apartemen, Underground)";
             } else {
                 titleSite = "Site " + filSite;
             }
-            
-            document.querySelectorAll('#CardTitle').forEach(function(elem){
-                elem.innerText = titleBranch + " - " + titleSite; 
+
+            document.querySelectorAll('#CardTitle').forEach(function(elem) {
+                elem.innerText = titleBranch + " - " + titleSite;
             })
             // console.log($('#CardTitle').html("testing"));
 
             let uri;
-            if ((filSite == "All") && (filBranch == "All")){
-                uri = "{{ route('getTotalWoBranch')}}";
-            }else {
-                uri = "{{ route('getFilterDashboard')}}";
+            if ((filSite == "All") && (filBranch == "All")) {
+                uri = "{{ route('getTotalWoBranchIBFtth') }}";
+            } else {
+                uri = "{{ route('getFilterDashboardIBFtth') }}";
             }
-            
+
 
             $.ajax({
                 // url: "{{ route('getTotalWoBranch') }}",
-                url: uri, //( filSite == "All" ) ? "{{ route('getTotalWoBranch')}}" : "{{ route('getFilterDashboard')}}",
+                url: uri, //( filSite == "All" ) ? "{{ route('getTotalWoBranch') }}" : "{{ route('getFilterDashboard') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1422,39 +768,39 @@
                         // console.log(item.site_penagihan);
                         // console.log(item.nama_branch);
                         // if(item.site_penagihan == "Retail"){
-                            branch.push(item.nama_branch);
-                            totWoDone.push([item.nama_branch + " " + item.done, item.done]);
-                            branchWTot.push([item.nama_branch + " " + item.total, item.total]);
+                        branch.push(item.nama_branch);
+                        totWoDone.push([item.nama_branch + " " + item.done, item.done]);
+                        branchWTot.push([item.nama_branch + " " + item.total, item.total]);
                         // }
                         // if((item.site_penagihan == "Apartemen") || (item.site_penagihan == "Underground") ){
-                            // branch.push(item.site_penagihan);
-                            // totWoDone.push([item.site_penagihan + " " + item.done, item.done]);
-                            // branchWTot.push([item.site_penagihan + " " + item.total, item.total]);
+                        // branch.push(item.site_penagihan);
+                        // totWoDone.push([item.site_penagihan + " " + item.done, item.done]);
+                        // branchWTot.push([item.site_penagihan + " " + item.total, item.total]);
                         // }
-                        
+
                         totWo.push(item.total);
-                        
-                        
+
+
                     });
 
-                    
-                    $('#canvasTotWOMt').empty();
-                    
+
+                    $('#canvasTotWOIB').empty();
+
 
                     let chartWoType = `
 					<figure class="highcharts-figure">
-					    <div id="container7"></div>
+					    <div id="containerTotWoIB"></div>
 					</figure>
 				    `;
 
-                    $('#canvasTotWOMt').append(chartWoType);
+                    $('#canvasTotWOIB').append(chartWoType);
 
-                    Highcharts.chart('container7', {
+                    Highcharts.chart('containerTotWoIB', {
                         chart: {
                             type: 'pie'
                         },
                         title: {
-                            text: 'Total WO Maintenance FTTH ' + bulanReport,
+                            text: 'Total WO New Installation FTTH ' + bulanReport,
                         },
                         // tooltip: {
                         //     valueSuffix: '%'
@@ -1481,24 +827,24 @@
                         }]
                     });
 
-                   
 
-                    $('#canvasTotWOMtClose').empty();
+
+                    $('#canvasTotWOIBClose').empty();
 
                     let chartWoTypeClose = `
 					<figure class="highcharts-figure">
-					    <div id="container8"></div>
+					    <div id="containerTotWoIBClose"></div>
 					</figure>
 				    `;
 
-                    $('#canvasTotWOMtClose').append(chartWoTypeClose);
+                    $('#canvasTotWOIBClose').append(chartWoTypeClose);
 
-                    Highcharts.chart('container8', {
+                    Highcharts.chart('containerTotWoIBClose', {
                         chart: {
                             type: 'pie'
                         },
                         title: {
-                            text: 'WO Maintenance FTTH Close ' + bulanReport,
+                            text: 'WO New Installation FTTH Close ' + bulanReport,
                         },
                         tooltip: {
                             valueSuffix: '%'
@@ -1540,24 +886,24 @@
                     $('#theadTotWoCancel').find("th").remove();
 
                     $('#theadTotWo').append(`
-                        <th>WO Maintenance</th>
+                        <th>WO New Installation</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                             `);
 
                     $('#theadTotWoClose').append(`
-                        <th>WO Maintenance Close</th>
+                        <th>WO New Installation Close</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoPending').append(`
-                        <th>WO Maintenance Failed</th>
+                        <th>WO New Installation Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoCancel').append(`
-                        <th>WO Maintenance Cancel</th>
+                        <th>WO New Installation Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
@@ -1565,12 +911,12 @@
                     let nmBranch;
 
                     $.each(dataTotalWo, function(key, item) {
-                        
+
                         // if(item.site_penagihan == "Retail"){
-                            nmBranch = item.nama_branch;
+                        nmBranch = item.nama_branch;
                         // }
                         // if((item.site_penagihan == "Apartemen") || (item.site_penagihan == "Underground")){
-                            // nmBranch = item.site_penagihan;
+                        // nmBranch = item.site_penagihan;
                         // }
 
                         let tbTotalWo = `
@@ -1628,7 +974,7 @@
                     $('#totWoCancel').find("th").remove();
 
                     let isiTotalWo = `
-                        <th>Total WO Maintenance</th>
+                        <th>Total WO</th>
                         <th style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
                     `;
 
@@ -1648,7 +994,7 @@
                     persenTotPending = (Number(totWoPending) * 100) / Number(totWo);
 
                     let isiTotalWoPending = `
-                    <th>Total WO Maintenance Failed</th>
+                    <th>Total WO Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
                         <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1) + "%"}</th>
                     `;
@@ -1672,7 +1018,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getTrendMonthly') }}",
+                url: "{{ route('getTrendMonthlyIBFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1684,41 +1030,41 @@
 
                 },
                 success: function(dataTrendMonthly) {
-                    // var trendWoMt = {!! $trendMonthly !!}
-                    trendWoMt = dataTrendMonthly;
+                    // var trendWoIBFtth = {!! $trendMonthly !!}
+                    trendWoIBFtth = dataTrendMonthly;
 
                     var trendMonth = [''];
-                    var trendTotMt = ['null'];
-                    var trendMtDone = ['null'];
+                    var trendTotIBFtth = ['null'];
+                    var trendIBDone = ['null'];
 
-                    $.each(trendWoMt, function(key, item) {
-
+                    $.each(trendWoIBFtth, function(key, item) {
+                        
                         trendMonth.push(item.bulan);
-                        trendTotMt.push(item.trendMtTotal);
-                        trendMtDone.push(item.trendMtDone);
+                        trendTotIBFtth.push(item.trendIBFtthTotal);
+                        trendIBDone.push(item.trendIBFtthDone);
 
                     });
 
                     trendMonth.push('');
-                    trendTotMt.push('null');
-                    trendMtDone.push('null');
+                    trendTotIBFtth.push('null');
+                    trendIBDone.push('null');
 
-                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
+                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
 
-                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
-                    if (graphTrendTotWoMt) {
-                        graphTrendTotWoMt.destroy();
+                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
+                    if (graphTrendTotWoIBFtth) {
+                        graphTrendTotWoIBFtth.destroy();
                     }
 
 
 
-                    new Chart(ctxTrendTotWoMt, {
+                    new Chart(ctxTrendTotWoIBFtth, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Jan-24'],
                             datasets: [{
                                 // label: '# of Votes',
-                                data: trendTotMt, //[3895],
+                                data: trendTotIBFtth, //[3895],
                                 borderWidth: 1,
 
                             }]
@@ -1734,11 +1080,13 @@
                                 },
                                 datalabels: {
                                     anchor: 'end',
-                                    align: 'top'
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO Maintenance All Branch',
+                                    text: 'Trend WO New Installation',
                                     align: 'start',
                                 },
 
@@ -1753,20 +1101,20 @@
 
                     });
 
-                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
+                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
 
-                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
-                    if (graphTrendTotWoMtClose) {
-                        graphTrendTotWoMtClose.destroy();
+                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
+                    if (graphTrendTotWoIBFtthClose) {
+                        graphTrendTotWoIBFtthClose.destroy();
                     }
 
-                    new Chart(ctxTrendTotWoMtClose, {
+                    new Chart(ctxTrendTotWoIBFtthClose, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Dec-23', 'Jan-24'],
                             datasets: [{
                                 // label: '# of Votes',
-                                data: trendMtDone, //[3082, 3597],
+                                data: trendIBDone, //[3082, 3597],
                                 borderWidth: 1,
 
                             }]
@@ -1782,11 +1130,14 @@
                                 },
                                 datalabels: {
                                     anchor: 'end',
-                                    align: 'top'
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();
+                                    }
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO Maintenance Close All Branch',
+                                    text: 'Trend WO New Installation Close',
                                     align: 'start',
                                 },
 
@@ -1807,7 +1158,7 @@
 
 
             $.ajax({
-                url: "{{ route('getTabelStatus') }}",
+                url: "{{ route('getTabelStatusIBFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1836,7 +1187,7 @@
                     var total = 0;
 
                     $('#dateMonth').find("th").remove();
-                    $('#dateMonth').append(`<th>Maintenance ${titleBranch}</th>`)
+                    $('#dateMonth').append(`<th>New Installation ${titleBranch}</th>`)
 
                     $('#woDone').find("td").remove();
                     $('#woDone').find("th").remove();
@@ -1844,7 +1195,7 @@
 
                     $('#woPending').find("td").remove();
                     $('#woPending').find("th").remove();
-                    $('#woPending').append("<td>Maintenance Failed</td>")
+                    $('#woPending').append("<td>Installation Failed</td>")
 
                     $('#woCancel').find("td").remove();
                     $('#woCancel').find("th").remove();
@@ -1938,7 +1289,8 @@
                     Highcharts.chart('conTrendDialyWo', {
 
                         title: {
-                            text: 'Status WO Maintenance FTTH - ' + titleBranch + ' ' + bulanReport,
+                            text: 'Status WO New Installation FTTH - ' + titleBranch + ' ' +
+                                bulanReport,
                             align: 'left'
                         },
 
@@ -2010,7 +1362,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getRootCouseAPKGraph') }}",
+                url: "{{ route('getReasonStatusIBFtthGraph') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2039,25 +1391,27 @@
                     var totWo = 0;
                     var total = 0;
 
-                    for(tg=0;tg<data.tglGraphAPK.length;tg++){
+                    for (tg = 0; tg < data.tglGraphAPK.length; tg++) {
                         // console.log(data.tglGraphAPK[tg].tgl_ikr)
                         dayGraph.push(new Date(data.tglGraphAPK[tg].tgl_ikr).getDate())
-                        
+
 
                     }
 
-                    for(nm=0;nm<data.nameGraphAPK.length;nm++){
+                    for (nm = 0; nm < data.nameGraphAPK.length; nm++) {
                         // console.log(data.nameGraphAPK[nm].penagihan);
-                        nameGraph.push({name: data.nameGraphAPK[nm].penagihan});
+                        nameGraph.push({
+                            name: data.nameGraphAPK[nm].penagihan
+                        });
                         // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
 
                         // for(dt=0;dt<data.dataGraphAPK.length;dt++){
-                            // console.log(data.dataGraphAPK[dt].data);
-                            nameGraph[nm]['data'] = data.dataGraphAPK[nm].data
+                        // console.log(data.dataGraphAPK[dt].data);
+                        nameGraph[nm]['data'] = data.dataGraphAPK[nm].data
                         // }
-                        
+
                     }
-                    
+
                     // graph line dialy //
 
                     $('#canvasRootCouseAPK').empty();
@@ -2073,7 +1427,8 @@
                     Highcharts.chart('conRooCouseAPKDialy', {
 
                         title: {
-                            text: 'Root Couse WO Maintenance Close FTTH Dialy - ' + titleBranch + ' ' + bulanReport,
+                            text: 'Root Couse WO New Installation Close FTTH Dialy - ' +
+                                titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
 
@@ -2104,23 +1459,23 @@
                         },
 
                         series: nameGraph, //[{
-                            // name: 'WO Done',
-                            // data: doneDay //[
-                            //43934, 48656, 65165, 81827, 112143, 142383,
-                            //171533, 165174, 155157, 161454, 154610
-                            //]
+                        // name: 'WO Done',
+                        // data: doneDay //[
+                        //43934, 48656, 65165, 81827, 112143, 142383,
+                        //171533, 165174, 155157, 161454, 154610
+                        //]
                         // }, {
-                            // name: 'WO Pending',
-                            // data: pendingDay //[
-                            //24916, 37941, 29742, 29851, 32490, 30282,
-                            //38121, 36885, 33726, 34243, 31050
-                            //]
+                        // name: 'WO Pending',
+                        // data: pendingDay //[
+                        //24916, 37941, 29742, 29851, 32490, 30282,
+                        //38121, 36885, 33726, 34243, 31050
+                        //]
                         // }, {
-                            // name: 'WO Cancel',
-                            // data: cancelDay //[
-                            //11744, 30000, 16005, 19771, 20185, 24377,
-                            //32147, 30912, 29243, 29213, 25663
-                            //]
+                        // name: 'WO Cancel',
+                        // data: cancelDay //[
+                        //11744, 30000, 16005, 19771, 20185, 24377,
+                        //32147, 30912, 29243, 29213, 25663
+                        //]
                         // }],
 
                         responsive: {
@@ -2145,7 +1500,122 @@
             })
 
             $.ajax({
-                url: "{{ route('getRootCousePendingGraph') }}",
+                url: "{{ route('getRootCouseAPKIBFtth') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                success: function(apk) {
+
+                    $('#rootCouseHeadAPK').find("th").remove();
+                    $('#bodyRootCouseAPK').find("tr").remove();
+                    $('#penagihanAPK').find("th").remove();
+                    $('#couseCodePenagihanAPK').find("th").remove();
+                    $('#rootCousePenagihanAPK').find("td").remove();
+
+                    let TotPenagihan = [];
+                    let tbPenagihanAPK;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>Root Couse</th>`;
+                        // <th>Reason Status</th>`;
+                        // <th>Root Couse</th>`;
+                    // <th style="text-align: center">Jumlah</th>`;
+
+                for (h = 0; h < trendWoIBFtth.length; h++) {
+                    hdRootCouseAPK = hdRootCouseAPK +
+                        `<th style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                }
+
+                $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
+
+
+                $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+
+                    tbPenagihanAPK = `
+                                    <tr><th>${itemPenagihan.penagihan}</th>`;
+                                    // <th class="table-secondary"></th>`;
+                                    // <th class="table-secondary"></th>`;
+
+                    for (p = 0; p < trendWoIBFtth.length; p++) {
+                        tbPenagihanAPK = tbPenagihanAPK +
+                            `<th style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+
+                    }
+
+                    $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
+
+                    // $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
+                        // if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
+                            // tbCouseCodeAPK = `
+                                        // <tr><th></th>
+                                        // <th class="table-info">${itemCouseCode.couse_code}</th>`;
+                                        // <th class="table-info"></th>`;
+
+                            // for (cc = 0; cc < trendWoIBFtth.length; cc++) {
+                                // tbCouseCodeAPK = tbCouseCodeAPK +
+                                    // `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                            // }
+
+                            // $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
+
+
+                            // $.each(apk.detRootCouseSortir, function(key,
+                                // itemRootCouse) {
+
+                                // if (itemPenagihan.penagihan == itemRootCouse
+                                    // .penagihan && itemCouseCode
+                                    // .couse_code == itemRootCouse.couse_code
+                                // ) {
+                                    // tbRootCouseAPK = `
+                                                // <tr><td></td>
+                                                // <td></td>
+                                                // <td>${itemRootCouse.root_couse}</td>`;
+
+                                    // for (rc = 0; rc < trendWoIBFtth
+                                        // .length; rc++) {
+                                        // tbRootCouseAPK = tbRootCouseAPK +
+                                            // `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                    // }
+                                    // $('#bodyRootCouseAPK').append(
+                                        // tbRootCouseAPK + `</tr>`);
+                                // }
+                            // });
+                        // }
+                    // });
+                });
+
+
+
+                let totRootCouseAPK = `
+                            <tr><th class="table-dark">TOTAL</th>`;
+                                // <th class="table-dark"></th>`;
+                                // <th class="table-dark"></th>`;
+                // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+                    for (p = 0; p < trendWoIBFtth.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK +
+                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                    }
+
+                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
+                }
+
+            });
+
+            $.ajax({
+                url: "{{ route('getRootCousePendingGraphIBFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2174,25 +1644,27 @@
                     var totWo = 0;
                     var total = 0;
 
-                    for(tg=0;tg<data.tglGraphAPKPending.length;tg++){
+                    for (tg = 0; tg < data.tglGraphAPKPending.length; tg++) {
                         // console.log(data.tglGraphAPK[tg].tgl_ikr)
                         dayGraphPending.push(new Date(data.tglGraphAPKPending[tg].tgl_ikr).getDate())
-                        
+
 
                     }
 
-                    for(nm=0;nm<data.nameGraphAPKPending.length;nm++){
+                    for (nm = 0; nm < data.nameGraphAPKPending.length; nm++) {
                         // console.log(data.nameGraphAPK[nm].penagihan);
-                        nameGraphPending.push({name: data.nameGraphAPKPending[nm].penagihan});
+                        nameGraphPending.push({
+                            name: data.nameGraphAPKPending[nm].penagihan
+                        });
                         // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
 
                         // for(dt=0;dt<data.dataGraphAPK.length;dt++){
-                            // console.log(data.dataGraphAPK[dt].data);
-                            nameGraphPending[nm]['data'] = data.dataGraphAPKPending[nm].data
+                        // console.log(data.dataGraphAPK[dt].data);
+                        nameGraphPending[nm]['data'] = data.dataGraphAPKPending[nm].data
                         // }
-                        
+
                     }
-                    
+
                     // graph line dialy //
 
                     $('#canvasRootCouseAPKPending').empty();
@@ -2208,7 +1680,8 @@
                     Highcharts.chart('conRooCouseAPKDialyPending', {
 
                         title: {
-                            text: 'Root Couse WO Maintenance Failed FTTH Dialy - ' + titleBranch + ' ' + bulanReport,
+                            text: 'Root Couse WO New Installation Failed FTTH Dialy - ' +
+                                titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
 
@@ -2239,23 +1712,23 @@
                         },
 
                         series: nameGraphPending, //[{
-                            // name: 'WO Done',
-                            // data: doneDay //[
-                            //43934, 48656, 65165, 81827, 112143, 142383,
-                            //171533, 165174, 155157, 161454, 154610
-                            //]
+                        // name: 'WO Done',
+                        // data: doneDay //[
+                        //43934, 48656, 65165, 81827, 112143, 142383,
+                        //171533, 165174, 155157, 161454, 154610
+                        //]
                         // }, {
-                            // name: 'WO Pending',
-                            // data: pendingDay //[
-                            //24916, 37941, 29742, 29851, 32490, 30282,
-                            //38121, 36885, 33726, 34243, 31050
-                            //]
+                        // name: 'WO Pending',
+                        // data: pendingDay //[
+                        //24916, 37941, 29742, 29851, 32490, 30282,
+                        //38121, 36885, 33726, 34243, 31050
+                        //]
                         // }, {
-                            // name: 'WO Cancel',
-                            // data: cancelDay //[
-                            //11744, 30000, 16005, 19771, 20185, 24377,
-                            //32147, 30912, 29243, 29213, 25663
-                            //]
+                        // name: 'WO Cancel',
+                        // data: cancelDay //[
+                        //11744, 30000, 16005, 19771, 20185, 24377,
+                        //32147, 30912, 29243, 29213, 25663
+                        //]
                         // }],
 
                         responsive: {
@@ -2280,7 +1753,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getRootCouseCancelGraph') }}",
+                url: "{{ route('getRootCouseCancelGraphIBFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2309,25 +1782,27 @@
                     var totWo = 0;
                     var total = 0;
 
-                    for(tg=0;tg<data.tglGraphAPKCancel.length;tg++){
+                    for (tg = 0; tg < data.tglGraphAPKCancel.length; tg++) {
                         // console.log(data.tglGraphAPK[tg].tgl_ikr)
                         dayGraphCancel.push(new Date(data.tglGraphAPKCancel[tg].tgl_ikr).getDate())
-                        
+
 
                     }
 
-                    for(nm=0;nm<data.nameGraphAPKCancel.length;nm++){
+                    for (nm = 0; nm < data.nameGraphAPKCancel.length; nm++) {
                         // console.log(data.nameGraphAPK[nm].penagihan);
-                        nameGraphCancel.push({name: data.nameGraphAPKCancel[nm].penagihan});
+                        nameGraphCancel.push({
+                            name: data.nameGraphAPKCancel[nm].penagihan
+                        });
                         // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
 
                         // for(dt=0;dt<data.dataGraphAPK.length;dt++){
-                            // console.log(data.dataGraphAPK[dt].data);
-                            nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
+                        // console.log(data.dataGraphAPK[dt].data);
+                        nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
                         // }
-                        
+
                     }
-                    
+
                     // graph line dialy //
 
                     $('#canvasRootCouseAPKCancel').empty();
@@ -2343,7 +1818,8 @@
                     Highcharts.chart('conRooCouseAPKDialyCancel', {
 
                         title: {
-                            text: 'Root Couse WO Maintenance Cancel FTTH Dialy - ' + titleBranch + ' ' + bulanReport,
+                            text: 'Root Couse WO New Installation Cancel FTTH Dialy - ' +
+                                titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
 
@@ -2374,23 +1850,23 @@
                         },
 
                         series: nameGraphCancel, //[{
-                            // name: 'WO Done',
-                            // data: doneDay //[
-                            //43934, 48656, 65165, 81827, 112143, 142383,
-                            //171533, 165174, 155157, 161454, 154610
-                            //]
+                        // name: 'WO Done',
+                        // data: doneDay //[
+                        //43934, 48656, 65165, 81827, 112143, 142383,
+                        //171533, 165174, 155157, 161454, 154610
+                        //]
                         // }, {
-                            // name: 'WO Pending',
-                            // data: pendingDay //[
-                            //24916, 37941, 29742, 29851, 32490, 30282,
-                            //38121, 36885, 33726, 34243, 31050
-                            //]
+                        // name: 'WO Pending',
+                        // data: pendingDay //[
+                        //24916, 37941, 29742, 29851, 32490, 30282,
+                        //38121, 36885, 33726, 34243, 31050
+                        //]
                         // }, {
-                            // name: 'WO Cancel',
-                            // data: cancelDay //[
-                            //11744, 30000, 16005, 19771, 20185, 24377,
-                            //32147, 30912, 29243, 29213, 25663
-                            //]
+                        // name: 'WO Cancel',
+                        // data: cancelDay //[
+                        //11744, 30000, 16005, 19771, 20185, 24377,
+                        //32147, 30912, 29243, 29213, 25663
+                        //]
                         // }],
 
                         responsive: {
@@ -2435,15 +1911,15 @@
             //         var TotRootDone = 0;
             //         let tbRootCouse;
             //         let hdRootCouse = `
-            //             <tr>
-            //                     <th>RootCouse Done</th>
-            //             </tr>`;
+        //             <tr>
+        //                     <th>RootCouse Done</th>
+        //             </tr>`;
 
             //         $('#rootCouseHead').append(hdRootCouse);
 
-            //         for (b = 0; b < trendWoMt.length; b++) {
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
             //             $('#rootCouseHead').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
             //             )
             //         }
 
@@ -2451,28 +1927,28 @@
 
             //             if (item.penagihan == 'total_done') {
             //                 tbRootCouse = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <th>Total</th>
+
+        //                 `;
             //             } else {
             //                 tbRootCouse = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <td>${item.penagihan}</td>
+
+        //                 `;
             //             }
 
             //             if (item.penagihan == 'total_done') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouse = tbRootCouse +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
             //                 }
 
             //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouse = tbRootCouse +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
             //                 }
             //             }
@@ -2489,7 +1965,7 @@
             // });
 
             $.ajax({
-                url: "{{ route('getRootCousePending') }}",
+                url: "{{ route('getRootCousePendingIBFtth') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2500,7 +1976,7 @@
                     filterDateEnd: filPeriodeEnd
                 },
                 success: function(dataRootCousePending) {
-                    console.log(dataRootCousePending);
+
                     $('#rootCouseHeadPending').find("tr").remove();
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
@@ -2514,9 +1990,9 @@
 
                     $('#rootCouseHeadPending').append(hdRootCousePending);
 
-                    for (b = 0; b < trendWoMt.length; b++) {
+                    for (b = 0; b < trendWoIBFtth.length; b++) {
                         $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
                         )
                     }
 
@@ -2537,15 +2013,15 @@
                         }
 
                         if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCousePending = tbRootCousePending +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
                             }
 
                         } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
                             }
                         }
@@ -2559,7 +2035,7 @@
             });
 
             $.ajax({
-                url: "{{ route('getRootCouseCancel') }}",
+                url: "{{ route('getRootCouseCancelIBFtth') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2584,9 +2060,9 @@
 
                     $('#rootCouseHeadCancel').append(hdRootCouseCancel);
 
-                    for (b = 0; b < trendWoMt.length; b++) {
+                    for (b = 0; b < trendWoIBFtth.length; b++) {
                         $('#rootCouseHeadCancel').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
                         )
                     }
 
@@ -2607,15 +2083,15 @@
                         }
 
                         if (item.penagihan == 'total_cancel') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCouseCancel = tbRootCouseCancel +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
                             }
 
                         } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCouseCancel = tbRootCouseCancel +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
                             }
                         }
@@ -2628,295 +2104,186 @@
 
             });
 
-            $.ajax({
-                url: "{{ route('getRootCouseAPK') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(apk) {    
-
-                    $('#rootCouseHeadAPK').find("th").remove();
-                    $('#bodyRootCouseAPK').find("tr").remove();
-                    $('#penagihanAPK').find("th").remove();
-                    $('#couseCodePenagihanAPK').find("th").remove();
-                    $('#rootCousePenagihanAPK').find("td").remove();
-
-                    let TotPenagihan = [];
-                    let tbPenagihanAPK;
-                    let tbCouseCodeAPK;
-                    let tbRootCouseAPK;
-                    let hdRootCouseAPK = `
-                        <th>Penagihan</th>
-                        <th>Couse Code</th>
-                        <th>Root Couse</th>`;
-                        // <th style="text-align: center">Jumlah</th>`;
-
-                    for (h = 0;h < trendWoMt.length; h++) {
-                        hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
-                    }
-
-                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
-
-
-                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
-
-                        tbPenagihanAPK = `
-                                <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary"></th>`;
-                        
-                        for (p=0;p<trendWoMt.length; p++) {
-                            tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p]}</th>`;
-   
-                        }
-
-                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
-
-                        $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
-                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
-                                tbCouseCodeAPK = `
-                                    <tr><th></th>
-                                    <th class="table-info">${itemCouseCode.couse_code}</th>
-                                    <th class="table-info"></th>`;
-
-                                for (cc = 0;cc < trendWoMt.length; cc++) {
-                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
-                                }
-
-                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
-
-
-                                $.each(apk.detRootCouseSortir, function(key,
-                                    itemRootCouse) {
-
-                                    if (itemPenagihan.penagihan == itemRootCouse
-                                        .penagihan && itemCouseCode
-                                        .couse_code == itemRootCouse.couse_code
-                                    ) {
-                                        tbRootCouseAPK = `
-                                            <tr><td></td>
-                                            <td></td>
-                                            <td>${itemRootCouse.root_couse}</td>`;
-
-                                        for (rc = 0; rc < trendWoMt.length; rc++) {
-                                            tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
-                                        }
-                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
-                                    }
-                                });
-                            }
-                        });
-                    });
-
-                    
-
-                    let totRootCouseAPK = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark"></th>`;
-                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
-
-                    for (p=0;p<trendWoMt.length; p++) {
-                        TotPenagihan[p] = 0
-                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
-                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
-                        })
+            
 
-                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
-                    }
+            // $.ajax({
+            //     url: "{{ route('getCancelSystemProblem') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport,
+            //         filterTgl: filTglPeriode,
+            //         filterSite: filSite,
+            //         filterBranch: filBranch,
+            //         filterDateStart: filPeriodeStart,
+            //         filterDateEnd: filPeriodeEnd
+            //     },
+            //     success: function(btn) {
 
-                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
-                }
+            //         var btnMonth = [];
+            //         var btnTotMt = [];
+            //         var btnTot = [];
 
-            });
+            //         $('#backToNormalHead').find("th").remove();
+            //         $('#bodyBackToNormal').find("tr").remove();
+            //         $('#totSysProblem').find("th").remove();
 
-            $.ajax({
-                url: "{{ route('getCancelSystemProblem') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(btn) {
+            //         $('#totSysProblem').append(
+            //             `<th class="table-dark">Total</th>
+            //             <th class="table-dark"></th>`);
 
-                    var btnMonth = [];
-                    var btnTotMt = [];
-                    var btnTot = [];
+            //         $('#PersenBackToNormalHead').find("th").remove();
+            //         $('#PersenBackToNormalHead').append(`<th>Persentase WO Back To Normal</th>`);
 
-                    $('#backToNormalHead').find("th").remove();
-                    $('#bodyBackToNormal').find("tr").remove();
-                    $('#totSysProblem').find("th").remove();
+            //         $('#totWoMT').find("th").remove();
+            //         $('#totWoMT').find("td").remove();
+            //         $('#totWoMT').append(`<th>Total WO Maintenance</th>`);
 
-                    $('#totSysProblem').append(
-                        `<th class="table-dark">Total</th>
-                        <th class="table-dark"></th>`);
+            //         $('#totWoBtn').find("th").remove();
+            //         $('#totWoBtn').find("td").remove();
+            //         $('#totWoBtn').append(`<th>Total WO Back To Normal</th>`);
 
-                    $('#PersenBackToNormalHead').find("th").remove();
-                    $('#PersenBackToNormalHead').append(`<th>Persentase WO Back To Normal</th>`);
+            //         $('#PersenTotSysProblem').find("th").remove();
+            //         $('#PersenTotSysProblem').append(`<th class="table-dark">Total</th>`);
 
-                    $('#totWoMT').find("th").remove();
-                    $('#totWoMT').find("td").remove();
-                    $('#totWoMT').append(`<th>Total WO Maintenance</th>`);
 
-                    $('#totWoBtn').find("th").remove();
-                    $('#totWoBtn').find("td").remove();
-                    $('#totWoBtn').append(`<th>Total WO Back To Normal</th>`);
 
-                    $('#PersenTotSysProblem').find("th").remove();
-                    $('#PersenTotSysProblem').append(`<th class="table-dark">Total</th>`);
+            //         var TotBtn = 0;
+            //         let tbBtn;
+            //         let hdBtn = `
+            //                     <th>WO Back To Normal</th>
+            //                     <th></th>`;
 
+            //         $('#backToNormalHead').append(hdBtn);
 
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
+            //             $('#backToNormalHead').append(
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
+            //             )
+            //         }
 
-                    var TotBtn = 0;
-                    let tbBtn;
-                    let hdBtn = `
-                                <th>WO Back To Normal</th>
-                                <th></th>`;
 
-                    $('#backToNormalHead').append(hdBtn);
+            //         $.each(btn.statVisit, function(key, itemVisit) {
+            //             tbBtn = tbBtn +
+            //                 `<tr><th class="table-secondary">${itemVisit.visit_novisit}</th>
+            //                 <th class="table-secondary"></th>`;
 
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#backToNormalHead').append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
+            //             for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+            //                 tbBtn = tbBtn +
+            //                     `<th class="table-secondary" style="text-align: center">${itemVisit.bulan[trendWoIBFtth[bln].bulan]}</th>`;
 
+            //             }
 
-                    $.each(btn.statVisit, function(key, itemVisit) {
-                        tbBtn = tbBtn +
-                            `<tr><th class="table-secondary">${itemVisit.visit_novisit}</th>
-                            <th class="table-secondary"></th>`;
+            //             tbBtn = tbBtn + `</tr>`;
+
+            //             $.each(btn.visitSysProblem, function(key, itemSysProblem) {
+
+            //                 if (itemVisit.visit_novisit == itemSysProblem
+            //                     .visit_novisit) {
+            //                     tbBtn = tbBtn +
+            //                         `<tr><th></th>
+            //                                 <th class="table-info">${itemSysProblem.action_taken}</th>
+            //                                 `;
 
-                        for (bln = 0; bln < trendWoMt.length; bln++) {
-                            tbBtn = tbBtn +
-                                `<th class="table-secondary" style="text-align: center">${itemVisit.bulan[trendWoMt[bln].bulan]}</th>`;
+            //                     for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+            //                         tbBtn = tbBtn +
+            //                             `<td class="table-info" style="text-align: center">${itemSysProblem.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
-                        }
+            //                     }
+            //                 }
+            //             });
 
-                        tbBtn = tbBtn + `</tr>`;
 
-                        $.each(btn.visitSysProblem, function(key, itemSysProblem) {
-
-                            if (itemVisit.visit_novisit == itemSysProblem
-                                .visit_novisit) {
-                                tbBtn = tbBtn +
-                                    `<tr><th></th>
-                                            <th class="table-info">${itemSysProblem.action_taken}</th>
-                                            `;
 
-                                for (bln = 0; bln < trendWoMt.length; bln++) {
-                                    tbBtn = tbBtn +
-                                        `<td class="table-info" style="text-align: center">${itemSysProblem.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //         });
 
-                                }
-                            }
-                        });
+            //         $('#bodyBackToNormal').append(tbBtn + `</tr>`);
 
+            //         $.each(btn.totSysProblem, function(key, itemTot) {
+            //             $('#totSysProblem').append(
+            //                 `<th class="table-dark" style="text-align: center">${itemTot.total}</th>
+            //                 `);
 
-
-                    });
-
-                    $('#bodyBackToNormal').append(tbBtn + `</tr>`);
-
-                    $.each(btn.totSysProblem, function(key, itemTot) {
-                        $('#totSysProblem').append(
-                            `<th class="table-dark" style="text-align: center">${itemTot.total}</th>
-                            `);
-
-                        $('#PersenBackToNormalHead').append(
-                            `<th style="text-align: center">${itemTot.bulan}</th>`);
-
-                        $('#totWoMT').append(
-                            `<td style="text-align: center">${itemTot.totalMt.toLocaleString()}</td>`
-                        );
-
-                        $('#totWoBtn').append(
-                            `<td style="text-align: center">${itemTot.total.toLocaleString()}</td>`
-                        );
-
-                        $('#PersenTotSysProblem').append(
-                            `<th class="table-dark" style="text-align: center">${parseFloat((itemTot.total * 100) / itemTot.totalMt).toFixed(1)}%</th>`
-                        );
-
-
-                        btnMonth.push(itemTot.bulan);
-                        btnTotMt.push(itemTot.totalMt);
-                        btnTot.push(itemTot.total)
-
-                    });
-
-                    const ctxBtnWoMt = document.getElementById('GraphWoBTN');
-
-                    var graphBtnWoMt = Chart.getChart('GraphWoBTN');
-                    if (graphBtnWoMt) {
-                        graphBtnWoMt.destroy();
-                    }
-
-                    new Chart(ctxBtnWoMt, {
-                        type: 'bar',
-                        data: {
-                            labels: btnMonth, //['Jan-24'],
-                            datasets: [{
-                                    label: 'Total WO MT',
-                                    data: btnTotMt, //[3895],
-                                    borderWidth: 1,
-
-                                },
-                                {
-                                    label: 'Total WO Back To Normal',
-                                    data: btnTot, //[3895],
-                                    borderWidth: 1,
-
-                                }
-                            ]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    position: 'bottom',
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top'
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'WO Back To Normal',
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: true, //if false, this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                }
-
-            });
+            //             $('#PersenBackToNormalHead').append(
+            //                 `<th style="text-align: center">${itemTot.bulan}</th>`);
+
+            //             $('#totWoMT').append(
+            //                 `<td style="text-align: center">${itemTot.totalMt.toLocaleString()}</td>`
+            //             );
+
+            //             $('#totWoBtn').append(
+            //                 `<td style="text-align: center">${itemTot.total.toLocaleString()}</td>`
+            //             );
+
+            //             $('#PersenTotSysProblem').append(
+            //                 `<th class="table-dark" style="text-align: center">${parseFloat((itemTot.total * 100) / itemTot.totalMt).toFixed(1)}%</th>`
+            //             );
+
+
+            //             btnMonth.push(itemTot.bulan);
+            //             btnTotMt.push(itemTot.totalMt);
+            //             btnTot.push(itemTot.total)
+
+            //         });
+
+            //         const ctxBtnWoMt = document.getElementById('GraphWoBTN');
+
+            //         var graphBtnWoMt = Chart.getChart('GraphWoBTN');
+            //         if (graphBtnWoMt) {
+            //             graphBtnWoMt.destroy();
+            //         }
+
+            //         new Chart(ctxBtnWoMt, {
+            //             type: 'bar',
+            //             data: {
+            //                 labels: btnMonth, //['Jan-24'],
+            //                 datasets: [{
+            //                         label: 'Total WO MT',
+            //                         data: btnTotMt, //[3895],
+            //                         borderWidth: 1,
+
+            //                     },
+            //                     {
+            //                         label: 'Total WO Back To Normal',
+            //                         data: btnTot, //[3895],
+            //                         borderWidth: 1,
+
+            //                     }
+            //                 ]
+            //             },
+
+            //             options: {
+            //                 responsive: true,
+            //                 maintainAspectRatio: false,
+            //                 plugins: {
+            //                     legend: {
+            //                         display: true,
+            //                         position: 'bottom',
+
+            //                     },
+            //                     datalabels: {
+            //                         anchor: 'end',
+            //                         align: 'top'
+            //                     },
+            //                     title: {
+            //                         display: true,
+            //                         text: 'WO Back To Normal',
+            //                         align: 'start',
+            //                     },
+
+            //                 },
+            //                 scales: {
+            //                     y: {
+            //                         display: true, //if false, this will remove all the x-axis grid lines
+            //                     }
+            //                 }
+            //             },
+            //             plugins: [ChartDataLabels],
+
+            //         });
+
+            //     }
+
+            // });
 
             // $.ajax({
             //     url: "{{ route('getTrendMonthlyApart') }}",
@@ -2926,40 +2293,40 @@
 
             //     },
             //     success: function(dataTrendMonthlyApart) {
-            //         trendWoMtApart = dataTrendMonthlyApart;
+            //         trendWoIBFtthApart = dataTrendMonthlyApart;
 
             //         var trendMonthApart = [''];
-            //         var trendTotMtApart = ['null'];
-            //         var trendMtDoneApart = ['null'];
+            //         var trendTotIBFtthApart = ['null'];
+            //         var trendIBDoneApart = ['null'];
 
-            //         $.each(trendWoMtApart, function(key, item) {
+            //         $.each(trendWoIBFtthApart, function(key, item) {
 
             //             trendMonthApart.push(item.bulan);
-            //             trendTotMtApart.push(item.trendMtTotal);
-            //             trendMtDoneApart.push(item.trendMtDone);
+            //             trendTotIBFtthApart.push(item.trendIBFtthTotal);
+            //             trendIBDoneApart.push(item.trendIBDone);
 
             //         });
 
             //         trendMonthApart.push('');
-            //         trendTotMtApart.push('null');
-            //         trendMtDoneApart.push('null');
+            //         trendTotIBFtthApart.push('null');
+            //         trendIBDoneApart.push('null');
 
-            //         const ctxTrendTotWoMtApart = document.getElementById('TrendTotWoMtApart');
+            //         const ctxTrendTotWoIBFtthApart = document.getElementById('TrendTotWoIBFtthApart');
 
-            //         var graphTrendTotWoMtApart = Chart.getChart('TrendTotWoMtApart');
-            //         if (graphTrendTotWoMtApart) {
-            //             graphTrendTotWoMtApart.destroy();
+            //         var graphTrendTotWoIBFtthApart = Chart.getChart('TrendTotWoIBFtthApart');
+            //         if (graphTrendTotWoIBFtthApart) {
+            //             graphTrendTotWoIBFtthApart.destroy();
             //         }
 
 
 
-            //         new Chart(ctxTrendTotWoMtApart, {
+            //         new Chart(ctxTrendTotWoIBFtthApart, {
             //             type: 'line',
             //             data: {
             //                 labels: trendMonthApart, //['Jan-24'],
             //                 datasets: [{
             //                     // label: '# of Votes',
-            //                     data: trendTotMtApart, //[3895],
+            //                     data: trendTotIBFtthApart, //[3895],
             //                     borderWidth: 1,
 
             //                 }]
@@ -2979,7 +2346,7 @@
             //                     },
             //                     title: {
             //                         display: true,
-            //                         // text: 'Trend WO Maintenance Apartment All Branch',
+            //                         // text: 'Trend WO New Installation Apartment All Branch',
             //                         // align: 'start',
             //                     },
 
@@ -2994,20 +2361,20 @@
 
             //         });
 
-            //         const ctxTrendTotWoMtCloseApart = document.getElementById('TrendTotWoMtCloseApart');
+            //         const ctxTrendTotWoIBFtthCloseApart = document.getElementById('TrendTotWoIBFtthCloseApart');
 
-            //         var graphTrendTotWoMtCloseApart = Chart.getChart('TrendTotWoMtCloseApart');
-            //         if (graphTrendTotWoMtCloseApart) {
-            //             graphTrendTotWoMtCloseApart.destroy();
+            //         var graphTrendTotWoIBFtthCloseApart = Chart.getChart('TrendTotWoIBFtthCloseApart');
+            //         if (graphTrendTotWoIBFtthCloseApart) {
+            //             graphTrendTotWoIBFtthCloseApart.destroy();
             //         }
 
-            //         new Chart(ctxTrendTotWoMtCloseApart, {
+            //         new Chart(ctxTrendTotWoIBFtthCloseApart, {
             //             type: 'line',
             //             data: {
             //                 labels: trendMonthApart, //['Dec-23', 'Jan-24'],
             //                 datasets: [{
             //                     // label: '# of Votes',
-            //                     data: trendMtDoneApart, //[3082, 3597],
+            //                     data: trendIBDoneApart, //[3082, 3597],
             //                     borderWidth: 1,
 
             //                 }]
@@ -3027,7 +2394,7 @@
             //                     },
             //                     title: {
             //                         display: true,
-            //                         // text: 'Trend WO Maintenance Close Apartment All Branch',
+            //                         // text: 'Trend WO New Installation Close Apartment All Branch',
             //                         align: 'start',
             //                     },
 
@@ -3066,7 +2433,7 @@
             //         var totalApart = 0;
 
             //         $('#dateMonthApart').find("th").remove();
-            //         $('#dateMonthApart').append("<th>Maintenance Apartment All Branch</th>")
+            //         $('#dateMonthApart').append("<th>New Installation Apartment All Branch</th>")
 
             //         $('#woDoneApart').find("td").remove();
             //         $('#woDoneApart').find("th").remove();
@@ -3074,7 +2441,7 @@
 
             //         $('#woPendingApart').find("td").remove();
             //         $('#woPendingApart').find("th").remove();
-            //         $('#woPendingApart').append("<td>Maintenance Failed</td>")
+            //         $('#woPendingApart').append("<td>New Installation Failed</td>")
 
             //         $('#woCancelApart').find("td").remove();
             //         $('#woCancelApart').find("th").remove();
@@ -3087,22 +2454,22 @@
             //         $.each(dataApart, function(key, itemApart) {
 
             //             let htglApart = `
-            //                <th>${new Date(itemApart.tgl_ikr).getDate()}</th>
-            //             `;
+        //                <th>${new Date(itemApart.tgl_ikr).getDate()}</th>
+        //             `;
 
             //             $('#dateMonthApart').append(htglApart);
 
             //             let dtDoneApart = `
-            //                 <td>${itemApart.Done.toLocaleString()}</td>
-            //             `;
+        //                 <td>${itemApart.Done.toLocaleString()}</td>
+        //             `;
 
             //             $('#woDoneApart').append(dtDoneApart);
 
             //             totDoneApart += itemApart.Done;
 
             //             let dtPendingApart = `
-            //                 <td>${itemApart.Pending.toLocaleString()}</td>
-            //             `;
+        //                 <td>${itemApart.Pending.toLocaleString()}</td>
+        //             `;
 
             //             $('#woPendingApart').append(dtPendingApart);
 
@@ -3110,16 +2477,16 @@
             //             totCancelApart += itemApart.Cancel;
 
             //             let dtCancelApart = `
-            //                 <td>${itemApart.Cancel.toLocaleString()}</td>
-            //             `;
+        //                 <td>${itemApart.Cancel.toLocaleString()}</td>
+        //             `;
 
             //             $('#woCancelApart').append(dtCancelApart)
 
             //             totWoApart = itemApart.Done + itemApart.Pending + itemApart.Cancel
 
             //             let dtTotWoApart = `
-            //                 <td>${totWoApart.toLocaleString()}</td>
-            //             `;
+        //                 <td>${totWoApart.toLocaleString()}</td>
+        //             `;
 
             //             $('#totWoApart').append(dtTotWoApart);
 
@@ -3165,15 +2532,15 @@
             //         var TotRootDoneApart = 0;
             //         let tbRootCouseApart;
             //         let hdRootCouseApart = `
-            //             <tr>
-            //                     <th>RootCouse Done</th>
-            //             </tr>`;
+        //             <tr>
+        //                     <th>RootCouse Done</th>
+        //             </tr>`;
 
             //         $('#rootCouseHeadApart').append(hdRootCouseApart);
 
-            //         for (b = 0; b < trendWoMt.length; b++) {
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
             //             $('#rootCouseHeadApart').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
             //             )
             //         }
 
@@ -3181,28 +2548,28 @@
 
             //             if (item.penagihan == 'total_done') {
             //                 tbRootCouseApart = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <th>Total</th>
+
+        //                 `;
             //             } else {
             //                 tbRootCouseApart = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <td>${item.penagihan}</td>
+
+        //                 `;
             //             }
 
             //             if (item.penagihan == 'total_done') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseApart = tbRootCouseApart +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
             //                 }
 
             //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseApart = tbRootCouseApart +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
             //                 }
             //             }
@@ -3236,10 +2603,10 @@
             //         let tbCouseCodeAPKApart;
             //         let tbRootCouseAPKApart;
             //         let hdRootCouseAPKApart = `
-            //             <th>RootCouse Aplikasi ${bulanReport}</th>
-            //             <th></th>
-            //             <th></th>
-            //             <th style="text-align: center">Jumlah</th>`;
+        //             <th>RootCouse Aplikasi ${bulanReport}</th>
+        //             <th></th>
+        //             <th></th>
+        //             <th style="text-align: center">Jumlah</th>`;
 
             //         $('#rootCouseHeadAPKApart').append(hdRootCouseAPKApart);
 
@@ -3248,11 +2615,11 @@
             //         $.each(apkApart.detPenagihanSortirApart, function(key, itemPenagihanApart) {
 
             //             tbPenagihanAPKApart = `
-            //                     <tr class="table-secondary"><th>${itemPenagihanApart.penagihan}</th>
-            //                     <th class="table-secondary"></th>
-            //                     <th class="table-secondary"></th>
-            //                     <th class="table-secondary" style="text-align: center">${itemPenagihanApart.jml}</th></tr>
-            //                 `;
+        //                     <tr class="table-secondary"><th>${itemPenagihanApart.penagihan}</th>
+        //                     <th class="table-secondary"></th>
+        //                     <th class="table-secondary"></th>
+        //                     <th class="table-secondary" style="text-align: center">${itemPenagihanApart.jml}</th></tr>
+        //                 `;
             //             // $('#penagihanAPK').append(tbPenagihanAPK);
             //             $('#bodyRootCouseAPKApart').append(tbPenagihanAPKApart);
 
@@ -3263,11 +2630,11 @@
             //                 if (itemPenagihanApart.penagihan == itemCouseCodeApart
             //                     .penagihan) {
             //                     tbCouseCodeAPKApart = `
-            //                         <tr><th></th>
-            //                         <th class="table-info">${itemCouseCodeApart.couse_code}</th>
-            //                         <th class="table-info"></th>
-            //                         <th class="table-info" style="text-align: center">${itemCouseCodeApart.jml}</th></tr>
-            //                     `;
+        //                         <tr><th></th>
+        //                         <th class="table-info">${itemCouseCodeApart.couse_code}</th>
+        //                         <th class="table-info"></th>
+        //                         <th class="table-info" style="text-align: center">${itemCouseCodeApart.jml}</th></tr>
+        //                     `;
             //                     //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
             //                     $('#bodyRootCouseAPKApart').append(tbCouseCodeAPKApart);
 
@@ -3279,11 +2646,11 @@
             //                             itemCouseCodeApart.couse_code ==
             //                             itemRootCouseApart.couse_code) {
             //                             tbRootCouseAPKApart = `
-            //                                 <tr><td></td>
-            //                                 <td></td>
-            //                                 <td>${itemRootCouseApart.root_couse}</td>
-            //                                 <td style="text-align: center">${itemRootCouseApart.jml}</td></tr>
-            //                             `;
+        //                                 <tr><td></td>
+        //                                 <td></td>
+        //                                 <td>${itemRootCouseApart.root_couse}</td>
+        //                                 <td style="text-align: center">${itemRootCouseApart.jml}</td></tr>
+        //                             `;
 
             //                             //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
             //                             $('#bodyRootCouseAPKApart').append(
@@ -3299,10 +2666,10 @@
             //         });
 
             //         let totRootCouseAPKApart = `
-            //             <tr><th class="table-dark">TOTAL</th>
-            //                 <th class="table-dark"></th>
-            //                 <th class="table-dark"></th>
-            //                 <th class="table-dark" style="text-align: center">${TotPenagihanApart}</th></tr>`;
+        //             <tr><th class="table-dark">TOTAL</th>
+        //                 <th class="table-dark"></th>
+        //                 <th class="table-dark"></th>
+        //                 <th class="table-dark" style="text-align: center">${TotPenagihanApart}</th></tr>`;
 
             //         $('#bodyRootCouseAPKApart').append(totRootCouseAPKApart);
             //     }
@@ -3324,15 +2691,15 @@
             //         var TotRootDonePendingApart = 0;
             //         let tbRootCousePendingApart;
             //         let hdRootCousePendingApart = `
-            //             <tr>
-            //                     <th>RootCouse Pending</th>
-            //             </tr>`;
+        //             <tr>
+        //                     <th>RootCouse Pending</th>
+        //             </tr>`;
 
             //         $('#rootCouseHeadPendingApart').append(hdRootCousePendingApart);
 
-            //         for (b = 0; b < trendWoMt.length; b++) {
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
             //             $('#rootCouseHeadPendingApart').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
             //             )
             //         }
 
@@ -3340,28 +2707,28 @@
 
             //             if (item.penagihan == 'total_pending') {
             //                 tbRootCousePendingApart = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <th>Total</th>
+
+        //                 `;
             //             } else {
             //                 tbRootCousePendingApart = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <td>${item.penagihan}</td>
+
+        //                 `;
             //             }
 
             //             if (item.penagihan == 'total_pending') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCousePendingApart = tbRootCousePendingApart +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
             //                 }
 
             //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCousePendingApart = tbRootCousePendingApart +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
             //                 }
             //             }
@@ -3389,15 +2756,15 @@
             //         var TotRootDoneCancelApart = 0;
             //         let tbRootCouseCancelApart;
             //         let hdRootCouseCancelApart = `
-            //             <tr>
-            //                     <th>RootCouse Cancel</th>
-            //             </tr>`;
+        //             <tr>
+        //                     <th>RootCouse Cancel</th>
+        //             </tr>`;
 
             //         $('#rootCouseHeadCancelApart').append(hdRootCouseCancelApart);
 
-            //         for (b = 0; b < trendWoMt.length; b++) {
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
             //             $('#rootCouseHeadCancelApart').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
             //             )
             //         }
 
@@ -3405,28 +2772,28 @@
 
             //             if (item.penagihan == 'total_cancel') {
             //                 tbRootCouseCancelApart = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <th>Total</th>
+
+        //                 `;
             //             } else {
             //                 tbRootCouseCancelApart = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <td>${item.penagihan}</td>
+
+        //                 `;
             //             }
 
             //             if (item.penagihan == 'total_cancel') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseCancelApart = tbRootCouseCancelApart +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
             //                 }
 
             //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseCancelApart = tbRootCouseCancelApart +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
             //                 }
             //             }
@@ -3447,40 +2814,40 @@
 
             //     },
             //     success: function(dataTrendMonthlyUG) {
-            //         trendWoMtUG = dataTrendMonthlyUG;
+            //         trendWoIBFtthUG = dataTrendMonthlyUG;
 
             //         var trendMonthUG = [''];
-            //         var trendTotMtUG = ['null'];
-            //         var trendMtDoneUG = ['null'];
+            //         var trendTotIBFtthUG = ['null'];
+            //         var trendIBDoneUG = ['null'];
 
-            //         $.each(trendWoMtUG, function(key, item) {
+            //         $.each(trendWoIBFtthUG, function(key, item) {
 
             //             trendMonthUG.push(item.bulan);
-            //             trendTotMtUG.push(item.trendMtTotal);
-            //             trendMtDoneUG.push(item.trendMtDone);
+            //             trendTotIBFtthUG.push(item.trendIBFtthTotal);
+            //             trendIBDoneUG.push(item.trendIBDone);
 
             //         });
 
             //         trendMonthUG.push('');
-            //         trendTotMtUG.push('null');
-            //         trendMtDoneUG.push('null');
+            //         trendTotIBFtthUG.push('null');
+            //         trendIBDoneUG.push('null');
 
-            //         const ctxTrendTotWoMtUG = document.getElementById('TrendTotWoMtUG');
+            //         const ctxTrendTotWoIBFtthUG = document.getElementById('TrendTotWoIBFtthUG');
 
-            //         var graphTrendTotWoMtUG = Chart.getChart('TrendTotWoMtUG');
-            //         if (graphTrendTotWoMtUG) {
-            //             graphTrendTotWoMtUG.destroy();
+            //         var graphTrendTotWoIBFtthUG = Chart.getChart('TrendTotWoIBFtthUG');
+            //         if (graphTrendTotWoIBFtthUG) {
+            //             graphTrendTotWoIBFtthUG.destroy();
             //         }
 
 
 
-            //         new Chart(ctxTrendTotWoMtUG, {
+            //         new Chart(ctxTrendTotWoIBFtthUG, {
             //             type: 'line',
             //             data: {
             //                 labels: trendMonthUG, //['Jan-24'],
             //                 datasets: [{
             //                     // label: '# of Votes',
-            //                     data: trendTotMtUG, //[3895],
+            //                     data: trendTotIBFtthUG, //[3895],
             //                     borderWidth: 1,
 
             //                 }]
@@ -3500,7 +2867,7 @@
             //                     },
             //                     title: {
             //                         display: true,
-            //                         // text: 'Trend WO Maintenance Apartment All Branch',
+            //                         // text: 'Trend WO New Installation Apartment All Branch',
             //                         // align: 'start',
             //                     },
 
@@ -3515,20 +2882,20 @@
 
             //         });
 
-            //         const ctxTrendTotWoMtCloseUG = document.getElementById('TrendTotWoMtCloseUG');
+            //         const ctxTrendTotWoIBFtthCloseUG = document.getElementById('TrendTotWoIBFtthCloseUG');
 
-            //         var graphTrendTotWoMtCloseUG = Chart.getChart('TrendTotWoMtCloseUG');
-            //         if (graphTrendTotWoMtCloseUG) {
-            //             graphTrendTotWoMtCloseUG.destroy();
+            //         var graphTrendTotWoIBFtthCloseUG = Chart.getChart('TrendTotWoIBFtthCloseUG');
+            //         if (graphTrendTotWoIBFtthCloseUG) {
+            //             graphTrendTotWoIBFtthCloseUG.destroy();
             //         }
 
-            //         new Chart(ctxTrendTotWoMtCloseUG, {
+            //         new Chart(ctxTrendTotWoIBFtthCloseUG, {
             //             type: 'line',
             //             data: {
             //                 labels: trendMonthUG, //['Dec-23', 'Jan-24'],
             //                 datasets: [{
             //                     // label: '# of Votes',
-            //                     data: trendMtDoneUG, //[3082, 3597],
+            //                     data: trendIBDoneUG, //[3082, 3597],
             //                     borderWidth: 1,
 
             //                 }]
@@ -3548,7 +2915,7 @@
             //                     },
             //                     title: {
             //                         display: true,
-            //                         // text: 'Trend WO Maintenance Close Apartment All Branch',
+            //                         // text: 'Trend WO New Installation Close Apartment All Branch',
             //                         align: 'start',
             //                     },
 
@@ -3587,7 +2954,7 @@
             //         var totalUG = 0;
 
             //         $('#dateMonthUG').find("th").remove();
-            //         $('#dateMonthUG').append("<th>Maintenance Underground All Branch</th>")
+            //         $('#dateMonthUG').append("<th>New Installation Underground All Branch</th>")
 
             //         $('#woDoneUG').find("td").remove();
             //         $('#woDoneUG').find("th").remove();
@@ -3595,7 +2962,7 @@
 
             //         $('#woPendingUG').find("td").remove();
             //         $('#woPendingUG').find("th").remove();
-            //         $('#woPendingUG').append("<td>Maintenance Failed</td>")
+            //         $('#woPendingUG').append("<td>New Installation Failed</td>")
 
             //         $('#woCancelUG').find("td").remove();
             //         $('#woCancelUG').find("th").remove();
@@ -3608,22 +2975,22 @@
             //         $.each(dataUG, function(key, itemUG) {
 
             //             let htglUG = `
-            //                <th>${new Date(itemUG.tgl_ikr).getDate()}</th>
-            //             `;
+        //                <th>${new Date(itemUG.tgl_ikr).getDate()}</th>
+        //             `;
 
             //             $('#dateMonthUG').append(htglUG);
 
             //             let dtDoneUG = `
-            //                 <td>${itemUG.Done.toLocaleString()}</td>
-            //             `;
+        //                 <td>${itemUG.Done.toLocaleString()}</td>
+        //             `;
 
             //             $('#woDoneUG').append(dtDoneUG);
 
             //             totDoneUG += itemUG.Done;
 
             //             let dtPendingUG = `
-            //                 <td>${itemUG.Pending.toLocaleString()}</td>
-            //             `;
+        //                 <td>${itemUG.Pending.toLocaleString()}</td>
+        //             `;
 
             //             $('#woPendingUG').append(dtPendingUG);
 
@@ -3631,16 +2998,16 @@
             //             totCancelUG += itemUG.Cancel;
 
             //             let dtCancelUG = `
-            //                 <td>${itemUG.Cancel.toLocaleString()}</td>
-            //             `;
+        //                 <td>${itemUG.Cancel.toLocaleString()}</td>
+        //             `;
 
             //             $('#woCancelUG').append(dtCancelUG)
 
             //             totWoUG = itemUG.Done + itemUG.Pending + itemUG.Cancel
 
             //             let dtTotWoUG = `
-            //                 <td>${totWoUG.toLocaleString()}</td>
-            //             `;
+        //                 <td>${totWoUG.toLocaleString()}</td>
+        //             `;
 
             //             $('#totWoUG').append(dtTotWoUG);
 
@@ -3686,15 +3053,15 @@
             //         var TotRootDoneUG = 0;
             //         let tbRootCouseUG;
             //         let hdRootCouseUG = `
-            //             <tr>
-            //                     <th>RootCouse Done</th>
-            //             </tr>`;
+        //             <tr>
+        //                     <th>RootCouse Done</th>
+        //             </tr>`;
 
             //         $('#rootCouseHeadUG').append(hdRootCouseUG);
 
-            //         for (b = 0; b < trendWoMt.length; b++) {
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
             //             $('#rootCouseHeadUG').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
             //             )
             //         }
 
@@ -3702,28 +3069,28 @@
 
             //             if (item.penagihan == 'total_done') {
             //                 tbRootCouseUG = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <th>Total</th>
+
+        //                 `;
             //             } else {
             //                 tbRootCouseUG = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <td>${item.penagihan}</td>
+
+        //                 `;
             //             }
 
             //             if (item.penagihan == 'total_done') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseUG = tbRootCouseUG +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
             //                 }
 
             //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseUG = tbRootCouseUG +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
             //                 }
             //             }
@@ -3757,10 +3124,10 @@
             //         let tbCouseCodeAPKUG;
             //         let tbRootCouseAPKUG;
             //         let hdRootCouseAPKUG = `
-            //             <th>RootCouse Aplikasi ${bulanReport}</th>
-            //             <th></th>
-            //             <th></th>
-            //             <th style="text-align: center">Jumlah</th>`;
+        //             <th>RootCouse Aplikasi ${bulanReport}</th>
+        //             <th></th>
+        //             <th></th>
+        //             <th style="text-align: center">Jumlah</th>`;
 
             //         $('#rootCouseHeadAPKUG').append(hdRootCouseAPKUG);
 
@@ -3769,11 +3136,11 @@
             //         $.each(apkUG.detPenagihanSortirUG, function(key, itemPenagihanUG) {
 
             //             tbPenagihanAPKUG = `
-            //                     <tr class="table-secondary"><th>${itemPenagihanUG.penagihan}</th>
-            //                     <th class="table-secondary"></th>
-            //                     <th class="table-secondary"></th>
-            //                     <th class="table-secondary" style="text-align: center">${itemPenagihanUG.jml}</th></tr>
-            //                 `;
+        //                     <tr class="table-secondary"><th>${itemPenagihanUG.penagihan}</th>
+        //                     <th class="table-secondary"></th>
+        //                     <th class="table-secondary"></th>
+        //                     <th class="table-secondary" style="text-align: center">${itemPenagihanUG.jml}</th></tr>
+        //                 `;
             //             // $('#penagihanAPK').append(tbPenagihanAPK);
             //             $('#bodyRootCouseAPKUG').append(tbPenagihanAPKUG);
 
@@ -3784,11 +3151,11 @@
             //                 if (itemPenagihanUG.penagihan == itemCouseCodeUG
             //                     .penagihan) {
             //                     tbCouseCodeAPKUG = `
-            //                         <tr><th></th>
-            //                         <th class="table-info">${itemCouseCodeUG.couse_code}</th>
-            //                         <th class="table-info"></th>
-            //                         <th class="table-info" style="text-align: center">${itemCouseCodeUG.jml}</th></tr>
-            //                     `;
+        //                         <tr><th></th>
+        //                         <th class="table-info">${itemCouseCodeUG.couse_code}</th>
+        //                         <th class="table-info"></th>
+        //                         <th class="table-info" style="text-align: center">${itemCouseCodeUG.jml}</th></tr>
+        //                     `;
             //                     //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
             //                     $('#bodyRootCouseAPKUG').append(tbCouseCodeAPKUG);
 
@@ -3800,11 +3167,11 @@
             //                             itemCouseCodeUG.couse_code ==
             //                             itemRootCouseUG.couse_code) {
             //                             tbRootCouseAPKUG = `
-            //                                 <tr><td></td>
-            //                                 <td></td>
-            //                                 <td>${itemRootCouseUG.root_couse}</td>
-            //                                 <td style="text-align: center">${itemRootCouseUG.jml}</td></tr>
-            //                             `;
+        //                                 <tr><td></td>
+        //                                 <td></td>
+        //                                 <td>${itemRootCouseUG.root_couse}</td>
+        //                                 <td style="text-align: center">${itemRootCouseUG.jml}</td></tr>
+        //                             `;
 
             //                             //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
             //                             $('#bodyRootCouseAPKUG').append(
@@ -3820,10 +3187,10 @@
             //         });
 
             //         let totRootCouseAPKUG = `
-            //             <tr><th class="table-dark">TOTAL</th>
-            //                 <th class="table-dark"></th>
-            //                 <th class="table-dark"></th>
-            //                 <th class="table-dark" style="text-align: center">${TotPenagihanUG}</th></tr>`;
+        //             <tr><th class="table-dark">TOTAL</th>
+        //                 <th class="table-dark"></th>
+        //                 <th class="table-dark"></th>
+        //                 <th class="table-dark" style="text-align: center">${TotPenagihanUG}</th></tr>`;
 
             //         $('#bodyRootCouseAPKUG').append(totRootCouseAPKUG);
             //     }
@@ -3845,15 +3212,15 @@
             //         var TotRootDonePendingUG = 0;
             //         let tbRootCousePendingUG;
             //         let hdRootCousePendingUG = `
-            //             <tr>
-            //                     <th>RootCouse Pending</th>
-            //             </tr>`;
+        //             <tr>
+        //                     <th>RootCouse Pending</th>
+        //             </tr>`;
 
             //         $('#rootCouseHeadPendingUG').append(hdRootCousePendingUG);
 
-            //         for (b = 0; b < trendWoMt.length; b++) {
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
             //             $('#rootCouseHeadPendingUG').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
             //             )
             //         }
 
@@ -3861,28 +3228,28 @@
 
             //             if (item.penagihan == 'total_pending') {
             //                 tbRootCousePendingUG = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <th>Total</th>
+
+        //                 `;
             //             } else {
             //                 tbRootCousePendingUG = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <td>${item.penagihan}</td>
+
+        //                 `;
             //             }
 
             //             if (item.penagihan == 'total_pending') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCousePendingUG = tbRootCousePendingUG +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
             //                 }
 
             //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCousePendingUG = tbRootCousePendingUG +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
             //                 }
             //             }
@@ -3910,15 +3277,15 @@
             //         var TotRootDoneCancelUG = 0;
             //         let tbRootCouseCancelUG;
             //         let hdRootCouseCancelUG = `
-            //             <tr>
-            //                     <th>RootCouse Cancel</th>
-            //             </tr>`;
+        //             <tr>
+        //                     <th>RootCouse Cancel</th>
+        //             </tr>`;
 
             //         $('#rootCouseHeadCancelUG').append(hdRootCouseCancelUG);
 
-            //         for (b = 0; b < trendWoMt.length; b++) {
+            //         for (b = 0; b < trendWoIBFtth.length; b++) {
             //             $('#rootCouseHeadCancelUG').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
             //             )
             //         }
 
@@ -3926,28 +3293,28 @@
 
             //             if (item.penagihan == 'total_cancel') {
             //                 tbRootCouseCancelUG = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <th>Total</th>
+
+        //                 `;
             //             } else {
             //                 tbRootCouseCancelUG = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
+        //                 <tr>
+        //                     <td>${item.penagihan}</td>
+
+        //                 `;
             //             }
 
             //             if (item.penagihan == 'total_cancel') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseCancelUG = tbRootCouseCancelUG +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
             //                 }
 
             //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
+            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
             //                     tbRootCouseCancelUG = tbRootCouseCancelUG +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
 
             //                 }
             //             }
