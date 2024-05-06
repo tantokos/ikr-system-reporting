@@ -931,11 +931,9 @@ class Report_IBController extends Controller
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Cancel')
             ->where('root_couse_penagihan.type_wo','=','IB Ftth')
-            // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', $bulan) // $bulan)
             ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
             ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
-        // ->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
         
         if ($request->filterSite != "All") {
@@ -946,32 +944,19 @@ class Report_IBController extends Controller
         }
 
         $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-        // dd($tglGraph);
-        // for($t=0; $t < count($tglGraph); $t++ ){
-
-        
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
             $nameGraphCancel[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
         }
-
         
         for ($t = 0; $t < count($tglGraphCancel); $t++) {
             for ($pn = 0; $pn < count($PenagihanSortir); $pn++) {
-
-
-                // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
-
 
                 $jml = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Cancel')
                     ->where('root_couse_penagihan.type_wo','=','IB Ftth')
-                    // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('tgl_ikr', '=', $tglGraphCancel[$t])
-                    // ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
-                    // ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
-                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
                     ->where('data_ftth_ib_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
 
                 if ($request->filterSite != "All") {
@@ -983,9 +968,6 @@ class Report_IBController extends Controller
 
                 $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
 
-                // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
-                // $tglGraph[$t]['jml'][$p] = $jml;
-                // $dataGraph[$p]['penagihan'][$t] = ['jumlah' => $jml];
                 $dataGraphCancel[$pn]['data'][] = $jml;
             }
         }
