@@ -25,6 +25,7 @@ use App\Http\Controllers\PeminjamanAsetController;
 use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Report_IBController;
 use App\Http\Controllers\TimDashController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\AsetIkr;
@@ -127,6 +128,27 @@ Route::group(
         Route::get('/getFilterSummaryIB',[ImportFtthIbTempController::class, 'getFilterSummaryIB'])->name('getFilterSummaryIB');
 
         Route::post('/saveImportIbFtth', [ImportFtthIbTempController::class, 'saveImportFtthIb'])->name('saveImportIbFtth');
+        //=====End Import IB FTTH======//
+
+        //====Start Report IB FTTH====//
+
+        Route::get('/reportIBFtth', [Report_IBController::class, 'index'])->name('reportIBFtth.index');
+        Route::get('/getFilterBranchIBFtth', [Report_IBController::class, 'getFilterBranchIBFtth'])->name('getFilterBranchIBFtth');
+        Route::get('/getTotalWoBranchIBFtth', [Report_IBController::class, 'getTotalWoBranchIBFtth'])->name('getTotalWoBranchIBFtth');
+        Route::get('/getFilterDashboardIBFtth', [Report_IBController::class, 'getFilterDashboardIBFtth'])->name('getFilterDashboardIBFtth');
+
+        Route::get('/getTrendMonthlyIBFtth', [Report_IBController::class, 'getTrendMonthlyIBFtth'])->name('getTrendMonthlyIBFtth');
+        Route::get('/getTabelStatusIBFtth', [Report_IBController::class, 'getTabelStatusIBFtth'])->name('getTabelStatusIBFtth');
+
+        Route::get('/getReasonStatusIBFtthGraph', [Report_IBController::class, 'getReasonStatusIBFtthGraph'])->name('getReasonStatusIBFtthGraph');
+        Route::get('/getRootCouseAPKIBFtth', [Report_IBController::class, 'getRootCouseAPKIBFtth'])->name('getRootCouseAPKIBFtth');
+
+        Route::get('/getRootCousePendingGraphIBFtth', [Report_IBController::class, 'getRootCousePendingGraphIBFtth'])->name('getRootCousePendingGraphIBFtth');
+        Route::get('/getRootCousePendingIBFtth', [Report_IBController::class, 'getRootCousePendingIBFtth'])->name('getRootCousePendingIBFtth');
+
+        Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth');
+        Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth');
+
        
     }
 );
