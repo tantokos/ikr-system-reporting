@@ -159,28 +159,28 @@ class ImportFtthMtTempController extends Controller
         $detPenagihan = ImportFtthMtTemp::where('login', '=', $akses)
             ->leftjoin('root_couse_penagihan','root_couse_penagihan.penagihan', '=', 'import_ftth_mt_temps.penagihan')
             ->select(DB::raw('import_ftth_mt_temps.penagihan, import_ftth_mt_temps.status_wo, count(import_ftth_mt_temps.penagihan) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
 
         $detCouseCode = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
 
         $detRootCouse = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code,root_couse, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
 
 
         $detPenagihanSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)
             ->leftjoin('root_couse_penagihan','root_couse_penagihan.penagihan', '=', 'import_ftth_mt_sortir_temps.penagihan')
             ->select(DB::raw('import_ftth_mt_sortir_temps.penagihan,import_ftth_mt_sortir_temps.status_wo, count(import_ftth_mt_sortir_temps.penagihan) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
             // ->groupBy('penagihan')->orderBy('penagihan')->get();
 
         $detCouseCodeSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
             // ->distinct()
             // ->groupBy('penagihan', 'couse_code')->orderBy('penagihan')->get();
 
         $detRootCouseSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code,root_couse, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
             // ->distinct()
             // ->groupBy('penagihan', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
 
