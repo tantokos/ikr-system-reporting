@@ -179,6 +179,7 @@ class ImportFtthMtTempController extends Controller
             // ->distinct()
             // ->groupBy('penagihan', 'couse_code')->orderBy('penagihan')->get();
 
+            
         $detRootCouseSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code,root_couse, count(*) as jml'))
             ->whereNotIn('import_ftth_mt_sortir_temps.type_wo', ['Dismantle', 'Additional']);
             // ->distinct()
