@@ -650,11 +650,16 @@ class ReportController extends Controller
 
                 $jmlBln = $RootCancelMonthly[$b]->bulan;
 
+                if($rootCouseCancel[$x]->penagihan == 'Cancel System Problem-Back To Normal'){
+                    $jml = DataFtthMtSortir::whereIn('penagihan', ['Cancel System Problem', 'Back To Normal'])
+                    ->whereMonth('tgl_ikr', '=', $bln)
+                    ->whereYear('tgl_ikr', '=', $thn);
+                }else{
                 $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseCancel[$x]->penagihan)
                     ->whereMonth('tgl_ikr', '=', $bln)
                     ->whereYear('tgl_ikr', '=', $thn);
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
-
+                }
                 if ($request->filterSite != "All") {
                     $jml = $jml->where('site_penagihan', '=', $request->filterSite);
                 }
@@ -692,89 +697,9 @@ class ReportController extends Controller
         return response()->json($rootCouseCancel);
     }
 
-    public function getRootCousePending1(Request $request)
-    {
+    
 
-        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
-        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
-
-        $startDate = $request->filterDateStart;
-        $endDate = $request->filterDateEnd;
-
-        $RootPendingMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
-            ->whereYear('tgl_ikr', '=', $tahun)
-            ->distinct()->get();
-
-        $rootCousePending = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Pending')->get();
-
-        for ($x = 0; $x < $rootCousePending->count(); $x++) {
-            for ($b = 0; $b < $RootPendingMonthly->count(); $b++) {
-
-                $bln = \Carbon\Carbon::parse($RootPendingMonthly[$b]->bulan)->month;
-                $thn = \Carbon\Carbon::parse($RootPendingMonthly[$b]->bulan)->year;
-
-                $jmlBln = $RootPendingMonthly[$b]->bulan;
-
-                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCousePending[$x]->penagihan)
-                    ->whereMonth('tgl_ikr', '=', $bln)
-                    ->whereYear('tgl_ikr', '=', $thn)
-                    ->count();
-
-                $rootCousePending[$x]->bulan[$jmlBln] = $jml;
-            }
-        }
-
-        for ($b = 0; $b < $RootPendingMonthly->count(); $b++) {
-            $bln = \Carbon\Carbon::parse($RootPendingMonthly[$b]->bulan)->month;
-            $thn = \Carbon\Carbon::parse($RootPendingMonthly[$b]->bulan)->year;
-
-            $tot = DataFtthMtSortir::where('status_wo', '=', 'Pending')->whereMonth('tgl_ikr', '=', $bln)->whereYear('tgl_ikr', '=', $thn)->count();
-
-            $rootCousePending[$rootCousePending->count() - 1]->bulan[$RootPendingMonthly[$b]->bulan] = $tot;
-        }
-
-        return response()->json($rootCousePending);
-    }
-
-    public function getRootCouseCancel11(Request $request)
-    {
-        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
-        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
-
-        $RootCancelMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
-            ->whereYear('tgl_ikr', '=', $tahun)
-            ->distinct()->get();
-
-        $rootCouseCancel = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Cancel')->get();
-
-        for ($x = 0; $x < $rootCouseCancel->count(); $x++) {
-            for ($b = 0; $b < $RootCancelMonthly->count(); $b++) {
-
-                $bln = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->month;
-                $thn = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->year;
-
-                $jmlBln = $RootCancelMonthly[$b]->bulan;
-
-                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseCancel[$x]->penagihan)
-                    ->whereMonth('tgl_ikr', '=', $bln)
-                    ->whereYear('tgl_ikr', '=', $thn)
-                    ->count();
-
-                $rootCouseCancel[$x]->bulan[$jmlBln] = $jml;
-            }
-        }
-
-        for ($b = 0; $b < $RootCancelMonthly->count(); $b++) {
-            $bln = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->month;
-            $thn = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->year;
-
-            $tot = DataFtthMtSortir::where('status_wo', '=', 'Cancel')->whereMonth('tgl_ikr', '=', $bln)->whereYear('tgl_ikr', '=', $thn)->count();
-
-            $rootCouseCancel[$rootCouseCancel->count() - 1]->bulan[$RootCancelMonthly[$b]->bulan] = $tot;
-        }
-
-        return response()->json($rootCouseCancel);
-    }
+    
 
     public function getRootCouseAPK(Request $request)
     {
@@ -1257,58 +1182,7 @@ class ReportController extends Controller
         ]);
     }
 
-    public function getRootCouseAPK1(Request $request)
-    {
-        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
-        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
-
-        $trendBulanan = [];
-
-        for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }
-
-        dd($trendBulanan);
-        // $rootCousePenagihan = DB::table('root_couse_penagihan')->select('penagihan')->where('status', '=', 'Done')->get();
-
-        // query data Sortir
-
-        $detPenagihanSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan, count(data_ftth_mt_sortirs.penagihan) as jml'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
-            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
-            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-            ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-
-        // // dd($detPenagihanSortir);
-
-        $detCouseCodeSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code, count(*) as jml'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
-            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
-            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-            ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-
-        $detRootCouseSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse, count(*) as jml'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
-            ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
-            ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-            ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-
-        // end query data Sortir
-
-        return response()->json([
-            'detPenagihanSortir' => $detPenagihanSortir,
-            'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
-        ]);
-    }
+    
 
 
     public function getCancelSystemProblem(Request $request)
@@ -1330,7 +1204,7 @@ class ReportController extends Controller
             ->whereYear('tgl_ikr', '=', $tahun)
             ->distinct()->get();
 
-        $statVisit = DB::table('data_ftth_mt_sortirs')->select('visit_novisit')->distinct()->get();
+        $statVisit = DB::table('data_ftth_mt_sortirs')->select('visit_novisit')->whereNotNull('visit_novisit')->distinct()->get();
 
         for ($x = 0; $x < $statVisit->count(); $x++) {
             for ($b = 0; $b < count($trendBulanan); $b++) {
@@ -1338,7 +1212,7 @@ class ReportController extends Controller
                 $bln = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->month;
                 $thn = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->year;
 
-                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem')
+                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem/Back To Normal')
                     ->where('visit_novisit', '=', $statVisit[$x]->visit_novisit)
                     ->whereMonth('tgl_ikr', '=', $bln)
                     ->whereYear('tgl_ikr', '=', $thn);
@@ -1359,7 +1233,7 @@ class ReportController extends Controller
         }
 
         $visitSysProblem = DB::table('data_ftth_mt_sortirs')->select('visit_novisit', 'action_taken')
-            ->where('penagihan', '=', 'Cancel System Problem')->distinct()->get();
+            ->where('penagihan', '=', 'Cancel System Problem/Back To Normal')->distinct()->get();
 
         for ($x = 0; $x < $visitSysProblem->count(); $x++) {
             for ($b = 0; $b < count($trendBulanan); $b++) {
@@ -1367,7 +1241,7 @@ class ReportController extends Controller
                 $bln = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->month;
                 $thn = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->year;
 
-                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem')
+                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem/Back To Normal')
                     ->where('visit_novisit', '=', $visitSysProblem[$x]->visit_novisit)
                     ->where('action_taken', '=', $visitSysProblem[$x]->action_taken)
                     ->whereMonth('tgl_ikr', '=', $bln)
@@ -1398,7 +1272,7 @@ class ReportController extends Controller
 
             $jmlBln = $RootCancelMonthly[$b]->bulan;
 
-            $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem')
+            $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem/Back To Normal')
                 // ->where('visit_novisit','=', $totVisit[$x]->visit_novisit)
                 ->whereMonth('tgl_ikr', '=', $bln)
                 ->whereYear('tgl_ikr', '=', $thn);
@@ -1431,86 +1305,7 @@ class ReportController extends Controller
         ]);
     }
 
-    public function getCancelSystemProblem2222(Request $request)
-    {
-        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
-        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
-
-        $RootCancelMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
-            ->whereYear('tgl_ikr', '=', $tahun)
-            ->distinct()->get();
-
-        $statVisit = DB::table('data_ftth_mt_sortirs')->select('visit_novisit')->distinct()->get();
-
-        for ($x = 0; $x < $statVisit->count(); $x++) {
-            for ($b = 0; $b < $RootCancelMonthly->count(); $b++) {
-
-                $bln = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->month;
-                $thn = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->year;
-
-                $jmlBln = $RootCancelMonthly[$b]->bulan;
-
-                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem')
-                    ->where('visit_novisit', '=', $statVisit[$x]->visit_novisit)
-                    ->whereMonth('tgl_ikr', '=', $bln)
-                    ->whereYear('tgl_ikr', '=', $thn)
-                    ->count();
-
-                $statVisit[$x]->bulan[$jmlBln] = $jml;
-            }
-        }
-
-        $visitSysProblem = DB::table('data_ftth_mt_sortirs')->select('visit_novisit', 'action_taken')
-            ->where('penagihan', '=', 'Cancel System Problem')->distinct()->get();
-
-        for ($x = 0; $x < $visitSysProblem->count(); $x++) {
-            for ($b = 0; $b < $RootCancelMonthly->count(); $b++) {
-
-                $bln = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->month;
-                $thn = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->year;
-
-                $jmlBln = $RootCancelMonthly[$b]->bulan;
-
-                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem')
-                    ->where('visit_novisit', '=', $visitSysProblem[$x]->visit_novisit)
-                    ->where('action_taken', '=', $visitSysProblem[$x]->action_taken)
-                    ->whereMonth('tgl_ikr', '=', $bln)
-                    ->whereYear('tgl_ikr', '=', $thn)
-                    ->count();
-
-                $visitSysProblem[$x]->bulan[$jmlBln] = $jml;
-            }
-        }
-        // dd($statVisit, $visitSysProblem);
-
-        $totSysProblem = [];
-        // for ($x = 0; $x < $totVisit->count(); $x++) {
-        for ($b = 0; $b < $RootCancelMonthly->count(); $b++) {
-
-            $bln = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->month;
-            $thn = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->year;
-
-            $jmlBln = $RootCancelMonthly[$b]->bulan;
-
-            $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem')
-                // ->where('visit_novisit','=', $totVisit[$x]->visit_novisit)
-                ->whereMonth('tgl_ikr', '=', $bln)
-                ->whereYear('tgl_ikr', '=', $thn)
-                ->count();
-
-            $jmlMt = DataFtthMtSortir::whereMonth('tgl_ikr', '=', $bln)
-                ->whereYear('tgl_ikr', '=', $thn)
-                ->count();
-
-            $totSysProblem[$b] = ['bulan' => $jmlBln, 'total' => $jml, 'totalMt' => $jmlMt];
-        }
-        // }
-
-        return response()->json([
-            'statVisit' => $statVisit,
-            'totSysProblem' => $totSysProblem, 'visitSysProblem' => $visitSysProblem
-        ]);
-    }
+    
 
     public function getTrendMonthlyApart(Request $request)
     {

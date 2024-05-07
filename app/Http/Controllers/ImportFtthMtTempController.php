@@ -34,24 +34,24 @@ class ImportFtthMtTempController extends Controller
 
         // query data ORI
         $done = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Done')
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])->count('status_wo');
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])->count('status_wo');
         $pending = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Pending')
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])->count('status_wo');
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])->count('status_wo');
         $cancel = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Cancel')
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])->count('status_wo');
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])->count('status_wo');
 
         $tglIkr = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('tgl_ikr'))->distinct()->get();
 
         $detPenagihan = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, count(penagihan) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
             ->groupBy('penagihan')->orderBy('penagihan')->get();
 
         $detCouseCode = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan,couse_code, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
             ->distinct()->groupBy('penagihan', 'couse_code')->orderBy('penagihan')->get();
 
         $detRootCouse = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan,couse_code,root_couse, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
             ->distinct()->groupBy('penagihan', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
         // end query data ORI
 
@@ -68,18 +68,18 @@ class ImportFtthMtTempController extends Controller
 
 
         $detPenagihanSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, count(penagihan) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
             ->groupBy('penagihan')->orderBy('penagihan')->get();
 
         // // dd($detPenagihanSortir);
 
         $detCouseCodeSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan,couse_code, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
             // ->distinct()
             ->groupBy('penagihan', 'couse_code')->orderBy('penagihan')->get();
 
         $detRootCouseSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan,couse_code,root_couse, count(*) as jml'))
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
             // ->distinct()
             ->groupBy('penagihan', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
 
@@ -136,11 +136,11 @@ class ImportFtthMtTempController extends Controller
 
         // query status data ORI
         $done = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Done')
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']); //->count('status_wo');
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device']); //->count('status_wo');
         $pending = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Pending')
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']); //->count('status_wo');
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device']); //->count('status_wo');
         $cancel = ImportFtthMtTemp::where('login', '=', $akses)->where('status_wo', '=', 'Cancel')
-            ->whereNotIn('type_wo', ['Dismantle', 'Additional']); //->count('status_wo');
+            ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device']); //->count('status_wo');
         // end query status date ORI
 
         // query status data Sortir
@@ -160,30 +160,30 @@ class ImportFtthMtTempController extends Controller
             ->leftjoin('root_couse_penagihan','root_couse_penagihan.penagihan', '=', 'import_ftth_mt_temps.penagihan')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
             ->select(DB::raw('import_ftth_mt_temps.penagihan, import_ftth_mt_temps.status_wo, count(import_ftth_mt_temps.penagihan) as jml'))
-            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional', 'Add Device']);
 
         $detCouseCode = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code, count(*) as jml'))
-            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional', 'Add Device']);
 
         $detRootCouse = ImportFtthMtTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code,root_couse, count(*) as jml'))
-            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_temps.type_wo', ['Dismantle', 'Additional', 'Add Device']);
 
 
         $detPenagihanSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)
             ->leftjoin('root_couse_penagihan','root_couse_penagihan.penagihan', '=', 'import_ftth_mt_sortir_temps.penagihan')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
             ->select(DB::raw('import_ftth_mt_sortir_temps.penagihan,import_ftth_mt_sortir_temps.status_wo, count(import_ftth_mt_sortir_temps.penagihan) as jml'))
-            ->whereNotIn('import_ftth_mt_sortir_temps.type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_sortir_temps.type_wo', ['Dismantle', 'Additional', 'Add Device']);
             // ->groupBy('penagihan')->orderBy('penagihan')->get();
 
         $detCouseCodeSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code, count(*) as jml'))
-            ->whereNotIn('import_ftth_mt_sortir_temps.type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_sortir_temps.type_wo', ['Dismantle', 'Additional', 'Add Device']);
             // ->distinct()
             // ->groupBy('penagihan', 'couse_code')->orderBy('penagihan')->get();
 
 
         $detRootCouseSortir = ImportFtthMtSortirTemp::where('login', '=', $akses)->select(DB::raw('penagihan, status_wo, couse_code,root_couse, count(*) as jml'))
-            ->whereNotIn('import_ftth_mt_sortir_temps.type_wo', ['Dismantle', 'Additional']);
+            ->whereNotIn('import_ftth_mt_sortir_temps.type_wo', ['Dismantle', 'Additional', 'Add Device']);
             // ->distinct()
             // ->groupBy('penagihan', 'couse_code', 'root_couse')->orderBy('penagihan')->get();
 
@@ -297,12 +297,12 @@ class ImportFtthMtTempController extends Controller
             Excel::import(new ImportFtthMT($akses), request()->file('fileFtthMT'));
 
             $doneSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
-                ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                ->whereNotIn('type_wo', ['Dismantle', 'Additional','Add Device'])
                 ->orderBy('no_wo')
                 ->groupBy('no_wo')->get();
 
             $pendingSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
-                ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                ->whereNotIn('type_wo', ['Dismantle', 'Additional','Add Device'])
                 ->whereNotIn('no_wo', function ($p) {
                     $p->select('no_wo')->from('import_ftth_mt_temps as import1')->where('status_wo', '=', 'Done');
                 })
@@ -313,7 +313,7 @@ class ImportFtthMtTempController extends Controller
                 ->groupBy('no_wo')->get();
 
             $cancelSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
-                ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
                 ->whereNotIn('no_wo', function ($p) {
                     $p->select('no_wo')->from('import_ftth_mt_temps as import1')->where('status_wo', '=', 'Done');
                 })

@@ -5,10 +5,11 @@ namespace App\Imports;
 use App\Models\ImportFtthMtTemp;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use \PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
 
-class ImportFtthMT implements ToModel, WithHeadingRow
+class ImportFtthMT implements ToModel, WithHeadingRow, WithChunkReading
 {
     /**
      * @param array $row
@@ -129,5 +130,10 @@ class ImportFtthMT implements ToModel, WithHeadingRow
     public function startRow(): int
     {
         return 2;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
