@@ -373,6 +373,100 @@ class Report_IBController extends Controller
         return response()->json($branchPenagihan);
     }
 
+    public function getClusterBranchIBFtth(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $totBranchBln = [];
+        $trendBulanan = [];
+        $branchSortir = [];
+        $detCluster = [];
+        $detRootCouseSortir = [];
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        }
+
+        $branch = DB::table('data_ftth_ib_sortirs as d')
+                ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+                ->select('b.id','d.branch as nama_branch');
+                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
+
+        $branchCluster = DB::table('data_ftth_ib_sortirs as d')
+                ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+                ->select('b.id','d.branch as nama_branch','d.cluster');
+                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
+
+                
+        if ($request->filterSite != "All") {
+            $branchCluster = $branchCluster->where('d.site_penagihan', '=', $request->filterSite);
+            $branch = $branch->where('d.site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $branchCluster = $branchCluster->where('d.branch', '=', $request->filterBranch);
+            $branch = $branch->where('d.branch', '=', $request->filterBranch);
+        }
+
+        $branchCluster = $branchCluster->groupBy('d.branch', 'b.id','d.cluster')->orderBy('b.id')->orderBy('d.cluster' )->get();
+        $branch = $branch->groupBy('d.branch', 'b.id')->orderBy('b.id')->get();
+
+
+        for ($bc = 0; $bc < count($branchCluster); $bc++) {
+
+            $detCluster[$bc]['nama_branch'] = $branchCluster[$bc]->nama_branch;
+            $detCluster[$bc]['cluster'] = $branchCluster[$bc]->cluster;
+
+
+            for ($tm = 0; $tm < count($trendBulanan); $tm++) {
+
+                $jml = DB::table('data_ftth_ib_sortirs as d')
+                ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+                ->select('b.id','d.branch as nama_branch','d.cluster')
+                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
+                ->whereMonth('d.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$tm]['bulan'])->month) // $bulan)
+                ->whereYear('d.tgl_ikr', '=', $tahun)
+                ->where('d.branch','=', $branchCluster[$bc]->nama_branch)
+                ->where('d.cluster','=', $branchCluster[$bc]->cluster);
+
+
+                $jml = $jml->groupBy('d.branch','d.cluster', 'b.id')->orderBy('b.id')->count();
+
+                $detCluster[$bc]['bulanan'][$tm] = [$jml];
+
+            }
+
+        }
+
+        for ($db = 0; $db < count($branch); $db++) {
+
+            $totBranchBln[$db]['nmTbranch'] = $branch[$db]->nama_branch;
+            for ($dbm = 0; $dbm < count($trendBulanan); $dbm++) {
+
+                $jmldbm = DB::table('data_ftth_ib_sortirs as d')
+                ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+                ->select('b.id','d.branch as nama_branch')
+                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
+                ->whereMonth('d.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$dbm]['bulan'])->month) // $bulan)
+                ->whereYear('d.tgl_ikr', '=', $tahun)
+                ->where('d.branch','=', $branch[$db]->nama_branch)
+                ->groupBy('d.branch','b.id')->orderBy('b.id')->count();
+
+                // $varjml = $varjml + $jmldbm;
+                $totBranchBln[$db]['totbulanan'][$dbm] = [$jmldbm];
+
+            }
+
+        }
+
+        return response()->json([
+            'branchCluster' => $totBranchBln, 'detCluster' => $detCluster
+        ]);
+    }    
+
 
     public function getTrendMonthlyIBFtth(Request $request)
     {

@@ -16,6 +16,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDashController;
 use App\Http\Controllers\FatController;
 use App\Http\Controllers\ImportexcelController;
+use App\Http\Controllers\ImportFtthDismantleTempController;
 use App\Http\Controllers\ImportFtthIBTempController;
 use App\Http\Controllers\ImportFtthMtTempController;
 use App\Http\Controllers\KaryawanImportController;
@@ -84,6 +85,8 @@ Route::group(
         Route::get('/getFilterSite', [ReportController::class, 'getFilterSite'])->name('getFilterSite');
         
         Route::get('/getTotalWoBranch', [ReportController::class, 'getTotalWoBranch'])->name('getTotalWoBranch');
+        Route::get('/getClusterBranch', [ReportController::class, 'getClusterBranch'])->name('getClusterBranch');
+
         Route::get('/getTabelStatus', [ReportController::class, 'getTabelStatus'])->name('getTabelStatus');
         Route::get('/getTrendMonthly', [ReportController::class, 'getTrendMonthly'])->name('getTrendMonthly');
         Route::get('/getRootCouseDone', [ReportController::class, 'getRootCouseDone'])->name('getRootCouseDone');
@@ -149,6 +152,18 @@ Route::group(
         Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth');
         Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth');
 
-       
+        Route::get('/getClusterBranchIBFtth', [Report_IBController::class, 'getClusterBranchIBFtth'])->name('getClusterBranchIBFtth');
+
+       //====End Report IB FTTH====//
+
+       //=====Start Import Dismantle FTTH======//
+       Route::get('/importftthDismantletemp', [ImportFtthDismantleTempController::class , 'index'])->name('import.ftthDismantletempIndex');
+       Route::post('/DataImportFtthDismantleTemp', [ImportFtthDismantleTempController::class, 'dataImportFtthDismantleTemp'])->name('import.dataImportFtthDismantleTemp');
+       Route::post('/import-FtthDismantleTemp', [ImportFtthDismantleTempController::class, 'importFtthDismantleTemp'])->name('import.ImportFtthDismantleTemp');
+
+       Route::get('/getFilterSummaryDismantle',[ImportFtthDismantleTempController::class, 'getFilterSummaryDismantle'])->name('getFilterSummaryDismantle');
+
+       Route::post('/saveImportDismantleFtth', [ImportFtthDismantleTempController::class, 'saveImportFtthDismantle'])->name('saveImportDismantleFtth');
+       //=====End Import Dismantle FTTH======//
     }
 );
