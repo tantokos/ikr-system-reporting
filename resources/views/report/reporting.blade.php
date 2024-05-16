@@ -308,6 +308,43 @@
         <div class="col-sm-12">
             <div class="card text-white bg-success">
                 <div class="card-body">
+                    <h6>Summary WO Maintenance FTTH By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        {{-- Root Couse Sortir MT --}}
+        <div class="col-sm-12">
+            {{-- <div class="col"> --}}
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" style="font-size: 11px; table-layout: fixed;">
+                            <thead>
+                                <tr id="tableHeadCluster">
+                                {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
+                                {{-- <th></th> --}}
+                                {{-- <th></th> --}}
+                                {{-- <th style="text-align: center">Jumlah</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody id="bodyCluster">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End Root Couse Sortir MT --}}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-success">
+                <div class="card-body">
                     <h6>Summary Report Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
                 </div>
             </div>
@@ -374,7 +411,7 @@
                             </tbody>
                             <tfoot>
                                 <tr id="totWo">
-                                    <th>Total WO</th>
+                                    <th class="table-dark">Total WO</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
@@ -420,7 +457,7 @@
             </div>
         </div> --}}
 
-    </div>
+    {{-- </div> --}}
 
     <div class="row">
         <div class="col-sm-12">
@@ -1423,8 +1460,8 @@
                         // console.log(item.nama_branch);
                         // if(item.site_penagihan == "Retail"){
                             branch.push(item.nama_branch);
-                            totWoDone.push([item.nama_branch + " " + item.done, item.done]);
-                            branchWTot.push([item.nama_branch + " " + item.total, item.total]);
+                            totWoDone.push([item.nama_branch + " " + item.done.toLocaleString(), item.done]);
+                            branchWTot.push([item.nama_branch + " " + item.total.toLocaleString(), item.total]);
                         // }
                         // if((item.site_penagihan == "Apartemen") || (item.site_penagihan == "Underground") ){
                             // branch.push(item.site_penagihan);
@@ -1628,8 +1665,8 @@
                     $('#totWoCancel').find("th").remove();
 
                     let isiTotalWo = `
-                        <th>Total WO Maintenance</th>
-                        <th style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
+                        <th class="table-dark">Total WO Maintenance</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
                     `;
 
                     $('#totalWo').append(isiTotalWo);
@@ -1637,9 +1674,9 @@
                     persenTotClose = (Number(totWoClose) * 100) / Number(totWo);
 
                     let isiTotalWoClose = `
-                    <th>Total WO Close</th>
-                        <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1) + "%"}</th>
+                    <th class="table-dark">Total WO Close</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1) + "%"}</th>
                     `;
 
 
@@ -1648,18 +1685,18 @@
                     persenTotPending = (Number(totWoPending) * 100) / Number(totWo);
 
                     let isiTotalWoPending = `
-                    <th>Total WO Maintenance Failed</th>
-                        <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1) + "%"}</th>
+                    <th class="table-dark">Total WO Maintenance Failed</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1) + "%"}</th>
                     `;
                     $('#totWoPending').append(isiTotalWoPending);
 
                     persenTotCancel = (totWoCancel * 100) / totWo;
 
                     let isiTotalWoCancel = `
-                    <th>Total WO Cancel</th>
-                        <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1) + "%"}</th>
+                    <th class="table-dark">Total WO Cancel</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1) + "%"}</th>
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
 
@@ -1734,11 +1771,13 @@
                                 },
                                 datalabels: {
                                     anchor: 'end',
-                                    align: 'top'
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO Maintenance All Branch',
+                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
                                     align: 'start',
                                 },
 
@@ -1782,11 +1821,13 @@
                                 },
                                 datalabels: {
                                     anchor: 'end',
-                                    align: 'top'
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO Maintenance Close All Branch',
+                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
                                     align: 'start',
                                 },
 
@@ -1804,6 +1845,119 @@
                 }
 
             })
+
+            $.ajax({
+                url: "{{ route('getRootCouseAPK') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                success: function(apk) {    
+                    $('#rootCouseHeadAPK').find("th").remove();
+                    $('#bodyRootCouseAPK').find("tr").remove();
+                    $('#penagihanAPK').find("th").remove();
+                    $('#couseCodePenagihanAPK').find("th").remove();
+                    $('#rootCousePenagihanAPK').find("td").remove();
+
+                    let TotPenagihan = [];
+                    let tbPenagihanAPK;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>Penagihan</th>
+                        <th>Couse Code</th>
+                        <th>Root Couse</th>`;
+                        // <th style="text-align: center">Jumlah</th>`;
+
+                    for (h = 0;h < trendWoMt.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                    }
+
+                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
+
+
+                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+
+                        tbPenagihanAPK = `
+                                <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
+                                <th class="table-secondary"></th>
+                                <th class="table-secondary"></th>`;
+                        
+                        for (p=0;p<trendWoMt.length; p++) {
+                            tbPenagihanAPK = tbPenagihanAPK +
+                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+   
+                        }
+
+                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
+
+                        $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
+                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
+                                tbCouseCodeAPK = `
+                                    <tr><th></th>
+                                    <th class="table-info">${itemCouseCode.couse_code}</th>
+                                    <th class="table-info"></th>`;
+
+                                for (cc = 0;cc < trendWoMt.length; cc++) {
+                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                }
+
+                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
+
+
+                                $.each(apk.detRootCouseSortir, function(key,
+                                    itemRootCouse) {
+
+                                    if (itemPenagihan.penagihan == itemRootCouse
+                                        .penagihan && itemCouseCode
+                                        .couse_code == itemRootCouse.couse_code
+                                    ) {
+                                        tbRootCouseAPK = `
+                                            <tr><td></td>
+                                            <td></td>
+                                            <td>${itemRootCouse.root_couse}</td>`;
+
+                                        for (rc = 0; rc < trendWoMt.length; rc++) {
+                                            tbRootCouseAPK = tbRootCouseAPK +
+                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                        }
+                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    
+
+                    let totRootCouseAPK = `
+                        <tr><th class="table-dark">TOTAL</th>
+                            <th class="table-dark"></th>
+                            <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+                    for (p=0;p<trendWoMt.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                    }
+
+                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
+                }
+
+            });
+
+
+            
 
 
             $.ajax({
@@ -1852,7 +2006,7 @@
 
                     $('#totWo').find("td").remove()
                     $('#totWo').find("th").remove()
-                    $('#totWo').append("<th>Total Wo</th>")
+                    $('#totWo').append(`<th class="table-dark">Total Wo</th>`)
 
 
                     $.each(data, function(key, item) {
@@ -1894,7 +2048,7 @@
                         totWo = item.Done + item.Pending + item.Cancel
 
                         let dtTotWo = `
-                            <td>${totWo.toLocaleString()}</td>
+                            <td class="table-dark">${totWo.toLocaleString()}</td>
                         `;
 
                         $('#totWo').append(dtTotWo);
@@ -1902,7 +2056,7 @@
 
                     });
 
-                    $('#dateMonth').append("<th>Total</th>")
+                    $('#dateMonth').append(`<th>Total</th>`)
 
                     $('#woDone').append(`<th>${totDone.toLocaleString()}</th>`)
 
@@ -1912,7 +2066,7 @@
 
                     total = totDone + totPending + totCancel
 
-                    $('#totWo').append(`<th>${total.toLocaleString()}</th>`)
+                    $('#totWo').append(`<th class="table-dark">${total.toLocaleString()}</th>`)
 
                     $('#dateMonth').append(`<th>%</th>`)
 
@@ -1941,7 +2095,6 @@
                             text: 'Status WO Maintenance FTTH - ' + titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
-
 
                         xAxis: {
                             categories: day
@@ -2143,6 +2296,115 @@
                 }
 
             })
+
+            $.ajax({
+                url: "{{ route('getClusterBranch') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                success: function(dataCluster) {    
+                    console.log(dataCluster.detCluster);
+                    $('#tableHeadCluster').find("th").remove();
+                    $('#bodyCluster').find("tr").remove();
+
+                    let TotBranchCluster = [];
+                    let tbBranchCluster;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>Branch</th>
+                        <th>Cluster</th>`;
+                        // <th>Root Couse</th>`;
+                        // <th style="text-align: center">Jumlah</th>`;
+
+                    for (h = 0;h < trendWoMt.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                    }
+
+                    $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
+
+
+                    $.each(dataCluster.branchCluster, function(key, nmBranch) {
+
+                        tbBranchCluster = `
+                                <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
+                                <th class="table-secondary"></th>`;
+                                // <th class="table-secondary"></th>`;
+                        
+                        for (p=0;p<trendWoMt.length; p++) {
+                            tbBranchCluster = tbBranchCluster +
+                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
+   
+                        }
+
+                        $('#bodyCluster').append(tbBranchCluster + `</tr>`);
+
+                        $.each(dataCluster.detCluster, function(key, itemCluster) {
+                            if (nmBranch.nmTbranch == itemCluster.nama_branch) {
+                                tbCluster = `
+                                    <tr><td></td>
+                                    <td>${itemCluster.cluster}</td>`;
+                                    // <th class="table-info"></th>`;
+
+                                for (cc = 0;cc < trendWoMt.length; cc++) {
+                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
+                                }
+
+                                $('#bodyCluster').append(tbCluster + '</tr>');
+
+
+                                // $.each(apk.detRootCouseSortir, function(key,
+                                //     itemRootCouse) {
+
+                                //     if (itemPenagihan.penagihan == itemRootCouse
+                                //         .penagihan && itemCouseCode
+                                //         .couse_code == itemRootCouse.couse_code
+                                //     ) {
+                                //         tbRootCouseAPK = `
+                                //             <tr><td></td>
+                                //             <td></td>
+                                //             <td>${itemRootCouse.root_couse}</td>`;
+
+                                //         for (rc = 0; rc < trendWoMt.length; rc++) {
+                                //             tbRootCouseAPK = tbRootCouseAPK +
+                                //             `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                //         }
+                                //         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
+                                //     }
+                                // });
+                            }
+                        });
+                    });
+
+                    
+
+                    let totBulananCluster = `
+                        <tr><th class="table-dark">TOTAL</th>
+                            <th class="table-dark"></th>`;
+                            // <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+                    for (p=0;p<trendWoMt.length; p++) {
+                        TotBranchCluster[p] = 0
+                        $.each(dataCluster.branchCluster, function(key, totBranchCl) {
+                            TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
+                        })
+
+                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
+                    }
+
+                    $('#bodyCluster').append(totBulananCluster + `</tr>`);
+                }
+
+            });
+
 
             $.ajax({
                 url: "{{ route('getRootCousePendingGraph') }}",
@@ -2525,7 +2787,7 @@
                         if (item.penagihan == 'total_pending') {
                             tbRootCousePending = `
                             <tr>
-                                <th>Total</th>
+                                <th class="table-dark">Total</th>
                                 
                             `;
                         } else {
@@ -2539,7 +2801,7 @@
                         if (item.penagihan == 'total_pending') {
                             for (bln = 0; bln < trendWoMt.length; bln++) {
                                 tbRootCousePending = tbRootCousePending +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                                    `<th class="table-dark" style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
                             }
 
                         } else {
@@ -2595,7 +2857,7 @@
                         if (item.penagihan == 'total_cancel') {
                             tbRootCouseCancel = `
                             <tr>
-                                <th>Total</th>
+                                <th class="table-dark">Total</th>
                                 
                             `;
                         } else {
@@ -2609,7 +2871,7 @@
                         if (item.penagihan == 'total_cancel') {
                             for (bln = 0; bln < trendWoMt.length; bln++) {
                                 tbRootCouseCancel = tbRootCouseCancel +
-                                    `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                                    `<th class="table-dark" style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
                             }
 
                         } else {
@@ -2628,116 +2890,7 @@
 
             });
 
-            $.ajax({
-                url: "{{ route('getRootCouseAPK') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(apk) {    
-
-                    $('#rootCouseHeadAPK').find("th").remove();
-                    $('#bodyRootCouseAPK').find("tr").remove();
-                    $('#penagihanAPK').find("th").remove();
-                    $('#couseCodePenagihanAPK').find("th").remove();
-                    $('#rootCousePenagihanAPK').find("td").remove();
-
-                    let TotPenagihan = [];
-                    let tbPenagihanAPK;
-                    let tbCouseCodeAPK;
-                    let tbRootCouseAPK;
-                    let hdRootCouseAPK = `
-                        <th>Penagihan</th>
-                        <th>Couse Code</th>
-                        <th>Root Couse</th>`;
-                        // <th style="text-align: center">Jumlah</th>`;
-
-                    for (h = 0;h < trendWoMt.length; h++) {
-                        hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
-                    }
-
-                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
-
-
-                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
-
-                        tbPenagihanAPK = `
-                                <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary"></th>`;
-                        
-                        for (p=0;p<trendWoMt.length; p++) {
-                            tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p]}</th>`;
-   
-                        }
-
-                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
-
-                        $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
-                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
-                                tbCouseCodeAPK = `
-                                    <tr><th></th>
-                                    <th class="table-info">${itemCouseCode.couse_code}</th>
-                                    <th class="table-info"></th>`;
-
-                                for (cc = 0;cc < trendWoMt.length; cc++) {
-                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
-                                }
-
-                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
-
-
-                                $.each(apk.detRootCouseSortir, function(key,
-                                    itemRootCouse) {
-
-                                    if (itemPenagihan.penagihan == itemRootCouse
-                                        .penagihan && itemCouseCode
-                                        .couse_code == itemRootCouse.couse_code
-                                    ) {
-                                        tbRootCouseAPK = `
-                                            <tr><td></td>
-                                            <td></td>
-                                            <td>${itemRootCouse.root_couse}</td>`;
-
-                                        for (rc = 0; rc < trendWoMt.length; rc++) {
-                                            tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
-                                        }
-                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
-                                    }
-                                });
-                            }
-                        });
-                    });
-
-                    
-
-                    let totRootCouseAPK = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark"></th>`;
-                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
-
-                    for (p=0;p<trendWoMt.length; p++) {
-                        TotPenagihan[p] = 0
-                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
-                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
-                        })
-
-                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
-                    }
-
-                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
-                }
-
-            });
+            
 
             $.ajax({
                 url: "{{ route('getCancelSystemProblem') }}",
@@ -2895,7 +3048,10 @@
                                 },
                                 datalabels: {
                                     anchor: 'end',
-                                    align: 'top'
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                    
                                 },
                                 title: {
                                     display: true,

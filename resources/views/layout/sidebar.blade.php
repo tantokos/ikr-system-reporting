@@ -108,7 +108,7 @@
                 </li>
 
                 <li class="{{ request()->is('importftthDismantle*') ? 'active' : '' }}">
-                    <a href="#">
+                    <a href="{{ route('import.ftthDismantletempIndex') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth Dismantle</span>
                         <span class="pcoded-mcaret"></span>
