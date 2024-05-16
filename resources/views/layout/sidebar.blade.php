@@ -50,7 +50,7 @@
                 </li>
 
                 <li class="{{ request()->is('reportDismantleFtth*') ? 'active' : '' }}">
-                    <a href="#">
+                    <a href="{{ route('reportDismantleFtth.index')}}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTH Dismantle</span>
                         <span class="pcoded-mcaret"></span>

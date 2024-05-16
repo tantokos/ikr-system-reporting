@@ -82,10 +82,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <h6>Summary WO New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
-                            Underground)</h5>
+                    <h6>Summary WO Dismantle - <h5 id="CardTitle">All Branch</h5>
                     </h6>
                 </div>
             </div>
@@ -120,7 +119,7 @@
                             style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWo">
-                                    <th>WO New Installation</th>
+                                    <th>WO Dismantle</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;"></th> --}}
                                 </tr>
                             </thead>
@@ -157,7 +156,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoClose">
-                                    <th>WO New Installation Close</th>
+                                    <th>WO Dismantle Close</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -197,7 +196,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoPending">
-                                    <th>WO New Installation Failed</th>
+                                    <th>WO Dismantle Failed</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -236,7 +235,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoCancel">
-                                    <th>WO New Installation Cancel</th>
+                                    <th>WO Dismantle Cancel</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -311,8 +310,7 @@
         <div class="col-sm-12">
             <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h6>Summary Report New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
-                            Underground)<h5>
+                    <h6>Summary Report Dismantle FTTH - <h5 id="CardTitle">All Branch<h5>
                     </h6>
                 </div>
             </div>
@@ -358,7 +356,7 @@
                             width="100%" cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="dateMonth">
-                                    <th>WO New Installation</th>
+                                    <th>WO Dismantle</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
@@ -369,7 +367,7 @@
                                     {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
                                 </tr>
                                 <tr id="woPending">
-                                    <td>New Installation Failed</td>
+                                    <td>WO Dismantle Failed</td>
                                     {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
                                 </tr>
                                 <tr id="woCancel">
@@ -685,7 +683,7 @@
             let filBranch = $(this).val()
 
             $.ajax({
-                url: "{{ route('getFilterBranchIBFtth') }}",
+                url: "{{ route('getFilterBranchDismantleFtth') }}",
                 type: "GET",
                 data: {
                     branchReport: filBranch
@@ -752,9 +750,11 @@
             }
 
             if (filSite == "All") {
-                titleSite = "All Site (Retail, Apartemen, Underground)";
+                // titleSite = "All Site (Retail, Apartemen, Underground)";
+                titleSite = "";
             } else {
-                titleSite = "Site " + filSite;
+                // titleSite = "Site " + filSite;
+                titleSite = "";
             }
 
             document.querySelectorAll('#CardTitle').forEach(function(elem) {
@@ -764,9 +764,9 @@
 
             let uri;
             if ((filSite == "All") && (filBranch == "All")) {
-                uri = "{{ route('getTotalWoBranchIBFtth') }}";
+                uri = "{{ route('getTotalWoBranchDismantleFtth') }}";
             } else {
-                uri = "{{ route('getFilterDashboardIBFtth') }}";
+                uri = "{{ route('getFilterDashboardDismantleFtth') }}";
             }
 
 
@@ -837,7 +837,7 @@
                             type: 'pie'
                         },
                         title: {
-                            text: 'Total WO New Installation FTTH ' + bulanReport,
+                            text: 'Total WO Dismantle ' + bulanReport,
                         },
                         // tooltip: {
                         //     valueSuffix: '%'
@@ -881,7 +881,7 @@
                             type: 'pie'
                         },
                         title: {
-                            text: 'WO New Installation FTTH Close ' + bulanReport,
+                            text: 'WO Dismantle Close ' + bulanReport,
                         },
                         tooltip: {
                             valueSuffix: '%'
@@ -923,24 +923,24 @@
                     $('#theadTotWoCancel').find("th").remove();
 
                     $('#theadTotWo').append(`
-                        <th>WO New Installation</th>
+                        <th>WO Dismantle</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                             `);
 
                     $('#theadTotWoClose').append(`
-                        <th>WO New Installation Close</th>
+                        <th>WO Dismantle Close</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoPending').append(`
-                        <th>WO New Installation Failed</th>
+                        <th>WO Dismantle Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoCancel').append(`
-                        <th>WO New Installation Cancel</th>
+                        <th>WO Dismantle Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
@@ -1055,7 +1055,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getTrendMonthlyIBFtth') }}",
+                url: "{{ route('getTrendMonthlyDismantleFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1123,7 +1123,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO New Installation',
+                                    text: 'Trend WO Dismantle',
                                     align: 'start',
                                 },
 
@@ -1174,7 +1174,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO New Installation Close',
+                                    text: 'Trend WO Dismantle Close',
                                     align: 'start',
                                 },
 

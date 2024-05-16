@@ -25,6 +25,7 @@ use App\Http\Controllers\MonitMtFtthController;
 use App\Http\Controllers\PeminjamanAsetController;
 use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
+use App\Http\Controllers\Report_DismantleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Report_IBController;
 use App\Http\Controllers\TimDashController;
@@ -165,5 +166,31 @@ Route::group(
 
        Route::post('/saveImportDismantleFtth', [ImportFtthDismantleTempController::class, 'saveImportFtthDismantle'])->name('saveImportDismantleFtth');
        //=====End Import Dismantle FTTH======//
+
+
+       //====Start Report Dismantle FTTH====//
+
+       Route::get('/reportDismantleFtth', [Report_DismantleController::class, 'index'])->name('reportDismantleFtth.index');
+
+       Route::get('/getFilterBranchDismantleFtth', [Report_DismantleController::class, 'getFilterBranchDismantleFtth'])->name('getFilterBranchDismantleFtth');
+       Route::get('/getTotalWoBranchDismantleFtth', [Report_DismantleController::class, 'getTotalWoBranchDismantleFtth'])->name('getTotalWoBranchDismantleFtth');
+
+       Route::get('/getFilterDashboardDismantleFtth', [Report_DismantleController::class, 'getFilterDashboardDismantleFtth'])->name('getFilterDashboardDismantleFtth');
+
+       Route::get('/getTrendMonthlyDismantleFtth', [Report_DismantleController::class, 'getTrendMonthlyDismantleFtth'])->name('getTrendMonthlyDismantleFtth');
+       Route::get('/getTabelStatusIBFtth', [Report_IBController::class, 'getTabelStatusIBFtth'])->name('getTabelStatusIBFtth');
+
+       Route::get('/getReasonStatusIBFtthGraph', [Report_IBController::class, 'getReasonStatusIBFtthGraph'])->name('getReasonStatusIBFtthGraph');
+       Route::get('/getRootCouseAPKIBFtth', [Report_IBController::class, 'getRootCouseAPKIBFtth'])->name('getRootCouseAPKIBFtth');
+
+       Route::get('/getRootCousePendingGraphIBFtth', [Report_IBController::class, 'getRootCousePendingGraphIBFtth'])->name('getRootCousePendingGraphIBFtth');
+       Route::get('/getRootCousePendingIBFtth', [Report_IBController::class, 'getRootCousePendingIBFtth'])->name('getRootCousePendingIBFtth');
+
+       Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth');
+       Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth');
+
+       Route::get('/getClusterBranchIBFtth', [Report_IBController::class, 'getClusterBranchIBFtth'])->name('getClusterBranchIBFtth');
+
+      //====End Report Dismantle FTTH====//
     }
 );
