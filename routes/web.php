@@ -178,18 +178,22 @@ Route::group(
        Route::get('/getFilterDashboardDismantleFtth', [Report_DismantleController::class, 'getFilterDashboardDismantleFtth'])->name('getFilterDashboardDismantleFtth');
 
        Route::get('/getTrendMonthlyDismantleFtth', [Report_DismantleController::class, 'getTrendMonthlyDismantleFtth'])->name('getTrendMonthlyDismantleFtth');
-       Route::get('/getTabelStatusIBFtth', [Report_IBController::class, 'getTabelStatusIBFtth'])->name('getTabelStatusIBFtth');
+       Route::get('/getTabelStatusDismantleFtth', [Report_DismantleController::class, 'getTabelStatusDismantleFtth'])->name('getTabelStatusDismantleFtth');
 
-       Route::get('/getReasonStatusIBFtthGraph', [Report_IBController::class, 'getReasonStatusIBFtthGraph'])->name('getReasonStatusIBFtthGraph');
-       Route::get('/getRootCouseAPKIBFtth', [Report_IBController::class, 'getRootCouseAPKIBFtth'])->name('getRootCouseAPKIBFtth');
+       Route::get('/getClusterBranchDismantleFtth', [Report_DismantleController::class, 'getClusterBranchDismantleFtth'])->name('getClusterBranchDismantleFtth');
+       Route::get('/getRootCouseAPKDismantleFtth', [Report_DismantleController::class, 'getRootCouseAPKDismantleFtth'])->name('getRootCouseAPKDismantleFtth');
 
-       Route::get('/getRootCousePendingGraphIBFtth', [Report_IBController::class, 'getRootCousePendingGraphIBFtth'])->name('getRootCousePendingGraphIBFtth');
-       Route::get('/getRootCousePendingIBFtth', [Report_IBController::class, 'getRootCousePendingIBFtth'])->name('getRootCousePendingIBFtth');
+       Route::get('/getReasonStatusDismantleFtthGraph', [Report_DismantleController::class, 'getReasonStatusDismantleFtthGraph'])->name('getReasonStatusDismantleFtthGraph');
+
+       Route::get('/getRootCouseAPKDismantleFtth', [Report_DismantleController::class, 'getRootCouseAPKDismantleFtth'])->name('getRootCouseAPKDismantleFtth');
+
+       Route::get('/getRootCousePendingGraphDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingGraphDismantleFtth'])->name('getRootCousePendingGraphDismantleFtth');
+       Route::get('/getRootCousePendingDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingDismantleFtth'])->name('getRootCousePendingDismantleFtth');
 
        Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth');
        Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth');
 
-       Route::get('/getClusterBranchIBFtth', [Report_IBController::class, 'getClusterBranchIBFtth'])->name('getClusterBranchIBFtth');
+       
 
       //====End Report Dismantle FTTH====//
     }
