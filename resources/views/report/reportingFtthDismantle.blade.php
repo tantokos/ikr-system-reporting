@@ -49,7 +49,7 @@
                                 </select>
                             </div> --}}
 
-                        <div class="col-sm">
+                        <div class="col-sm" hidden>
                             <label class="form-text">Site</label>
                             <select class="col form-control-sm" id="site">
                                 <option value="All">All</option>
@@ -82,10 +82,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <h6>Summary WO New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
-                            Underground)</h5>
+                    <h6>Summary WO Dismantle - <h5 id="CardTitle">All Branch</h5>
                     </h6>
                 </div>
             </div>
@@ -120,7 +119,7 @@
                             style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWo">
-                                    <th>WO New Installation</th>
+                                    <th>WO Dismantle</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;"></th> --}}
                                 </tr>
                             </thead>
@@ -157,7 +156,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoClose">
-                                    <th>WO New Installation Close</th>
+                                    <th>WO Dismantle Close</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -197,7 +196,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoPending">
-                                    <th>WO New Installation Failed</th>
+                                    <th>WO Dismantle Failed</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -236,7 +235,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoCancel">
-                                    <th>WO New Installation Cancel</th>
+                                    <th>WO Dismantle Cancel</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -272,9 +271,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <h6>Summary WO New Installation FTTH By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary WO Dismantle By Cluster Area - <h5 id="CardTitle">All Branch<h5></h6>
                 </div>
             </div>
         </div>
@@ -309,10 +308,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <h6>Summary Report New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
-                            Underground)<h5>
+                    <h6>Summary Report Dismantle FTTH - <h5 id="CardTitle">All Branch<h5>
                     </h6>
                 </div>
             </div>
@@ -358,7 +356,7 @@
                             width="100%" cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="dateMonth">
-                                    <th>WO New Installation</th>
+                                    <th>WO Dismantle</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
@@ -369,7 +367,7 @@
                                     {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
                                 </tr>
                                 <tr id="woPending">
-                                    <td>New Installation Failed</td>
+                                    <td>WO Dismantle Failed</td>
                                     {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
                                 </tr>
                                 <tr id="woCancel">
@@ -397,10 +395,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <h6>Summary Root Cause Closing WO New Installation FTTH<h5 id="CardTitle">All Branch - All Site (Retail,
-                            Apartemen, Underground)<h5>
+                    <h6>Summary Reason Status Closing WO Dismantle<h5 id="CardTitle">All Branch<h5>
                     </h6>
                 </div>
             </div>
@@ -443,11 +440,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <h5>Summary Root Cause New Installation Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
-                            Apartemen, Underground)<h5>
-                                </h6>
+                    <h5>Summary Reason Status Dismantle Failed - <h5 id="CardTitle">All Branch<h5></h6>
                 </div>
             </div>
         </div>
@@ -487,7 +482,7 @@
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-primary">
                 <div class="card-body">
@@ -503,8 +498,6 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body" id="canvasRootCouseAPKCancel">
-
-                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -518,30 +511,12 @@
                         <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
                             cellspacing="0" style="font-size: 12px">
                             <thead id="rootCouseHeadCancel">
-                                {{-- <tr> --}}
-                                {{-- <th>Root Couse</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
-                                {{-- </tr> --}}
                             </thead>
                             <tbody id="rootCouseTbCancel">
-                                {{-- <tr id="woDone"> --}}
-                                {{-- <td>Done</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woPending"> --}}
-                                {{-- <td>Installation Failed</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woCancel"> --}}
-                                {{-- <td>Cancel</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
-                                {{-- </tr> --}}
                             </tbody>
                             <tfoot>
                                 <tr id="totRootCouseCancel">
                                     <th>Total</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -549,7 +524,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- <div class="row">
         <div class="col-sm-12">
@@ -685,7 +660,7 @@
             let filBranch = $(this).val()
 
             $.ajax({
-                url: "{{ route('getFilterBranchIBFtth') }}",
+                url: "{{ route('getFilterBranchDismantleFtth') }}",
                 type: "GET",
                 data: {
                     branchReport: filBranch
@@ -752,21 +727,23 @@
             }
 
             if (filSite == "All") {
-                titleSite = "All Site (Retail, Apartemen, Underground)";
+                // titleSite = "All Site (Retail, Apartemen, Underground)";
+                titleSite = "";
             } else {
-                titleSite = "Site " + filSite;
+                // titleSite = "Site " + filSite;
+                titleSite = "";
             }
 
             document.querySelectorAll('#CardTitle').forEach(function(elem) {
-                elem.innerText = titleBranch + " - " + titleSite;
+                elem.innerText = titleBranch;
             })
             // console.log($('#CardTitle').html("testing"));
 
             let uri;
             if ((filSite == "All") && (filBranch == "All")) {
-                uri = "{{ route('getTotalWoBranchIBFtth') }}";
+                uri = "{{ route('getTotalWoBranchDismantleFtth') }}";
             } else {
-                uri = "{{ route('getFilterDashboardIBFtth') }}";
+                uri = "{{ route('getFilterDashboardDismantleFtth') }}";
             }
 
 
@@ -837,7 +814,7 @@
                             type: 'pie'
                         },
                         title: {
-                            text: 'Total WO New Installation FTTH ' + bulanReport,
+                            text: 'Total WO Dismantle ' + bulanReport,
                         },
                         // tooltip: {
                         //     valueSuffix: '%'
@@ -881,7 +858,7 @@
                             type: 'pie'
                         },
                         title: {
-                            text: 'WO New Installation FTTH Close ' + bulanReport,
+                            text: 'WO Dismantle Close ' + bulanReport,
                         },
                         tooltip: {
                             valueSuffix: '%'
@@ -923,24 +900,24 @@
                     $('#theadTotWoCancel').find("th").remove();
 
                     $('#theadTotWo').append(`
-                        <th>WO New Installation</th>
+                        <th>WO Dismantle</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                             `);
 
                     $('#theadTotWoClose').append(`
-                        <th>WO New Installation Close</th>
+                        <th>WO Dismantle Close</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoPending').append(`
-                        <th>WO New Installation Failed</th>
+                        <th>WO Dismantle Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoCancel').append(`
-                        <th>WO New Installation Cancel</th>
+                        <th>WO Dismantle Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
@@ -1055,7 +1032,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getTrendMonthlyIBFtth') }}",
+                url: "{{ route('getTrendMonthlyDismantleFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1123,7 +1100,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO New Installation',
+                                    text: 'Trend WO Dismantle',
                                     align: 'start',
                                 },
 
@@ -1174,7 +1151,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Trend WO New Installation Close',
+                                    text: 'Trend WO Dismantle Close',
                                     align: 'start',
                                 },
 
@@ -1195,7 +1172,7 @@
 
 
             $.ajax({
-                url: "{{ route('getTabelStatusIBFtth') }}",
+                url: "{{ route('getTabelStatusDismantleFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1224,7 +1201,7 @@
                     var total = 0;
 
                     $('#dateMonth').find("th").remove();
-                    $('#dateMonth').append(`<th>New Installation ${titleBranch}</th>`)
+                    $('#dateMonth').append(`<th>Dismantle ${titleBranch}</th>`)
 
                     $('#woDone').find("td").remove();
                     $('#woDone').find("th").remove();
@@ -1232,7 +1209,7 @@
 
                     $('#woPending').find("td").remove();
                     $('#woPending').find("th").remove();
-                    $('#woPending').append("<td>Installation Failed</td>")
+                    $('#woPending').append("<td>Dismantle Failed</td>")
 
                     $('#woCancel').find("td").remove();
                     $('#woCancel').find("th").remove();
@@ -1245,13 +1222,13 @@
 
                     $.each(data, function(key, item) {
                         // day.push(new Date(item.tgl_ikr).getDate());
-                        day.push(new Date(item.tgl_ikr).getDate());
+                        day.push(new Date(item.visit_date).getDate());
                         doneDay.push(item.Done);
                         pendingDay.push(item.Pending);
                         cancelDay.push(item.Cancel);
 
                         let htgl = `
-                           <th>${new Date(item.tgl_ikr).getDate()}</th>
+                           <th>${new Date(item.visit_date).getDate()}</th>
                         `;
 
                         $('#dateMonth').append(htgl);
@@ -1326,7 +1303,7 @@
                     Highcharts.chart('conTrendDialyWo', {
 
                         title: {
-                            text: 'Status WO New Installation FTTH - ' + titleBranch + ' ' +
+                            text: 'Status WO Dismantle FTTH - ' + titleBranch + ' ' +
                                 bulanReport,
                             align: 'left'
                         },
@@ -1399,7 +1376,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getClusterBranchIBFtth') }}",
+                url: "{{ route('getClusterBranchDismantleFtth') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1506,7 +1483,7 @@
             });
 
             $.ajax({
-                url: "{{ route('getReasonStatusIBFtthGraph') }}",
+                url: "{{ route('getReasonStatusDismantleFtthGraph') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1571,7 +1548,7 @@
                     Highcharts.chart('conRooCouseAPKDialy', {
 
                         title: {
-                            text: 'Root Couse WO New Installation Close FTTH Dialy - ' +
+                            text: 'Reason Status WO Dismantle Close Dialy - ' +
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
@@ -1644,7 +1621,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getRootCouseAPKIBFtth') }}",
+                url: "{{ route('getRootCouseAPKDismantleFtth') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1667,7 +1644,7 @@
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
                     let hdRootCouseAPK = `
-                        <th>Root Couse</th>`;
+                        <th>Reason Status Dismantle Close</th>`;
                         // <th>Reason Status</th>`;
                         // <th>Root Couse</th>`;
                     // <th style="text-align: center">Jumlah</th>`;
@@ -1759,7 +1736,7 @@
             });
 
             $.ajax({
-                url: "{{ route('getRootCousePendingGraphIBFtth') }}",
+                url: "{{ route('getRootCousePendingGraphDismantleFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1824,7 +1801,7 @@
                     Highcharts.chart('conRooCouseAPKDialyPending', {
 
                         title: {
-                            text: 'Root Couse WO New Installation Failed FTTH Dialy - ' +
+                            text: 'Reason Status WO Dismantle Failed Dialy - ' +
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
@@ -1896,143 +1873,143 @@
 
             })
 
-            $.ajax({
-                url: "{{ route('getRootCouseCancelGraphIBFtth') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+            // $.ajax({
+            //     url: "{{ route('getRootCouseCancelGraphIBFtth') }}",
+            //     type: 'GET',
+            //     data: {
+            //         bulanTahunReport: bulanReport,
+            //         filterTgl: filTglPeriode,
+            //         filterDateStart: filPeriodeStart,
+            //         filterDateEnd: filPeriodeEnd,
+            //         filterSite: filSite,
+            //         filterBranch: filBranch,
+            //         filterDateStart: filPeriodeStart,
+            //         filterDateEnd: filPeriodeEnd
 
-                },
-                success: function(data) {
-                    // var day = new Date(tahun, bulan, 0).getDate();
-                    var dayGraphCancel = [];
-                    var nameGraphCancel = [];
-                    var nameDataGraphCancel = [];
-                    var objDataGraph = {};
-                    var dayApk = [];
-                    var pendingDay = [];
-                    var cancelDay = [];
-                    var donetb;
-                    var totDone = 0;
-                    var totPending = 0;
-                    var totCancel = 0;
-                    var totWo = 0;
-                    var total = 0;
+            //     },
+            //     success: function(data) {
+            //         // var day = new Date(tahun, bulan, 0).getDate();
+            //         var dayGraphCancel = [];
+            //         var nameGraphCancel = [];
+            //         var nameDataGraphCancel = [];
+            //         var objDataGraph = {};
+            //         var dayApk = [];
+            //         var pendingDay = [];
+            //         var cancelDay = [];
+            //         var donetb;
+            //         var totDone = 0;
+            //         var totPending = 0;
+            //         var totCancel = 0;
+            //         var totWo = 0;
+            //         var total = 0;
 
-                    for (tg = 0; tg < data.tglGraphAPKCancel.length; tg++) {
-                        // console.log(data.tglGraphAPK[tg].tgl_ikr)
-                        dayGraphCancel.push(new Date(data.tglGraphAPKCancel[tg].tgl_ikr).getDate())
-
-
-                    }
-
-                    for (nm = 0; nm < data.nameGraphAPKCancel.length; nm++) {
-                        // console.log(data.nameGraphAPK[nm].penagihan);
-                        nameGraphCancel.push({
-                            name: data.nameGraphAPKCancel[nm].penagihan
-                        });
-                        // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
-
-                        // for(dt=0;dt<data.dataGraphAPK.length;dt++){
-                        // console.log(data.dataGraphAPK[dt].data);
-                        nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
-                        // }
-
-                    }
-
-                    // graph line dialy //
-
-                    $('#canvasRootCouseAPKCancel').empty();
-
-                    let chartRootCouseAPKDialyCancel = `
-					<figure class="highcharts-figure">
-					    <div id="conRooCouseAPKDialyCancel"></div>
-					</figure>
-				    `;
-
-                    $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialyCancel);
-
-                    Highcharts.chart('conRooCouseAPKDialyCancel', {
-
-                        title: {
-                            text: 'Root Couse WO New Installation Cancel FTTH Dialy - ' +
-                                titleBranch + ' ' + bulanReport,
-                            align: 'left'
-                        },
+            //         for (tg = 0; tg < data.tglGraphAPKCancel.length; tg++) {
+            //             // console.log(data.tglGraphAPK[tg].tgl_ikr)
+            //             dayGraphCancel.push(new Date(data.tglGraphAPKCancel[tg].tgl_ikr).getDate())
 
 
-                        xAxis: {
-                            categories: dayGraphCancel
-                        },
+            //         }
 
-                        legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'middle'
-                        },
+            //         for (nm = 0; nm < data.nameGraphAPKCancel.length; nm++) {
+            //             // console.log(data.nameGraphAPK[nm].penagihan);
+            //             nameGraphCancel.push({
+            //                 name: data.nameGraphAPKCancel[nm].penagihan
+            //             });
+            //             // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
 
-                        plotOptions: {
-                            line: {
-                                dataLabels: {
-                                    enabled: true
-                                },
-                                enableMouseTracking: true
-                            },
-                            series: {
-                                label: {
-                                    connectorAllowed: false
-                                },
+            //             // for(dt=0;dt<data.dataGraphAPK.length;dt++){
+            //             // console.log(data.dataGraphAPK[dt].data);
+            //             nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
+            //             // }
 
-                            }
-                        },
+            //         }
 
-                        series: nameGraphCancel, //[{
-                        // name: 'WO Done',
-                        // data: doneDay //[
-                        //43934, 48656, 65165, 81827, 112143, 142383,
-                        //171533, 165174, 155157, 161454, 154610
-                        //]
-                        // }, {
-                        // name: 'WO Pending',
-                        // data: pendingDay //[
-                        //24916, 37941, 29742, 29851, 32490, 30282,
-                        //38121, 36885, 33726, 34243, 31050
-                        //]
-                        // }, {
-                        // name: 'WO Cancel',
-                        // data: cancelDay //[
-                        //11744, 30000, 16005, 19771, 20185, 24377,
-                        //32147, 30912, 29243, 29213, 25663
-                        //]
-                        // }],
+            //         // graph line dialy //
 
-                        responsive: {
-                            rules: [{
-                                condition: {
-                                    maxWidth: 500
-                                },
-                                chartOptions: {
-                                    legend: {
-                                        layout: 'horizontal',
-                                        align: 'center',
-                                        verticalAlign: 'bottom'
-                                    }
-                                }
-                            }]
-                        }
+            //         $('#canvasRootCouseAPKCancel').empty();
 
-                    });
+            //         let chartRootCouseAPKDialyCancel = `
+			// 		<figure class="highcharts-figure">
+			// 		    <div id="conRooCouseAPKDialyCancel"></div>
+			// 		</figure>
+			// 	    `;
 
-                }
+            //         $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialyCancel);
 
-            })
+            //         Highcharts.chart('conRooCouseAPKDialyCancel', {
+
+            //             title: {
+            //                 text: 'Root Couse WO New Installation Cancel FTTH Dialy - ' +
+            //                     titleBranch + ' ' + bulanReport,
+            //                 align: 'left'
+            //             },
+
+
+            //             xAxis: {
+            //                 categories: dayGraphCancel
+            //             },
+
+            //             legend: {
+            //                 layout: 'vertical',
+            //                 align: 'right',
+            //                 verticalAlign: 'middle'
+            //             },
+
+            //             plotOptions: {
+            //                 line: {
+            //                     dataLabels: {
+            //                         enabled: true
+            //                     },
+            //                     enableMouseTracking: true
+            //                 },
+            //                 series: {
+            //                     label: {
+            //                         connectorAllowed: false
+            //                     },
+
+            //                 }
+            //             },
+
+            //             series: nameGraphCancel, //[{
+            //             // name: 'WO Done',
+            //             // data: doneDay //[
+            //             //43934, 48656, 65165, 81827, 112143, 142383,
+            //             //171533, 165174, 155157, 161454, 154610
+            //             //]
+            //             // }, {
+            //             // name: 'WO Pending',
+            //             // data: pendingDay //[
+            //             //24916, 37941, 29742, 29851, 32490, 30282,
+            //             //38121, 36885, 33726, 34243, 31050
+            //             //]
+            //             // }, {
+            //             // name: 'WO Cancel',
+            //             // data: cancelDay //[
+            //             //11744, 30000, 16005, 19771, 20185, 24377,
+            //             //32147, 30912, 29243, 29213, 25663
+            //             //]
+            //             // }],
+
+            //             responsive: {
+            //                 rules: [{
+            //                     condition: {
+            //                         maxWidth: 500
+            //                     },
+            //                     chartOptions: {
+            //                         legend: {
+            //                             layout: 'horizontal',
+            //                             align: 'center',
+            //                             verticalAlign: 'bottom'
+            //                         }
+            //                     }
+            //                 }]
+            //             }
+
+            //         });
+
+            //     }
+
+            // })
 
 
 
@@ -2109,7 +2086,7 @@
             // });
 
             $.ajax({
-                url: "{{ route('getRootCousePendingIBFtth') }}",
+                url: "{{ route('getRootCousePendingDismantleFtth') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2129,7 +2106,7 @@
                     let tbRootCousePending;
                     let hdRootCousePending = `
                         <tr>
-                                <th>RootCouse Pending</th>
+                                <th>Reason Status Dismantle Pending</th>
                         </tr>`;
 
                     $('#rootCouseHeadPending').append(hdRootCousePending);
@@ -2178,75 +2155,7 @@
 
             });
 
-            $.ajax({
-                url: "{{ route('getRootCouseCancelIBFtth') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(dataRootCouseCancel) {
-
-                    $('#rootCouseHeadCancel').find("tr").remove();
-                    $('#rootCouseTbCancel').find("tr").remove();
-                    $('#totRootCouseCancel').find("th").remove();
-
-                    var TotRootDoneCancel = 0;
-                    let tbRootCouseCancel;
-                    let hdRootCouseCancel = `
-                        <tr>
-                                <th>RootCouse Cancel</th>
-                        </tr>`;
-
-                    $('#rootCouseHeadCancel').append(hdRootCouseCancel);
-
-                    for (b = 0; b < trendWoIBFtth.length; b++) {
-                        $('#rootCouseHeadCancel').find("tr").append(
-                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
-
-                    $.each(dataRootCouseCancel, function(key, item) {
-
-                        if (item.penagihan == 'total_cancel') {
-                            tbRootCouseCancel = `
-                            <tr>
-                                <th>Total</th>
-                                
-                            `;
-                        } else {
-                            tbRootCouseCancel = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        }
-
-                        if (item.penagihan == 'total_cancel') {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-                                tbRootCouseCancel = tbRootCouseCancel +
-                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-                            }
-
-                        } else {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-                                tbRootCouseCancel = tbRootCouseCancel +
-                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-                            }
-                        }
-
-                        tbRootCouseCancel = tbRootCouseCancel + `</tr>`;
-                        $('#rootCouseTbCancel').append(tbRootCouseCancel);
-
-                    });
-                }
-
-            });
+            
 
             
 

@@ -25,6 +25,7 @@ use App\Http\Controllers\MonitMtFtthController;
 use App\Http\Controllers\PeminjamanAsetController;
 use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
+use App\Http\Controllers\Report_DismantleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Report_IBController;
 use App\Http\Controllers\TimDashController;
@@ -165,5 +166,35 @@ Route::group(
 
        Route::post('/saveImportDismantleFtth', [ImportFtthDismantleTempController::class, 'saveImportFtthDismantle'])->name('saveImportDismantleFtth');
        //=====End Import Dismantle FTTH======//
+
+
+       //====Start Report Dismantle FTTH====//
+
+       Route::get('/reportDismantleFtth', [Report_DismantleController::class, 'index'])->name('reportDismantleFtth.index');
+
+       Route::get('/getFilterBranchDismantleFtth', [Report_DismantleController::class, 'getFilterBranchDismantleFtth'])->name('getFilterBranchDismantleFtth');
+       Route::get('/getTotalWoBranchDismantleFtth', [Report_DismantleController::class, 'getTotalWoBranchDismantleFtth'])->name('getTotalWoBranchDismantleFtth');
+
+       Route::get('/getFilterDashboardDismantleFtth', [Report_DismantleController::class, 'getFilterDashboardDismantleFtth'])->name('getFilterDashboardDismantleFtth');
+
+       Route::get('/getTrendMonthlyDismantleFtth', [Report_DismantleController::class, 'getTrendMonthlyDismantleFtth'])->name('getTrendMonthlyDismantleFtth');
+       Route::get('/getTabelStatusDismantleFtth', [Report_DismantleController::class, 'getTabelStatusDismantleFtth'])->name('getTabelStatusDismantleFtth');
+
+       Route::get('/getClusterBranchDismantleFtth', [Report_DismantleController::class, 'getClusterBranchDismantleFtth'])->name('getClusterBranchDismantleFtth');
+       Route::get('/getRootCouseAPKDismantleFtth', [Report_DismantleController::class, 'getRootCouseAPKDismantleFtth'])->name('getRootCouseAPKDismantleFtth');
+
+       Route::get('/getReasonStatusDismantleFtthGraph', [Report_DismantleController::class, 'getReasonStatusDismantleFtthGraph'])->name('getReasonStatusDismantleFtthGraph');
+
+       Route::get('/getRootCouseAPKDismantleFtth', [Report_DismantleController::class, 'getRootCouseAPKDismantleFtth'])->name('getRootCouseAPKDismantleFtth');
+
+       Route::get('/getRootCousePendingGraphDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingGraphDismantleFtth'])->name('getRootCousePendingGraphDismantleFtth');
+       Route::get('/getRootCousePendingDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingDismantleFtth'])->name('getRootCousePendingDismantleFtth');
+
+       Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth');
+       Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth');
+
+       
+
+      //====End Report Dismantle FTTH====//
     }
 );

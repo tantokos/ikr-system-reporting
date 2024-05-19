@@ -547,7 +547,7 @@ class ReportController extends Controller
         // dd($tgl);
 
         for ($d = 0; $d < count($tgl); $d++) {
-            $tblStatus = DataFtthMtSortir::where('tgl_ikr', '=', $tgl[$d]) //->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
+            $tblStatus = DataFtthMtSortir::query()->where('tgl_ikr', '=', $tgl[$d]) //->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
                 ->select(DB::raw('tgl_ikr, count(if(status_wo = "Done", 1, NULL)) as Done, 
             count(if(status_wo = "Pending", 1, NULL)) as Pending, count(if(status_wo = "Cancel", 1, NULL)) as Cancel'));
             // ->whereDay('tgl_ikr', $dayMonth);
@@ -585,7 +585,7 @@ class ReportController extends Controller
                 ->where('status', '=', 'Done')
                 ->where('type_wo','=','MT FTTH')->get();
 
-        $RootDoneMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+        $RootDoneMonthly = DataFtthMtSortir::query()->select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
             ->whereYear('tgl_ikr', '=', $tahun)
             ->whereMonth('tgl_ikr', '<=', $bulan)
             ->distinct()->get();
@@ -598,7 +598,7 @@ class ReportController extends Controller
 
                 $jmlBln = $RootDoneMonthly[$b]->bulan;
 
-                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseDone[$x]->penagihan)
+                $jml = DataFtthMtSortir::query()->where('penagihan', '=', $rootCouseDone[$x]->penagihan)
                     ->whereMonth('tgl_ikr', '=', $bln)
                     ->whereYear('tgl_ikr', '=', $thn);
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
@@ -620,7 +620,7 @@ class ReportController extends Controller
             $bln = \Carbon\Carbon::parse($RootDoneMonthly[$b]->bulan)->month;
             $thn = \Carbon\Carbon::parse($RootDoneMonthly[$b]->bulan)->year;
 
-            $tot = DataFtthMtSortir::where('status_wo', '=', 'Done')
+            $tot = DataFtthMtSortir::query()->where('status_wo', '=', 'Done')
                 ->whereMonth('tgl_ikr', '=', $bln)
                 ->whereYear('tgl_ikr', '=', $thn);
                 // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]); //->count();
@@ -660,7 +660,7 @@ class ReportController extends Controller
                 ->where('status', '=', 'Pending')
                 ->where('type_wo','=','MT FTTH')->get();
 
-        $RootPendingMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+        $RootPendingMonthly = DataFtthMtSortir::query()->select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
             ->whereYear('tgl_ikr', '=', $tahun)
             ->whereMonth('tgl_ikr', '<=', $bulan)
             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
@@ -675,7 +675,7 @@ class ReportController extends Controller
 
                 $jmlBln = $RootPendingMonthly[$b]->bulan;
 
-                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCousePending[$x]->penagihan)
+                $jml = DataFtthMtSortir::query()->where('penagihan', '=', $rootCousePending[$x]->penagihan)
                     ->whereMonth('tgl_ikr', '=', $bln)
                     ->whereYear('tgl_ikr', '=', $thn);
                     // ->whereBetween('tgl_ikr', [$startDate, $endDate]);
@@ -698,7 +698,7 @@ class ReportController extends Controller
             $bln = \Carbon\Carbon::parse($RootPendingMonthly[$b]->bulan)->month;
             $thn = \Carbon\Carbon::parse($RootPendingMonthly[$b]->bulan)->year;
 
-            $tot = DataFtthMtSortir::where('status_wo', '=', 'Pending')
+            $tot = DataFtthMtSortir::query()->where('status_wo', '=', 'Pending')
                 ->whereMonth('tgl_ikr', '=', $bln)
                 ->whereYear('tgl_ikr', '=', $thn);
                 // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
@@ -731,7 +731,7 @@ class ReportController extends Controller
                 ->where('status', '=', 'Cancel')
                 ->where('type_wo','=','MT FTTH')->get();
 
-        $RootCancelMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+        $RootCancelMonthly = DataFtthMtSortir::query()->select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
             ->whereYear('tgl_ikr', '=', $tahun)
             ->whereMonth('tgl_ikr', '<=', $bulan)
             ->distinct()->get();
@@ -745,11 +745,11 @@ class ReportController extends Controller
                 $jmlBln = $RootCancelMonthly[$b]->bulan;
 
                 if($rootCouseCancel[$x]->penagihan == 'Cancel System Problem-Back To Normal'){
-                    $jml = DataFtthMtSortir::whereIn('penagihan', ['Cancel System Problem', 'Back To Normal'])
+                    $jml = DataFtthMtSortir::query()->whereIn('penagihan', ['Cancel System Problem', 'Back To Normal'])
                     ->whereMonth('tgl_ikr', '=', $bln)
                     ->whereYear('tgl_ikr', '=', $thn);
                 }else{
-                $jml = DataFtthMtSortir::where('penagihan', '=', $rootCouseCancel[$x]->penagihan)
+                $jml = DataFtthMtSortir::query()->where('penagihan', '=', $rootCouseCancel[$x]->penagihan)
                     ->whereMonth('tgl_ikr', '=', $bln)
                     ->whereYear('tgl_ikr', '=', $thn);
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
@@ -771,7 +771,7 @@ class ReportController extends Controller
             $bln = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->month;
             $thn = \Carbon\Carbon::parse($RootCancelMonthly[$b]->bulan)->year;
 
-            $tot = DataFtthMtSortir::where('status_wo', '=', 'Cancel')
+            $tot = DataFtthMtSortir::query()->where('status_wo', '=', 'Cancel')
                 ->whereMonth('tgl_ikr', '=', $bln)
                 ->whereYear('tgl_ikr', '=', $thn);
                 // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]); //->count();
@@ -826,7 +826,7 @@ class ReportController extends Controller
         // ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
 
-        $PenagihanSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+        $PenagihanSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Done')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -850,7 +850,7 @@ class ReportController extends Controller
 
             for ($m = 0; $m < count($trendBulanan); $m++) {
 
-                $jml = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+                $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Done')
                     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -884,7 +884,7 @@ class ReportController extends Controller
         // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
         // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        $CouseCodeSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
+        $CouseCodeSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Done')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -909,7 +909,7 @@ class ReportController extends Controller
 
             for ($mc = 0; $mc < count($trendBulanan); $mc++) {
 
-                $jmlCouseCode = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
+                $jmlCouseCode = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Done')
                     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -944,7 +944,7 @@ class ReportController extends Controller
         // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
         // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        $RootCouseSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
+        $RootCouseSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Done')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -970,7 +970,7 @@ class ReportController extends Controller
 
             for ($mr = 0; $mr < count($trendBulanan); $mr++) {
 
-                $jmlRootCouse = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
+                $jmlRootCouse = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Done')
                     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -1025,7 +1025,7 @@ class ReportController extends Controller
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
 
-        $PenagihanSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+        $PenagihanSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Done')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -1057,7 +1057,7 @@ class ReportController extends Controller
                 // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+                $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Done')
                     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -1114,7 +1114,7 @@ class ReportController extends Controller
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
 
-        $PenagihanSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+        $PenagihanSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Pending')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -1150,7 +1150,7 @@ class ReportController extends Controller
                 // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+                $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Pending')
                     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -1206,7 +1206,7 @@ class ReportController extends Controller
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
 
-        $PenagihanSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+        $PenagihanSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Cancel')
             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -1242,7 +1242,7 @@ class ReportController extends Controller
                 // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+                $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Cancel')
                     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
@@ -1295,7 +1295,7 @@ class ReportController extends Controller
         }
 
         // dd($trendBulanan);
-        $RootCancelMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
+        $RootCancelMonthly = DataFtthMtSortir::query()->select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
             ->whereYear('tgl_ikr', '=', $tahun)
             ->distinct()->get();
 
@@ -1307,7 +1307,7 @@ class ReportController extends Controller
                 $bln = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->month;
                 $thn = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->year;
 
-                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem/Back To Normal')
+                $jml = DataFtthMtSortir::query()->where('penagihan', '=', 'Cancel System Problem/Back To Normal')
                     ->where('visit_novisit', '=', $statVisit[$x]->visit_novisit)
                     ->whereMonth('tgl_ikr', '=', $bln)
                     ->whereYear('tgl_ikr', '=', $thn);
@@ -1336,7 +1336,7 @@ class ReportController extends Controller
                 $bln = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->month;
                 $thn = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->year;
 
-                $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem/Back To Normal')
+                $jml = DataFtthMtSortir::query()->where('penagihan', '=', 'Cancel System Problem/Back To Normal')
                     ->where('visit_novisit', '=', $visitSysProblem[$x]->visit_novisit)
                     ->where('action_taken', '=', $visitSysProblem[$x]->action_taken)
                     ->whereMonth('tgl_ikr', '=', $bln)
