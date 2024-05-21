@@ -4,25 +4,25 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <div class="card text-white bg-secondary">
+        <div class="card text-white bg-danger">
             <div class="card-body">
-                <h5 id="CardTitle">Import Data FTTH Dismantle<h5>
+                <h5 id="CardTitle">Import Data FTTX Maintenance (MT)<h5>
             </div>
         </div>
     </div>
 </div>
     {{-- <h1 class="h3 mb-2 text-gray-800">{{ $title }}</h1> --}}
 
-    <div class="card bg-light" >
+    <div class="card bg-light">
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <form action="{{ route('import.ImportFtthDismantleTemp') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('import.ImportFttxMTTemp') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label class="col form-text"></label>
                             <div class="col">
-                                <input type="file" name="fileFtthMT" class="form-control form-text border-dark" required="required">
+                                <input type="file" name="fileFtthMT" class="form-control form-text border-secondary" required="required">
                                 @error('fileFtthMT')
                                     <span class="error">{{ $message }}</span>
                                 @enderror
@@ -31,7 +31,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <button type="submit" class="btn btn-sm btn-secondary">Import Data FTTH Dismantle Original</button>
+                                <button type="submit" class="btn btn-sm btn-danger">Import Data FTTX MT Original</button>
                             </div>
                         </div>
 
@@ -51,7 +51,7 @@
 
                 <div class="col">
                     {{-- <form action="{{ route('import.store') }}" method="POST" enctype="multipart/form-data"> --}}
-                    <form action="{{ route('saveImportDismantleFtth') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('saveImportFttxMT') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label class="col-sm-4 form-text">Import By : </label>
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-4 form-text">Jumlah Data Dismantle :</label>
+                            <label class="col-sm-4 form-text">Jumlah Data FTTX MT :</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control form-control-sm border-secondary" id="jmlImport"
                                     name="jmlImport" value="{{ $jmlImport }}" readonly required>
@@ -73,8 +73,8 @@
 
                         <div class="form-group row">
                             <label class="col-sm-4 form-text">Periode Report : </label>
-                            <label class="col-sm-6 form-text" style="font-weight: bold">{{ $tglIkr->min('visit_date') }} s/d
-                                {{ $tglIkr->max('visit_date') }}</label>
+                            <label class="col-sm-6 form-text" style="font-weight: bold">{{ $tglIkr->min('mt_date') }} s/d
+                                {{ $tglIkr->max('mt_date') }}</label>
                         </div>
 
                         <div class="form-group">
@@ -101,51 +101,71 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>No WO</th>
-                            <th>WO Date</th>
-                            <th>Visit Date</th>
-                            <th>Dismantle Port Date</th>
-                            <th>Takeout/No</th>
-                            <th>Port</th>
-                            <th>Close Date</th>
-                            <th>Cust Id</th>
-                            <th>Nama Cust</th>
-                            <th>Cust Address</th>
-                            <th>Slot Time</th>
-                            <th>Teknisi1</th>
-                            <th>Teknisi2</th>
-                            <th>Teknisi3</th>
-                            <th>Start</th>
-                            <th>Finish</th>
-                            <th>Kode FAT</th>
-                            <th>Kode Area</th>
-                            <th>Cluster</th>
-                            <th>Kotamadya</th>
-                            <th>Kotamadya Penagihan</th>
-                            <th>Branch</th>
-                            <th>Manage Service/Regular</th>
-                            <th>FAT Status</th>
-                            <th>SN ONT In</th>
-                            <th>SN STB In</th>
-                            <th>SN Router In</th>
-                            <th>Rollback / No</th>
-                            <th>Status WO</th>
-                            <th>Reason Status</th>
-                            <th>Remarks</th>
-                            <th>Tgl Reschedule</th>
-                            <th>Alasan No Rollback</th>
-                            <th>Jam Reschedule</th>
-                            <th>Callsign</th>
-                            <th>Checkin APK</th>
-                            <th>Checkout APK</th>
-                            <th>Status APK</th>
-                            <th>Keterangan</th>
-                            <th>IKR Progress Date</th>
-                            <th>IKR Report Date</th>
-                            <th>Reconsile Date</th>
-                            <th>Weather</th>
-                            <th>Leader</th>
-                            <th>Pic Monitoring</th>
+                            {{-- <th>pic_monitoring</th> --}}
+                            <th>no_so</th>
+                            <th>no_wo</th>
+                            <th>wo_date</th>
+                            <th>mt_date</th>
+                            <th>wo_type</th>
+                            <th>cust_name</th>
+                            <th>cust_address</th>
+                            <th>area</th>
+                            <th>site</th>
+                            <th>packages_type</th>
+                            <th>service_type</th>
+                            <th>slot_time</th>
+                            <th>teknisi1</th>
+                            <th>teknisi2</th>
+                            <th>teknisi3</th>
+                            <th>leader</th>
+                            <th>branch</th>
+                            <th>callsign</th>
+                            <th>nopol</th>
+                            <th>start</th>
+                            <th>finish</th>
+                            <th>report_wa</th>
+                            <th>fdt_code</th>
+                            <th>fat_code</th>
+                            <th>fat_port</th>
+                            <th>signal_fat</th>
+                            <th>signal_tb</th>
+                            <th>signal_ont</th>
+                            <th>ont_sn_out</th>
+                            <th>ont_mac_out</th>
+                            <th>ont_sn_in</th>
+                            <th>ont_mac_in</th>
+                            <th>stb2_sn</th>
+                            <th>stb2_mac</th>
+                            <th>stb3_sn</th>
+                            <th>stb3_mac</th>
+                            <th>router_sn</th>
+                            <th>router_mac</th>
+                            <th>drop_cable</th>
+                            <th>precon</th>
+                            <th>fast_connector</th>
+                            <th>termination_box</th>
+                            <th>patch_cord_3m</th>
+                            <th>patch_cord_10m</th>
+                            <th>screw_hanger</th>
+                            <th>indor_cable_duct</th>
+                            <th>pvc_pipe_20mm</th>
+                            <th>socket_pvc_20mm</th>
+                            <th>clamp_pvc_20mm</th>
+                            <th>flexible_pvc_20mm</th>
+                            <th>clamp_cable</th>
+                            <th>cable_lan</th>
+                            <th>connector_rj45</th>
+                            <th>cable_marker</th>
+                            <th>insulation</th>
+                            <th>cable_ties</th>
+                            <th>adapter_optic</th>
+                            <th>fisher</th>
+                            <th>paku_beton</th>
+                            <th>splitter</th>
+                            <th>status_wo</th>
+                            <th>root_couse</th>
+                            <th>action_taken</th>
+                            <th>remarks</th>
 
                             <th>login</th>
                             <th>action</th>
@@ -166,7 +186,7 @@
         <div class="modal-dialog modal-lg mw-100 w-75" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Summary Data Import FTTH Dismantle</h5>
+                    <h5 class="modal-title h5" id="myLargeModalLabel">Summary Data Import FTTX MT</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -183,10 +203,10 @@
                                             <th>Site (Penagihan) </th>
                                             <th><select class="col" name="FiltersitePenagihan" id="sitePenagihanOri">
                                                     <option value="ALL">ALL</option>
-                                                    {{-- @foreach ($sitePenagihan as $site) --}}
-                                                        {{-- <option value="{{ $site->site_penagihan }}"> --}}
-                                                            {{-- {{ $site->site_penagihan }}</option> --}}
-                                                    {{-- @endforeach --}}
+                                                    @foreach ($sitePenagihan as $site)
+                                                        <option value="{{ $site->site_penagihan }}">
+                                                            {{ $site->site_penagihan }}</option>
+                                                    @endforeach
 
                                                 </select></th>
                                         </tr>
@@ -249,10 +269,10 @@
                                             <th>Penagihan</th>
                                             <th><select class="col" name="RootPenagihan" id="RootPenagihan">
                                                     <option value="ALL">ALL</option>
-                                                    {{-- @foreach ($penagihan as $penagih) --}}
-                                                        {{-- <option value="{{ $penagih->penagihan }}"> --}}
-                                                            {{-- {{ $penagih->penagihan }}</option> --}}
-                                                    {{-- @endforeach --}}
+                                                    @foreach ($penagihan as $penagih)
+                                                        <option value="{{ $penagih->penagihan }}">
+                                                            {{ $penagih->penagihan }}</option>
+                                                    @endforeach
                                                 </select></th>
                                         </tr>
                                         <tr>
@@ -282,7 +302,7 @@
 
                         <div class="col-sm-6">
                             <div class="table-responsive">
-                                <h6>Summary Data ORI Dismantle FTTH</h6>
+                                <h6>Summary Data ORI FTTX MT</h6>
                                 <table class="table table-bordered" style="font-size: 12px">
                                     <tr class="table-active">
                                         <th>Status WO</th>
@@ -316,7 +336,7 @@
 
                         <div class="col-sm-6">
                             <div class="table-responsive">
-                                <h6>Summary Data Sortir Dismantle FTTH</h6>
+                                <h6>Summary Data Sortir FTTX MT</h6>
                                 <table class="table table-bordered" style="font-size: 12px">
                                     <tr class="table-active">
                                         <th>Status WO</th>
@@ -359,7 +379,7 @@
                                 <table class="table table-bordered" style="font-size: 11px">
                                     <thead>
                                         <tr class="table-active">
-                                            <th>Reason Status Penagihan (Ori)</th>
+                                            <th>Action Taken FTTX MT (Ori)</th>
                                             <th style="text-align: center">Jumlah</th>
                                         </tr>
                                     </thead>
@@ -426,7 +446,7 @@
                                 <table class="table table-bordered" style="font-size: 11px">
                                     <thead>
                                         <tr class="table-active">
-                                            <th>Reason Status Penagihan (Sortir)</th>
+                                            <th>Action Taken FTTX MT (Sortir)</th>
                                             <th style="text-align: center">Jumlah</th>
                                         </tr>
                                     </thead>
@@ -547,7 +567,7 @@
                 $('#tbodyStatusWoSortir').empty();
 
                 $.ajax({
-                    url: "{{ route('getFilterSummaryDismantle') }}",
+                    url: "{{ route('getFilterSummaryFttxMT') }}",
                     type: "get",
                     data: {
                         // bulanTahunReport: bulanReport,
@@ -608,7 +628,7 @@
 
                             $('#tbodyRootCouseOri').append(`
                                 <tr>
-                                    <th>${summary.detPenagihan[x].reason_status}</th>
+                                    <th>${summary.detPenagihan[x].action_taken}</th>
                                     <th style="text-align: center">
                                         ${summary.detPenagihan[x].jml.toLocaleString()}
                                     </th>
@@ -657,7 +677,7 @@
 
                             $('#tbodyRootCouseSortir').append(`
                                 <tr>
-                                    <th>${summary.detPenagihanSortir[x].reason_status}</th>
+                                    <th>${summary.detPenagihanSortir[x].action_taken}</th>
                                     <th style="text-align: center">
                                         ${summary.detPenagihanSortir[x].jml.toLocaleString()}
                                     </th>
@@ -759,7 +779,7 @@
                             }
                         },
                         ajax: {
-                            url: "{{ route('import.dataImportFtthDismantleTemp') }}",
+                            url: "{{ route('import.dataImportFttxMTTemp') }}",
                             type: "post",
                             dataType: "json",
                             data: {
@@ -782,52 +802,71 @@
                             //     width: '5%'
 
                             // },
-                            {data: 'no_wo' },
-                            {data: 'wo_date' },
-                            {data: 'visit_date' },
-                            {data: 'dis_port_date' },
-                            {data: 'takeout_notakeout' },
-                            {data: 'port' },
-                            {data: 'close_date' },
-                            {data: 'cust_id' },
-                            {data: 'nama_cust' },
-                            {data: 'cust_address' },
-                            {data: 'slot_time' },
-                            {data: 'teknisi1' },
-                            {data: 'teknisi2' },
-                            {data: 'teknisi3' },
-                            {data: 'start' },
-                            {data: 'finish' },
-                            {data: 'kode_fat' },
-                            {data: 'kode_area' },
-                            {data: 'cluster' },
-                            {data: 'kotamadya' },
-                            {data: 'kotamadya_penagihan' },
-                            {data: 'main_branch' },
-                            {data: 'ms_regular' },
-                            {data: 'fat_status' },
-                            {data: 'ont_sn_in' },
-                            {data: 'stb_sn_in' },
-                            {data: 'router_sn_in' },
-                            {data: 'tarik_cable' },
-                            {data: 'status_wo' },
-                            {data: 'reason_status' },
-                            {data: 'remarks' },
-                            {data: 'reschedule_date' },
-                            {data: 'alasan_no_rollback' },
-                            {data: 'reschedule_time' },
-                            {data: 'callsign' },
-                            {data: 'checkin_apk' },
-                            {data: 'checkout_apk' },
-                            {data: 'status_apk' },
-                            {data: 'keterangan' },
-                            {data: 'ikr_progress_date' },
-                            {data: 'ikr_report_date' },
-                            {data: 'reconsile_date' },
-                            {data: 'weather' },
-                            {data: 'leader' },
-                            {data: 'pic_monitoring' },
 
+                            {data: `no_so`},
+                            {data: `no_wo`},
+                            {data: `wo_date`},
+                            {data: `mt_date`},
+                            {data: `wo_type`},
+                            {data: `cust_name`},
+                            {data: `cust_address`},
+                            {data: `area`},
+                            {data: `site`},
+                            {data: `packages_type`},
+                            {data: `service_type`},
+                            {data: `slot_time`},
+                            {data: `teknisi1`},
+                            {data: `teknisi2`},
+                            {data: `teknisi3`},
+                            {data: `leader`},
+                            {data: `branch`},
+                            {data: `callsign`},
+                            {data: `nopol`},
+                            {data: `start`},
+                            {data: `finish`},
+                            {data: `report_wa`},
+                            {data: `fdt_code`},
+                            {data: `fat_code`},
+                            {data: `fat_port`},
+                            {data: `signal_fat`},
+                            {data: `signal_tb`},
+                            {data: `signal_ont`},
+                            {data: `ont_sn_out`},
+                            {data: `ont_mac_out`},
+                            {data: `ont_sn_in`},
+                            {data: `ont_mac_in`},
+                            {data: `stb2_sn`},
+                            {data: `stb2_mac`},
+                            {data: `stb3_sn`},
+                            {data: `stb3_mac`},
+                            {data: `router_sn`},
+                            {data: `router_mac`},
+                            {data: `drop_cable`},
+                            {data: `precon`},
+                            {data: `fast_connector`},
+                            {data: `termination_box`},
+                            {data: `patch_cord_3m`},
+                            {data: `patch_cord_10m`},
+                            {data: `screw_hanger`},
+                            {data: `indor_cable_duct`},
+                            {data: `pvc_pipe_20mm`},
+                            {data: `socket_pvc_20mm`},
+                            {data: `clamp_pvc_20mm`},
+                            {data: `flexible_pvc_20mm`},
+                            {data: `clamp_cable`},
+                            {data: `cable_lan`},
+                            {data: `connector_rj45`},
+                            {data: `cable_marker`},
+                            {data: `insulation`},
+                            {data: `cable_ties`},
+                            {data: `adapter_optic`},
+                            {data: `fisher`},
+                            {data: `paku_beton`},
+                            {data: `splitter`},
+                            {data: `status_wo`},
+                            {data: `root_couse`},
+                            {data: `action_taken`},
+                            {data: `remarks`},
                             {data: 'login'},
 
 
