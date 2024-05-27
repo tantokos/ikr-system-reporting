@@ -2,20 +2,19 @@
 
 namespace App\Imports;
 
-use App\Models\ImportFttxMtTemp;
+use App\Models\ImportFttxIbSortirTemp;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use \PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ImportFttxMT implements ToModel,WithHeadingRow, WithChunkReading
+class ImportFttxIBSortir implements ToModel,WithHeadingRow, WithChunkReading
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-
     protected $login;
 
     function __construct($akses)
@@ -26,11 +25,12 @@ class ImportFttxMT implements ToModel,WithHeadingRow, WithChunkReading
 
     public function model(array $row)
     {
-        return new ImportFttxMtTemp([
+        
+        return new ImportFttxIbSortirTemp([
             'no_so' => $row['no_so'],
             'no_wo' => $row['no_wo'],
             'wo_date' => $row['wo_date'],
-            'mt_date' => Date::excelToDateTimeObject($row['mt_date']),
+            'ib_date' => Date::excelToDateTimeObject($row['ib_date']),
             'wo_type' => $row['wo_type'],
             'cust_name' => $row['cust_name'],
             'cust_address' => $row['cust_address'],
@@ -59,10 +59,24 @@ class ImportFttxMT implements ToModel,WithHeadingRow, WithChunkReading
             'ont_mac_out' => $row['ont_mac_out'],
             'ont_sn_in' => $row['ont_sn_in'],
             'ont_mac_in' => $row['ont_mac_in'],
+            'stb1_sn' => $row['stb1_sn'],
+            'stb1_mac' => $row['stb1_mac'],
             'stb2_sn' => $row['stb2_sn'],
             'stb2_mac' => $row['stb2_mac'],
             'stb3_sn' => $row['stb3_sn'],
             'stb3_mac' => $row['stb3_mac'],
+            'stb4_sn' => $row['stb4_sn'],
+            'stb4_mac' => $row['stb4_mac'],
+            'stb5_sn' => $row['stb5_sn'],
+            'stb5_mac' => $row['stb5_mac'],
+            'stb6_sn' => $row['stb6_sn'],
+            'stb6_mac' => $row['stb6_mac'],
+            'stb7_sn' => $row['stb7_sn'],
+            'stb7_mac' => $row['stb7_mac'],
+            'stb8_sn' => $row['stb8_sn'],
+            'stb8_mac' => $row['stb8_mac'],
+            'stb9_sn' => $row['stb9_sn'],
+            'stb9_mac' => $row['stb9_mac'],
             'router_sn' => $row['router_sn'],
             'router_mac' => $row['router_mac'],
             'drop_cable' => $row['drop_cable'],

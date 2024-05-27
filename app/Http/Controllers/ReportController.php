@@ -381,7 +381,98 @@ class ReportController extends Controller
         return response()->json($branchPenagihan);
     }
 
+    
+
     public function getClusterBranch(Request $request)
+    {
+        
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+        
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $totBranchBln = [];
+        $totBranchBln2 = [];
+        $trendBulanan = [];
+        $branchSortir = [];
+        $detCluster = [];
+        $detCluster2 = [];
+        $detRootCouseSortir = [];
+
+        $newBranchCluster = [];
+        $kolomBln='';
+
+        $totBranchCluster = DB::table("v_ftth_mt_cluster")
+                            ->select('nama_branch as nmTBranch','site_penagihan') //, DB::raw('sum(Jan_2024) as "jan_2024"'))
+                            ->groupBy('nama_branch','site_penagihan');
+
+        $detClusterxx = DB::table("v_ftth_mt_cluster")
+                        ->select('nama_branch', 'cluster','site_penagihan')// ->get();
+                        ->groupBy('nama_branch','cluster','site_penagihan');
+
+
+        if ($request->filterSite != "All") {
+            $totBranchCluster = $totBranchCluster->where('site_penagihan', '=', $request->filterSite);
+            $detClusterxx = $detClusterxx->where('site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $totBranchCluster = $totBranchCluster->where('branch', '=', $request->filterBranch);
+            $detClusterxx = $detClusterxx->where('branch', '=', $request->filterBranch);
+        }
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$bt-1]['bulan'])->month;
+            $blnThn = str_replace('-','_',$trendBulanan[$bt-1]['bulan']);
+
+            $totBranchCluster = $totBranchCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0) as ".$blnThn.""));
+            $detClusterxx = $detClusterxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0) as ".$blnThn.""));
+        }
+
+        $totBranchCluster=$totBranchCluster->get();
+        $detClusterxx = $detClusterxx->get();
+
+
+        for ($db = 0; $db < count($totBranchCluster); $db++) {
+
+            $totBranchBln[$db]['nmTbranch'] = $totBranchCluster[$db]->nmTBranch;
+            for ($dbm = 0; $dbm < count($trendBulanan); $dbm++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$dbm]['bulan'])->month;
+                $blnThn = str_replace('-','_',$trendBulanan[$dbm]['bulan']);
+
+                $totBranchBln[$db]['totbulanan'][$dbm] = (int)$totBranchCluster[$db]->$blnThn;
+
+            }
+
+        }
+
+        for ($bc = 0; $bc < count($detClusterxx); $bc++) {
+
+            $detCluster[$bc]['nama_branch'] = $detClusterxx[$bc]->nama_branch;
+            $detCluster[$bc]['cluster'] = $detClusterxx[$bc]->cluster;
+
+
+            for ($tm = 0; $tm < count($trendBulanan); $tm++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tm]['bulan'])->month;
+                $blnThn = str_replace('-','_',$trendBulanan[$tm]['bulan']);
+
+
+                $detCluster[$bc]['bulanan'][$tm] = $detClusterxx[$bc]->$blnThn;
+
+            }
+
+        }
+
+
+
+        return response()->json([
+            'branchCluster' => $totBranchBln, 'detCluster' => $detCluster
+        ]);
+    } 
+
+    public function getClusterBranchtest(Request $request)
     {
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
@@ -473,8 +564,8 @@ class ReportController extends Controller
         return response()->json([
             'branchCluster' => $totBranchBln, 'detCluster' => $detCluster
         ]);
-    }    
-
+    } 
+    
     public function getTrendMonthly(Request $request)
     {
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
@@ -805,8 +896,12 @@ class ReportController extends Controller
 
         $trendBulanan = [];
         $detPenagihanSortir = [];
+        $detPenagihanSoritrxx = [];
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
+
+        $detCouseCodeSortirxx = [];
+        $detRootCouseSortirxx = [];
 
         for ($bt = 1; $bt <= $bulan; $bt++) {
             $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
@@ -825,56 +920,135 @@ class ReportController extends Controller
         // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
         // ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
+        $PenagihanSortirxx = DB::table('v_ftth_mt_rootcouse_done')
+                            ->select('penagihan')
+                            ->groupBy('penagihan');
 
-        $PenagihanSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional']);
-        //->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month) // $bulan)
-        // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-        // ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $CouseCodeSortirxx = DB::table('v_ftth_mt_rootcouse_done')
+                            ->select('penagihan','couse_code')
+                            ->groupBy('penagihan','couse_code');
+
+        $RootCouseSortirxx = DB::table('v_ftth_mt_rootcouse_done')
+                            ->select('penagihan','couse_code','root_couse')
+                            ->groupBy('penagihan','couse_code','root_couse');
+                            
+
+
+        for ($tb = 0; $tb < count($trendBulanan); $tb++) {
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+
+            $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+
+            $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+
+        }
 
         if ($request->filterSite != "All") {
-            $PenagihanSortir = $PenagihanSortir->where('site_penagihan', '=', $request->filterSite);
+            $PenagihanSortirxx = $PenagihanSortirxx->where('site_penagihan', '=', $request->filterSite);
+            $CouseCodeSortirxx = $CouseCodeSortirxx->where('site_penagihan', '=', $request->filterSite);
+            $PenagihanSortirxx = $PenagihanSortirxx->where('site_penagihan', '=', $request->filterSite);
         }
         if ($request->filterBranch != "All") {
-            $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
+            $PenagihanSortirxx = $PenagihanSortirxx->where('branch', '=', $request->filterBranch);
+            $CouseCodeSortirxx = $CouseCodeSortirxx->where('branch', '=', $request->filterBranch);
+            $RootCouseSortirxx = $RootCouseSortirxx->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortirxx= $PenagihanSortirxx->get();
+        $CouseCodeSortirxx= $CouseCodeSortirxx->get();
+        $RootCouseSortirxx= $RootCouseSortirxx->get();
 
-        for ($ps = 0; $ps < count($PenagihanSortir); $ps++) {
+        
+        for($psx=0; $psx < $PenagihanSortirxx->count(); $psx++){
+            $detPenagihanSoritrxx[$psx] = ['penagihan' => $PenagihanSortirxx[$psx]->penagihan];
 
-            $detPenagihanSortir[$ps]['penagihan'] = $PenagihanSortir[$ps]->penagihan;
+            for($tb=0; $tb < count($trendBulanan); $tb++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
 
-            for ($m = 0; $m < count($trendBulanan); $m++) {
+                $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
 
-                $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-                    ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
-                    ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
-                    ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_ftth_mt_sortirs.penagihan', '=', $PenagihanSortir[$ps]->penagihan);
-
-                if ($request->filterSite != "All") {
-                    $jml = $jml->where('site_penagihan', '=', $request->filterSite);
-                }
-                if ($request->filterBranch != "All") {
-                    $jml = $jml->where('branch', '=', $request->filterBranch);
-                }
-
-                $jml = $jml->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
-
-                $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
+                $detPenagihanSoritrxx[$psx]['bulanan'][$tb] = [(int)$PenagihanSortirxx[$psx]->$blnThn];
+                
             }
+
         }
 
+        for($psx=0; $psx < $CouseCodeSortirxx->count(); $psx++){
+            $detCouseCodeSortirxx[$psx] = ['penagihan' => $CouseCodeSortirxx[$psx]->penagihan, 'couse_code' => $CouseCodeSortirxx[$psx]->couse_code];
 
-        // // dd($detPenagihanSortir);
+            for($tb=0; $tb < count($trendBulanan); $tb++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+
+                $detCouseCodeSortirxx[$psx]['bulanan'][$tb] = [(int)$CouseCodeSortirxx[$psx]->$blnThn];
+            }
+
+        }
+
+        for($psx=0; $psx < $RootCouseSortirxx->count(); $psx++){
+            $detRootCouseSortirxx[$psx] = ['penagihan' => $RootCouseSortirxx[$psx]->penagihan, 'couse_code' => $RootCouseSortirxx[$psx]->couse_code, 'root_couse' => $RootCouseSortirxx[$psx]->root_couse];
+
+            for($tb=0; $tb < count($trendBulanan); $tb++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+
+                $detRootCouseSortirxx[$psx]['bulanan'][$tb] = [$RootCouseSortirxx[$psx]->$blnThn];
+            }
+
+        }
+        
+
+        // $PenagihanSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+        //     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+        //     ->where('root_couse_penagihan.status', '=', 'Done')
+        //     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
+        //     ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional']);
+        // //->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month) // $bulan)
+        // // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+        // // ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        // if ($request->filterSite != "All") {
+        //     $PenagihanSortir = $PenagihanSortir->where('site_penagihan', '=', $request->filterSite);
+        // }
+        // if ($request->filterBranch != "All") {
+        //     $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
+        // }
+
+        // $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        // for ($ps = 0; $ps < count($PenagihanSortir); $ps++) {
+
+        //     $detPenagihanSortir[$ps]['penagihan'] = $PenagihanSortir[$ps]->penagihan;
+
+        //     for ($m = 0; $m < count($trendBulanan); $m++) {
+
+        //         $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+        //             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+        //             ->where('root_couse_penagihan.status', '=', 'Done')
+        //             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
+        //             ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+        //             ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
+        //             ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->where('data_ftth_mt_sortirs.penagihan', '=', $PenagihanSortir[$ps]->penagihan);
+
+        //         if ($request->filterSite != "All") {
+        //             $jml = $jml->where('site_penagihan', '=', $request->filterSite);
+        //         }
+        //         if ($request->filterBranch != "All") {
+        //             $jml = $jml->where('branch', '=', $request->filterBranch);
+        //         }
+
+        //         $jml = $jml->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+
+        //         $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
+        //     }
+        // }
+
 
         // $detCouseCodeSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code, count(*) as jml'))
         // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
@@ -884,56 +1058,55 @@ class ReportController extends Controller
         // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
         // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        $CouseCodeSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional']);
-        // ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
-        // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-        // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        if ($request->filterSite != "All") {
-            $CouseCodeSortir = $CouseCodeSortir->where('site_penagihan', '=', $request->filterSite);
-        }
-        if ($request->filterBranch != "All") {
-            $CouseCodeSortir = $CouseCodeSortir->where('branch', '=', $request->filterBranch);
-        }
+        // $CouseCodeSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
+        //     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+        //     ->where('root_couse_penagihan.status', '=', 'Done')
+        //     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
+        //     ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional']);
+        // // ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+        // // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+        // // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        $CouseCodeSortir = $CouseCodeSortir->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // if ($request->filterSite != "All") {
+        //     $CouseCodeSortir = $CouseCodeSortir->where('site_penagihan', '=', $request->filterSite);
+        // }
+        // if ($request->filterBranch != "All") {
+        //     $CouseCodeSortir = $CouseCodeSortir->where('branch', '=', $request->filterBranch);
+        // }
 
-        for ($cs = 0; $cs < count($CouseCodeSortir); $cs++) {
+        // $CouseCodeSortir = $CouseCodeSortir->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-            $detCouseCodeSortir[$cs]['penagihan'] = $CouseCodeSortir[$cs]->penagihan;
-            $detCouseCodeSortir[$cs]['couse_code'] = $CouseCodeSortir[$cs]->couse_code;
+        // for ($cs = 0; $cs < count($CouseCodeSortir); $cs++) {
 
-            for ($mc = 0; $mc < count($trendBulanan); $mc++) {
+        //     $detCouseCodeSortir[$cs]['penagihan'] = $CouseCodeSortir[$cs]->penagihan;
+        //     $detCouseCodeSortir[$cs]['couse_code'] = $CouseCodeSortir[$cs]->couse_code;
 
-                $jmlCouseCode = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-                    ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
-                    ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$mc]['bulan'])->month) // $bulan)
-                    ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_ftth_mt_sortirs.penagihan', '=', $CouseCodeSortir[$cs]->penagihan)
-                    ->where('data_ftth_mt_sortirs.couse_code', '=', $CouseCodeSortir[$cs]->couse_code);
+        //     for ($mc = 0; $mc < count($trendBulanan); $mc++) {
 
-                if ($request->filterSite != "All") {
-                    $jmlCouseCode = $jmlCouseCode->where('site_penagihan', '=', $request->filterSite);
-                }
-                if ($request->filterBranch != "All") {
-                    $jmlCouseCode = $jmlCouseCode->where('branch', '=', $request->filterBranch);
-                }
+        //         $jmlCouseCode = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code'))
+        //             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+        //             ->where('root_couse_penagihan.status', '=', 'Done')
+        //             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
+        //             ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+        //             ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$mc]['bulan'])->month) // $bulan)
+        //             ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->where('data_ftth_mt_sortirs.penagihan', '=', $CouseCodeSortir[$cs]->penagihan)
+        //             ->where('data_ftth_mt_sortirs.couse_code', '=', $CouseCodeSortir[$cs]->couse_code);
 
-                $jmlCouseCode = $jmlCouseCode->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+        //         if ($request->filterSite != "All") {
+        //             $jmlCouseCode = $jmlCouseCode->where('site_penagihan', '=', $request->filterSite);
+        //         }
+        //         if ($request->filterBranch != "All") {
+        //             $jmlCouseCode = $jmlCouseCode->where('branch', '=', $request->filterBranch);
+        //         }
 
-                $detCouseCodeSortir[$cs]['bulanan'][$mc] = [$jmlCouseCode];
-            }
-        }
+        //         $jmlCouseCode = $jmlCouseCode->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
 
-
+        //         $detCouseCodeSortir[$cs]['bulanan'][$mc] = [$jmlCouseCode];
+        //     }
+        // }
 
 
         // $detRootCouseSortir = DataFtthMtSortir::select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse, count(*) as jml'))
@@ -944,63 +1117,63 @@ class ReportController extends Controller
         // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
         // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        $RootCouseSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-            ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional']);
-        // ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
-        // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-        // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // $RootCouseSortir = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
+        //     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+        //     ->where('root_couse_penagihan.status', '=', 'Done')
+        //     ->where('root_couse_penagihan.type_wo','=','MT FTTH')
+        //     ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional']);
+        // // ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', $bulan)
+        // // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+        // // ->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        if ($request->filterSite != "All") {
-            $RootCouseSortir = $RootCouseSortir->where('site_penagihan', '=', $request->filterSite);
-        }
-        if ($request->filterBranch != "All") {
-            $RootCouseSortir = $RootCouseSortir->where('branch', '=', $request->filterBranch);
-        }
+        // if ($request->filterSite != "All") {
+        //     $RootCouseSortir = $RootCouseSortir->where('site_penagihan', '=', $request->filterSite);
+        // }
+        // if ($request->filterBranch != "All") {
+        //     $RootCouseSortir = $RootCouseSortir->where('branch', '=', $request->filterBranch);
+        // }
 
-        $RootCouseSortir = $RootCouseSortir->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // $RootCouseSortir = $RootCouseSortir->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
-        for ($rc = 0; $rc < count($RootCouseSortir); $rc++) {
+        // for ($rc = 0; $rc < count($RootCouseSortir); $rc++) {
 
-            $detRootCouseSortir[$rc]['penagihan'] = $RootCouseSortir[$rc]->penagihan;
-            $detRootCouseSortir[$rc]['couse_code'] = $RootCouseSortir[$rc]->couse_code;
-            $detRootCouseSortir[$rc]['root_couse'] = $RootCouseSortir[$rc]->root_couse;
+        //     $detRootCouseSortir[$rc]['penagihan'] = $RootCouseSortir[$rc]->penagihan;
+        //     $detRootCouseSortir[$rc]['couse_code'] = $RootCouseSortir[$rc]->couse_code;
+        //     $detRootCouseSortir[$rc]['root_couse'] = $RootCouseSortir[$rc]->root_couse;
 
-            for ($mr = 0; $mr < count($trendBulanan); $mr++) {
+        //     for ($mr = 0; $mr < count($trendBulanan); $mr++) {
 
-                $jmlRootCouse = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-                    ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
-                    ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$mr]['bulan'])->month) // $bulan)
-                    ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_ftth_mt_sortirs.penagihan', '=', $RootCouseSortir[$rc]->penagihan)
-                    ->where('data_ftth_mt_sortirs.couse_code', '=', $RootCouseSortir[$rc]->couse_code)
-                    ->where('data_ftth_mt_sortirs.root_couse', '=', $RootCouseSortir[$rc]->root_couse);
+        //         $jmlRootCouse = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan,couse_code,root_couse'))
+        //             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+        //             ->where('root_couse_penagihan.status', '=', 'Done')
+        //             ->where('root_couse_penagihan.type_wo','=','MT FTTH')
+        //             ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+        //             ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$mr]['bulan'])->month) // $bulan)
+        //             ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->where('data_ftth_mt_sortirs.penagihan', '=', $RootCouseSortir[$rc]->penagihan)
+        //             ->where('data_ftth_mt_sortirs.couse_code', '=', $RootCouseSortir[$rc]->couse_code)
+        //             ->where('data_ftth_mt_sortirs.root_couse', '=', $RootCouseSortir[$rc]->root_couse);
 
-                if ($request->filterSite != "All") {
-                    $jmlRootCouse = $jmlRootCouse->where('site_penagihan', '=', $request->filterSite);
-                }
-                if ($request->filterBranch != "All") {
-                    $jmlRootCouse = $jmlRootCouse->where('branch', '=', $request->filterBranch);
-                }
+        //         if ($request->filterSite != "All") {
+        //             $jmlRootCouse = $jmlRootCouse->where('site_penagihan', '=', $request->filterSite);
+        //         }
+        //         if ($request->filterBranch != "All") {
+        //             $jmlRootCouse = $jmlRootCouse->where('branch', '=', $request->filterBranch);
+        //         }
 
-                $jmlRootCouse = $jmlRootCouse->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+        //         $jmlRootCouse = $jmlRootCouse->groupBy('data_ftth_mt_sortirs.penagihan', 'couse_code', 'root_couse', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
 
-                $detRootCouseSortir[$rc]['bulanan'][$mr] = [$jmlRootCouse];
-            }
-        }
+        //         $detRootCouseSortir[$rc]['bulanan'][$mr] = [$jmlRootCouse];
+        //     }
+        // }
 
         // dd($PenagihanSortir, $detPenagihanSortir, $detCouseCodeSortir, $detRootCouseSortir);
         // end query data Sortir
 
         return response()->json([
-            'detPenagihanSortir' => $detPenagihanSortir,
-            'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
+            'detPenagihanSortir' => $detPenagihanSoritrxx,
+            'detCouseCodeSortir' => $detCouseCodeSortirxx, 'detRootCouseSortir' => $detRootCouseSortirxx
         ]);
     }
 

@@ -486,7 +486,7 @@
         {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
             <div class="table-responsive">
-                <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
+                <table class="table table-bordered border-primary table-auto" style="font-size: 11px; table-layout: fixed;">
                     <thead>
                         <tr id="rootCouseHeadAPK">
                             {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
@@ -1416,6 +1416,146 @@
             })
             // console.log($('#CardTitle').html("testing"));
 
+            
+            $.ajax({
+                url: "{{ route('getTrendMonthly') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(dataTrendMonthly) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    trendWoMt = dataTrendMonthly;
+
+                    var trendMonth = [''];
+                    var trendTotMt = ['null'];
+                    var trendMtDone = ['null'];
+
+                    $.each(trendWoMt, function(key, item) {
+
+                        trendMonth.push(item.bulan);
+                        trendTotMt.push(item.trendMtTotal);
+                        trendMtDone.push(item.trendMtDone);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotMt.push('null');
+                    trendMtDone.push('null');
+
+                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
+
+                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
+                    if (graphTrendTotWoMt) {
+                        graphTrendTotWoMt.destroy();
+                    }
+
+
+
+                    new Chart(ctxTrendTotWoMt, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotMt, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
+
+                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
+                    if (graphTrendTotWoMtClose) {
+                        graphTrendTotWoMtClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoMtClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendMtDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                }
+
+            })
+
+
             let uri;
             if ((filSite == "All") && (filBranch == "All")){
                 uri = "{{ route('getTotalWoBranch')}}";
@@ -1708,146 +1848,10 @@
 
             })
 
-            $.ajax({
-                url: "{{ route('getTrendMonthly') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-
-                },
-                success: function(dataTrendMonthly) {
-                    // var trendWoMt = {!! $trendMonthly !!}
-                    trendWoMt = dataTrendMonthly;
-
-                    var trendMonth = [''];
-                    var trendTotMt = ['null'];
-                    var trendMtDone = ['null'];
-
-                    $.each(trendWoMt, function(key, item) {
-
-                        trendMonth.push(item.bulan);
-                        trendTotMt.push(item.trendMtTotal);
-                        trendMtDone.push(item.trendMtDone);
-
-                    });
-
-                    trendMonth.push('');
-                    trendTotMt.push('null');
-                    trendMtDone.push('null');
-
-                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
-
-                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
-                    if (graphTrendTotWoMt) {
-                        graphTrendTotWoMt.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoMt, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotMt, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
-
-                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
-                    if (graphTrendTotWoMtClose) {
-                        graphTrendTotWoMtClose.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoMtClose, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendMtDone, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                }
-
-            })
+            
 
             $.ajax({
-                url: "{{ route('getRootCouseAPK') }}",
+                url: "{{ route('getClusterBranch') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1857,108 +1861,104 @@
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
                 },
-                success: function(apk) {    
-                    $('#rootCouseHeadAPK').find("th").remove();
-                    $('#bodyRootCouseAPK').find("tr").remove();
-                    $('#penagihanAPK').find("th").remove();
-                    $('#couseCodePenagihanAPK').find("th").remove();
-                    $('#rootCousePenagihanAPK').find("td").remove();
+                success: function(dataCluster) {    
+                    
+                    $('#tableHeadCluster').find("th").remove();
+                    $('#bodyCluster').find("tr").remove();
 
-                    let TotPenagihan = [];
-                    let tbPenagihanAPK;
+                    let TotBranchCluster = [];
+                    let tbBranchCluster;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
                     let hdRootCouseAPK = `
-                        <th>Penagihan</th>
-                        <th>Couse Code</th>
-                        <th>Root Couse</th>`;
+                        <th>Branch</th>
+                        <th>Cluster</th>`;
+                        // <th>Root Couse</th>`;
                         // <th style="text-align: center">Jumlah</th>`;
 
                     for (h = 0;h < trendWoMt.length; h++) {
                         hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                            `<th style="text-align: center">${trendWoMt[h].bulan}</th>`
                     }
 
-                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
+                    $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
 
 
-                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
-
-                        tbPenagihanAPK = `
-                                <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
-                                <th class="table-secondary"></th>
+                    $.each(dataCluster.branchCluster, function(key, nmBranch) {
+                        console.log(nmBranch);
+                        tbBranchCluster = `
+                                <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
                                 <th class="table-secondary"></th>`;
+                                // <th class="table-secondary"></th>`;
                         
                         for (p=0;p<trendWoMt.length; p++) {
-                            tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+                            
+                            tbBranchCluster = tbBranchCluster +
+                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
    
                         }
 
-                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
+                        $('#bodyCluster').append(tbBranchCluster + `</tr>`);
 
-                        $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
-                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
-                                tbCouseCodeAPK = `
-                                    <tr><th></th>
-                                    <th class="table-info">${itemCouseCode.couse_code}</th>
-                                    <th class="table-info"></th>`;
+                        $.each(dataCluster.detCluster, function(key, itemCluster) {
+                            if (nmBranch.nmTbranch == itemCluster.nama_branch) {
+                                tbCluster = `
+                                    <tr><td></td>
+                                    <td>${itemCluster.cluster}</td>`;
+                                    // <th class="table-info"></th>`;
 
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
-                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
                                 }
 
-                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
+                                $('#bodyCluster').append(tbCluster + '</tr>');
 
 
-                                $.each(apk.detRootCouseSortir, function(key,
-                                    itemRootCouse) {
+                                // $.each(apk.detRootCouseSortir, function(key,
+                                //     itemRootCouse) {
 
-                                    if (itemPenagihan.penagihan == itemRootCouse
-                                        .penagihan && itemCouseCode
-                                        .couse_code == itemRootCouse.couse_code
-                                    ) {
-                                        tbRootCouseAPK = `
-                                            <tr><td></td>
-                                            <td></td>
-                                            <td>${itemRootCouse.root_couse}</td>`;
+                                //     if (itemPenagihan.penagihan == itemRootCouse
+                                //         .penagihan && itemCouseCode
+                                //         .couse_code == itemRootCouse.couse_code
+                                //     ) {
+                                //         tbRootCouseAPK = `
+                                //             <tr><td></td>
+                                //             <td></td>
+                                //             <td>${itemRootCouse.root_couse}</td>`;
 
-                                        for (rc = 0; rc < trendWoMt.length; rc++) {
-                                            tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
-                                        }
-                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
-                                    }
-                                });
+                                //         for (rc = 0; rc < trendWoMt.length; rc++) {
+                                //             tbRootCouseAPK = tbRootCouseAPK +
+                                //             `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                //         }
+                                //         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
+                                //     }
+                                // });
                             }
                         });
                     });
 
-                    
-
-                    let totRootCouseAPK = `
+                    let totBulananCluster = `
                         <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>
                             <th class="table-dark"></th>`;
+                            // <th class="table-dark"></th>`;
                             // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
 
                     for (p=0;p<trendWoMt.length; p++) {
-                        TotPenagihan[p] = 0
-                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
-                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        colBln = trendWoMt[p].bulan;
+                        colBln = colBln.replace("-","_");
+                            
+                        TotBranchCluster[p] = 0
+                        $.each(dataCluster.branchCluster, function(key, totBranchCl) {
+                            TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
                         })
 
-                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
                     }
 
-                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
+                    $('#bodyCluster').append(totBulananCluster + `</tr>`);
                 }
 
             });
-
-
-            
-
 
             $.ajax({
                 url: "{{ route('getTabelStatus') }}",
@@ -2163,6 +2163,118 @@
             })
 
             $.ajax({
+                url: "{{ route('getRootCouseAPK') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                success: function(apk) {    
+                    $('#rootCouseHeadAPK').find("th").remove();
+                    $('#bodyRootCouseAPK').find("tr").remove();
+                    $('#penagihanAPK').find("th").remove();
+                    $('#couseCodePenagihanAPK').find("th").remove();
+                    $('#rootCousePenagihanAPK').find("td").remove();
+
+                    let TotPenagihan = [];
+                    let tbPenagihanAPK;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>Penagihan</th>
+                        <th>Couse Code</th>
+                        <th>Root Couse</th>`;
+                        // <th style="text-align: center">Jumlah</th>`;
+
+                    for (h = 0;h < trendWoMt.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                    }
+
+                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
+
+
+                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+
+                        tbPenagihanAPK = `
+                                <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
+                                <th class="table-secondary"></th>
+                                <th class="table-secondary"></th>`;
+                        
+                        for (p=0;p<trendWoMt.length; p++) {
+                            tbPenagihanAPK = tbPenagihanAPK +
+                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+   
+                        }
+
+                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
+
+                        $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
+                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
+                                tbCouseCodeAPK = `
+                                    <tr><th></th>
+                                    <th class="table-info">${itemCouseCode.couse_code}</th>
+                                    <th class="table-info"></th>`;
+
+                                for (cc = 0;cc < trendWoMt.length; cc++) {
+                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                }
+
+                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
+
+
+                                $.each(apk.detRootCouseSortir, function(key,
+                                    itemRootCouse) {
+
+                                    if (itemPenagihan.penagihan == itemRootCouse
+                                        .penagihan && itemCouseCode
+                                        .couse_code == itemRootCouse.couse_code
+                                    ) {
+                                        tbRootCouseAPK = `
+                                            <tr><td></td>
+                                            <td></td>
+                                            <td>${itemRootCouse.root_couse}</td>`;
+
+                                        for (rc = 0; rc < trendWoMt.length; rc++) {
+                                            tbRootCouseAPK = tbRootCouseAPK +
+                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                        }
+                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    
+
+                    let totRootCouseAPK = `
+                        <tr><th class="table-dark">TOTAL</th>
+                            <th class="table-dark"></th>
+                            <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+                    for (p=0;p<trendWoMt.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                    }
+
+                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
+                }
+
+            });
+
+            
+
+            $.ajax({
                 url: "{{ route('getRootCouseAPKGraph') }}",
                 type: 'GET',
                 data: {
@@ -2297,113 +2409,7 @@
 
             })
 
-            $.ajax({
-                url: "{{ route('getClusterBranch') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(dataCluster) {    
-                    console.log(dataCluster.detCluster);
-                    $('#tableHeadCluster').find("th").remove();
-                    $('#bodyCluster').find("tr").remove();
-
-                    let TotBranchCluster = [];
-                    let tbBranchCluster;
-                    let tbCouseCodeAPK;
-                    let tbRootCouseAPK;
-                    let hdRootCouseAPK = `
-                        <th>Branch</th>
-                        <th>Cluster</th>`;
-                        // <th>Root Couse</th>`;
-                        // <th style="text-align: center">Jumlah</th>`;
-
-                    for (h = 0;h < trendWoMt.length; h++) {
-                        hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
-                    }
-
-                    $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
-
-
-                    $.each(dataCluster.branchCluster, function(key, nmBranch) {
-
-                        tbBranchCluster = `
-                                <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
-                                <th class="table-secondary"></th>`;
-                                // <th class="table-secondary"></th>`;
-                        
-                        for (p=0;p<trendWoMt.length; p++) {
-                            tbBranchCluster = tbBranchCluster +
-                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
-   
-                        }
-
-                        $('#bodyCluster').append(tbBranchCluster + `</tr>`);
-
-                        $.each(dataCluster.detCluster, function(key, itemCluster) {
-                            if (nmBranch.nmTbranch == itemCluster.nama_branch) {
-                                tbCluster = `
-                                    <tr><td></td>
-                                    <td>${itemCluster.cluster}</td>`;
-                                    // <th class="table-info"></th>`;
-
-                                for (cc = 0;cc < trendWoMt.length; cc++) {
-                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
-                                }
-
-                                $('#bodyCluster').append(tbCluster + '</tr>');
-
-
-                                // $.each(apk.detRootCouseSortir, function(key,
-                                //     itemRootCouse) {
-
-                                //     if (itemPenagihan.penagihan == itemRootCouse
-                                //         .penagihan && itemCouseCode
-                                //         .couse_code == itemRootCouse.couse_code
-                                //     ) {
-                                //         tbRootCouseAPK = `
-                                //             <tr><td></td>
-                                //             <td></td>
-                                //             <td>${itemRootCouse.root_couse}</td>`;
-
-                                //         for (rc = 0; rc < trendWoMt.length; rc++) {
-                                //             tbRootCouseAPK = tbRootCouseAPK +
-                                //             `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
-                                //         }
-                                //         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
-                                //     }
-                                // });
-                            }
-                        });
-                    });
-
-                    
-
-                    let totBulananCluster = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>`;
-                            // <th class="table-dark"></th>`;
-                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
-
-                    for (p=0;p<trendWoMt.length; p++) {
-                        TotBranchCluster[p] = 0
-                        $.each(dataCluster.branchCluster, function(key, totBranchCl) {
-                            TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
-                        })
-
-                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
-                    }
-
-                    $('#bodyCluster').append(totBulananCluster + `</tr>`);
-                }
-
-            });
+            
 
 
             $.ajax({
@@ -2540,6 +2546,76 @@
                 }
 
             })
+
+            $.ajax({
+                url: "{{ route('getRootCousePending') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                success: function(dataRootCousePending) {
+                    console.log(dataRootCousePending);
+                    $('#rootCouseHeadPending').find("tr").remove();
+                    $('#rootCouseTbPending').find("tr").remove();
+                    $('#totRootCousePending').find("th").remove();
+
+                    var TotRootDonePending = 0;
+                    let tbRootCousePending;
+                    let hdRootCousePending = `
+                        <tr>
+                                <th>RootCouse Pending</th>
+                        </tr>`;
+
+                    $('#rootCouseHeadPending').append(hdRootCousePending);
+
+                    for (b = 0; b < trendWoMt.length; b++) {
+                        $('#rootCouseHeadPending').find("tr").append(
+                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                        )
+                    }
+
+                    $.each(dataRootCousePending, function(key, item) {
+
+                        if (item.penagihan == 'total_pending') {
+                            tbRootCousePending = `
+                            <tr>
+                                <th class="table-dark">Total</th>
+                                
+                            `;
+                        } else {
+                            tbRootCousePending = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                
+                            `;
+                        }
+
+                        if (item.penagihan == 'total_pending') {
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<th class="table-dark" style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
+                            }
+
+                        } else {
+                            for (bln = 0; bln < trendWoMt.length; bln++) {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+
+                            }
+                        }
+
+                        tbRootCousePending = tbRootCousePending + `</tr>`;
+                        $('#rootCouseTbPending').append(tbRootCousePending);
+
+                    });
+                }
+
+            });
 
             $.ajax({
                 url: "{{ route('getRootCouseCancelGraph') }}",
@@ -2750,75 +2826,7 @@
 
             // });
 
-            $.ajax({
-                url: "{{ route('getRootCousePending') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(dataRootCousePending) {
-                    console.log(dataRootCousePending);
-                    $('#rootCouseHeadPending').find("tr").remove();
-                    $('#rootCouseTbPending').find("tr").remove();
-                    $('#totRootCousePending').find("th").remove();
-
-                    var TotRootDonePending = 0;
-                    let tbRootCousePending;
-                    let hdRootCousePending = `
-                        <tr>
-                                <th>RootCouse Pending</th>
-                        </tr>`;
-
-                    $('#rootCouseHeadPending').append(hdRootCousePending);
-
-                    for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
-
-                    $.each(dataRootCousePending, function(key, item) {
-
-                        if (item.penagihan == 'total_pending') {
-                            tbRootCousePending = `
-                            <tr>
-                                <th class="table-dark">Total</th>
-                                
-                            `;
-                        } else {
-                            tbRootCousePending = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        }
-
-                        if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<th class="table-dark" style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
-
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
-
-                            }
-                        }
-
-                        tbRootCousePending = tbRootCousePending + `</tr>`;
-                        $('#rootCouseTbPending').append(tbRootCousePending);
-
-                    });
-                }
-
-            });
+            
 
             $.ajax({
                 url: "{{ route('getRootCouseCancel') }}",

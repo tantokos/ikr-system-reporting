@@ -308,32 +308,46 @@ class Report_DismantleController extends Controller
         $detCluster = [];
         $detRootCouseSortir = [];
 
+        $branch = DB::table('v_ftth_dismantle_cluster')
+                    ->select('nama_branch')
+                    ->groupBy('nama_branch');
+
+        $branchCluster = DB::table('v_ftth_dismantle_cluster')
+                    ->select('nama_branch','cluster')
+                    ->groupBy('nama_branch','cluster');
+
+
+        if ($request->filterBranch != "All") {
+            $branch = $branch->where('branch', '=', $request->filterBranch);
+            $branchCluster = $branchCluster->where('branch', '=', $request->filterBranch);
+        }
+
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
             $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$bt-1]['bulan'])->month;
+            $blnThn = str_replace('-','_',$trendBulanan[$bt-1]['bulan']);
+
+            $branch = $branch->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_dismantle end),0) as ".$blnThn.""));
+            $branchCluster = $branchCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_dismantle end),0) as ".$blnThn.""));
+
         }
 
-        $branch = DB::table('data_ftth_dismantle_sortirs as d')
-                ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
-                ->select('b.id','d.main_branch as nama_branch');
-                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
+        $branch = $branch->get();
+        $branchCluster = $branchCluster->get();
 
-        $branchCluster = DB::table('data_ftth_dismantle_sortirs as d')
-                ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
-                ->select('b.id','d.main_branch as nama_branch','d.cluster');
-                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
+        for ($db = 0; $db < count($branch); $db++) {
 
-                
-        if ($request->filterSite != "All") {
-            $branchCluster = $branchCluster->where('d.site_penagihan', '=', $request->filterSite);
-            $branch = $branch->where('d.site_penagihan', '=', $request->filterSite);
+            $totBranchBln[$db]['nmTbranch'] = $branch[$db]->nama_branch;
+
+            for ($dbm = 0; $dbm < count($trendBulanan); $dbm++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$dbm]['bulan'])->month;
+                $blnThn = str_replace('-','_',$trendBulanan[$dbm]['bulan']);
+
+                $totBranchBln[$db]['totbulanan'][$dbm] = $branch[$db]->$blnThn;
+
+            }
         }
-        if ($request->filterBranch != "All") {
-            $branchCluster = $branchCluster->where('d.main_branch', '=', $request->filterBranch);
-            $branch = $branch->where('d.main_branch', '=', $request->filterBranch);
-        }
-
-        $branchCluster = $branchCluster->groupBy('d.main_branch', 'b.id','d.cluster')->orderBy('b.id')->orderBy('d.cluster' )->get();
-        $branch = $branch->groupBy('d.main_branch', 'b.id')->orderBy('b.id')->get();
 
         for ($bc = 0; $bc < count($branchCluster); $bc++) {
 
@@ -342,45 +356,86 @@ class Report_DismantleController extends Controller
 
 
             for ($tm = 0; $tm < count($trendBulanan); $tm++) {
-
-                $jml = DB::table('data_ftth_dismantle_sortirs as d')
-                ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
-                ->select('b.id','d.main_branch as nama_branch','d.cluster')
-                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
-                ->whereMonth('d.visit_date', '=', \Carbon\Carbon::parse($trendBulanan[$tm]['bulan'])->month) // $bulan)
-                ->whereYear('d.visit_date', '=', $tahun)
-                ->where('d.main_branch','=', $branchCluster[$bc]->nama_branch)
-                ->where('d.cluster','=', $branchCluster[$bc]->cluster);
-
-
-                $jml = $jml->groupBy('d.main_branch','d.cluster', 'b.id')->orderBy('b.id')->count();
-
-                $detCluster[$bc]['bulanan'][$tm] = [$jml];
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tm]['bulan'])->month;
+                $blnThn = str_replace('-','_',$trendBulanan[$tm]['bulan']);
+               
+                $detCluster[$bc]['bulanan'][$tm] = $branchCluster[$bc]->$blnThn;
 
             }
 
         }
 
-        for ($db = 0; $db < count($branch); $db++) {
 
-            $totBranchBln[$db]['nmTbranch'] = $branch[$db]->nama_branch;
-            for ($dbm = 0; $dbm < count($trendBulanan); $dbm++) {
 
-                $jmldbm = DB::table('data_ftth_dismantle_sortirs as d')
-                ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
-                ->select('b.id','d.main_branch as nama_branch')
-                // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
-                ->whereMonth('d.visit_date', '=', \Carbon\Carbon::parse($trendBulanan[$dbm]['bulan'])->month) // $bulan)
-                ->whereYear('d.visit_date', '=', $tahun)
-                ->where('d.main_branch','=', $branch[$db]->nama_branch)
-                ->groupBy('d.main_branch','b.id')->orderBy('b.id')->count();
+        // $branch = DB::table('data_ftth_dismantle_sortirs as d')
+        //         ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
+        //         ->select('b.id','d.main_branch as nama_branch');
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
 
-                // $varjml = $varjml + $jmldbm;
-                $totBranchBln[$db]['totbulanan'][$dbm] = [$jmldbm];
+        // $branchCluster = DB::table('data_ftth_dismantle_sortirs as d')
+        //         ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
+        //         ->select('b.id','d.main_branch as nama_branch','d.cluster');
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
 
-            }
+                
+        // if ($request->filterSite != "All") {
+        //     $branchCluster = $branchCluster->where('d.site_penagihan', '=', $request->filterSite);
+        //     $branch = $branch->where('d.site_penagihan', '=', $request->filterSite);
+        // }
+        // if ($request->filterBranch != "All") {
+        //     $branchCluster = $branchCluster->where('d.main_branch', '=', $request->filterBranch);
+        //     $branch = $branch->where('d.main_branch', '=', $request->filterBranch);
+        // }
 
-        }
+        // $branchCluster = $branchCluster->groupBy('d.main_branch', 'b.id','d.cluster')->orderBy('b.id')->orderBy('d.cluster' )->get();
+        // $branch = $branch->groupBy('d.main_branch', 'b.id')->orderBy('b.id')->get();
+
+        // for ($bc = 0; $bc < count($branchCluster); $bc++) {
+
+        //     $detCluster[$bc]['nama_branch'] = $branchCluster[$bc]->nama_branch;
+        //     $detCluster[$bc]['cluster'] = $branchCluster[$bc]->cluster;
+
+
+        //     for ($tm = 0; $tm < count($trendBulanan); $tm++) {
+
+        //         $jml = DB::table('data_ftth_dismantle_sortirs as d')
+        //         ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
+        //         ->select('b.id','d.main_branch as nama_branch','d.cluster')
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
+        //         ->whereMonth('d.visit_date', '=', \Carbon\Carbon::parse($trendBulanan[$tm]['bulan'])->month) // $bulan)
+        //         ->whereYear('d.visit_date', '=', $tahun)
+        //         ->where('d.main_branch','=', $branchCluster[$bc]->nama_branch)
+        //         ->where('d.cluster','=', $branchCluster[$bc]->cluster);
+
+
+        //         $jml = $jml->groupBy('d.main_branch','d.cluster', 'b.id')->orderBy('b.id')->count();
+
+        //         $detCluster[$bc]['bulanan'][$tm] = [$jml];
+
+        //     }
+
+        // }
+
+        // for ($db = 0; $db < count($branch); $db++) {
+
+        //     $totBranchBln[$db]['nmTbranch'] = $branch[$db]->nama_branch;
+        //     for ($dbm = 0; $dbm < count($trendBulanan); $dbm++) {
+
+        //         $jmldbm = DB::table('data_ftth_dismantle_sortirs as d')
+        //         ->leftJoin('branches as b','d.main_branch','=','b.nama_branch')
+        //         ->select('b.id','d.main_branch as nama_branch')
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
+        //         ->whereMonth('d.visit_date', '=', \Carbon\Carbon::parse($trendBulanan[$dbm]['bulan'])->month) // $bulan)
+        //         ->whereYear('d.visit_date', '=', $tahun)
+        //         ->where('d.main_branch','=', $branch[$db]->nama_branch)
+        //         ->groupBy('d.main_branch','b.id')->orderBy('b.id')->count();
+
+        //         // $varjml = $varjml + $jmldbm;
+        //         $totBranchBln[$db]['totbulanan'][$dbm] = [$jmldbm];
+
+        //     }
+
+        // }
 
         return response()->json([
             'branchCluster' => $totBranchBln, 'detCluster' => $detCluster
@@ -468,7 +523,7 @@ class Report_DismantleController extends Controller
                 $tblStatus = $tblStatus->where('site_penagihan', '=', $request->filterSite);
             }
             if ($request->filterBranch != "All") {
-                $tblStatus = $tblStatus->where('branch', '=', $request->filterBranch);
+                $tblStatus = $tblStatus->where('main_branch', '=', $request->filterBranch);
             }
 
             $tblStatus = $tblStatus->orderBy('visit_date')

@@ -49,7 +49,7 @@
                                 </select>
                             </div> --}}
 
-                        <div class="col-sm">
+                        <div class="col-sm" hidden>
                             <label class="form-text">Site</label>
                             <select class="col form-control-sm" id="site">
                                 <option value="All">All</option>
@@ -82,10 +82,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-danger">
                 <div class="card-body">
-                    <h6>Summary WO New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
-                            Underground)</h5>
+                    <h6>Summary WO FTTX MT - <h5 id="CardTitle">All Branch</h5>
                     </h6>
                 </div>
             </div>
@@ -120,7 +119,7 @@
                             style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWo">
-                                    <th>WO New Installation</th>
+                                    <th>WO FTTX MT</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;"></th> --}}
                                 </tr>
                             </thead>
@@ -157,7 +156,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoClose">
-                                    <th>WO New Installation Close</th>
+                                    <th>WO FTTX MT Close</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -197,7 +196,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoPending">
-                                    <th>WO New Installation Failed</th>
+                                    <th>WO FTTX MT Failed</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -236,7 +235,7 @@
                             cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWoCancel">
-                                    <th>WO New Installation Cancel</th>
+                                    <th>WO FTTX MT Cancel</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">Januari</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">%</th> --}}
                                 </tr>
@@ -270,49 +269,41 @@
 
     </div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <h6>Summary WO New Installation FTTH By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{-- <div class="row"> --}}
+        {{-- <div class="col-sm-12"> --}}
+            {{-- <div class="card text-white bg-secondary"> --}}
+                {{-- <div class="card-body"> --}}
+                    {{-- <h6>Summary WO Dismantle By Cluster Area - <h5 id="CardTitle">All Branch<h5></h6> --}}
+                {{-- </div> --}}
+            {{-- </div> --}}
+        {{-- </div> --}}
+    {{-- </div> --}}
 
-    <div class="row">
+    {{-- <div class="row"> --}}
 
-        {{-- Root Couse Sortir MT --}}
-        <div class="col-sm-12">
-            {{-- <div class="col"> --}}
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="font-size: 11px; table-layout: fixed;">
-                            <thead>
-                                <tr id="tableHeadCluster">
-                                {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
-                                {{-- <th></th> --}}
-                                {{-- <th></th> --}}
-                                {{-- <th style="text-align: center">Jumlah</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody id="bodyCluster">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- End Root Couse Sortir MT --}}
-    </div>
+        {{-- <div class="col-sm-12"> --}}
+            {{-- <div class="card"> --}}
+                {{-- <div class="card-body"> --}}
+                    {{-- <div class="table-responsive"> --}}
+                        {{-- <table class="table table-bordered" style="font-size: 11px; table-layout: fixed;"> --}}
+                            {{-- <thead> --}}
+                                {{-- <tr id="tableHeadCluster"> --}}
+                                {{-- </tr> --}}
+                            {{-- </thead> --}}
+                            {{-- <tbody id="bodyCluster"> --}}
+                            {{-- </tbody> --}}
+                        {{-- </table> --}}
+                    {{-- </div> --}}
+                {{-- </div> --}}
+            {{-- </div> --}}
+        {{-- </div> --}}
+    {{-- </div> --}}
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-danger">
                 <div class="card-body">
-                    <h6>Summary Report New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
-                            Underground)<h5>
+                    <h6>Summary Report FTTX MT - <h5 id="CardTitle">All Branch<h5>
                     </h6>
                 </div>
             </div>
@@ -358,7 +349,7 @@
                             width="100%" cellspacing="0" style="font-size: 12px">
                             <thead>
                                 <tr id="dateMonth">
-                                    <th>WO New Installation</th>
+                                    <th>WO MT FTTX</th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
                                     {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
@@ -369,7 +360,7 @@
                                     {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
                                 </tr>
                                 <tr id="woPending">
-                                    <td>New Installation Failed</td>
+                                    <td>WO MT FTTX Failed</td>
                                     {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
                                 </tr>
                                 <tr id="woCancel">
@@ -397,10 +388,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-danger">
                 <div class="card-body">
-                    <h6>Summary Root Cause Closing WO New Installation FTTH<h5 id="CardTitle">All Branch - All Site (Retail,
-                            Apartemen, Underground)<h5>
+                    <h6>Summary Action Taken Closing WO FTTX MT<h5 id="CardTitle">All Branch<h5>
                     </h6>
                 </div>
             </div>
@@ -420,7 +410,6 @@
 
 
     <div class="row">
-
         {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
             <div class="table-responsive">
@@ -443,11 +432,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-danger">
                 <div class="card-body">
-                    <h5>Summary Root Cause New Installation Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
-                            Apartemen, Underground)<h5>
-                                </h6>
+                    <h5>Summary Action Taken FTTX MT Failed - <h5 id="CardTitle">All Branch<h5></h6>
                 </div>
             </div>
         </div>
@@ -489,11 +476,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white bg-danger">
                 <div class="card-body">
-                    <h6>Summary Root Cause Cancel New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
-                            Apartemen, Underground)<h5>
-                    </h6>
+                    <h5>Summary Action Taken FTTX MT Cancel - <h5 id="CardTitle">All Branch<h5></h6>
                 </div>
             </div>
         </div>
@@ -518,30 +503,12 @@
                         <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
                             cellspacing="0" style="font-size: 12px">
                             <thead id="rootCouseHeadCancel">
-                                {{-- <tr> --}}
-                                {{-- <th>Root Couse</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
-                                {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
-                                {{-- </tr> --}}
                             </thead>
                             <tbody id="rootCouseTbCancel">
-                                {{-- <tr id="woDone"> --}}
-                                {{-- <td>Done</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woPending"> --}}
-                                {{-- <td>Installation Failed</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
-                                {{-- </tr> --}}
-                                {{-- <tr id="woCancel"> --}}
-                                {{-- <td>Cancel</td> --}}
-                                {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
-                                {{-- </tr> --}}
                             </tbody>
                             <tfoot>
                                 <tr id="totRootCouseCancel">
                                     <th>Total</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
@@ -550,6 +517,50 @@
             </div>
         </div>
     </div>
+
+    {{-- <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h6>Summary Root Cause Cancel New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
+                            Apartemen, Underground)<h5>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body" id="canvasRootCouseAPKCancel">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead id="rootCouseHeadCancel">
+                            </thead>
+                            <tbody id="rootCouseTbCancel">
+                            </tbody>
+                            <tfoot>
+                                <tr id="totRootCouseCancel">
+                                    <th>Total</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 
     {{-- <div class="row">
         <div class="col-sm-12">
@@ -685,7 +696,7 @@
             let filBranch = $(this).val()
 
             $.ajax({
-                url: "{{ route('getFilterBranchIBFtth') }}",
+                url: "{{ route('getFilterBranchMTFttx') }}",
                 type: "GET",
                 data: {
                     branchReport: filBranch
@@ -752,162 +763,23 @@
             }
 
             if (filSite == "All") {
-                titleSite = "All Site (Retail, Apartemen, Underground)";
+                // titleSite = "All Site (Retail, Apartemen, Underground)";
+                titleSite = "";
             } else {
-                titleSite = "Site " + filSite;
+                // titleSite = "Site " + filSite;
+                titleSite = "";
             }
 
             document.querySelectorAll('#CardTitle').forEach(function(elem) {
-                elem.innerText = titleBranch + " - " + titleSite;
+                elem.innerText = titleBranch;
             })
             // console.log($('#CardTitle').html("testing"));
 
-
-            $.ajax({
-                url: "{{ route('getTrendMonthlyIBFtth') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-
-                },
-                success: function(dataTrendMonthly) {
-                    // var trendWoIBFtth = {!! $trendMonthly !!}
-                    trendWoIBFtth = dataTrendMonthly;
-
-                    var trendMonth = [''];
-                    var trendTotIBFtth = ['null'];
-                    var trendIBDone = ['null'];
-
-                    $.each(trendWoIBFtth, function(key, item) {
-                        
-                        trendMonth.push(item.bulan);
-                        trendTotIBFtth.push(item.trendIBFtthTotal);
-                        trendIBDone.push(item.trendIBFtthDone);
-
-                    });
-
-                    trendMonth.push('');
-                    trendTotIBFtth.push('null');
-                    trendIBDone.push('null');
-
-                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
-
-                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
-                    if (graphTrendTotWoIBFtth) {
-                        graphTrendTotWoIBFtth.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoIBFtth, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotIBFtth, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO New Installation',
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
-
-                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
-                    if (graphTrendTotWoIBFtthClose) {
-                        graphTrendTotWoIBFtthClose.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoIBFtthClose, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendIBDone, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();
-                                    }
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO New Installation Close',
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                }
-
-            })
- 
-
             let uri;
             if ((filSite == "All") && (filBranch == "All")) {
-                uri = "{{ route('getTotalWoBranchIBFtth') }}";
+                uri = "{{ route('getTotalWoBranchMTFttx') }}";
             } else {
-                uri = "{{ route('getFilterDashboardIBFtth') }}";
+                uri = "{{ route('getFilterDashboardMTFttx') }}";
             }
 
 
@@ -978,7 +850,7 @@
                             type: 'pie'
                         },
                         title: {
-                            text: 'Total WO New Installation FTTH ' + bulanReport,
+                            text: 'Total WO FTTX MT ' + bulanReport,
                         },
                         // tooltip: {
                         //     valueSuffix: '%'
@@ -1022,7 +894,7 @@
                             type: 'pie'
                         },
                         title: {
-                            text: 'WO New Installation FTTH Close ' + bulanReport,
+                            text: 'WO FTTX MT Close ' + bulanReport,
                         },
                         tooltip: {
                             valueSuffix: '%'
@@ -1064,24 +936,24 @@
                     $('#theadTotWoCancel').find("th").remove();
 
                     $('#theadTotWo').append(`
-                        <th>WO New Installation</th>
+                        <th>WO FTTX MT</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                             `);
 
                     $('#theadTotWoClose').append(`
-                        <th>WO New Installation Close</th>
+                        <th>WO FTTX MT Close</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoPending').append(`
-                        <th>WO New Installation Failed</th>
+                        <th>WO FTTX MT Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoCancel').append(`
-                        <th>WO New Installation Cancel</th>
+                        <th>WO FTTX MT Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
                         <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
@@ -1196,8 +1068,8 @@
             })
 
             $.ajax({
-                url: "{{ route('getClusterBranchIBFtth') }}",
-                type: "GET",
+                url: "{{ route('getTrendMonthlyMTFttx') }}",
+                type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
                     filterTgl: filTglPeriode,
@@ -1205,106 +1077,138 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+
                 },
-                success: function(dataCluster) {    
-                    $('#tableHeadCluster').find("th").remove();
-                    $('#bodyCluster').find("tr").remove();
+                success: function(dataTrendMonthly) {
+                    // var trendWoIBFtth = {!! $trendMonthly !!}
+                    trendWoIBFtth = dataTrendMonthly;
 
-                    let TotBranchCluster = [];
-                    let tbBranchCluster;
-                    let tbCouseCodeAPK;
-                    let tbRootCouseAPK;
-                    let hdRootCouseAPK = `
-                        <th>Branch</th>
-                        <th>Cluster</th>`;
-                        // <th>Root Couse</th>`;
-                        // <th style="text-align: center">Jumlah</th>`;
+                    var trendMonth = [''];
+                    var trendTotIBFtth = ['null'];
+                    var trendIBDone = ['null'];
 
-                    for (h = 0;h < trendWoIBFtth.length; h++) {
-                        hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
-                    }
-
-                    $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
-
-
-                    $.each(dataCluster.branchCluster, function(key, nmBranch) {
-
-                        tbBranchCluster = `
-                                <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
-                                <th class="table-secondary"></th>`;
-                                // <th class="table-secondary"></th>`;
+                    $.each(trendWoIBFtth, function(key, item) {
                         
-                        for (p=0;p<trendWoIBFtth.length; p++) {
-                            tbBranchCluster = tbBranchCluster +
-                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
-   
-                        }
+                        trendMonth.push(item.bulan);
+                        trendTotIBFtth.push(item.trendIBFtthTotal);
+                        trendIBDone.push(item.trendIBFtthDone);
 
-                        $('#bodyCluster').append(tbBranchCluster + `</tr>`);
-
-                        $.each(dataCluster.detCluster, function(key, itemCluster) {
-                            if (nmBranch.nmTbranch == itemCluster.nama_branch) {
-                                tbCluster = `
-                                    <tr><td></td>
-                                    <td>${itemCluster.cluster}</td>`;
-                                    // <th class="table-info"></th>`;
-
-                                for (cc = 0;cc < trendWoIBFtth.length; cc++) {
-                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
-                                }
-
-                                $('#bodyCluster').append(tbCluster + '</tr>');
-
-
-                                // $.each(apk.detRootCouseSortir, function(key,
-                                //     itemRootCouse) {
-
-                                //     if (itemPenagihan.penagihan == itemRootCouse
-                                //         .penagihan && itemCouseCode
-                                //         .couse_code == itemRootCouse.couse_code
-                                //     ) {
-                                //         tbRootCouseAPK = `
-                                //             <tr><td></td>
-                                //             <td></td>
-                                //             <td>${itemRootCouse.root_couse}</td>`;
-
-                                //         for (rc = 0; rc < trendWoMt.length; rc++) {
-                                //             tbRootCouseAPK = tbRootCouseAPK +
-                                //             `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
-                                //         }
-                                //         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
-                                //     }
-                                // });
-                            }
-                        });
                     });
 
-                    
+                    trendMonth.push('');
+                    trendTotIBFtth.push('null');
+                    trendIBDone.push('null');
 
-                    let totBulananCluster = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>`;
-                            // <th class="table-dark"></th>`;
-                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
 
-                    for (p=0;p<trendWoIBFtth.length; p++) {
-                        TotBranchCluster[p] = 0
-                        $.each(dataCluster.branchCluster, function(key, totBranchCl) {
-                            TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
-                        })
-
-                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
+                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
+                    if (graphTrendTotWoIBFtth) {
+                        graphTrendTotWoIBFtth.destroy();
                     }
 
-                    $('#bodyCluster').append(totBulananCluster + `</tr>`);
+
+
+                    new Chart(ctxTrendTotWoIBFtth, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotIBFtth, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO FTTX MT',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
+
+                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
+                    if (graphTrendTotWoIBFtthClose) {
+                        graphTrendTotWoIBFtthClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoIBFtthClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendIBDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO FTTX MT Close',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
                 }
 
-            });
+            })
 
 
             $.ajax({
-                url: "{{ route('getTabelStatusIBFtth') }}",
+                url: "{{ route('getTabelStatusMTFttx') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1333,7 +1237,7 @@
                     var total = 0;
 
                     $('#dateMonth').find("th").remove();
-                    $('#dateMonth').append(`<th>New Installation ${titleBranch}</th>`)
+                    $('#dateMonth').append(`<th>FTTX MT ${titleBranch}</th>`)
 
                     $('#woDone').find("td").remove();
                     $('#woDone').find("th").remove();
@@ -1341,7 +1245,7 @@
 
                     $('#woPending').find("td").remove();
                     $('#woPending').find("th").remove();
-                    $('#woPending').append("<td>Installation Failed</td>")
+                    $('#woPending').append("<td>FTTX MT Failed</td>")
 
                     $('#woCancel').find("td").remove();
                     $('#woCancel').find("th").remove();
@@ -1354,13 +1258,13 @@
 
                     $.each(data, function(key, item) {
                         // day.push(new Date(item.tgl_ikr).getDate());
-                        day.push(new Date(item.tgl_ikr).getDate());
+                        day.push(new Date(item.mt_date).getDate());
                         doneDay.push(item.Done);
                         pendingDay.push(item.Pending);
                         cancelDay.push(item.Cancel);
 
                         let htgl = `
-                           <th>${new Date(item.tgl_ikr).getDate()}</th>
+                           <th>${new Date(item.mt_date).getDate()}</th>
                         `;
 
                         $('#dateMonth').append(htgl);
@@ -1435,7 +1339,7 @@
                     Highcharts.chart('conTrendDialyWo', {
 
                         title: {
-                            text: 'Status WO New Installation FTTH - ' + titleBranch + ' ' +
+                            text: 'Status WO FTTX MT - ' + titleBranch + ' ' +
                                 bulanReport,
                             align: 'left'
                         },
@@ -1507,10 +1411,115 @@
 
             })
 
-            
+            // $.ajax({
+            //     url: "{{ route('getClusterBranchMTFttx') }}",
+            //     type: "GET",
+            //     data: {
+            //         bulanTahunReport: bulanReport,
+            //         filterTgl: filTglPeriode,
+            //         filterSite: filSite,
+            //         filterBranch: filBranch,
+            //         filterDateStart: filPeriodeStart,
+            //         filterDateEnd: filPeriodeEnd
+            //     },
+            //     success: function(dataCluster) {    
+            //         $('#tableHeadCluster').find("th").remove();
+            //         $('#bodyCluster').find("tr").remove();
+
+            //         let TotBranchCluster = [];
+            //         let tbBranchCluster;
+            //         let tbCouseCodeAPK;
+            //         let tbRootCouseAPK;
+            //         let hdRootCouseAPK = `
+            //             <th>Branch</th>
+            //             <th>Cluster</th>`;
+            //             // <th>Root Couse</th>`;
+            //             // <th style="text-align: center">Jumlah</th>`;
+
+            //         for (h = 0;h < trendWoIBFtth.length; h++) {
+            //             hdRootCouseAPK = hdRootCouseAPK +
+            //                 `<th style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+            //         }
+
+            //         $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
+
+
+            //         $.each(dataCluster.branchCluster, function(key, nmBranch) {
+
+            //             tbBranchCluster = `
+            //                     <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
+            //                     <th class="table-secondary"></th>`;
+            //                     // <th class="table-secondary"></th>`;
+                        
+            //             for (p=0;p<trendWoIBFtth.length; p++) {
+            //                 tbBranchCluster = tbBranchCluster +
+            //                     `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
+   
+            //             }
+
+            //             $('#bodyCluster').append(tbBranchCluster + `</tr>`);
+
+            //             $.each(dataCluster.detCluster, function(key, itemCluster) {
+            //                 if (nmBranch.nmTbranch == itemCluster.nama_branch) {
+            //                     tbCluster = `
+            //                         <tr><td></td>
+            //                         <td>${itemCluster.cluster}</td>`;
+            //                         // <th class="table-info"></th>`;
+
+            //                     for (cc = 0;cc < trendWoIBFtth.length; cc++) {
+            //                         tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
+            //                     }
+
+            //                     $('#bodyCluster').append(tbCluster + '</tr>');
+
+
+            //                     // $.each(apk.detRootCouseSortir, function(key,
+            //                     //     itemRootCouse) {
+
+            //                     //     if (itemPenagihan.penagihan == itemRootCouse
+            //                     //         .penagihan && itemCouseCode
+            //                     //         .couse_code == itemRootCouse.couse_code
+            //                     //     ) {
+            //                     //         tbRootCouseAPK = `
+            //                     //             <tr><td></td>
+            //                     //             <td></td>
+            //                     //             <td>${itemRootCouse.root_couse}</td>`;
+
+            //                     //         for (rc = 0; rc < trendWoMt.length; rc++) {
+            //                     //             tbRootCouseAPK = tbRootCouseAPK +
+            //                     //             `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+            //                     //         }
+            //                     //         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
+            //                     //     }
+            //                     // });
+            //                 }
+            //             });
+            //         });
+
+                    
+
+            //         let totBulananCluster = `
+            //             <tr><th class="table-dark">TOTAL</th>
+            //                 <th class="table-dark"></th>`;
+            //                 // <th class="table-dark"></th>`;
+            //                 // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+            //         for (p=0;p<trendWoIBFtth.length; p++) {
+            //             TotBranchCluster[p] = 0
+            //             $.each(dataCluster.branchCluster, function(key, totBranchCl) {
+            //                 TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
+            //             })
+
+            //             totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
+            //         }
+
+            //         $('#bodyCluster').append(totBulananCluster + `</tr>`);
+            //     }
+
+            // });
 
             $.ajax({
-                url: "{{ route('getReasonStatusIBFtthGraph') }}",
+                url: "{{ route('getReasonStatusMTFttxGraph') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1525,6 +1534,7 @@
                 },
                 success: function(data) {
                     // var day = new Date(tahun, bulan, 0).getDate();
+                    console.log(data);
                     var dayGraph = [];
                     var nameGraph = [];
                     var nameDataGraph = [];
@@ -1542,8 +1552,6 @@
                     for (tg = 0; tg < data.tglGraphAPK.length; tg++) {
                         // console.log(data.tglGraphAPK[tg].tgl_ikr)
                         dayGraph.push(new Date(data.tglGraphAPK[tg].tgl_ikr).getDate())
-
-
                     }
 
                     for (nm = 0; nm < data.nameGraphAPK.length; nm++) {
@@ -1575,7 +1583,7 @@
                     Highcharts.chart('conRooCouseAPKDialy', {
 
                         title: {
-                            text: 'Root Couse WO New Installation Close FTTH Dialy - ' +
+                            text: 'Action Status WO FTTX MT Close Dialy - ' +
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
@@ -1648,7 +1656,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getRootCouseAPKIBFtth') }}",
+                url: "{{ route('getRootCouseAPKMTFttx') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1671,7 +1679,7 @@
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
                     let hdRootCouseAPK = `
-                        <th>Root Couse</th>`;
+                        <th>Reason Status Dismantle Close</th>`;
                         // <th>Reason Status</th>`;
                         // <th>Root Couse</th>`;
                     // <th style="text-align: center">Jumlah</th>`;
@@ -1763,7 +1771,7 @@
             });
 
             $.ajax({
-                url: "{{ route('getRootCousePendingGraphIBFtth') }}",
+                url: "{{ route('getRootCousePendingGraphMTFttx') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1828,7 +1836,7 @@
                     Highcharts.chart('conRooCouseAPKDialyPending', {
 
                         title: {
-                            text: 'Root Couse WO New Installation Failed FTTH Dialy - ' +
+                            text: 'Action Taken WO FTTX MT Failed Dialy - ' +
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
@@ -1901,7 +1909,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getRootCouseCancelGraphIBFtth') }}",
+                url: "{{ route('getRootCouseCancelGraphMTFttx') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -1955,18 +1963,18 @@
 
                     $('#canvasRootCouseAPKCancel').empty();
 
-                    let chartRootCouseAPKDialyCancel = `
+                    let chartRootCouseAPKDialy = `
 					<figure class="highcharts-figure">
 					    <div id="conRooCouseAPKDialyCancel"></div>
 					</figure>
 				    `;
 
-                    $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialyCancel);
+                    $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialy);
 
                     Highcharts.chart('conRooCouseAPKDialyCancel', {
 
                         title: {
-                            text: 'Root Couse WO New Installation Cancel FTTH Dialy - ' +
+                            text: 'Action Taken WO FTTX MT Cancel Dialy - ' +
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
@@ -2037,6 +2045,144 @@
                 }
 
             })
+
+            // $.ajax({
+            //     url: "{{ route('getRootCouseCancelGraphIBFtth') }}",
+            //     type: 'GET',
+            //     data: {
+            //         bulanTahunReport: bulanReport,
+            //         filterTgl: filTglPeriode,
+            //         filterDateStart: filPeriodeStart,
+            //         filterDateEnd: filPeriodeEnd,
+            //         filterSite: filSite,
+            //         filterBranch: filBranch,
+            //         filterDateStart: filPeriodeStart,
+            //         filterDateEnd: filPeriodeEnd
+
+            //     },
+            //     success: function(data) {
+            //         // var day = new Date(tahun, bulan, 0).getDate();
+            //         var dayGraphCancel = [];
+            //         var nameGraphCancel = [];
+            //         var nameDataGraphCancel = [];
+            //         var objDataGraph = {};
+            //         var dayApk = [];
+            //         var pendingDay = [];
+            //         var cancelDay = [];
+            //         var donetb;
+            //         var totDone = 0;
+            //         var totPending = 0;
+            //         var totCancel = 0;
+            //         var totWo = 0;
+            //         var total = 0;
+
+            //         for (tg = 0; tg < data.tglGraphAPKCancel.length; tg++) {
+            //             // console.log(data.tglGraphAPK[tg].tgl_ikr)
+            //             dayGraphCancel.push(new Date(data.tglGraphAPKCancel[tg].tgl_ikr).getDate())
+
+
+            //         }
+
+            //         for (nm = 0; nm < data.nameGraphAPKCancel.length; nm++) {
+            //             // console.log(data.nameGraphAPK[nm].penagihan);
+            //             nameGraphCancel.push({
+            //                 name: data.nameGraphAPKCancel[nm].penagihan
+            //             });
+            //             // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
+
+            //             // for(dt=0;dt<data.dataGraphAPK.length;dt++){
+            //             // console.log(data.dataGraphAPK[dt].data);
+            //             nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
+            //             // }
+
+            //         }
+
+            //         // graph line dialy //
+
+            //         $('#canvasRootCouseAPKCancel').empty();
+
+            //         let chartRootCouseAPKDialyCancel = `
+			// 		<figure class="highcharts-figure">
+			// 		    <div id="conRooCouseAPKDialyCancel"></div>
+			// 		</figure>
+			// 	    `;
+
+            //         $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialyCancel);
+
+            //         Highcharts.chart('conRooCouseAPKDialyCancel', {
+
+            //             title: {
+            //                 text: 'Root Couse WO New Installation Cancel FTTH Dialy - ' +
+            //                     titleBranch + ' ' + bulanReport,
+            //                 align: 'left'
+            //             },
+
+
+            //             xAxis: {
+            //                 categories: dayGraphCancel
+            //             },
+
+            //             legend: {
+            //                 layout: 'vertical',
+            //                 align: 'right',
+            //                 verticalAlign: 'middle'
+            //             },
+
+            //             plotOptions: {
+            //                 line: {
+            //                     dataLabels: {
+            //                         enabled: true
+            //                     },
+            //                     enableMouseTracking: true
+            //                 },
+            //                 series: {
+            //                     label: {
+            //                         connectorAllowed: false
+            //                     },
+
+            //                 }
+            //             },
+
+            //             series: nameGraphCancel, //[{
+            //             // name: 'WO Done',
+            //             // data: doneDay //[
+            //             //43934, 48656, 65165, 81827, 112143, 142383,
+            //             //171533, 165174, 155157, 161454, 154610
+            //             //]
+            //             // }, {
+            //             // name: 'WO Pending',
+            //             // data: pendingDay //[
+            //             //24916, 37941, 29742, 29851, 32490, 30282,
+            //             //38121, 36885, 33726, 34243, 31050
+            //             //]
+            //             // }, {
+            //             // name: 'WO Cancel',
+            //             // data: cancelDay //[
+            //             //11744, 30000, 16005, 19771, 20185, 24377,
+            //             //32147, 30912, 29243, 29213, 25663
+            //             //]
+            //             // }],
+
+            //             responsive: {
+            //                 rules: [{
+            //                     condition: {
+            //                         maxWidth: 500
+            //                     },
+            //                     chartOptions: {
+            //                         legend: {
+            //                             layout: 'horizontal',
+            //                             align: 'center',
+            //                             verticalAlign: 'bottom'
+            //                         }
+            //                     }
+            //                 }]
+            //             }
+
+            //         });
+
+            //     }
+
+            // })
 
 
 
@@ -2113,7 +2259,7 @@
             // });
 
             $.ajax({
-                url: "{{ route('getRootCousePendingIBFtth') }}",
+                url: "{{ route('getRootCousePendingMTFttx') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2125,6 +2271,7 @@
                 },
                 success: function(dataRootCousePending) {
 
+                    console.log(dataRootCousePending);
                     $('#rootCouseHeadPending').find("tr").remove();
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
@@ -2133,7 +2280,7 @@
                     let tbRootCousePending;
                     let hdRootCousePending = `
                         <tr>
-                                <th>RootCouse Pending</th>
+                                <th>Action Taken FTTX MT Pending</th>
                         </tr>`;
 
                     $('#rootCouseHeadPending').append(hdRootCousePending);
@@ -2145,7 +2292,6 @@
                     }
 
                     $.each(dataRootCousePending, function(key, item) {
-
                         if (item.penagihan == 'total_pending') {
                             tbRootCousePending = `
                             <tr>
@@ -2163,13 +2309,13 @@
                         if (item.penagihan == 'total_pending') {
                             for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCousePending = tbRootCousePending +
-                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
+                                    `<th style="text-align: center">${item.bulan[bln]}</th>`;
                             }
 
                         } else {
                             for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
+                                    `<td style="text-align: center">${item.bulan[bln]}</td>`;
 
                             }
                         }
@@ -2182,8 +2328,9 @@
 
             });
 
+
             $.ajax({
-                url: "{{ route('getRootCouseCancelIBFtth') }}",
+                url: "{{ route('getRootCouseCancelMTFttx') }}",
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -2203,7 +2350,7 @@
                     let tbRootCouseCancel;
                     let hdRootCouseCancel = `
                         <tr>
-                                <th>RootCouse Cancel</th>
+                                <th>Action Taken FTTX MT Cancel</th>
                         </tr>`;
 
                     $('#rootCouseHeadCancel').append(hdRootCouseCancel);
@@ -2215,7 +2362,6 @@
                     }
 
                     $.each(dataRootCouseCancel, function(key, item) {
-
                         if (item.penagihan == 'total_cancel') {
                             tbRootCouseCancel = `
                             <tr>
@@ -2233,13 +2379,13 @@
                         if (item.penagihan == 'total_cancel') {
                             for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCouseCancel = tbRootCouseCancel +
-                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
+                                    `<th style="text-align: center">${item.bulan[bln]}</th>`;
                             }
 
                         } else {
                             for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCouseCancel = tbRootCouseCancel +
-                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
+                                    `<td style="text-align: center">${item.bulan[bln]}</td>`;
 
                             }
                         }
@@ -2251,6 +2397,8 @@
                 }
 
             });
+
+            
 
             
 

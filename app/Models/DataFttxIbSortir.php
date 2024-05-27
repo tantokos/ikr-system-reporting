@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ImportFttxMtTemp extends Model
+class DataFttxIbSortir extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable =[
         'no_so',
         'no_wo',
         'wo_date',
-        'mt_date',
+        'ib_date',
         'wo_type',
         'cust_name',
         'cust_address',
@@ -42,10 +42,24 @@ class ImportFttxMtTemp extends Model
         'ont_mac_out',
         'ont_sn_in',
         'ont_mac_in',
+        'stb1_sn',
+        'stb1_mac',
         'stb2_sn',
         'stb2_mac',
         'stb3_sn',
         'stb3_mac',
+        'stb4_sn',
+        'stb4_mac',
+        'stb5_sn',
+        'stb5_mac',
+        'stb6_sn',
+        'stb6_mac',
+        'stb7_sn',
+        'stb7_mac',
+        'stb8_sn',
+        'stb8_mac',
+        'stb9_sn',
+        'stb9_mac',
         'router_sn',
         'router_mac',
         'drop_cable',

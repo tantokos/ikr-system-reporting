@@ -57,16 +57,16 @@
                     </a>
                 </li>
 
-                <li class="{{ request()->is('reportMtFttx*') ? 'active' : '' }}">
-                    <a href="#">
+                <li class="{{ request()->is('reportMTFttx*') ? 'active' : '' }}">
+                    <a href="{{ route('reportMTFttx.index') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTX/B Maintenance</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
 
-                <li class="{{ request()->is('reportIbFttx*') ? 'active' : '' }}">
-                    <a href="#">
+                <li class="{{ request()->is('reportIBFttx*') ? 'active' : '' }}">
+                    <a href="{{ route('reportIBFttx.index') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTX/B New Installation</span>
                         <span class="pcoded-mcaret"></span>
@@ -82,7 +82,7 @@
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
     <ul class="pcoded-item pcoded-left-item">
         <li
-            class="pcoded-hasmenu pcoded-trigger {{ request()->is('importftthmt*') ? 'active' : '' }}">
+            class="pcoded-hasmenu pcoded-trigger {{ request()->is('importftthmt*','importftthib*','importftthDismantle*','importfttxMT*','importfttxIB*') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
                 <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Import Data</span>
@@ -115,16 +115,16 @@
                     </a>
                 </li>
 
-                <li class="{{ request()->is('importfttxib*') ? 'active' : '' }}">
-                    <a href="#">
+                <li class="{{ request()->is('importfttxMT*') ? 'active' : '' }}">
+                    <a href="{{ route('import.fttxMTtempIndex') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Fttx MT</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
 
-                <li class="{{ request()->is('importfttxmt*') ? 'active' : '' }}">
-                    <a href="#">
+                <li class="{{ request()->is('importfttxIB*') ? 'active' : '' }}">
+                    <a href="{{ route('import.fttxIBtempIndex') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Fttx IB</span>
                         <span class="pcoded-mcaret"></span>
