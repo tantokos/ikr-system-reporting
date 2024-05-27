@@ -66,7 +66,7 @@
                 </li>
 
                 <li class="{{ request()->is('reportIBFttx*') ? 'active' : '' }}">
-                    <a href="#">
+                    <a href="{{ route('reportIBFttx.index') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTX/B New Installation</span>
                         <span class="pcoded-mcaret"></span>

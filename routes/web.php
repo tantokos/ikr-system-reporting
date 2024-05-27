@@ -28,6 +28,7 @@ use App\Http\Controllers\PeminjamanAsetController;
 use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\Report_DismantleController;
+use App\Http\Controllers\Report_FttxIBController;
 use App\Http\Controllers\Report_FttxMTController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Report_IBController;
@@ -90,6 +91,8 @@ Route::group(
         
         Route::get('/getTotalWoBranch', [ReportController::class, 'getTotalWoBranch'])->name('getTotalWoBranch');
         Route::get('/getClusterBranch', [ReportController::class, 'getClusterBranch'])->name('getClusterBranch');
+
+        Route::get('/getClusterBranchtest', [ReportController::class, 'getClusterBranchtest'])->name('getClusterBranchtest');
 
         Route::get('/getTabelStatus', [ReportController::class, 'getTabelStatus'])->name('getTabelStatus');
         Route::get('/getTrendMonthly', [ReportController::class, 'getTrendMonthly'])->name('getTrendMonthly');
@@ -243,5 +246,28 @@ Route::group(
       Route::get('/getClusterBranchMTFttx', [Report_FttxMTController::class, 'getClusterBranchMTFttx'])->name('getClusterBranchMTFttx');
 
      //====End Report FTTX MT====//
+
+     //====Start Report FTTX IB====//
+
+     Route::get('/reportIBFttx', [Report_FttxIBController::class, 'index'])->name('reportIBFttx.index');
+     Route::get('/getFilterBranchIBFttx', [Report_FttxIBController::class, 'getFilterBranchIBFttx'])->name('getFilterBranchIBFttx');
+     Route::get('/getTotalWoBranchIBFttx', [Report_FttxIBController::class, 'getTotalWoBranchIBFttx'])->name('getTotalWoBranchIBFttx');
+     Route::get('/getFilterDashboardIBFttx', [Report_FttxIBController::class, 'getFilterDashboardIBFttx'])->name('getFilterDashboardIBFttx');
+
+     Route::get('/getTrendMonthlyIBFttx', [Report_FttxIBController::class, 'getTrendMonthlyIBFttx'])->name('getTrendMonthlyIBFttx');
+     Route::get('/getTabelStatusIBFttx', [Report_FttxIBController::class, 'getTabelStatusIBFttx'])->name('getTabelStatusIBFttx');
+
+     Route::get('/getReasonStatusIBFttxGraph', [Report_FttxIBController::class, 'getReasonStatusIBFttxGraph'])->name('getReasonStatusIBFttxGraph');
+     Route::get('/getRootCouseAPKIBFttx', [Report_FttxIBController::class, 'getRootCouseAPKIBFttx'])->name('getRootCouseAPKIBFttx');
+
+     Route::get('/getRootCousePendingGraphIBFttx', [Report_FttxIBController::class, 'getRootCousePendingGraphIBFttx'])->name('getRootCousePendingGraphIBFttx');
+     Route::get('/getRootCousePendingIBFttx', [Report_FttxIBController::class, 'getRootCousePendingIBFttx'])->name('getRootCousePendingIBFttx');
+
+     Route::get('/getRootCouseCancelGraphIBFttx', [Report_FttxIBController::class, 'getRootCouseCancelGraphIBFttx'])->name('getRootCouseCancelGraphIBFttx');
+     Route::get('/getRootCouseCancelIBFttx', [Report_FttxIBController::class, 'getRootCouseCancelIBFttx'])->name('getRootCouseCancelIBFttx');
+
+     Route::get('/getClusterBranchIBFttx', [Report_FttxIBController::class, 'getClusterBranchIBFttx'])->name('getClusterBranchIBFttx');
+
+    //====End Report FTTX IB====//
     }
 );

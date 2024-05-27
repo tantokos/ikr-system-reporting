@@ -762,6 +762,147 @@
             })
             // console.log($('#CardTitle').html("testing"));
 
+
+            $.ajax({
+                url: "{{ route('getTrendMonthlyIBFtth') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(dataTrendMonthly) {
+                    // var trendWoIBFtth = {!! $trendMonthly !!}
+                    trendWoIBFtth = dataTrendMonthly;
+
+                    var trendMonth = [''];
+                    var trendTotIBFtth = ['null'];
+                    var trendIBDone = ['null'];
+
+                    $.each(trendWoIBFtth, function(key, item) {
+                        
+                        trendMonth.push(item.bulan);
+                        trendTotIBFtth.push(item.trendIBFtthTotal);
+                        trendIBDone.push(item.trendIBFtthDone);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotIBFtth.push('null');
+                    trendIBDone.push('null');
+
+                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
+
+                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
+                    if (graphTrendTotWoIBFtth) {
+                        graphTrendTotWoIBFtth.destroy();
+                    }
+
+
+
+                    new Chart(ctxTrendTotWoIBFtth, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotIBFtth, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO New Installation',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
+
+                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
+                    if (graphTrendTotWoIBFtthClose) {
+                        graphTrendTotWoIBFtthClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoIBFtthClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendIBDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO New Installation Close',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                }
+
+            })
+ 
+
             let uri;
             if ((filSite == "All") && (filBranch == "All")) {
                 uri = "{{ route('getTotalWoBranchIBFtth') }}";
@@ -1055,8 +1196,8 @@
             })
 
             $.ajax({
-                url: "{{ route('getTrendMonthlyIBFtth') }}",
-                type: 'GET',
+                url: "{{ route('getClusterBranchIBFtth') }}",
+                type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
                     filterTgl: filTglPeriode,
@@ -1064,134 +1205,102 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
-
                 },
-                success: function(dataTrendMonthly) {
-                    // var trendWoIBFtth = {!! $trendMonthly !!}
-                    trendWoIBFtth = dataTrendMonthly;
+                success: function(dataCluster) {    
+                    $('#tableHeadCluster').find("th").remove();
+                    $('#bodyCluster').find("tr").remove();
 
-                    var trendMonth = [''];
-                    var trendTotIBFtth = ['null'];
-                    var trendIBDone = ['null'];
+                    let TotBranchCluster = [];
+                    let tbBranchCluster;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>Branch</th>
+                        <th>Cluster</th>`;
+                        // <th>Root Couse</th>`;
+                        // <th style="text-align: center">Jumlah</th>`;
 
-                    $.each(trendWoIBFtth, function(key, item) {
+                    for (h = 0;h < trendWoIBFtth.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                    }
+
+                    $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
+
+
+                    $.each(dataCluster.branchCluster, function(key, nmBranch) {
+
+                        tbBranchCluster = `
+                                <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
+                                <th class="table-secondary"></th>`;
+                                // <th class="table-secondary"></th>`;
                         
-                        trendMonth.push(item.bulan);
-                        trendTotIBFtth.push(item.trendIBFtthTotal);
-                        trendIBDone.push(item.trendIBFtthDone);
+                        for (p=0;p<trendWoIBFtth.length; p++) {
+                            tbBranchCluster = tbBranchCluster +
+                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
+   
+                        }
 
+                        $('#bodyCluster').append(tbBranchCluster + `</tr>`);
+
+                        $.each(dataCluster.detCluster, function(key, itemCluster) {
+                            if (nmBranch.nmTbranch == itemCluster.nama_branch) {
+                                tbCluster = `
+                                    <tr><td></td>
+                                    <td>${itemCluster.cluster}</td>`;
+                                    // <th class="table-info"></th>`;
+
+                                for (cc = 0;cc < trendWoIBFtth.length; cc++) {
+                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
+                                }
+
+                                $('#bodyCluster').append(tbCluster + '</tr>');
+
+
+                                // $.each(apk.detRootCouseSortir, function(key,
+                                //     itemRootCouse) {
+
+                                //     if (itemPenagihan.penagihan == itemRootCouse
+                                //         .penagihan && itemCouseCode
+                                //         .couse_code == itemRootCouse.couse_code
+                                //     ) {
+                                //         tbRootCouseAPK = `
+                                //             <tr><td></td>
+                                //             <td></td>
+                                //             <td>${itemRootCouse.root_couse}</td>`;
+
+                                //         for (rc = 0; rc < trendWoMt.length; rc++) {
+                                //             tbRootCouseAPK = tbRootCouseAPK +
+                                //             `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                //         }
+                                //         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
+                                //     }
+                                // });
+                            }
+                        });
                     });
 
-                    trendMonth.push('');
-                    trendTotIBFtth.push('null');
-                    trendIBDone.push('null');
+                    
 
-                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
+                    let totBulananCluster = `
+                        <tr><th class="table-dark">TOTAL</th>
+                            <th class="table-dark"></th>`;
+                            // <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
 
-                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
-                    if (graphTrendTotWoIBFtth) {
-                        graphTrendTotWoIBFtth.destroy();
+                    for (p=0;p<trendWoIBFtth.length; p++) {
+                        TotBranchCluster[p] = 0
+                        $.each(dataCluster.branchCluster, function(key, totBranchCl) {
+                            TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
+                        })
+
+                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
                     }
 
-
-
-                    new Chart(ctxTrendTotWoIBFtth, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotIBFtth, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO New Installation',
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
-
-                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
-                    if (graphTrendTotWoIBFtthClose) {
-                        graphTrendTotWoIBFtthClose.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoIBFtthClose, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendIBDone, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();
-                                    }
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO New Installation Close',
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
+                    $('#bodyCluster').append(totBulananCluster + `</tr>`);
                 }
 
-            })
+            });
 
 
             $.ajax({
@@ -1398,112 +1507,7 @@
 
             })
 
-            $.ajax({
-                url: "{{ route('getClusterBranchIBFtth') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(dataCluster) {    
-                    $('#tableHeadCluster').find("th").remove();
-                    $('#bodyCluster').find("tr").remove();
-
-                    let TotBranchCluster = [];
-                    let tbBranchCluster;
-                    let tbCouseCodeAPK;
-                    let tbRootCouseAPK;
-                    let hdRootCouseAPK = `
-                        <th>Branch</th>
-                        <th>Cluster</th>`;
-                        // <th>Root Couse</th>`;
-                        // <th style="text-align: center">Jumlah</th>`;
-
-                    for (h = 0;h < trendWoIBFtth.length; h++) {
-                        hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
-                    }
-
-                    $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
-
-
-                    $.each(dataCluster.branchCluster, function(key, nmBranch) {
-
-                        tbBranchCluster = `
-                                <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
-                                <th class="table-secondary"></th>`;
-                                // <th class="table-secondary"></th>`;
-                        
-                        for (p=0;p<trendWoIBFtth.length; p++) {
-                            tbBranchCluster = tbBranchCluster +
-                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
-   
-                        }
-
-                        $('#bodyCluster').append(tbBranchCluster + `</tr>`);
-
-                        $.each(dataCluster.detCluster, function(key, itemCluster) {
-                            if (nmBranch.nmTbranch == itemCluster.nama_branch) {
-                                tbCluster = `
-                                    <tr><td></td>
-                                    <td>${itemCluster.cluster}</td>`;
-                                    // <th class="table-info"></th>`;
-
-                                for (cc = 0;cc < trendWoIBFtth.length; cc++) {
-                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
-                                }
-
-                                $('#bodyCluster').append(tbCluster + '</tr>');
-
-
-                                // $.each(apk.detRootCouseSortir, function(key,
-                                //     itemRootCouse) {
-
-                                //     if (itemPenagihan.penagihan == itemRootCouse
-                                //         .penagihan && itemCouseCode
-                                //         .couse_code == itemRootCouse.couse_code
-                                //     ) {
-                                //         tbRootCouseAPK = `
-                                //             <tr><td></td>
-                                //             <td></td>
-                                //             <td>${itemRootCouse.root_couse}</td>`;
-
-                                //         for (rc = 0; rc < trendWoMt.length; rc++) {
-                                //             tbRootCouseAPK = tbRootCouseAPK +
-                                //             `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
-                                //         }
-                                //         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
-                                //     }
-                                // });
-                            }
-                        });
-                    });
-
-                    
-
-                    let totBulananCluster = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>`;
-                            // <th class="table-dark"></th>`;
-                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
-
-                    for (p=0;p<trendWoIBFtth.length; p++) {
-                        TotBranchCluster[p] = 0
-                        $.each(dataCluster.branchCluster, function(key, totBranchCl) {
-                            TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
-                        })
-
-                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
-                    }
-
-                    $('#bodyCluster').append(totBulananCluster + `</tr>`);
-                }
-
-            });
+            
 
             $.ajax({
                 url: "{{ route('getReasonStatusIBFtthGraph') }}",

@@ -236,8 +236,8 @@ class Report_IBController extends Controller
         $branchPenagihan = DB::table('data_ftth_ib_sortirs as d')
             ->select('b.id', 'd.branch as nama_branch', 'd.site_penagihan')
             ->leftJoin('branches as b', 'd.branch', '=', 'b.nama_branch')
-            ->whereMonth('tgl_ikr', '=', $bulan)->whereYear('tgl_ikr', '=', $tahun)
-            ->whereBetween('tgl_ikr', [$startDate, $endDate]);
+            ->whereMonth('tgl_ikr', '=', $bulan)->whereYear('tgl_ikr', '=', $tahun);
+            // ->whereBetween('tgl_ikr', [$startDate, $endDate]);
 
 
         if ($request->filterSite != "All") {
@@ -247,7 +247,7 @@ class Report_IBController extends Controller
             $branchPenagihan = $branchPenagihan->where('d.branch', '=', $request->filterBranch);
         }
 
-        $branchPenagihan = $branchPenagihan->distinct()->orderBy('id')->get();
+        $branchPenagihan = $branchPenagihan->distinct()->orderBy('b.id')->get();
 
 
         for ($br = 0; $br < $branchPenagihan->count(); $br++) {
@@ -281,6 +281,7 @@ class Report_IBController extends Controller
                     ->where('status_wo', '=', 'Cancel')->count();
 
                 if ($request->filterSite == "All") {
+                    $branchPenagihan[$br]->id = "11";
                     $branchPenagihan[$br]->nama_branch = "Apartemen";
                 }
                 // $branchPenagihan[$br]->nama_branch = "Apartemen";
@@ -374,6 +375,151 @@ class Report_IBController extends Controller
     }
 
     public function getClusterBranchIBFtth(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $totBranchBln = [];
+        $trendBulanan = [];
+        $branchSortir = [];
+        $detCluster = [];
+        $detRootCouseSortir = [];
+
+        $kolomBln='';
+
+        $totBranchCluster = DB::table('v_ftth_ib_cluster')
+                        ->select('nama_branch','site_penagihan')
+                        ->groupBy('nama_branch','site_penagihan');
+
+        $totCluster = DB::table('v_ftth_ib_cluster')
+                        ->select('nama_branch','cluster','site_penagihan')
+                        ->groupBy('nama_branch','cluster','site_penagihan');
+
+        if ($request->filterSite != "All") {
+            $totBranchCluster = $totBranchCluster->where('site_penagihan', '=', $request->filterSite);
+            $totCluster = $totCluster->where('site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $totBranchCluster = $totBranchCluster->where('branch', '=', $request->filterBranch);
+            $totCluster = $totCluster->where('branch', '=', $request->filterBranch);
+        }
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$bt-1]['bulan'])->month;
+            $blnThn = str_replace('-','_',$trendBulanan[$bt-1]['bulan']);
+            $totBranchCluster = $totBranchCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_ib end),0) as ".$blnThn.""));
+            $totCluster = $totCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_ib end),0) as ".$blnThn.""));
+        }
+
+        $totBranchCluster = $totBranchCluster->get();
+        $totCluster = $totCluster->get();
+
+
+        for($db=0; $db < $totBranchCluster->count(); $db++){
+            $totBranchBln[$db]['nmTbranch'] = $totBranchCluster[$db]->nama_branch;
+
+            for($tbln=0; $tbln < count($trendBulanan); $tbln++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tbln]['bulan'])->month;
+                $blnThn = str_replace('-','_',$trendBulanan[$tbln]['bulan']);
+
+                $totBranchBln[$db]['totbulanan'][$tbln] = $totBranchCluster[$db]->$blnThn; 
+            }
+        }
+
+        for($db=0; $db < $totCluster->count(); $db++){
+            $detCluster[$db]['nama_branch'] = $totCluster[$db]->nama_branch;
+            $detCluster[$db]['cluster'] = $totCluster[$db]->cluster;
+
+            for($tbln=0; $tbln < count($trendBulanan); $tbln++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tbln]['bulan'])->month;
+                $blnThn = str_replace('-','_',$trendBulanan[$tbln]['bulan']);
+
+                $detCluster[$db]['bulanan'][$tbln] = $totCluster[$db]->$blnThn; 
+            }
+        }
+
+
+        // $branch = DB::table('data_ftth_ib_sortirs as d')
+        //         ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+        //         ->select('b.id','d.branch as nama_branch');
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
+
+        // $branchCluster = DB::table('data_ftth_ib_sortirs as d')
+        //         ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+        //         ->select('b.id','d.branch as nama_branch','d.cluster');
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional']);
+
+                
+        // if ($request->filterSite != "All") {
+        //     $branchCluster = $branchCluster->where('d.site_penagihan', '=', $request->filterSite);
+        //     $branch = $branch->where('d.site_penagihan', '=', $request->filterSite);
+        // }
+        // if ($request->filterBranch != "All") {
+        //     $branchCluster = $branchCluster->where('d.branch', '=', $request->filterBranch);
+        //     $branch = $branch->where('d.branch', '=', $request->filterBranch);
+        // }
+
+        // $branchCluster = $branchCluster->groupBy('d.branch', 'b.id','d.cluster')->orderBy('b.id')->orderBy('d.cluster' )->get();
+        // $branch = $branch->groupBy('d.branch', 'b.id')->orderBy('b.id')->get();
+
+
+        // for ($bc = 0; $bc < count($branchCluster); $bc++) {
+
+        //     $detCluster[$bc]['nama_branch'] = $branchCluster[$bc]->nama_branch;
+        //     $detCluster[$bc]['cluster'] = $branchCluster[$bc]->cluster;
+
+
+        //     for ($tm = 0; $tm < count($trendBulanan); $tm++) {
+
+        //         $jml = DB::table('data_ftth_ib_sortirs as d')
+        //         ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+        //         ->select('b.id','d.branch as nama_branch','d.cluster')
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
+        //         ->whereMonth('d.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$tm]['bulan'])->month) // $bulan)
+        //         ->whereYear('d.tgl_ikr', '=', $tahun)
+        //         ->where('d.branch','=', $branchCluster[$bc]->nama_branch)
+        //         ->where('d.cluster','=', $branchCluster[$bc]->cluster);
+
+
+        //         $jml = $jml->groupBy('d.branch','d.cluster', 'b.id')->orderBy('b.id')->count();
+
+        //         $detCluster[$bc]['bulanan'][$tm] = [$jml];
+
+        //     }
+
+        // }
+
+        // for ($db = 0; $db < count($branch); $db++) {
+
+        //     $totBranchBln[$db]['nmTbranch'] = $branch[$db]->nama_branch;
+        //     for ($dbm = 0; $dbm < count($trendBulanan); $dbm++) {
+
+        //         $jmldbm = DB::table('data_ftth_ib_sortirs as d')
+        //         ->leftJoin('branches as b','d.branch','=','b.nama_branch')
+        //         ->select('b.id','d.branch as nama_branch')
+        //         // ->whereNotIn('d.type_wo', ['Dismantle', 'Additional'])
+        //         ->whereMonth('d.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$dbm]['bulan'])->month) // $bulan)
+        //         ->whereYear('d.tgl_ikr', '=', $tahun)
+        //         ->where('d.branch','=', $branch[$db]->nama_branch)
+        //         ->groupBy('d.branch','b.id')->orderBy('b.id')->count();
+
+        //         // $varjml = $varjml + $jmldbm;
+        //         $totBranchBln[$db]['totbulanan'][$dbm] = [$jmldbm];
+
+        //     }
+
+        // }
+
+        return response()->json([
+            'branchCluster' => $totBranchBln, 'detCluster' => $detCluster
+        ]);
+    } 
+
+    public function getClusterBranchIBFtthOld(Request $request)
     {
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
@@ -588,6 +734,7 @@ class Report_IBController extends Controller
         $PenagihanSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('root_couse_penagihan.type_wo','=','IB FTTH')
             // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', $bulan) // $bulan)
             ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
@@ -619,6 +766,7 @@ class Report_IBController extends Controller
                 $jml = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Done')
+                    ->where('root_couse_penagihan.type_wo','=','IB FTTH')
                     // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('tgl_ikr', '=', $tglGraph[$t])
                     // ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -669,7 +817,8 @@ class Report_IBController extends Controller
 
         $PenagihanSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done');
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('root_couse_penagihan.type_wo','=','IB FTTH');
             // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional']);
         //->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month) // $bulan)
         // ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
@@ -693,6 +842,7 @@ class Report_IBController extends Controller
                 $jml = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Done')
+                    ->where('root_couse_penagihan.type_wo','=','IB FTTH')
                     // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
                     ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
@@ -714,7 +864,8 @@ class Report_IBController extends Controller
 
         $CouseCodeSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan,reason_status'))
             ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done');
+            ->where('root_couse_penagihan.status', '=', 'Done')
+            ->where('root_couse_penagihan.type_wo','=','IB FTTH');
             // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional']);
         // ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', $bulan)
         // ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
@@ -739,6 +890,7 @@ class Report_IBController extends Controller
                 $jmlCouseCode = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan,reason_status'))
                     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Done')
+                    ->where('root_couse_penagihan.type_wo','=','IB FTTH')
                     // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$mc]['bulan'])->month) // $bulan)
                     ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
