@@ -119,6 +119,11 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <h6>Summary WO Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)</h5></h6>
+                    <div class="clearfix" id="smWO" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                          <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -309,6 +314,11 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <h6>Summary WO Maintenance FTTH By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <div class="clearfix" id="smWOCluster" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -346,6 +356,11 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <h6>Summary Report Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <div class="clearfix" id="smWOTrend" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -464,6 +479,11 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <h6>Summary Root Cause Closing WO Maintenance FTTH<h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <div class="clearfix" id="smWOClosing" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -486,7 +506,7 @@
         {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
             <div class="table-responsive">
-                <table class="table table-bordered border-primary table-auto" style="font-size: 11px; table-layout: fixed;">
+                <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
                     <thead>
                         <tr id="rootCouseHeadAPK">
                             {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
@@ -508,6 +528,11 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <h5>Summary Root Cause Maintenance Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <div class="clearfix" id="smWOPending" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -552,6 +577,11 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <h6>Summary Root Cause Cancel Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <div class="clearfix" id="smWOCancel" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1374,7 +1404,7 @@
 
             // console.log($('#periode').data('daterangepicker').startDate.format("YYYY-MM-DD"))
             // console.log($('#periode').data('daterangepicker').endDate.format("YYYY-MM-DD"))
-
+            
             
             e.preventDefault();
             if($('#bulanReport').val() === ""){
@@ -1417,143 +1447,6 @@
             // console.log($('#CardTitle').html("testing"));
 
             
-            $.ajax({
-                url: "{{ route('getTrendMonthly') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-
-                },
-                success: function(dataTrendMonthly) {
-                    // var trendWoMt = {!! $trendMonthly !!}
-                    trendWoMt = dataTrendMonthly;
-
-                    var trendMonth = [''];
-                    var trendTotMt = ['null'];
-                    var trendMtDone = ['null'];
-
-                    $.each(trendWoMt, function(key, item) {
-
-                        trendMonth.push(item.bulan);
-                        trendTotMt.push(item.trendMtTotal);
-                        trendMtDone.push(item.trendMtDone);
-
-                    });
-
-                    trendMonth.push('');
-                    trendTotMt.push('null');
-                    trendMtDone.push('null');
-
-                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
-
-                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
-                    if (graphTrendTotWoMt) {
-                        graphTrendTotWoMt.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoMt, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotMt, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
-
-                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
-                    if (graphTrendTotWoMtClose) {
-                        graphTrendTotWoMtClose.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoMtClose, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendMtDone, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                }
-
-            })
 
 
             let uri;
@@ -1576,6 +1469,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWO").show();
+                },
+                complete: () => {
+                    $("#smWO").hide();
                 },
                 success: function(dataTotalWo) {
 
@@ -1845,6 +1744,150 @@
 
                 }
 
+                
+            })
+
+            $.ajax({
+                url: "{{ route('getTrendMonthly') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                beforeSend: () => {
+                    $("#smWOTrend").show();
+                },
+                complete: () => {
+                    $("#smWOTrend").hide();
+                },
+                success: function(dataTrendMonthly) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    trendWoMt = dataTrendMonthly;
+
+                    var trendMonth = [''];
+                    var trendTotMt = ['null'];
+                    var trendMtDone = ['null'];
+
+                    $.each(trendWoMt, function(key, item) {
+
+                        trendMonth.push(item.bulan);
+                        trendTotMt.push(item.trendMtTotal);
+                        trendMtDone.push(item.trendMtDone);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotMt.push('null');
+                    trendMtDone.push('null');
+
+                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
+
+                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
+                    if (graphTrendTotWoMt) {
+                        graphTrendTotWoMt.destroy();
+                    }
+
+
+
+                    new Chart(ctxTrendTotWoMt, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotMt, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
+
+                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
+                    if (graphTrendTotWoMtClose) {
+                        graphTrendTotWoMtClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoMtClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendMtDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                }
 
             })
 
@@ -1860,6 +1903,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOCluster").show();
+                },
+                complete: () => {
+                    $("#smWOCluster").hide();
                 },
                 success: function(dataCluster) {    
                     
@@ -2162,6 +2211,8 @@
 
             })
 
+            
+
             $.ajax({
                 url: "{{ route('getRootCouseAPK') }}",
                 type: "GET",
@@ -2287,6 +2338,12 @@
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
 
+                },
+                beforeSend: () => {
+                    $("#smWOClosing").show();
+                },
+                complete: () => {
+                    $("#smWOClosing").hide();
                 },
                 success: function(data) {
                     // var day = new Date(tahun, bulan, 0).getDate();
@@ -2557,6 +2614,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOPending").show();
+                },
+                complete: () => {
+                    $("#smWOPending").hide();
                 },
                 success: function(dataRootCousePending) {
                     console.log(dataRootCousePending);
@@ -2838,6 +2901,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOPending").show();
+                },
+                complete: () => {
+                    $("#smWOPending").hide();
                 },
                 success: function(dataRootCouseCancel) {
 

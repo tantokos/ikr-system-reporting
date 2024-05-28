@@ -633,7 +633,7 @@ class ReportController extends Controller
         $dayMonth = \Carbon\CarbonPeriod::between($startDate, $endDate);
 
         foreach ($dayMonth as $date) {
-            $tgl[] = ['tgl_ikr' => $date->format('Y-m-d')];
+            $tgl[] = ['tgl_ikr' => $date->format('Y-m-d')]; 
         }
         // dd($tgl);
 
