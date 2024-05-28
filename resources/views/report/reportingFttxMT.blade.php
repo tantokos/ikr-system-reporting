@@ -82,7 +82,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-danger">
+            <div class="card text-white bg-c-pink">
                 <div class="card-body">
                     <h6>Summary WO FTTX MT - <h5 id="CardTitle">All Branch</h5>
                     </h6>
@@ -301,7 +301,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-danger">
+            <div class="card text-white bg-c-pink">
                 <div class="card-body">
                     <h6>Summary Report FTTX MT - <h5 id="CardTitle">All Branch<h5>
                     </h6>
@@ -388,7 +388,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-danger">
+            <div class="card text-white bg-c-pink">
                 <div class="card-body">
                     <h6>Summary Action Taken Closing WO FTTX MT<h5 id="CardTitle">All Branch<h5>
                     </h6>
@@ -432,7 +432,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-danger">
+            <div class="card text-white bg-c-pink">
                 <div class="card-body">
                     <h5>Summary Action Taken FTTX MT Failed - <h5 id="CardTitle">All Branch<h5></h6>
                 </div>
@@ -476,7 +476,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-danger">
+            <div class="card text-white bg-c-pink">
                 <div class="card-body">
                     <h5>Summary Action Taken FTTX MT Cancel - <h5 id="CardTitle">All Branch<h5></h6>
                 </div>
