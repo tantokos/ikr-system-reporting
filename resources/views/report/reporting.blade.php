@@ -6,7 +6,7 @@
         {{-- <div class="row"> --}}
 
         <div class="col-sm-12">
-            <div class="card">
+            <div class="card bg-light">
                 <div class="card-body">
                     {{-- <form action="#"> --}}
                         <div class="row">
@@ -116,9 +116,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)</h5></h6>
+                    <h6>Summary WO FTTH Maintenance - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)</h5></h6>
                     <div class="clearfix" id="smWO" style="display: none">
                         <div class="spinner-border float-right" role="status">
                           <span class="sr-only" >Loading...</span>
@@ -311,9 +311,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO Maintenance FTTH By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary WO FTTH Maintenance By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
                     <div class="clearfix" id="smWOCluster" style="display: none">
                         <div class="spinner-border float-right" role="status">
                             <span class="sr-only" >Loading...</span>
@@ -353,9 +353,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Report Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Trend WO FTTH Maintenance - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
                     <div class="clearfix" id="smWOTrend" style="display: none">
                         <div class="spinner-border float-right" role="status">
                             <span class="sr-only" >Loading...</span>
@@ -370,6 +370,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title" id="titleTrendTotWo"></h5>
                     <canvas id="TrendTotWoMt" style="align-content: center; align-items: center"></canvas>
                 </div>
             </div>
@@ -378,6 +379,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title" id="titleTrendWoClose"></h5>
                     <canvas id="TrendTotWoMtClose"></canvas>
                 </div>
             </div>
@@ -476,9 +478,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Root Cause Closing WO Maintenance FTTH<h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary Root Couse Closing WO FTTH Maintenance<h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
                     <div class="clearfix" id="smWOClosing" style="display: none">
                         <div class="spinner-border float-right" role="status">
                             <span class="sr-only" >Loading...</span>
@@ -523,11 +525,14 @@
         {{-- End Root Couse Sortir MT --}}
     </div>
 
+    
+    
+
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h5>Summary Root Cause Maintenance Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary Root Couse Failed WO FTTH Maintenance - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
                     <div class="clearfix" id="smWOPending" style="display: none">
                         <div class="spinner-border float-right" role="status">
                             <span class="sr-only" >Loading...</span>
@@ -574,9 +579,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Root Cause Cancel Maintenance FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary Root Cause Cancel WO FTTH Maintenance - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
                     <div class="clearfix" id="smWOCancel" style="display: none">
                         <div class="spinner-border float-right" role="status">
                             <span class="sr-only" >Loading...</span>
@@ -641,9 +646,15 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-success">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO Maintenance Cancel System Problem - Back To Normal - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary Root Couse Cancel System Problem/Back To Normal WO FTTH Maintenance - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+
+                    <div class="clearfix" id="smWOCancelSysProb" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -723,6 +734,45 @@
         </div>
         {{-- End Back To Normal 2 Sortir MT --}}
     </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
+                <div class="card-body">
+                    <h6>Summary Analisa Bad Precon WO FTTH Maintenance<h5 id="CardTitleAnalisPrecon">All Branch<h5></h6>
+                    <div class="clearfix" id="smWOAnalisPrecon" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        {{-- Root Couse Sortir MT --}}
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
+                    <thead>
+                        <tr id="analisHeadAPK">
+                            {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
+                            {{-- <th></th> --}}
+                            {{-- <th></th> --}}
+                            {{-- <th style="text-align: center">Jumlah</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody id="analisAPK">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{-- End Root Couse Sortir MT --}}
+    </div>
+
+    
 
     {{-- <div class="row">
         <div class="col-sm-12">
@@ -1444,9 +1494,31 @@
             document.querySelectorAll('#CardTitle').forEach(function(elem){
                 elem.innerText = titleBranch + " - " + titleSite; 
             })
+
+            document.querySelectorAll('#CardTitleAnalisPrecon').forEach(function(elem){
+                elem.innerText = titleBranch; 
+            })
             // console.log($('#CardTitle').html("testing"));
 
-            
+            $.ajax({
+                url: "{{ route('getMonthly') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(dataTrendMonthly) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    trendWoMt = dataTrendMonthly;
+
+                }
+
+            })
 
 
             let uri;
@@ -1455,6 +1527,7 @@
             }else {
                 uri = "{{ route('getFilterDashboard')}}";
             }
+            
             
 
             $.ajax({
@@ -1748,152 +1821,6 @@
             })
 
             $.ajax({
-                url: "{{ route('getTrendMonthly') }}",
-                type: 'GET',
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-
-                },
-                beforeSend: () => {
-                    $("#smWOTrend").show();
-                },
-                complete: () => {
-                    $("#smWOTrend").hide();
-                },
-                success: function(dataTrendMonthly) {
-                    // var trendWoMt = {!! $trendMonthly !!}
-                    trendWoMt = dataTrendMonthly;
-
-                    var trendMonth = [''];
-                    var trendTotMt = ['null'];
-                    var trendMtDone = ['null'];
-
-                    $.each(trendWoMt, function(key, item) {
-
-                        trendMonth.push(item.bulan);
-                        trendTotMt.push(item.trendMtTotal);
-                        trendMtDone.push(item.trendMtDone);
-
-                    });
-
-                    trendMonth.push('');
-                    trendTotMt.push('null');
-                    trendMtDone.push('null');
-
-                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
-
-                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
-                    if (graphTrendTotWoMt) {
-                        graphTrendTotWoMt.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoMt, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotMt, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
-
-                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
-                    if (graphTrendTotWoMtClose) {
-                        graphTrendTotWoMtClose.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoMtClose, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendMtDone, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                }
-
-            })
-
-            
-
-            $.ajax({
                 url: "{{ route('getClusterBranch') }}",
                 type: "GET",
                 data: {
@@ -2008,6 +1935,166 @@
                 }
 
             });
+
+            $.ajax({
+                url: "{{ route('getTrendMonthly') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                beforeSend: () => {
+                    $("#smWOTrend").show();
+                },
+                complete: () => {
+                    $("#smWOTrend").hide();
+                },
+                success: function(dataTrendMonthly) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    trendWoMt = dataTrendMonthly;
+
+                    document.querySelectorAll('#titleTrendTotWo').forEach(function(elem){
+                        elem.innerText = 'Trend Total WO Maintenance ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    document.querySelectorAll('#titleTrendWoClose').forEach(function(elem){
+                        elem.innerText = 'Trend WO Maintenance Close ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    var trendMonth = [''];
+                    var trendTotMt = ['null'];
+                    var trendMtDone = ['null'];
+
+                    $.each(trendWoMt, function(key, item) {
+
+                        trendMonth.push(item.bulan);
+                        trendTotMt.push(item.trendMtTotal);
+                        trendMtDone.push(item.trendMtDone);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotMt.push('null');
+                    trendMtDone.push('null');
+
+                    const ctxTrendTotWoMt = document.getElementById('TrendTotWoMt');
+
+                    var graphTrendTotWoMt = Chart.getChart('TrendTotWoMt');
+                    if (graphTrendTotWoMt) {
+                        graphTrendTotWoMt.destroy();
+                    }
+
+
+
+                    new Chart(ctxTrendTotWoMt, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotMt, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    clamp: 'true',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: false,
+                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
+
+                    var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
+                    if (graphTrendTotWoMtClose) {
+                        graphTrendTotWoMtClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoMtClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendMtDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();},
+                                },
+                                
+                                
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: false, //this will remove all the x-axis grid lines
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                }
+
+            })
+
+            
+
+            
 
             $.ajax({
                 url: "{{ route('getTabelStatus') }}",
@@ -2362,22 +2449,17 @@
                     var total = 0;
 
                     for(tg=0;tg<data.tglGraphAPK.length;tg++){
-                        // console.log(data.tglGraphAPK[tg].tgl_ikr)
+                        
                         dayGraph.push(new Date(data.tglGraphAPK[tg].tgl_ikr).getDate())
                         
 
                     }
 
                     for(nm=0;nm<data.nameGraphAPK.length;nm++){
-                        // console.log(data.nameGraphAPK[nm].penagihan);
-                        nameGraph.push({name: data.nameGraphAPK[nm].penagihan});
-                        // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
-
-                        // for(dt=0;dt<data.dataGraphAPK.length;dt++){
-                            // console.log(data.dataGraphAPK[dt].data);
-                            nameGraph[nm]['data'] = data.dataGraphAPK[nm].data
-                        // }
                         
+                        nameGraph.push({name: data.nameGraphAPK[nm].penagihan});
+                           
+                            nameGraph[nm]['data'] = data.dataGraphAPK[nm].data
                     }
                     
                     // graph line dialy //
@@ -2468,6 +2550,8 @@
 
             
 
+            
+
 
             $.ajax({
                 url: "{{ route('getRootCousePendingGraph') }}",
@@ -2500,21 +2584,15 @@
                     var total = 0;
 
                     for(tg=0;tg<data.tglGraphAPKPending.length;tg++){
-                        // console.log(data.tglGraphAPK[tg].tgl_ikr)
+
                         dayGraphPending.push(new Date(data.tglGraphAPKPending[tg].tgl_ikr).getDate())
-                        
 
                     }
 
                     for(nm=0;nm<data.nameGraphAPKPending.length;nm++){
-                        // console.log(data.nameGraphAPK[nm].penagihan);
                         nameGraphPending.push({name: data.nameGraphAPKPending[nm].penagihan});
-                        // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
 
-                        // for(dt=0;dt<data.dataGraphAPK.length;dt++){
-                            // console.log(data.dataGraphAPK[dt].data);
-                            nameGraphPending[nm]['data'] = data.dataGraphAPKPending[nm].data
-                        // }
+                        nameGraphPending[nm]['data'] = data.dataGraphAPKPending[nm].data
                         
                     }
                     
@@ -2622,7 +2700,7 @@
                     $("#smWOPending").hide();
                 },
                 success: function(dataRootCousePending) {
-                    console.log(dataRootCousePending);
+
                     $('#rootCouseHeadPending').find("tr").remove();
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
@@ -2903,10 +2981,10 @@
                     filterDateEnd: filPeriodeEnd
                 },
                 beforeSend: () => {
-                    $("#smWOPending").show();
+                    $("#smWOCancel").show();
                 },
                 complete: () => {
-                    $("#smWOPending").hide();
+                    $("#smWOCancel").hide();
                 },
                 success: function(dataRootCouseCancel) {
 
@@ -2979,6 +3057,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOCancelSysProb").show();
+                },
+                complete: () => {
+                    $("#smWOCancelSysProb").hide();
                 },
                 success: function(btn) {
 
@@ -3150,6 +3234,121 @@
                 }
 
             });
+
+            $.ajax({
+                url: "{{ route('getAnalisPrecon') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOAnalisPrecon").show();
+                },
+                complete: () => {
+                    $("#smWOAnalisPrecon").hide();
+                },
+                success: function(apk) {    
+                    $('#analisHeadAPK').find("th").remove();
+                    $('#analisAPK').find("tr").remove();
+
+                    let TotPenagihan = [];
+                    let tbPenagihanAPK;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>Waktu Instalasi</th>
+                        <th>Penagihan</th>
+                        <th>Root Couse</th>`;
+                        // <th style="text-align: center">Jumlah</th>`;
+
+                    for (h = 0;h < trendWoMt.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                    }
+
+                    $('#analisHeadAPK').append(hdRootCouseAPK + `</tr>`);
+
+
+                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+
+                        tbPenagihanAPK = `
+                                <tr class="table-secondary"><th>${itemPenagihan.result}</th>
+                                <th class="table-secondary"></th>
+                                <th class="table-secondary"></th>`;
+                        
+                        for (p=0;p<trendWoMt.length; p++) {
+                            tbPenagihanAPK = tbPenagihanAPK +
+                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+   
+                        }
+
+                        $('#analisAPK').append(tbPenagihanAPK + `</tr>`);
+
+                        $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
+                            if (itemPenagihan.result == itemCouseCode.result) {
+                                tbCouseCodeAPK = `
+                                    <tr><th></th>
+                                    <th class="table-info">${itemCouseCode.penagihan}</th>
+                                    <th class="table-info"></th>`;
+
+                                for (cc = 0;cc < trendWoMt.length; cc++) {
+                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                }
+
+                                $('#analisAPK').append(tbCouseCodeAPK + '</tr>');
+
+
+                                $.each(apk.detRootCouseSortir, function(key,
+                                    itemRootCouse) {
+
+                                    if (itemPenagihan.result == itemRootCouse
+                                        .result && itemCouseCode
+                                        .penagihan == itemRootCouse.penagihan
+                                    ) {
+                                        tbRootCouseAPK = `
+                                            <tr><td></td>
+                                            <td></td>
+                                            <td>${itemRootCouse.root_couse}</td>`;
+
+                                        for (rc = 0; rc < trendWoMt.length; rc++) {
+                                            tbRootCouseAPK = tbRootCouseAPK +
+                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                        }
+                                        $('#analisAPK').append(tbRootCouseAPK + `</tr>`);
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    
+
+                    let totRootCouseAPK = `
+                        <tr><th class="table-dark">TOTAL</th>
+                            <th class="table-dark"></th>
+                            <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+                    for (p=0;p<trendWoMt.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                    }
+
+                    $('#analisAPK').append(totRootCouseAPK + `</tr>`);
+                }
+
+            });
+
+            
 
             // $.ajax({
             //     url: "{{ route('getTrendMonthlyApart') }}",

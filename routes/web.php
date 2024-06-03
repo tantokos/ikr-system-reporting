@@ -18,6 +18,7 @@ use App\Http\Controllers\FatController;
 use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\ImportFtthDismantleTempController;
 use App\Http\Controllers\ImportFtthIBTempController;
+use App\Http\Controllers\ImportFtthMtSortirController;
 use App\Http\Controllers\ImportFtthMtTempController;
 use App\Http\Controllers\ImportFttxIbTempController;
 use App\Http\Controllers\ImportFttxMtTempController;
@@ -89,6 +90,7 @@ Route::group(
         Route::get('/getFilterDashboard', [ReportController::class, 'getFilterDashboard'])->name('getFilterDashboard');
         Route::get('/getFilterSite', [ReportController::class, 'getFilterSite'])->name('getFilterSite');
         
+        Route::get('/getMonthly', [ReportController::class, 'getMonthly'])->name('getMonthly');
         Route::get('/getTotalWoBranch', [ReportController::class, 'getTotalWoBranch'])->name('getTotalWoBranch');
         Route::get('/getClusterBranch', [ReportController::class, 'getClusterBranch'])->name('getClusterBranch');
 
@@ -104,6 +106,8 @@ Route::group(
         Route::get('/getRootCouseAPK', [ReportController::class, 'getRootCouseAPK'])->name('getRootCouseAPK');
         Route::get('/getRootCouseAPKGraph', [ReportController::class, 'getRootCouseAPKGraph'])->name('getRootCouseAPKGraph');
         Route::get('/getCancelSystemProblem', [ReportController::class, 'getCancelSystemProblem'])->name('getCancelSystemProblem');
+        Route::get('/getAnalisPrecon', [ReportController::class, 'getAnalisPrecon'])->name('getAnalisPrecon');
+
         
         Route::get('/getTrendMonthlyApart', [ReportController::class, 'getTrendMonthlyApart'])->name('getTrendMonthlyApart');
         Route::get('/getTabelStatusApart', [ReportController::class, 'getTabelStatusApart'])->name('getTabelStatusApart');
@@ -123,6 +127,9 @@ Route::group(
         Route::post('/DataImportFtthMtTemp', [ImportFtthMtTempController::class, 'dataImportFtthTemp'])->name('import.dataImportFtthMtTemp');
         Route::post('/import-FtthMtTemp', [ImportFtthMtTempController::class, 'importFtthMtTemp'])->name('import.ImportFtthMtTemp');
         Route::get('/import-SummaryTemp', [ImportFtthMtTempController::class, 'show_summary'])->name('import.summaryImportFtthMtTemp');
+
+        Route::get('/importftthmtsortir', [ImportFtthMtSortirController::class , 'index'])->name('import.ftthmtsortirIndex');
+        Route::post('/import-FtthMtsortir', [ImportFtthMtSortirController::class, 'importFtthMtSortir'])->name('import.ImportFtthMtSortir');
 
         Route::get('/getFilterSummary',[ImportFtthMtTempController::class, 'getFilterSummary'])->name('getFilterSummary');
 

@@ -22,7 +22,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <form action="{{ route('import.ImportFtthMtTemp') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('import.ImportFtthMtSortir') }}" method="POST" enctype="multipart/form-data">
                     {{-- <form  method="POST" enctype="multipart/form-data"> --}}
                         @csrf
                         <div class="form-group">

@@ -82,10 +82,15 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-secondary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO Dismantle - <h5 id="CardTitle">All Branch</h5>
+                    <h6>Summary WO FTTH Dismantle & Remove Device - <h5 id="CardTitle">All Branch</h5>
                     </h6>
+                    <div class="clearfix" id="smWO" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,9 +276,14 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-secondary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO Dismantle By Cluster Area - <h5 id="CardTitle">All Branch<h5></h6>
+                    <h6>Summary WO FTTH Dismantle & Remove Device By Cluster Area - <h5 id="CardTitle">All Branch<h5></h6>
+                    <div class="clearfix" id="smWOCluster" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -308,10 +318,15 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-secondary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Report Dismantle FTTH - <h5 id="CardTitle">All Branch<h5>
+                    <h6>Trend WO FTTH Dismantle & Remove Device - <h5 id="CardTitle">All Branch<h5>
                     </h6>
+                    <div class="clearfix" id="smWOTrend" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -395,10 +410,15 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-secondary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Reason Status Closing WO Dismantle<h5 id="CardTitle">All Branch<h5>
+                    <h6>Summary Closing WO FTTH Dismantle & Remove Device <h5 id="CardTitle">All Branch<h5>
                     </h6>
+                    <div class="clearfix" id="smWOClosing" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -440,9 +460,14 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-secondary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h5>Summary Reason Status Dismantle Failed - <h5 id="CardTitle">All Branch<h5></h6>
+                    <h5>Summary Root Couse Failed WO FTTH Dismantle & Remove Device - <h5 id="CardTitle">All Branch<h5></h6>
+                    <div class="clearfix" id="smWOPending" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -751,6 +776,12 @@
                     filterDateEnd: filPeriodeEnd
 
                 },
+                beforeSend: () => {
+                    $("#smWOTrend").show();
+                },
+                complete: () => {
+                    $("#smWOTrend").hide();
+                },
                 success: function(dataTrendMonthly) {
                     // var trendWoIBFtth = {!! $trendMonthly !!}
                     trendWoIBFtth = dataTrendMonthly;
@@ -898,6 +929,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWO").show();
+                },
+                complete: () => {
+                    $("#smWO").hide();
                 },
                 success: function(dataTotalWo) {
 
@@ -1180,6 +1217,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOCluster").show();
+                },
+                complete: () => {
+                    $("#smWOCluster").hide();
                 },
                 success: function(dataCluster) {    
                     $('#tableHeadCluster').find("th").remove();
@@ -1631,6 +1674,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOClosing").show();
+                },
+                complete: () => {
+                    $("#smWOClosing").hide();
                 },
                 success: function(apk) {
 
@@ -2096,6 +2145,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOPending").show();
+                },
+                complete: () => {
+                    $("#smWOPending").hide();
                 },
                 success: function(dataRootCousePending) {
 
