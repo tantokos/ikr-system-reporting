@@ -82,10 +82,15 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-info">
+            <div class="card text-white " style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO FTTX IB - <h5 id="CardTitle">All Branch</h5>
+                    <h6>Summary WO FTTX New Installation - <h5 id="CardTitle">All Branch</h5>
                     </h6>
+                    <div class="clearfix" id="smWO" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -301,10 +306,15 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-info">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Report FTTX IB - <h5 id="CardTitle">All Branch<h5>
+                    <h6>Trend WO FTTX New Installation - <h5 id="CardTitle">All Branch<h5>
                     </h6>
+                    <div class="clearfix" id="smWOTrend" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -388,10 +398,15 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-info">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Action Taken Closing WO FTTX IB<h5 id="CardTitle">All Branch<h5>
+                    <h6>Summary Closing WO FTTX New Installation<h5 id="CardTitle">All Branch<h5>
                     </h6>
+                    <div class="clearfix" id="smWOClosing" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -432,9 +447,14 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-info">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h5>Summary Action Taken FTTX IB Failed - <h5 id="CardTitle">All Branch<h5></h6>
+                    <h5>Summary Root Couse Failed WO FTTX New Installation - <h5 id="CardTitle">All Branch<h5></h6>
+                        <div class="clearfix" id="smWOPending" style="display: none">
+                            <div class="spinner-border float-right" role="status">
+                                <span class="sr-only" >Loading...</span>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -476,9 +496,14 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-info">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h5>Summary Action Taken FTTX IB Cancel - <h5 id="CardTitle">All Branch<h5></h6>
+                    <h5>Summary Root Couse Cancel WO FTTX New Installation - <h5 id="CardTitle">All Branch<h5></h6>
+                    <div class="clearfix" id="smWOCancel" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -796,6 +821,12 @@
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
                 },
+                beforeSend: () => {
+                    $("#smWO").show();
+                },
+                complete: () => {
+                    $("#smWO").hide();
+                },
                 success: function(dataTotalWo) {
 
 
@@ -1079,6 +1110,12 @@
                     filterDateEnd: filPeriodeEnd
 
                 },
+                beforeSend: () => {
+                    $("#smWOTrend").show();
+                },
+                complete: () => {
+                    $("#smWOTrend").hide();
+                },
                 success: function(dataTrendMonthly) {
                     // var trendWoIBFtth = {!! $trendMonthly !!}
                     trendWoIBFtth = dataTrendMonthly;
@@ -1220,6 +1257,12 @@
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
 
+                },
+                beforeSend: () => {
+                    $("#smWOClosing").show();
+                },
+                complete: () => {
+                    $("#smWOClosing").hide();
                 },
                 success: function(data) {
 
@@ -1909,6 +1952,81 @@
             })
 
             $.ajax({
+                url: "{{ route('getRootCousePendingIBFttx') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOPending").show();
+                },
+                complete: () => {
+                    $("#smWOPending").hide();
+                },
+                success: function(dataRootCousePending) {
+
+                    $('#rootCouseHeadPending').find("tr").remove();
+                    $('#rootCouseTbPending').find("tr").remove();
+                    $('#totRootCousePending').find("th").remove();
+
+                    var TotRootDonePending = 0;
+                    let tbRootCousePending;
+                    let hdRootCousePending = `
+                        <tr>
+                                <th>Action Taken FTTX IB Pending</th>
+                        </tr>`;
+
+                    $('#rootCouseHeadPending').append(hdRootCousePending);
+
+                    for (b = 0; b < trendWoIBFtth.length; b++) {
+                        $('#rootCouseHeadPending').find("tr").append(
+                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
+                        )
+                    }
+
+                    $.each(dataRootCousePending, function(key, item) {
+                        if (item.penagihan == 'total_pending') {
+                            tbRootCousePending = `
+                            <tr>
+                                <th>Total</th>
+                                
+                            `;
+                        } else {
+                            tbRootCousePending = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                
+                            `;
+                        }
+
+                        if (item.penagihan == 'total_pending') {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<th style="text-align: center">${item.bulan[bln]}</th>`;
+                            }
+
+                        } else {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<td style="text-align: center">${item.bulan[bln]}</td>`;
+
+                            }
+                        }
+
+                        tbRootCousePending = tbRootCousePending + `</tr>`;
+                        $('#rootCouseTbPending').append(tbRootCousePending);
+
+                    });
+                }
+
+            });
+
+            $.ajax({
                 url: "{{ route('getRootCouseCancelGraphIBFttx') }}",
                 type: 'GET',
                 data: {
@@ -2258,74 +2376,7 @@
 
             // });
 
-            $.ajax({
-                url: "{{ route('getRootCousePendingIBFttx') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(dataRootCousePending) {
-
-                    $('#rootCouseHeadPending').find("tr").remove();
-                    $('#rootCouseTbPending').find("tr").remove();
-                    $('#totRootCousePending').find("th").remove();
-
-                    var TotRootDonePending = 0;
-                    let tbRootCousePending;
-                    let hdRootCousePending = `
-                        <tr>
-                                <th>Action Taken FTTX IB Pending</th>
-                        </tr>`;
-
-                    $('#rootCouseHeadPending').append(hdRootCousePending);
-
-                    for (b = 0; b < trendWoIBFtth.length; b++) {
-                        $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
-
-                    $.each(dataRootCousePending, function(key, item) {
-                        if (item.penagihan == 'total_pending') {
-                            tbRootCousePending = `
-                            <tr>
-                                <th>Total</th>
-                                
-                            `;
-                        } else {
-                            tbRootCousePending = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        }
-
-                        if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<th style="text-align: center">${item.bulan[bln]}</th>`;
-                            }
-
-                        } else {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulan[bln]}</td>`;
-
-                            }
-                        }
-
-                        tbRootCousePending = tbRootCousePending + `</tr>`;
-                        $('#rootCouseTbPending').append(tbRootCousePending);
-
-                    });
-                }
-
-            });
+            
 
 
             $.ajax({
@@ -2338,6 +2389,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOCancel").show();
+                },
+                complete: () => {
+                    $("#smWOCancel").hide();
                 },
                 success: function(dataRootCouseCancel) {
 

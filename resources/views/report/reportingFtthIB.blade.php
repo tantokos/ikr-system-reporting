@@ -82,11 +82,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
+                    <h6>Summary WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
                             Underground)</h5>
                     </h6>
+                    <div class="clearfix" id="smWO" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -272,9 +277,14 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO New Installation FTTH By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary WO FTTH New Installation & Additional Service By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <div class="clearfix" id="smWOCluster" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -309,11 +319,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Report New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
+                    <h6>Trend WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
                             Underground)<h5>
                     </h6>
+                    <div class="clearfix" id="smWOTrend" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -397,11 +412,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Root Cause Closing WO New Installation FTTH<h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h6>Summary Closing WO FTTH New Installation & Additional Service<h5 id="CardTitle">All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                     </h6>
+                    <div class="clearfix" id="smWOClosing" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -443,11 +463,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h5>Summary Root Cause New Installation Failed FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h5>Summary Root Cause Failed WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                                 </h6>
+                    <div class="clearfix" id="smWOPending" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -489,11 +514,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Root Cause Cancel New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h6>Summary Root Cause Cancel WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                     </h6>
+                    <div class="clearfix" id="smWOCancel" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -775,6 +805,12 @@
                     filterDateEnd: filPeriodeEnd
 
                 },
+                beforeSend: () => {
+                    $("#smWOTrend").show();
+                },
+                complete: () => {
+                    $("#smWOTrend").hide();
+                },
                 success: function(dataTrendMonthly) {
                     // var trendWoIBFtth = {!! $trendMonthly !!}
                     trendWoIBFtth = dataTrendMonthly;
@@ -923,6 +959,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWO").show();
+                },
+                complete: () => {
+                    $("#smWO").hide();
                 },
                 success: function(dataTotalWo) {
 
@@ -1206,6 +1248,12 @@
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
                 },
+                beforeSend: () => {
+                    $("#smWOCluster").show();
+                },
+                complete: () => {
+                    $("#smWOCluster").hide();
+                },
                 success: function(dataCluster) {    
                     $('#tableHeadCluster').find("th").remove();
                     $('#bodyCluster').find("tr").remove();
@@ -1301,7 +1349,6 @@
                 }
 
             });
-
 
             $.ajax({
                 url: "{{ route('getTabelStatusIBFtth') }}",
@@ -1506,6 +1553,7 @@
                 }
 
             })
+            
 
             
 
@@ -1657,6 +1705,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOClosing").show();
+                },
+                complete: () => {
+                    $("#smWOClosing").hide();
                 },
                 success: function(apk) {
 
@@ -1901,6 +1955,82 @@
             })
 
             $.ajax({
+                url: "{{ route('getRootCousePendingIBFtth') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOPending").show();
+                },
+                complete: () => {
+                    $("#smWOPending").hide();
+                },
+                success: function(dataRootCousePending) {
+
+                    $('#rootCouseHeadPending').find("tr").remove();
+                    $('#rootCouseTbPending').find("tr").remove();
+                    $('#totRootCousePending').find("th").remove();
+
+                    var TotRootDonePending = 0;
+                    let tbRootCousePending;
+                    let hdRootCousePending = `
+                        <tr>
+                                <th>RootCouse Pending</th>
+                        </tr>`;
+
+                    $('#rootCouseHeadPending').append(hdRootCousePending);
+
+                    for (b = 0; b < trendWoIBFtth.length; b++) {
+                        $('#rootCouseHeadPending').find("tr").append(
+                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
+                        )
+                    }
+
+                    $.each(dataRootCousePending, function(key, item) {
+
+                        if (item.penagihan == 'total_pending') {
+                            tbRootCousePending = `
+                            <tr>
+                                <th>Total</th>
+                                
+                            `;
+                        } else {
+                            tbRootCousePending = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                
+                            `;
+                        }
+
+                        if (item.penagihan == 'total_pending') {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
+                            }
+
+                        } else {
+                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
+
+                            }
+                        }
+
+                        tbRootCousePending = tbRootCousePending + `</tr>`;
+                        $('#rootCouseTbPending').append(tbRootCousePending);
+
+                    });
+                }
+
+            });
+
+            $.ajax({
                 url: "{{ route('getRootCouseCancelGraphIBFtth') }}",
                 type: 'GET',
                 data: {
@@ -2112,75 +2242,7 @@
 
             // });
 
-            $.ajax({
-                url: "{{ route('getRootCousePendingIBFtth') }}",
-                type: "GET",
-                data: {
-                    bulanTahunReport: bulanReport,
-                    filterTgl: filTglPeriode,
-                    filterSite: filSite,
-                    filterBranch: filBranch,
-                    filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
-                },
-                success: function(dataRootCousePending) {
-
-                    $('#rootCouseHeadPending').find("tr").remove();
-                    $('#rootCouseTbPending').find("tr").remove();
-                    $('#totRootCousePending').find("th").remove();
-
-                    var TotRootDonePending = 0;
-                    let tbRootCousePending;
-                    let hdRootCousePending = `
-                        <tr>
-                                <th>RootCouse Pending</th>
-                        </tr>`;
-
-                    $('#rootCouseHeadPending').append(hdRootCousePending);
-
-                    for (b = 0; b < trendWoIBFtth.length; b++) {
-                        $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-                        )
-                    }
-
-                    $.each(dataRootCousePending, function(key, item) {
-
-                        if (item.penagihan == 'total_pending') {
-                            tbRootCousePending = `
-                            <tr>
-                                <th>Total</th>
-                                
-                            `;
-                        } else {
-                            tbRootCousePending = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        }
-
-                        if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-                            }
-
-                        } else {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-                            }
-                        }
-
-                        tbRootCousePending = tbRootCousePending + `</tr>`;
-                        $('#rootCouseTbPending').append(tbRootCousePending);
-
-                    });
-                }
-
-            });
+            
 
             $.ajax({
                 url: "{{ route('getRootCouseCancelIBFtth') }}",
@@ -2192,6 +2254,12 @@
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
                     filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOCancel").show();
+                },
+                complete: () => {
+                    $("#smWOCancel").hide();
                 },
                 success: function(dataRootCouseCancel) {
 
