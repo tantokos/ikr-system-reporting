@@ -275,22 +275,22 @@ class ReportController extends Controller
                 $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Apartemen')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->count();
                 $totWoDone = DataFtthMtSortir::where('site_penagihan', '=', 'Apartemen')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Done')->count();
                 $totWoPending = DataFtthMtSortir::where('site_penagihan', '=', 'Apartemen')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
                 $totWoCancel = DataFtthMtSortir::where('site_penagihan', '=', 'Apartemen')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
                 $branchPenagihan[$b]->total = $totWo;
@@ -304,22 +304,22 @@ class ReportController extends Controller
                 $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->count();
                 $totWoDone = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Done')->count();
                 $totWoPending = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
                 $totWoCancel = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
                 $branchPenagihan[$b]->total = $totWo;
@@ -353,19 +353,19 @@ class ReportController extends Controller
             } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground" && $branchPenagihan[$b]->nama_branch <> "Retail")) {
                 $totWo = DataFtthMtSortir::where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->count();
                 $totWoDone = DataFtthMtSortir::where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Done')->count();
                 $totWoPending = DataFtthMtSortir::where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
                 $totWoCancel = DataFtthMtSortir::where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
                 $branchPenagihan[$b]->total = $totWo;
@@ -900,8 +900,8 @@ class ReportController extends Controller
         for ($m = 0; $m < count($trendBulanan); $m++) {
             $totMtMontly = DB::table('data_ftth_mt_sortirs')
                 ->whereMonth('tgl_ikr', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month)
-                ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->year)
-                ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
+                ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->year);
+                // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
             // ->count();
 
             if ($request->filterSite != "All") {
@@ -916,7 +916,7 @@ class ReportController extends Controller
             $totMtMontlyDone = DB::table('data_ftth_mt_sortirs')
                 ->whereMonth('tgl_ikr', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month)
                 ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->year)
-                ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                 ->where('status_wo', '=', 'Done');
             // ->count();
 

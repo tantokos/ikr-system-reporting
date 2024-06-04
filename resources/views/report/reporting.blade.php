@@ -2014,14 +2014,15 @@
                                 datalabels: {
                                     anchor: 'end',
                                     align: 'top',
-                                    clamp: 'true',
+                                    display: 'auto',
+                                    // clamp: 'true',
                                     formatter: function(value) {
                                         return value.toLocaleString();}
                                 },
                                 title: {
-                                    display: false,
-                                    text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
-                                    align: 'start',
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
                                 },
 
                             },
