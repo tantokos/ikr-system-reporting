@@ -107,10 +107,18 @@
                     </a>
                 </li> --}}
 
-                <li class="{{ request()->is('importftthIB*') ? 'active' : '' }}">
+                <li class="{{ request()->is('importftthIBtem*') ? 'active' : '' }}">
                     <a href="{{ route('import.ftthIBtempIndex') }}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth IB</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->is('importftthIBSortirIndex*') ? 'active' : '' }}">
+                    <a href="{{ route('import.ftthIBSortirIndex') }}">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Import Ftth IB Sortir</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>

@@ -71,6 +71,19 @@
                             </select>
                         </div>
 
+                        <div class="col-sm">
+                            <label class="form-text">Type WO</label>
+                            <select class="col form-control-sm" id="typePenagihanIB">
+                                <option value="All">All</option>
+                                <option value="New Installation">New Installation</option>
+                                <option value="Additional Service STB">Additional Service STB</option>
+                                {{-- @foreach ($penagihanIB as $ib) --}}
+                                    {{-- <option value="{{ $ib->penagihan }}">{{ $ib->penagihan }}</option> --}}
+                                {{-- @endforeach --}}
+
+                            </select>
+                        </div>
+
                     </div>
 
                     {{-- </form> --}}
@@ -771,6 +784,7 @@
             let filSite = $('#site').val();
             let filBranch = $('#branch').val();
             let filKotamadya = $('#kotamadya').val();
+            let typePenagihanIB = $('#typePenagihanIB').val();
 
             let titleBranch;
             let titleSite;
@@ -802,7 +816,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
 
                 },
                 beforeSend: () => {
@@ -938,14 +953,12 @@
 
             })
  
-
             let uri;
-            if ((filSite == "All") && (filBranch == "All")) {
+            if ((filSite == "All") && (filBranch == "All") && (typePenagihanIB == "All")) {
                 uri = "{{ route('getTotalWoBranchIBFtth') }}";
             } else {
                 uri = "{{ route('getFilterDashboardIBFtth') }}";
             }
-
 
             $.ajax({
                 // url: "{{ route('getTotalWoBranch') }}",
@@ -958,7 +971,9 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
+                    
                 },
                 beforeSend: () => {
                     $("#smWO").show();
@@ -1246,7 +1261,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
                 },
                 beforeSend: () => {
                     $("#smWOCluster").show();
@@ -1361,7 +1377,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
 
                 },
                 success: function(data) {
@@ -1568,7 +1585,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
 
                 },
                 success: function(data) {
@@ -1704,7 +1722,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
                 },
                 beforeSend: () => {
                     $("#smWOClosing").show();
@@ -1827,7 +1846,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
 
                 },
                 success: function(data) {
@@ -1963,7 +1983,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
                 },
                 beforeSend: () => {
                     $("#smWOPending").show();
@@ -2041,7 +2062,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
 
                 },
                 success: function(data) {
@@ -2253,7 +2275,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
                 },
                 beforeSend: () => {
                     $("#smWOCancel").show();

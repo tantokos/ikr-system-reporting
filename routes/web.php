@@ -17,6 +17,7 @@ use App\Http\Controllers\EmployeeDashController;
 use App\Http\Controllers\FatController;
 use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\ImportFtthDismantleTempController;
+use App\Http\Controllers\ImportFtthIbSortirController;
 use App\Http\Controllers\ImportFtthIBTempController;
 use App\Http\Controllers\ImportFtthMtSortirController;
 use App\Http\Controllers\ImportFtthMtTempController;
@@ -141,6 +142,10 @@ Route::group(
         Route::get('/importftthIBtemp', [ImportFtthIbTempController::class , 'index'])->name('import.ftthIBtempIndex');
         Route::post('/DataImportFtthIBTemp', [ImportFtthIbTempController::class, 'dataImportFtthIBTemp'])->name('import.dataImportFtthIBTemp');
         Route::post('/import-FtthIBTemp', [ImportFtthIbTempController::class, 'importFtthIBTemp'])->name('import.ImportFtthIBTemp');
+
+        Route::get('/importftthIBSortir', [ImportFtthIbSortirController::class , 'index'])->name('import.ftthIBSortirIndex');
+        Route::post('/import-FtthIBSortir', [ImportFtthIbSortirController::class, 'importFtthIBSortir'])->name('import.ImportFtthIBSortir');
+
 
         Route::get('/getFilterSummaryIB',[ImportFtthIbTempController::class, 'getFilterSummaryIB'])->name('getFilterSummaryIB');
 
