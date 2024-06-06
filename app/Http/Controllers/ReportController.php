@@ -123,8 +123,8 @@ class ReportController extends Controller
         $branchPenagihan = DB::table('data_ftth_mt_sortirs as d')
             ->select('b.id', 'd.branch as nama_branch', 'd.site_penagihan')
             ->leftJoin('branches as b', 'd.branch', '=', 'b.nama_branch')
-            ->whereMonth('tgl_ikr', '=', $bulan)->whereYear('tgl_ikr', '=', $tahun)
-            ->whereBetween('tgl_ikr', [$startDate, $endDate]);
+            ->whereMonth('tgl_ikr', '=', $bulan)->whereYear('tgl_ikr', '=', $tahun);
+            // ->whereBetween('tgl_ikr', [$startDate, $endDate]);
 
 
         if ($request->filterSite != "All") {

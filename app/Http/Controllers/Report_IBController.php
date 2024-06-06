@@ -234,7 +234,7 @@ class Report_IBController extends Controller
 
 
         $branchPenagihan = DB::table('data_ftth_ib_sortirs as d')
-            ->select('b.id', 'd.branch as nama_branch', 'd.site_penagihan')
+            ->select('b.id','d.branch as nama_branch', 'd.site_penagihan')
             ->leftJoin('branches as b', 'd.branch', '=', 'b.nama_branch')
             ->whereMonth('tgl_ikr', '=', $bulan)->whereYear('tgl_ikr', '=', $tahun);
             // ->whereBetween('tgl_ikr', [$startDate, $endDate]);
@@ -398,6 +398,7 @@ class Report_IBController extends Controller
                     $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
 
                 if ($request->filterSite == "All") {
+                    $branchPenagihan[$br]->id = "12";
                     $branchPenagihan[$br]->nama_branch = "Underground";
                 }
                 // $branchPenagihan[$br]->nama_branch = "Underground";
@@ -1002,7 +1003,7 @@ class Report_IBController extends Controller
                     // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
                     ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
-                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->where('data_ftth_ib_sortirs.penagihan', '=', $PenagihanSortir[$ps]->penagihan);
 
                 if ($request->filterSite != "All") {
