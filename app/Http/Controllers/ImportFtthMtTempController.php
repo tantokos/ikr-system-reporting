@@ -283,7 +283,7 @@ class ImportFtthMtTempController extends Controller
     public function importFtthMtTemp(Request $request)
     {
 
-        ini_set('max_execution_time', 300);
+        ini_set('max_execution_time', 900);
         ini_set('memory_limit', '2048M');
 
         if ($request->hasFile('fileFtthMT')) {
@@ -296,12 +296,15 @@ class ImportFtthMtTempController extends Controller
 
             Excel::import(new ImportFtthMT($akses), request()->file('fileFtthMT'));
 
-            $doneSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
+            $doneSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Done')
+                ->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
                 ->whereNotIn('type_wo', ['Dismantle', 'Additional','Add Device'])
                 ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
+                ->groupBy('no_wo')
+                ->get();
 
-            $pendingSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
+            $pendingSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Pending')
+                ->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
                 ->whereNotIn('type_wo', ['Dismantle', 'Additional','Add Device'])
                 ->whereNotIn('no_wo', function ($p) {
                     $p->select('no_wo')->from('import_ftth_mt_temps as import1')->where('status_wo', '=', 'Done');
@@ -310,26 +313,30 @@ class ImportFtthMtTempController extends Controller
                     $c->select('no_wo')->from('import_ftth_mt_temps as import2')->where('status_wo', '=', 'Cancel');
                 })
                 ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
+                ->groupBy('no_wo')
+                ->get();
 
-            $cancelSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
+            $cancelSortir = DB::table('import_ftth_mt_temps')->where('status_wo', '=', 'Cancel')
+                ->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
                 ->whereNotIn('type_wo', ['Dismantle', 'Additional', 'Add Device'])
                 ->whereNotIn('no_wo', function ($p) {
                     $p->select('no_wo')->from('import_ftth_mt_temps as import1')->where('status_wo', '=', 'Done');
                 })
                 ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
+                ->groupBy('no_wo')
+                ->get();
 
             $donePendingSortir = $doneSortir->merge($pendingSortir);
             $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
 
-            
             for ($x = 0; $x < $donePendingCancelSortir->count(); $x++) {
 
                 $importFtthMtOri = ImportFtthMtTemp::where('no_wo', '=', $donePendingCancelSortir[$x]->no_wo)
                     ->where('tgl_ikr', '=', $donePendingCancelSortir[$x]->tgl_ikr)->first();
 
                 // dd($importFtthMtOri->no_wo);
+
+                // $mtSortir = [$importFtthMtOri];
 
                 ImportFtthMtSortirTemp::create([
 
@@ -430,6 +437,7 @@ class ImportFtthMtTempController extends Controller
                     'login' => $akses
                 ]);
             }
+
 
             return back();
         }
