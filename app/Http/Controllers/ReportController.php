@@ -404,12 +404,14 @@ class ReportController extends Controller
         $kolomBln='';
 
         $totBranchCluster = DB::table("v_ftth_mt_cluster")
-                            ->select('nama_branch as nmTBranch','site_penagihan') //, DB::raw('sum(Jan_2024) as "jan_2024"'))
-                            ->groupBy('nama_branch','site_penagihan');
+                            ->select('id','nama_branch as nmTBranch','site_penagihan') //, DB::raw('sum(Jan_2024) as "jan_2024"'))
+                            ->groupBy('id','nama_branch','site_penagihan')
+                            ->orderBy('id');
 
         $detClusterxx = DB::table("v_ftth_mt_cluster")
-                        ->select('nama_branch', 'cluster','site_penagihan')// ->get();
-                        ->groupBy('nama_branch','cluster','site_penagihan');
+                        ->select('id','nama_branch', 'cluster','site_penagihan')// ->get();
+                        ->groupBy('id','nama_branch','cluster','site_penagihan')
+                        ->orderBy('id');
 
 
         if ($request->filterSite != "All") {
