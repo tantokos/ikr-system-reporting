@@ -97,7 +97,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
+                    <h6>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service STB</span> - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
                             Underground)</h5>
                     </h6>
                     <div class="clearfix" id="smWO" style="display: none">
@@ -292,7 +292,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO FTTH New Installation & Additional Service By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
+                    <h6>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service STB</span> By Cluster Area - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
                     <div class="clearfix" id="smWOCluster" style="display: none">
                         <div class="spinner-border float-right" role="status">
                             <span class="sr-only" >Loading...</span>
@@ -334,7 +334,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Trend WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
+                    <h6>Trend WO FTTH <span id="CardTitle1">New Installation & Additional Service STB</span> - <h5 id="CardTitle">All Branch - All Site (Retail, Apartemen,
                             Underground)<h5>
                     </h6>
                     <div class="clearfix" id="smWOTrend" style="display: none">
@@ -427,7 +427,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Closing WO FTTH New Installation & Additional Service<h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h6>Summary Closing WO FTTH <span id="CardTitle1">New Installation & Additional Service STB</span><h5 id="CardTitle"> All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                     </h6>
                     <div class="clearfix" id="smWOClosing" style="display: none">
@@ -478,7 +478,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h5>Summary Root Cause Failed WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h5>Summary Root Cause Failed WO FTTH <span id="CardTitle1">New Installation & Additional Service</span> - <h5 id="CardTitle">All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                                 </h6>
                     <div class="clearfix" id="smWOPending" style="display: none">
@@ -529,7 +529,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary Root Cause Cancel WO FTTH New Installation & Additional Service - <h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h6>Summary Root Cause Cancel WO FTTH <span id="CardTitle1">New Installation & Additional Service STB</span> - <h5 id="CardTitle">All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                     </h6>
                     <div class="clearfix" id="smWOCancel" style="display: none">
@@ -786,6 +786,7 @@
             let filKotamadya = $('#kotamadya').val();
             let typePenagihanIB = $('#typePenagihanIB').val();
 
+            let title1;
             let titleBranch;
             let titleSite;
 
@@ -801,7 +802,7 @@
                 titleSite = "Site " + filSite;
             }
 
-            if (typePenagihanIB == "ALl"){
+            if (typePenagihanIB == "All"){
                 title1 = "New Installation & Additional Service STB"
             }        
             if (typePenagihanIB == "New Installation"){
