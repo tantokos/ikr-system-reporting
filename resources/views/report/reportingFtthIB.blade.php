@@ -801,6 +801,20 @@
                 titleSite = "Site " + filSite;
             }
 
+            if (typePenagihanIB == "ALl"){
+                title1 = "New Installation & Additional Service STB"
+            }        
+            if (typePenagihanIB == "New Installation"){
+                title1 = "New Installation"
+            }
+            if (typePenagihanIB == "Additional Service STB"){
+                title1 = "Additional Service STB"
+            }
+
+            document.querySelectorAll('#CardTitle1').forEach(function(elem) {
+                elem.innerText = title1;
+            })
+
             document.querySelectorAll('#CardTitle').forEach(function(elem) {
                 elem.innerText = titleBranch + " - " + titleSite;
             })
