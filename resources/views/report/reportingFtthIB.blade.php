@@ -1004,8 +1004,8 @@
                         // console.log(item.nama_branch);
                         // if(item.site_penagihan == "Retail"){
                         branch.push(item.nama_branch);
-                        totWoDone.push([item.nama_branch + " " + item.done, item.done]);
-                        branchWTot.push([item.nama_branch + " " + item.total, item.total]);
+                        totWoDone.push([item.nama_branch + " " + parseInt(item.done), parseInt(item.done)]);
+                        branchWTot.push([item.nama_branch + " " + parseInt(item.total), parseInt(item.total)]);
                         // }
                         // if((item.site_penagihan == "Apartemen") || (item.site_penagihan == "Underground") ){
                         // branch.push(item.site_penagihan);
@@ -1013,7 +1013,7 @@
                         // branchWTot.push([item.site_penagihan + " " + item.total, item.total]);
                         // }
 
-                        totWo.push(item.total);
+                        totWo.push(parseInt(item.total));
 
 
                     });
@@ -1169,8 +1169,8 @@
                         let tbWoClose = `
                             <tr>
                                 <td>${nmBranch}</td>
-                                <td style="text-align: center">${item.done.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenDone.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${parseInt(item.done).toLocaleString()}</td>
+                                <td style="text-align: center">${parseInt(item.persenDone).toFixed(1) + "%"}</td>
                             </tr>    
                         `;
 
@@ -1181,8 +1181,8 @@
                         let tbWoPending = `
                             <tr>
                                 <td>${nmBranch}</td>
-                                <td style="text-align: center">${item.pending.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenPending.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${parseInt(item.pending).toLocaleString()}</td>
+                                <td style="text-align: center">${parseInt(item.persenPending).toFixed(1) + "%"}</td>
                             </tr>    
                         `;
 
@@ -1192,8 +1192,8 @@
                         let tbWoCancel = `
                             <tr>
                                 <td>${nmBranch}</td>
-                                <td style="text-align: center">${item.cancel.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenCancel.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${parseInt(item.cancel).toLocaleString()}</td>
+                                <td style="text-align: center">${parseInt(item.persenCancel).toFixed(1) + "%"}</td>
                             </tr>    
                         `;
 
@@ -1219,8 +1219,8 @@
 
                     let isiTotalWoClose = `
                     <th>Total WO Close</th>
-                        <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1) + "%"}</th>
+                        <th style="text-align: center; vertical-align: middle;">${parseInt(totWoClose).toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;">${parseInt(persenTotClose).toFixed(1) + "%"}</th>
                     `;
 
 

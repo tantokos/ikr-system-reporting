@@ -159,6 +159,8 @@ Route::group(
         Route::get('/getTotalWoBranchIBFtth', [Report_IBController::class, 'getTotalWoBranchIBFtth'])->name('getTotalWoBranchIBFtth');
         Route::get('/getFilterDashboardIBFtth', [Report_IBController::class, 'getFilterDashboardIBFtth'])->name('getFilterDashboardIBFtth');
 
+        Route::get('/getFilterDashboardIBFtthOld', [Report_IBController::class, 'getFilterDashboardIBFtthOld'])->name('getFilterDashboardIBFtthOld');
+
         Route::get('/getTrendMonthlyIBFtth', [Report_IBController::class, 'getTrendMonthlyIBFtth'])->name('getTrendMonthlyIBFtth');
         Route::get('/getTabelStatusIBFtth', [Report_IBController::class, 'getTabelStatusIBFtth'])->name('getTabelStatusIBFtth');
 
