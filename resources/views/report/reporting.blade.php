@@ -1623,7 +1623,7 @@
                             }
                         },
                         series: [{
-                            name: 'Percentage',
+                            name: 'Total WO',
                             colorByPoint: true,
                             data: branchWTot
 
@@ -1667,7 +1667,7 @@
                             }
                         },
                         series: [{
-                            name: 'Percentage',
+                            name: 'WO Close',
                             colorByPoint: true,
                             data: totWoDone
 
