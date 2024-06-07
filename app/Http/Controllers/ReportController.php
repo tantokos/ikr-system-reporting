@@ -1238,16 +1238,16 @@ class ReportController extends Controller
         // ->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
         $PenagihanSortirxx = DB::table('v_ftth_mt_rootcouse_done')
-                            ->select('penagihan')
-                            ->groupBy('penagihan');
+                            ->select('id','penagihan')
+                            ->groupBy('id','penagihan');
 
         $CouseCodeSortirxx = DB::table('v_ftth_mt_rootcouse_done')
-                            ->select('penagihan','couse_code')
-                            ->groupBy('penagihan','couse_code');
+                            ->select('id','penagihan','couse_code')
+                            ->groupBy('id','penagihan','couse_code');
 
         $RootCouseSortirxx = DB::table('v_ftth_mt_rootcouse_done')
-                            ->select('penagihan','couse_code','root_couse')
-                            ->groupBy('penagihan','couse_code','root_couse');
+                            ->select('id','penagihan','couse_code','root_couse')
+                            ->groupBy('id','penagihan','couse_code','root_couse');
                             
 
 
@@ -1273,9 +1273,9 @@ class ReportController extends Controller
             $RootCouseSortirxx = $RootCouseSortirxx->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortirxx= $PenagihanSortirxx->get();
-        $CouseCodeSortirxx= $CouseCodeSortirxx->get();
-        $RootCouseSortirxx= $RootCouseSortirxx->get();
+        $PenagihanSortirxx= $PenagihanSortirxx->orderBy('id')->get();
+        $CouseCodeSortirxx= $CouseCodeSortirxx->orderBy('id')->get();
+        $RootCouseSortirxx= $RootCouseSortirxx->orderBy('id')->get();
 
         
         for($psx=0; $psx < $PenagihanSortirxx->count(); $psx++){
