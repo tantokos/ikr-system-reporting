@@ -233,28 +233,304 @@ class Report_IBController extends Controller
         $endDate = $request->filterDateEnd;
 
 
+        // $branchPenagihan = DB::table('data_ftth_ib_sortirs as d')
+        //     ->select('b.id', 'd.branch as nama_branch', 'd.site_penagihan')
+        //     ->leftJoin('branches as b', 'd.branch', '=', 'b.nama_branch')
+        //     ->whereMonth('tgl_ikr', '=', $bulan)->whereYear('tgl_ikr', '=', $tahun);
+        //     // ->whereBetween('tgl_ikr', [$startDate, $endDate]);
+
+        $branchPenagihan = DB::table('v_ftth_ib_cluster')
+            ->select('nama_branch', 
+                    DB::raw('
+                        sum(total_ftth_ib) as total, 
+                        sum(ftth_ib_done) as done, 
+                        ((sum(ftth_ib_done) * 100) / sum(total_ftth_ib)) as  persenDone,
+                        sum(ftth_ib_pending) as pending,
+                        ((sum(ftth_ib_pending) * 100) / sum(total_ftth_ib)) as  persenPending, 
+                        sum(ftth_ib_cancel) as cancel,
+                        ((sum(ftth_ib_cancel) * 100) / sum(total_ftth_ib)) as  persenCancel
+                    '))
+            ->where('bulan', '=', $bulan)->where('tahun', '=', $tahun);
+            // ->groupBy('nama_branch');
+
+        if ($request->filterSite != "All") {
+            $branchPenagihan = $branchPenagihan->where('site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $branchPenagihan = $branchPenagihan->where('branch', '=', $request->filterBranch);
+        }
+        if ($request->typePenagihanIB == "Additional Service STB"){
+            $branchPenagihan = $branchPenagihan->where('penagihan','=', $request->typePenagihanIB);
+        }
+        if ($request->typePenagihanIB == "New Installation"){
+            $branchPenagihan = $branchPenagihan->where('penagihan','!=', 'Additional Service STB');
+        }
+
+        $branchPenagihan = $branchPenagihan->groupBy('nama_branch')->get();
+        // dd($branchPenagihan);
+
+        // for ($br = 0; $br < $branchPenagihan->count(); $br++) {
+        //     if ($branchPenagihan[$br]->site_penagihan == "Apartemen") {
+        //         $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Apartemen')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWo = $totWo->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWo = $totWo->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWo = $totWo->select('status_wo')->count();
+
+        //         $totWoDone = DataFtthIbSortir::where('site_penagihan', '=', 'Apartemen')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoDone = $totWoDone->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoDone = $totWoDone->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoDone = $totWoDone->where('status_wo', '=', 'Done')->count();
+
+        //         $totWoPending = DataFtthIbSortir::where('site_penagihan', '=', 'Apartemen')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoPending = $totWoPending->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoPending = $totWoPending->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoPending = $totWoPending->where('status_wo', '=', 'Pending')->count();
+
+        //         $totWoCancel = DataFtthIbSortir::where('site_penagihan', '=', 'Apartemen')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoCancel = $totWoCancel->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoCancel = $totWoCancel->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
+
+        //         if ($request->filterSite == "All") {
+        //             // $branchPenagihan[$br]->id = "11";
+        //             $branchPenagihan[$br]->nama_branch = "Apartemen";
+        //         }
+        //         // $branchPenagihan[$br]->nama_branch = "Apartemen";
+        //         $branchPenagihan[$br]->total = $totWo;
+        //         $branchPenagihan[$br]->done = $totWoDone;
+        //         $branchPenagihan[$br]->persenDone = ($totWoDone * 100) / $totWo;
+        //         $branchPenagihan[$br]->pending = $totWoPending;
+        //         $branchPenagihan[$br]->persenPending = ($totWoPending * 100) / $totWo;
+        //         $branchPenagihan[$br]->cancel = $totWoCancel;
+        //         $branchPenagihan[$br]->persenCancel = ($totWoCancel * 100) / $totWo;
+        //     } elseif ($branchPenagihan[$br]->site_penagihan == "Underground") {
+        //         $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Underground')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWo = $totWo->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWo = $totWo->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWo = $totWo->select('status_wo')->count();
+
+        //         $totWoDone = DataFtthIbSortir::where('site_penagihan', '=', 'Underground')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoDone = $totWoDone->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoDone = $totWoDone->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoDone = $totWoDone->where('status_wo', '=', 'Done')->count();
+
+        //         $totWoPending = DataFtthIbSortir::where('site_penagihan', '=', 'Underground')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoPending = $totWoPending->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoPending = $totWoPending->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoPending = $totWoPending->where('status_wo', '=', 'Pending')->count();
+
+        //         $totWoCancel = DataFtthIbSortir::where('site_penagihan', '=', 'Underground')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoCancel = $totWoCancel->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoCancel = $totWoCancel->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
+
+        //         if ($request->filterSite == "All") {
+        //             // $branchPenagihan[$br]->id = "12";
+        //             $branchPenagihan[$br]->nama_branch = "Underground";
+        //         }
+        //         // $branchPenagihan[$br]->nama_branch = "Underground";
+        //         $branchPenagihan[$br]->total = $totWo;
+        //         $branchPenagihan[$br]->done = $totWoDone;
+        //         $branchPenagihan[$br]->persenDone = ($totWoDone * 100) / $totWo;
+        //         $branchPenagihan[$br]->pending = $totWoPending;
+        //         $branchPenagihan[$br]->persenPending = ($totWoPending * 100) / $totWo;
+        //         $branchPenagihan[$br]->cancel = $totWoCancel;
+        //         $branchPenagihan[$br]->persenCancel = ($totWoCancel * 100) / $totWo;
+        //     } elseif ($branchPenagihan[$br]->site_penagihan == "Retail") {
+        //         $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Retail')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWo = $totWo->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWo = $totWo->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWo = $totWo->select('status_wo')->count();
+
+        //         $totWoDone = DataFtthIbSortir::where('site_penagihan', '=', 'Retail')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoDone = $totWoDone->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoDone = $totWoDone->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoDone = $totWoDone->where('status_wo', '=', 'Done')->count();
+
+        //         $totWoPending = DataFtthIbSortir::where('site_penagihan', '=', 'Retail')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoPending = $totWoPending->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoPending = $totWoPending->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoPending = $totWoPending->where('status_wo', '=', 'Pending')->count();
+
+        //         $totWoCancel = DataFtthIbSortir::where('site_penagihan', '=', 'Retail')
+        //             ->whereMonth('tgl_ikr', $bulan)
+        //             ->whereYear('tgl_ikr', $tahun)
+        //             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+        //             ->select('status_wo')
+        //             ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+        //             if ($request->typePenagihanIB == "Additional Service STB"){
+        //                 $totWoCancel = $totWoCancel->where('penagihan','=', $request->typePenagihanIB);
+        //             }
+        //             if ($request->typePenagihanIB == "New Installation"){
+        //                 $totWoCancel = $totWoCancel->where('penagihan','!=', 'Additional Service STB');
+        //             }
+
+        //             $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
+
+        //         $branchPenagihan[$br]->total = $totWo;
+        //         $branchPenagihan[$br]->done = $totWoDone;
+        //         $branchPenagihan[$br]->persenDone = ($totWoDone * 100) / $totWo;
+        //         $branchPenagihan[$br]->pending = $totWoPending;
+        //         $branchPenagihan[$br]->persenPending = ($totWoPending * 100) / $totWo;
+        //         $branchPenagihan[$br]->cancel = $totWoCancel;
+        //         $branchPenagihan[$br]->persenCancel = ($totWoCancel * 100) / $totWo;
+        //     }
+        // }
+
+        return response()->json($branchPenagihan);
+    }
+
+    public function getFilterDashboardIBFtthOld(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+        $site = ['Retail', 'Apartemen', 'Underground'];
+
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+
         $branchPenagihan = DB::table('data_ftth_ib_sortirs as d')
-            ->select('b.id','d.branch as nama_branch', 'd.site_penagihan')
+            ->select('b.id', 'd.branch as nama_branch', 'd.site_penagihan')
             ->leftJoin('branches as b', 'd.branch', '=', 'b.nama_branch')
             ->whereMonth('tgl_ikr', '=', $bulan)->whereYear('tgl_ikr', '=', $tahun);
             // ->whereBetween('tgl_ikr', [$startDate, $endDate]);
 
 
         if ($request->filterSite != "All") {
-            $branchPenagihan = $branchPenagihan->where('d.site_penagihan', '=', $request->filterSite);
+            $branchPenagihan = $branchPenagihan->where('site_penagihan', '=', $request->filterSite);
         }
         if ($request->filterBranch != "All") {
-            $branchPenagihan = $branchPenagihan->where('d.branch', '=', $request->filterBranch);
+            $branchPenagihan = $branchPenagihan->where('branch', '=', $request->filterBranch);
         }
         if ($request->typePenagihanIB == "Additional Service STB"){
-            $branchPenagihan = $branchPenagihan->where('d.penagihan','=', $request->typePenagihanIB);
+            $branchPenagihan = $branchPenagihan->where('penagihan','=', $request->typePenagihanIB);
         }
         if ($request->typePenagihanIB == "New Installation"){
-            $branchPenagihan = $branchPenagihan->where('d.penagihan','!=', 'Additional Service STB');
+            $branchPenagihan = $branchPenagihan->where('penagihan','!=', 'Additional Service STB');
         }
 
         $branchPenagihan = $branchPenagihan->distinct()->orderBy('b.id')->get();
-
+        dd($branchPenagihan);
 
         for ($br = 0; $br < $branchPenagihan->count(); $br++) {
             if ($branchPenagihan[$br]->site_penagihan == "Apartemen") {
@@ -322,7 +598,7 @@ class Report_IBController extends Controller
                     $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
 
                 if ($request->filterSite == "All") {
-                    $branchPenagihan[$br]->id = "11";
+                    // $branchPenagihan[$br]->id = "11";
                     $branchPenagihan[$br]->nama_branch = "Apartemen";
                 }
                 // $branchPenagihan[$br]->nama_branch = "Apartemen";
@@ -398,7 +674,7 @@ class Report_IBController extends Controller
                     $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
 
                 if ($request->filterSite == "All") {
-                    $branchPenagihan[$br]->id = "12";
+                    // $branchPenagihan[$br]->id = "12";
                     $branchPenagihan[$br]->nama_branch = "Underground";
                 }
                 // $branchPenagihan[$br]->nama_branch = "Underground";
