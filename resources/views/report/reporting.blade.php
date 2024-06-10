@@ -8,7 +8,7 @@
         <div class="col-sm-12">
             <div class="card bg-light">
                 <div class="card-body">
-                    {{-- <form action="#"> --}}
+                    <form action="#">
                         <div class="row">
                             <div class="col-sm">
                                 <div class="form-group">
@@ -18,19 +18,10 @@
                                         @foreach ($trendMonthly as $bulan)
                                             <option value="{{ $bulan->bulan }}">{{ $bulan->bulan }}</option>
                                         @endforeach
-                                        {{-- <option>All</option>
-                                        <option>FTTH</option>
-                                        <option>FTTX/B</option> --}}
                                     </select>
                                 </div>
-                                {{-- <div class="row"> --}}
-                                <div class="form-group">
-                                    <div class="col-sm-2">
-                                        <button type="button" class="btn btn-sm btn-success filterDashBoard" id="filterDashBoard">Filter</button>
-                                    </div>
-                                </div>
+                                
 
-                                {{-- </div> --}}
                             </div>
 
                             <div class="col-sm">
@@ -38,15 +29,6 @@
                                 <input class="col form-control-sm" type="text" name="periode" id ="periode"
                                     value="01/01/2018 - 01/15/2018" />
                             </div>
-
-                            {{-- <div class="col-sm">
-                                <label class="form-text">Project</label>
-                                <select class="col form-control-sm">
-                                    <option>All</option>
-                                    <option>FTTH</option>
-                                    <option>FTTX/B</option>
-                                </select>
-                            </div> --}}
 
                             <div class="col-sm">
                                 <label class="form-text">Site</label>
@@ -70,42 +52,15 @@
                                 </select>
                             </div>
 
-                            {{-- <div class="col-sm-2"> --}}
-                                {{-- <label class="form-text">Kotamadya</label> --}}
-                                {{-- <select class="col form-control-sm" id="kotamadya"> --}}
-                                    {{-- <option value="All">All</option> --}}
-                                    {{-- @foreach ($kota_penagihan as $kotamadya) --}}
-                                        {{-- <option value="{{ $kotamadya->kotamadya_penagihan}}">{{ $kotamadya->kotamadya_penagihan }}</option> --}}
-                                    {{-- @endforeach --}}
-                                    {{-- <option>Jakarta Selatan</option> --}}
-                                    {{-- <option>Jakarta Pusat</option> --}}
-                                    {{-- <option>Jakarta Utara</option> --}}
-                                    {{-- <option>Jakarta Timur</option> --}}
-                                    {{-- <option>Bekasi</option> --}}
-                                    {{-- <option>Bogor</option> --}}
-                                    {{-- <option>Tangerang</option> --}}
-                                    {{-- <option>Medan</option> --}}
-                                    {{-- <option>Pangkal Pinang</option> --}}
-                                    {{-- <option>Pontianak</option> --}}
-                                    {{-- <option>Jambi</option> --}}
-                                    {{-- <option>Bali</option> --}}
-                                {{-- </select> --}}
-                            {{-- </div> --}}
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-sm btn-success filterDashBoard" id="filterDashBoard">Filter</button>
+                                </div>
+                            </div>
 
-                            {{-- <div class="col-sm">
-                                <label class="form-text">WO Type</label>
-                                <select class="col form-control-sm">
-                                    <option>All</option>
-                                    <option>New Installation</option>
-                                    <option>Maintenance</option>
-                                    <option>Dismantle</option>
-                                </select>
-                            </div> --}}
                         </div>
 
-
-
-                    {{-- </form> --}}
+                    </form>
                 </div>
             </div>
         </div>
@@ -159,25 +114,15 @@
                             style="font-size: 12px">
                             <thead>
                                 <tr id="theadTotWo">
-                                    <th>WO Maintenance</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;"></th> --}}
+                                    <th>Total WO FTTH Maintenance</th>
                                 </tr>
                             </thead>
                             <tbody id="totWoBranch">
-                                {{-- @foreach ($totWoMtBranch as $totWoRetail)
-                                    <tr>
-                                        <td>{{ $totWoRetail->nama_branch }}</td>
-                                        <td style="text-align: center">{{ number_format($totWoRetail->total) }}</td>
-                                    </tr>
-                                @endforeach --}}
-
 
                             </tbody>
                             <tfoot>
                                 <tr id="totalWo">
                                     <th>Total WO</th>
-                                    {{-- <th style="text-align: center; vertical-align: middle;">
-                                        {{ number_format($totWoMtBranch->sum('total')) }}</th> --}}
                                 </tr>
                             </tfoot>
                         </table>
