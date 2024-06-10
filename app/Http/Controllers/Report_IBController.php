@@ -779,12 +779,14 @@ class Report_IBController extends Controller
         $kolomBln='';
 
         $totBranchCluster = DB::table('v_ftth_ib_cluster')
-                        ->select('nama_branch','site_penagihan')
-                        ->groupBy('nama_branch','site_penagihan');
+                        ->select('id','nama_branch','site_penagihan')
+                        ->groupBy('id','nama_branch','site_penagihan')
+                        ->orderBy('id');
 
         $totCluster = DB::table('v_ftth_ib_cluster')
-                        ->select('nama_branch','cluster','site_penagihan')
-                        ->groupBy('nama_branch','cluster','site_penagihan');
+                        ->select('id','nama_branch','cluster','site_penagihan')
+                        ->groupBy('id','nama_branch','cluster','site_penagihan')
+                        ->orderBy('id');
 
         if ($request->filterSite != "All") {
             $totBranchCluster = $totBranchCluster->where('site_penagihan', '=', $request->filterSite);
