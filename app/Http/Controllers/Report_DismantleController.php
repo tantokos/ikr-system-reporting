@@ -309,12 +309,14 @@ class Report_DismantleController extends Controller
         $detRootCouseSortir = [];
 
         $branch = DB::table('v_ftth_dismantle_cluster')
-                    ->select('nama_branch')
-                    ->groupBy('nama_branch');
+                    ->select('id','nama_branch')
+                    ->groupBy('id','nama_branch')
+                    ->orderBy('id');
 
         $branchCluster = DB::table('v_ftth_dismantle_cluster')
-                    ->select('nama_branch','cluster')
-                    ->groupBy('nama_branch','cluster');
+                    ->select('id','nama_branch','cluster')
+                    ->groupBy('id','nama_branch','cluster')
+                    ->orderBy('id');
 
 
         if ($request->filterBranch != "All") {
