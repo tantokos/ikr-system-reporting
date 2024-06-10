@@ -276,6 +276,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title" id="titleTrendTotWo"></h5>
                     <canvas id="TrendTotWoIBFtth" style="align-content: center; align-items: center"></canvas>
                 </div>
             </div>
@@ -284,6 +285,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title" id="titleTrendWoClose"></h5>
                     <canvas id="TrendTotWoIBFtthClose"></canvas>
                 </div>
             </div>
@@ -678,6 +680,14 @@
                 success: function(dataTrendMonthly) {
                     trendWoIBFtth = dataTrendMonthly;
 
+                    document.querySelectorAll('#titleTrendTotWo').forEach(function(elem){
+                        elem.innerText = 'Trend Total WO FTTH ' + title1 + ' ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    document.querySelectorAll('#titleTrendWoClose').forEach(function(elem){
+                        elem.innerText = 'Trend WO FTTH ' + title1 + ' Done ' + titleBranch + " - " + bulanReport; 
+                    })
+
                     var trendMonth = [''];
                     var trendTotIBFtth = ['null'];
                     var trendIBDone = ['null'];
@@ -717,7 +727,7 @@
 
                         options: {
                             responsive: true,
-                            maintainAspectRatio: false,
+                            maintainAspectRatio: true,
                             plugins: {
                                 legend: {
                                     display: false,
@@ -726,13 +736,14 @@
                                 datalabels: {
                                     anchor: 'end',
                                     align: 'top',
+                                    display: 'auto',
                                     formatter: function(value) {
                                         return value.toLocaleString();}
                                 },
                                 title: {
-                                    display: true,
-                                    text: 'Trend WO FTTH ' + title1,
-                                    align: 'start',
+                                    display: 'auto',
+                                    // text: 'Trend WO FTTH ' + title1,
+                                    // align: 'start',
                                 },
 
                             },
@@ -767,7 +778,7 @@
 
                         options: {
                             responsive: true,
-                            maintainAspectRatio: false,
+                            maintainAspectRatio: true,
                             plugins: {
                                 legend: {
                                     display: false,
@@ -776,14 +787,15 @@
                                 datalabels: {
                                     anchor: 'end',
                                     align: 'top',
+                                    display: 'auto',
                                     formatter: function(value) {
                                         return value.toLocaleString();
                                     }
                                 },
                                 title: {
-                                    display: true,
-                                    text: 'Trend WO FTTH ' + title1 + ' Done',
-                                    align: 'start',
+                                    display: 'auto',
+                                    // text: 'Trend WO FTTH ' + title1 + ' Done',
+                                    // align: 'start',
                                 },
 
                             },
