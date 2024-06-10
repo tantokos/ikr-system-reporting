@@ -121,7 +121,7 @@ class ImportFttxIbTempController extends Controller
                 'fileFttxIBOri' => ['required', 'mimes:xlsx,xls,csv'],
                 'fileFttxIBSortir' => ['required', 'mimes:xlsx,xls,csv']
             ]);
-
+ 
             $akses = Auth::user()->name;
 
             Excel::import(new ImportFttxIB($akses), request()->file('fileFttxIBOri'));

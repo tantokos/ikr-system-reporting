@@ -19,15 +19,35 @@
                 <div class="col">
                     <form action="{{ route('import.ImportFttxMTTemp') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
-                            <label class="col form-text"></label>
+                        <div class="form-group row">
+                            {{-- <label class="col form-text"></label>
                             <div class="col">
                                 <input type="file" name="fileFtthMT" class="form-control form-text border-secondary" required="required">
                                 @error('fileFtthMT')
                                     <span class="error">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
+
+                            <label class="col-sm-3 form-text">File FTTX MT Ori : </label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control form-control-sm border-secondary" name="fileFttxMTOri"
+                                id="fileFttxIBOri" required="required">
+                                @error('fileFttxMTOri')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
                         </div>
+
+                        <label class="col-sm-3 form-text">File FTTX MT Sortir : </label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control form-control-sm border-secondary" name="fileFttxMTSortir"
+                                id="fileFttxIBSortir" required="required">
+                                @error('fileFttxMTSortir')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                        </div>
+                        </div>
+
+                        
 
                         <div class="form-group">
                             <div class="col-sm-2">

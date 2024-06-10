@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Imports\ImportFttxMT;
+use App\Imports\ImportFttxMTSortir;
 use App\Models\DataFttxMtOri;
 use App\Models\ImportFttxMtSortirTemp;
 use App\Models\ImportFttxMtTemp;
@@ -114,119 +115,121 @@ class ImportFttxMtTempController extends Controller
         ini_set('max_execution_time', 300);
         ini_set('memory_limit', '2048M');
 
-        if ($request->hasFile('fileFtthMT')) {
+        if ($request->hasFile('fileFttxMTOri')) {
 
             $request->validate([
-                'fileFtthMT' => ['required', 'mimes:xlsx,xls,csv']
+                'fileFttxMTOri' => ['required', 'mimes:xlsx,xls,csv'],
+                'fileFttxMTSortir' => ['required', 'mimes:xlsx,xls,csv']
             ]);
 
             $akses = Auth::user()->name;
 
-            Excel::import(new ImportFttxMT($akses), request()->file('fileFtthMT'));
+            Excel::import(new ImportFttxMT($akses), request()->file('fileFttxMTOri'));
+            Excel::import(new ImportFttxMTSortir($akses), request()->file('fileFttxMTSortir'));
 
-            $doneSortir = DB::table('import_fttx_mt_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(mt_date) as tgl_ikr'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
+            // $doneSortir = DB::table('import_fttx_mt_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(mt_date) as tgl_ikr'))
+            //     // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            //     ->orderBy('no_wo')
+            //     ->groupBy('no_wo')->get();
 
-            $pendingSortir = DB::table('import_fttx_mt_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(mt_date) as tgl_ikr'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->whereNotIn('no_wo', function ($p) {
-                    $p->select('no_wo')->from('import_fttx_mt_temps as import1')->where('status_wo', '=', 'Done');
-                })
-                ->whereNotIn('no_wo', function ($c) {
-                    $c->select('no_wo')->from('import_fttx_mt_temps as import2')->where('status_wo', '=', 'Cancel');
-                })
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
+            // $pendingSortir = DB::table('import_fttx_mt_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(mt_date) as tgl_ikr'))
+            //     // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            //     ->whereNotIn('no_wo', function ($p) {
+            //         $p->select('no_wo')->from('import_fttx_mt_temps as import1')->where('status_wo', '=', 'Done');
+            //     })
+            //     ->whereNotIn('no_wo', function ($c) {
+            //         $c->select('no_wo')->from('import_fttx_mt_temps as import2')->where('status_wo', '=', 'Cancel');
+            //     })
+            //     ->orderBy('no_wo')
+            //     ->groupBy('no_wo')->get();
 
-            $cancelSortir = DB::table('import_fttx_mt_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(mt_date) as tgl_ikr'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->whereNotIn('no_wo', function ($p) {
-                    $p->select('no_wo')->from('import_fttx_mt_temps as import1')->where('status_wo', '=', 'Done');
-                })
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
+            // $cancelSortir = DB::table('import_fttx_mt_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(mt_date) as tgl_ikr'))
+            //     // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+            //     ->whereNotIn('no_wo', function ($p) {
+            //         $p->select('no_wo')->from('import_fttx_mt_temps as import1')->where('status_wo', '=', 'Done');
+            //     })
+            //     ->orderBy('no_wo')
+            //     ->groupBy('no_wo')->get();
 
-            $donePendingSortir = $doneSortir->merge($pendingSortir);
-            $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
+            // $donePendingSortir = $doneSortir->merge($pendingSortir);
+            // $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
 
-            for ($x = 0; $x < $donePendingCancelSortir->count(); $x++) {
+            // for ($x = 0; $x < $donePendingCancelSortir->count(); $x++) {
 
-                $ImportFttxMTOri = ImportFttxMtTemp::where('no_wo', '=', $donePendingCancelSortir[$x]->no_wo)
-                    ->where('mt_date', '=', $donePendingCancelSortir[$x]->tgl_ikr)->first();
+            //     $ImportFttxMTOri = ImportFttxMtTemp::where('no_wo', '=', $donePendingCancelSortir[$x]->no_wo)
+            //         ->where('mt_date', '=', $donePendingCancelSortir[$x]->tgl_ikr)->first();
 
-                // dd($importFtthIBOri->no_wo);
+            //     // dd($importFtthIBOri->no_wo);
 
-                ImportFttxMtSortirTemp::create([
-                    'no_so' => $ImportFttxMTOri->no_so,
-                    'no_wo' => $ImportFttxMTOri->no_wo,
-                    'wo_date' => $ImportFttxMTOri->wo_date,
-                    'mt_date' => $ImportFttxMTOri->mt_date,
-                    'wo_type' => $ImportFttxMTOri->wo_type,
-                    'cust_name' => $ImportFttxMTOri->cust_name,
-                    'cust_address' => $ImportFttxMTOri->cust_address,
-                    'area' => $ImportFttxMTOri->area,
-                    'site' => $ImportFttxMTOri->site,
-                    'packages_type' => $ImportFttxMTOri->packages_type,
-                    'service_type' => $ImportFttxMTOri->service_type,
-                    'slot_time' => $ImportFttxMTOri->slot_time,
-                    'teknisi1' => $ImportFttxMTOri->teknisi1,
-                    'teknisi2' => $ImportFttxMTOri->teknisi2,
-                    'teknisi3' => $ImportFttxMTOri->teknisi3,
-                    'leader' => $ImportFttxMTOri->leader,
-                    'branch' => $ImportFttxMTOri->branch,
-                    'callsign' => $ImportFttxMTOri->callsign,
-                    'nopol' => $ImportFttxMTOri->nopol,
-                    'start' => $ImportFttxMTOri->start,
-                    'finish' => $ImportFttxMTOri->finish,
-                    'report_wa' => $ImportFttxMTOri->report_wa,
-                    'fdt_code' => $ImportFttxMTOri->fdt_code,
-                    'fat_code' => $ImportFttxMTOri->fat_code,
-                    'fat_port' => $ImportFttxMTOri->fat_port,
-                    'signal_fat' => $ImportFttxMTOri->signal_fat,
-                    'signal_tb' => $ImportFttxMTOri->signal_tb,
-                    'signal_ont' => $ImportFttxMTOri->signal_ont,
-                    'ont_sn_out' => $ImportFttxMTOri->ont_sn_out,
-                    'ont_mac_out' => $ImportFttxMTOri->ont_mac_out,
-                    'ont_sn_in' => $ImportFttxMTOri->ont_sn_in,
-                    'ont_mac_in' => $ImportFttxMTOri->ont_mac_in,
-                    'stb2_sn' => $ImportFttxMTOri->stb2_sn,
-                    'stb2_mac' => $ImportFttxMTOri->stb2_mac,
-                    'stb3_sn' => $ImportFttxMTOri->stb3_sn,
-                    'stb3_mac' => $ImportFttxMTOri->stb3_mac,
-                    'router_sn' => $ImportFttxMTOri->router_sn,
-                    'router_mac' => $ImportFttxMTOri->router_mac,
-                    'drop_cable' => $ImportFttxMTOri->drop_cable,
-                    'precon' => $ImportFttxMTOri->precon,
-                    'fast_connector' => $ImportFttxMTOri->fast_connector,
-                    'termination_box' => $ImportFttxMTOri->termination_box,
-                    'patch_cord_3m' => $ImportFttxMTOri->patch_cord_3m,
-                    'patch_cord_10m' => $ImportFttxMTOri->patch_cord_10m,
-                    'screw_hanger' => $ImportFttxMTOri->screw_hanger,
-                    'indor_cable_duct' => $ImportFttxMTOri->indor_cable_duct,
-                    'pvc_pipe_20mm' => $ImportFttxMTOri->pvc_pipe_20mm,
-                    'socket_pvc_20mm' => $ImportFttxMTOri->socket_pvc_20mm,
-                    'clamp_pvc_20mm' => $ImportFttxMTOri->clamp_pvc_20mm,
-                    'flexible_pvc_20mm' => $ImportFttxMTOri->flexible_pvc_20mm,
-                    'clamp_cable' => $ImportFttxMTOri->clamp_cable,
-                    'cable_lan' => $ImportFttxMTOri->cable_lan,
-                    'connector_rj45' => $ImportFttxMTOri->connector_rj45,
-                    'cable_marker' => $ImportFttxMTOri->cable_marker,
-                    'insulation' => $ImportFttxMTOri->insulation,
-                    'cable_ties' => $ImportFttxMTOri->cable_ties,
-                    'adapter_optic' => $ImportFttxMTOri->adapter_optic,
-                    'fisher' => $ImportFttxMTOri->fisher,
-                    'paku_beton' => $ImportFttxMTOri->paku_beton,
-                    'splitter' => $ImportFttxMTOri->splitter,
-                    'status_wo' => $ImportFttxMTOri->status_wo,
-                    'root_couse' => $ImportFttxMTOri->root_couse,
-                    'action_taken' => $ImportFttxMTOri->action_taken,
-                    'remarks' => $ImportFttxMTOri->remarks,
+            //     ImportFttxMtSortirTemp::create([
+            //         'no_so' => $ImportFttxMTOri->no_so,
+            //         'no_wo' => $ImportFttxMTOri->no_wo,
+            //         'wo_date' => $ImportFttxMTOri->wo_date,
+            //         'mt_date' => $ImportFttxMTOri->mt_date,
+            //         'wo_type' => $ImportFttxMTOri->wo_type,
+            //         'cust_name' => $ImportFttxMTOri->cust_name,
+            //         'cust_address' => $ImportFttxMTOri->cust_address,
+            //         'area' => $ImportFttxMTOri->area,
+            //         'site' => $ImportFttxMTOri->site,
+            //         'packages_type' => $ImportFttxMTOri->packages_type,
+            //         'service_type' => $ImportFttxMTOri->service_type,
+            //         'slot_time' => $ImportFttxMTOri->slot_time,
+            //         'teknisi1' => $ImportFttxMTOri->teknisi1,
+            //         'teknisi2' => $ImportFttxMTOri->teknisi2,
+            //         'teknisi3' => $ImportFttxMTOri->teknisi3,
+            //         'leader' => $ImportFttxMTOri->leader,
+            //         'branch' => $ImportFttxMTOri->branch,
+            //         'callsign' => $ImportFttxMTOri->callsign,
+            //         'nopol' => $ImportFttxMTOri->nopol,
+            //         'start' => $ImportFttxMTOri->start,
+            //         'finish' => $ImportFttxMTOri->finish,
+            //         'report_wa' => $ImportFttxMTOri->report_wa,
+            //         'fdt_code' => $ImportFttxMTOri->fdt_code,
+            //         'fat_code' => $ImportFttxMTOri->fat_code,
+            //         'fat_port' => $ImportFttxMTOri->fat_port,
+            //         'signal_fat' => $ImportFttxMTOri->signal_fat,
+            //         'signal_tb' => $ImportFttxMTOri->signal_tb,
+            //         'signal_ont' => $ImportFttxMTOri->signal_ont,
+            //         'ont_sn_out' => $ImportFttxMTOri->ont_sn_out,
+            //         'ont_mac_out' => $ImportFttxMTOri->ont_mac_out,
+            //         'ont_sn_in' => $ImportFttxMTOri->ont_sn_in,
+            //         'ont_mac_in' => $ImportFttxMTOri->ont_mac_in,
+            //         'stb2_sn' => $ImportFttxMTOri->stb2_sn,
+            //         'stb2_mac' => $ImportFttxMTOri->stb2_mac,
+            //         'stb3_sn' => $ImportFttxMTOri->stb3_sn,
+            //         'stb3_mac' => $ImportFttxMTOri->stb3_mac,
+            //         'router_sn' => $ImportFttxMTOri->router_sn,
+            //         'router_mac' => $ImportFttxMTOri->router_mac,
+            //         'drop_cable' => $ImportFttxMTOri->drop_cable,
+            //         'precon' => $ImportFttxMTOri->precon,
+            //         'fast_connector' => $ImportFttxMTOri->fast_connector,
+            //         'termination_box' => $ImportFttxMTOri->termination_box,
+            //         'patch_cord_3m' => $ImportFttxMTOri->patch_cord_3m,
+            //         'patch_cord_10m' => $ImportFttxMTOri->patch_cord_10m,
+            //         'screw_hanger' => $ImportFttxMTOri->screw_hanger,
+            //         'indor_cable_duct' => $ImportFttxMTOri->indor_cable_duct,
+            //         'pvc_pipe_20mm' => $ImportFttxMTOri->pvc_pipe_20mm,
+            //         'socket_pvc_20mm' => $ImportFttxMTOri->socket_pvc_20mm,
+            //         'clamp_pvc_20mm' => $ImportFttxMTOri->clamp_pvc_20mm,
+            //         'flexible_pvc_20mm' => $ImportFttxMTOri->flexible_pvc_20mm,
+            //         'clamp_cable' => $ImportFttxMTOri->clamp_cable,
+            //         'cable_lan' => $ImportFttxMTOri->cable_lan,
+            //         'connector_rj45' => $ImportFttxMTOri->connector_rj45,
+            //         'cable_marker' => $ImportFttxMTOri->cable_marker,
+            //         'insulation' => $ImportFttxMTOri->insulation,
+            //         'cable_ties' => $ImportFttxMTOri->cable_ties,
+            //         'adapter_optic' => $ImportFttxMTOri->adapter_optic,
+            //         'fisher' => $ImportFttxMTOri->fisher,
+            //         'paku_beton' => $ImportFttxMTOri->paku_beton,
+            //         'splitter' => $ImportFttxMTOri->splitter,
+            //         'status_wo' => $ImportFttxMTOri->status_wo,
+            //         'root_couse' => $ImportFttxMTOri->root_couse,
+            //         'action_taken' => $ImportFttxMTOri->action_taken,
+            //         'remarks' => $ImportFttxMTOri->remarks,
 
-                    'login' => $akses
-                ]);
-            }
+            //         'login' => $akses
+            //     ]);
+            // }
 
             return back();
         }
