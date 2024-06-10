@@ -38,7 +38,7 @@ class Report_FttxMTController extends Controller
 
         $tgl = DataFttxMtSortir::select('mt_date')->distinct()->get();
 
-        $trendMonthly = DataFttxMtSortir::select(DB::raw('date_format(mt_date, "%b-%Y") as bulan'))->distinct()->get();
+        $trendMonthly = DataFttxMtSortir::select(DB::raw('date_format(mt_date, "%b-%Y") as bulan, month(mt_date) as bln, year(mt_date) as thn'))->distinct()->orderBy('bln','ASC')->orderBy('thn','ASC')->get();
 
         // $site = DataFttxMtSortir::select('site_penagihan')->distinct()->get();
 
