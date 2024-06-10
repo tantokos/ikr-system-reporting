@@ -3208,7 +3208,6 @@
                         for (p=0;p<trendWoMt.length; p++) {
                             tbPenagihanAPK = tbPenagihanAPK +
                                 `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
-   
                         }
 
                         $('#analisAPK').append(tbPenagihanAPK + `</tr>`);
