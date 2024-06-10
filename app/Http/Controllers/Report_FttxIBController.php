@@ -38,7 +38,7 @@ class Report_FttxIBController extends Controller
 
         $tgl = DataFttxIbSortir::select('ib_date')->distinct()->get();
 
-        $trendMonthly = DataFttxIbSortir::select(DB::raw('date_format(ib_date, "%b-%Y") as bulan'))->distinct()->get();
+        $trendMonthly = DataFttxIbSortir::select(DB::raw('date_format(ib_date, "%b-%Y") as bulan, month(ib_date) as bln, year(ib_date) as thn'))->distinct()->orderBy('bln','ASC')->orderBy('thn','ASC')->get();
 
         // $site = DataFttxIbSortir::select('site_penagihan')->distinct()->get();
 
