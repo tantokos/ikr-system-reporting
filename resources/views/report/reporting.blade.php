@@ -24,7 +24,7 @@
 
                             </div>
 
-                            <div class="col-sm">
+                            <div class="col-sm" hidden>
                                 <label class="form-text">Periode Tanggal</label>
                                 <input class="col form-control-sm" type="text" name="periode" id ="periode"
                                     value="01/01/2018 - 01/15/2018" />
