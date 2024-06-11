@@ -18,7 +18,7 @@ use App\Http\Controllers\FatController;
 use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\ImportFtthDismantleTempController;
 use App\Http\Controllers\ImportFtthIbSortirController;
-use App\Http\Controllers\ImportFtthIBTempController;
+use App\Http\Controllers\ImportFtthIbTempController;
 use App\Http\Controllers\ImportFtthMtSortirController;
 use App\Http\Controllers\ImportFtthMtTempController;
 use App\Http\Controllers\ImportFttxIbTempController;
