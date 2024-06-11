@@ -85,7 +85,9 @@ Route::group(
         //=====Start Import MT FTTH======//
 
         Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
-        Route::get('/', [ReportController::class, 'index'])->name('reportMtFtth.index');
+        Route::get('/', [Report_IBController::class, 'index'])->name('reportIBFtth.index');
+
+        Route::get('/reportMtFtth', [ReportController::class, 'index'])->name('reportMtFtth.index');
         
         Route::get('/getFilterBranch', [ReportController::class, 'getFilterBranch'])->name('getFilterBranch');
         Route::get('/getFilterDashboard', [ReportController::class, 'getFilterDashboard'])->name('getFilterDashboard');
