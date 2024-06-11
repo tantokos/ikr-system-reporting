@@ -548,10 +548,11 @@ class ReportController extends Controller
         }
 
         $PenagihanSortirxx= $PenagihanSortirxx->get();
+        
         $CouseCodeSortirxx= $CouseCodeSortirxx->get();
         $RootCouseSortirxx= $RootCouseSortirxx->get();
 
-        
+
 
         
         for($psx=0; $psx < $PenagihanSortirxx->count(); $psx++){
