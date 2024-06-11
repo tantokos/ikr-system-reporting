@@ -315,7 +315,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" id="titleTrendTotWo"></h5>
+                    <h6 class="card-title" id="titleTrendTotWo"></h6>
                     <canvas id="TrendTotWoMt" style="align-content: center; align-items: center"></canvas>
                 </div>
             </div>
@@ -324,7 +324,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" id="titleTrendWoClose"></h5>
+                    <h6 class="card-title" id="titleTrendWoClose"></h6>
                     <canvas id="TrendTotWoMtClose"></canvas>
                 </div>
             </div>
