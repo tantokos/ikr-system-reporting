@@ -354,7 +354,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service STB </span>Done<h5 id="CardTitle"> All Branch - All Site (Retail,
+                    <h6>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service STB </span> Done<h5 id="CardTitle"> All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                     </h6>
                     <div class="clearfix" id="smWOClosing" style="display: none">
@@ -401,7 +401,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h5>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service </span> Pending - <h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h6>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service </span> Pending - <h5 id="CardTitle">All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                                 </h6>
                     <div class="clearfix" id="smWOPending" style="display: none">
@@ -452,7 +452,7 @@
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
-                    <h6>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service STB </span> Pending - <h5 id="CardTitle">All Branch - All Site (Retail,
+                    <h6>Summary WO FTTH <span id="CardTitle1">New Installation & Additional Service STB </span> Cancel - <h5 id="CardTitle">All Branch - All Site (Retail,
                             Apartemen, Underground)<h5>
                     </h6>
                     <div class="clearfix" id="smWOCancel" style="display: none">
