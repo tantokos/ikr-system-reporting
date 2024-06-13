@@ -195,7 +195,7 @@ class Report_IBController extends Controller
         $endDate = $request->filterDateEnd;
 
         $branchPenagihan = DB::table('v_ftth_ib_cluster')
-            ->select('nama_branch', 
+            ->select('id','nama_branch', 
                     DB::raw('
                         sum(total_ftth_ib) as total, 
                         sum(ftth_ib_done) as done, 
@@ -220,7 +220,7 @@ class Report_IBController extends Controller
             $branchPenagihan = $branchPenagihan->where('penagihan','!=', 'Additional Service STB');
         }
 
-        $branchPenagihan = $branchPenagihan->groupBy('nama_branch')->get();
+        $branchPenagihan = $branchPenagihan->groupBy('id','nama_branch')->get();
         
 
         return response()->json($branchPenagihan);
