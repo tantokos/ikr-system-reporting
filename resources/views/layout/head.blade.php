@@ -29,7 +29,7 @@
 
 
 {{-- <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet"> --}}
-<link href="{{ asset('assets/datatables/datatables-1.13.6/css/jquery.datatables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/DataTables/datatables-1.13.6/css/jquery.datatables.min.css') }}" rel="stylesheet">
 {{-- <link href="{{ asset('asset/DataTables/datatables.min.css') }}" rel="stylesheet"> --}}
 {{-- <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css" rel="stylesheet"> --}}
 
