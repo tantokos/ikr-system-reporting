@@ -100,7 +100,33 @@
                 </div>
             </div>
         </div>
+    </div>
 
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotMTDone">
+                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotMTPending">
+                    {{-- <canvas id="TotWoMtClose"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotMTCancel">
+                    {{-- <canvas id="TotWoMtClose"></canvas> --}}
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -277,7 +303,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" style="font-size: 11px; table-layout: fixed;">
+                        <table class="table table-bordered" style="font-size: 11px; table-layout: auto;">
                             <thead>
                                 <tr id="tableHeadCluster">
                                 {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
@@ -316,7 +342,7 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title" id="titleTrendTotWo"></h6>
-                    <canvas id="TrendTotWoMt" style="align-content: center; align-items: center"></canvas>
+                    <canvas id="TrendTotWoMt" ></canvas> {{-- style="align-content: center; align-items: center"></canvas> --}}
                 </div>
             </div>
         </div>
@@ -349,7 +375,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
-                            width="100%" cellspacing="0" style="font-size: 12px">
+                            width="100%" cellspacing="0" style="font-size: 12px; table-layout: auto;">
                             <thead>
                                 <tr id="dateMonth">
                                     <th>Maintenance All Branch</th>
@@ -383,43 +409,8 @@
             </div>
         </div>
 
-
-
     </div>
 
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h6>Summary Root Cause Closing WO Maintenance FTTH - Penagihan<h5 id="CardTitle">All Branch - All Site (Retail, Apartemen, Underground)<h5></h6>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="dataTotAsetDt"
-                            cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHead">
-                            </thead>
-                            <tbody id="rootCouseTb">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCouse">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
-    {{-- </div> --}}
 
     <div class="row">
         <div class="col-sm-12">
@@ -447,9 +438,31 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" style="font-size: 11px; table-layout: auto;">
+                            <thead>
+                                <tr id="rootCouseHead">
+                                    {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
+                                    {{-- <th></th> --}}
+                                    {{-- <th></th> --}}
+                                    {{-- <th style="text-align: center">Jumlah</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody id="bodyRootCouse">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="row">
-
         {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
             <div class="table-responsive">
@@ -502,7 +515,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered border-secondary" id="rootCousePendingtable"
-                            cellspacing="0" style="font-size: 12px">
+                            cellspacing="0" style="font-size: 12px; table-layout: auto;">
                             <thead id="rootCouseHeadPending">
                             </thead>
                             <tbody id="rootCouseTbPending">
@@ -551,7 +564,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
-                            cellspacing="0" style="font-size: 12px">
+                            cellspacing="0" style="font-size: 12px; table-layout: auto;">
                             <thead id="rootCouseHeadCancel">
                                 {{-- <tr> --}}
                                 {{-- <th>Root Couse</th> --}}
@@ -620,7 +633,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered border-secondary"
-                            style="font-size: 11px; table-layout: fixed;">
+                            style="font-size: 11px; table-layout: auto;;">
                             <thead>
                                 <tr id="backToNormalHead">
                                 </tr>
@@ -740,7 +753,7 @@
                     {{-- <div class="col"> --}}
                     <div class="table-responsive">
                         <table class="table table-striped" id="dataRusakAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
+                            style="font-size: 12px; table-layout: auto;">
                             <thead>
                                 <tr>
                                     <th width="100%">No</th>
@@ -1141,7 +1154,7 @@
                                 cursor: 'pointer',
                                 dataLabels: [{
                                     enabled: true,
-                                    distance: 30
+                                    distance: 20
                                 }]
                             }
                         },
@@ -1185,7 +1198,7 @@
                                 cursor: 'pointer',
                                 dataLabels: [{
                                     enabled: true,
-                                    distance: 30
+                                    distance: 20
                                 }]
                             }
                         },
@@ -1196,6 +1209,232 @@
 
                         }]
                     });
+
+                    var totChartDone = dataTotalWo;
+                    var totChartDone = totChartDone.sort((a,b) => b.done - a.done);
+                    var ChrBranchDone = [];
+                    var ChrDone = [];
+
+                    $.each(totChartDone, function(key, item) {
+
+                        ChrBranchDone.push(item.nama_branch);
+                        ChrDone.push([item.done]);
+
+                    });
+
+                    $('#canvasTotMTDone').empty();
+
+                    let chartMTDone = `
+					<figure class="highcharts-figure">
+					    <div id="TotMTDone"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotMTDone').append(chartMTDone);
+
+                    Highcharts.chart('TotMTDone', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Top WO FTTH Maintenance Done', //+ bulanReport,
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchDone, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Done',
+                            data: ChrDone // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    var totChartPending = dataTotalWo;
+                    var totChartPending = totChartPending.sort((a,b) => b.pending - a.pending);
+                    var ChrBranchPending = [];
+                    var ChrPending = [];
+
+                    $.each(totChartPending, function(key, item) {
+
+                        ChrBranchPending.push(item.nama_branch);
+                        ChrPending.push([item.pending]);
+
+                    });
+
+                    $('#canvasTotMTPending').empty();
+
+                    let chartMTPending = `
+					<figure class="highcharts-figure">
+					    <div id="TotMTPending"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotMTPending').append(chartMTPending);
+
+                    Highcharts.chart('TotMTPending', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Top WO FTTH Maintenance Pending', // + bulanReport,
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchPending, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Pending',
+                            data: ChrPending // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    var dataChartCancel = dataTotalWo;
+                    var totChartCancel = dataChartCancel.sort((a,b) => b.cancel - a.cancel);
+                    var ChrBranchCancel = [];
+                    var ChrCancel = [];
+
+                    $.each(totChartCancel, function(key, item) {
+
+                        ChrBranchCancel.push(item.nama_branch);
+                        ChrCancel.push([item.cancel]);
+
+                    });
+
+                    $('#canvasTotMTCancel').empty();
+
+                    let chartMTCancel = `
+					<figure class="highcharts-figure">
+					    <div id="TotMTCancel"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotMTCancel').append(chartMTCancel);
+
+                    Highcharts.chart('TotMTCancel', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Top WO FTTH Maintenance Cancel', // + bulanReport,
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchCancel, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Cancel',
+                            data: ChrCancel // [631, 727, 3202, 721]
+                        }]
+                    });
+
 
                     var totWo = 0;
                     var totWoClose = 0;
@@ -1214,6 +1453,7 @@
                     $('#theadTotWo').append(`
                         <th>Total WO FTTH Maintenance</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
+                        <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoClose').append(`
@@ -1236,6 +1476,8 @@
 
                     let nmBranch;
 
+                    dataTotalWo.sort((a,b) => a.id - b.id);
+
                     $.each(dataTotalWo, function(key, item) {
                         
                         // if(item.site_penagihan == "Retail"){
@@ -1249,6 +1491,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.total.toLocaleString()}</td>
+                                <td style="text-align: center">${item.persenTotal.toFixed(1) + "%"}</td>
                             </tr>    
                         `;
 
@@ -1302,6 +1545,7 @@
                     let isiTotalWo = `
                         <th class="table-dark">Total WO</th>
                         <th class="table-dark" style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center; vertical-align: middle;"></th>
                     `;
 
                     $('#totalWo').append(isiTotalWo);
@@ -1335,11 +1579,7 @@
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
 
-
-
-
                 }
-
                 
             })
 
@@ -1377,14 +1617,13 @@
 
                     for (h = 0;h < trendWoMt.length; h++) {
                         hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoMt[h].bulan}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan}</th>`
                     }
 
                     $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
 
 
                     $.each(dataCluster.branchCluster, function(key, nmBranch) {
-                        console.log(nmBranch);
                         tbBranchCluster = `
                                 <tr class="table-secondary"><th>${nmBranch.nmTbranch}</th>
                                 <th class="table-secondary"></th>`;
@@ -1393,7 +1632,8 @@
                         for (p=0;p<trendWoMt.length; p++) {
                             
                             tbBranchCluster = tbBranchCluster +
-                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
+                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>
+                                <th class="table-secondary" style="text-align: center">${nmBranch.persen[p].toLocaleString()}%</th>`;
    
                         }
 
@@ -1407,7 +1647,9 @@
                                     // <th class="table-info"></th>`;
 
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
-                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
+                                    tbCluster = tbCluster + 
+                                    `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>
+                                    <td style="text-align: center">${itemCluster.persen[cc].toLocaleString()}%</td>`;
                                 }
 
                                 $('#bodyCluster').append(tbCluster + '</tr>');
@@ -1451,7 +1693,9 @@
                             TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
                         })
 
-                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
+                        totBulananCluster = totBulananCluster + 
+                        `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center"></th>`;
                     }
 
                     $('#bodyCluster').append(totBulananCluster + `</tr>`);
@@ -1514,7 +1758,7 @@
 
 
 
-                    new Chart(ctxTrendTotWoMt, {
+                    var ChartTrendTotWoMT = new Chart(ctxTrendTotWoMt, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Jan-24'],
@@ -1538,7 +1782,6 @@
                                     anchor: 'end',
                                     align: 'top',
                                     display: 'auto',
-                                    // clamp: 'true',
                                     formatter: function(value) {
                                         return value.toLocaleString();}
                                 },
@@ -1551,7 +1794,14 @@
                             },
                             scales: {
                                 y: {
-                                    display: false, //this will remove all the x-axis grid lines
+                                    display: true, //this will remove all the x-axis grid lines
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
                                 }
                             }
                         },
@@ -1559,12 +1809,16 @@
 
                     });
 
+                    var maxChartTot = ChartTrendTotWoMT.scales.y.max;
+
                     const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
 
                     var graphTrendTotWoMtClose = Chart.getChart('TrendTotWoMtClose');
                     if (graphTrendTotWoMtClose) {
                         graphTrendTotWoMtClose.destroy();
                     }
+
+
 
                     new Chart(ctxTrendTotWoMtClose, {
                         type: 'line',
@@ -1593,8 +1847,6 @@
                                     formatter: function(value) {
                                         return value.toLocaleString();},
                                 },
-                                
-                                
                                 title: {
                                     display: 'auto',
                                     // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
@@ -1604,7 +1856,16 @@
                             },
                             scales: {
                                 y: {
-                                    display: false, //this will remove all the x-axis grid lines
+                                    display: true, //this will remove all the x-axis grid lines
+                                    max: maxChartTot,
+                                    // min: 2000,
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
                                 }
                             }
                         },
@@ -1836,14 +2097,24 @@
 
                     $('#rootCouseHeadAPK').find("th").remove();
                     $('#bodyRootCouseAPK').find("tr").remove();
+
+                    $('#rootCouseHead').find("th").remove();
+                    $('#bodyRootCouse').find("tr").remove();
+
                     $('#penagihanAPK').find("th").remove();
                     $('#couseCodePenagihanAPK').find("th").remove();
                     $('#rootCousePenagihanAPK').find("td").remove();
 
                     let TotPenagihan = [];
+                    let TotSumPenagihan = [];
+                    let tbSumPenagihanAPK;
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
+
+                    let hdRootCouse = `
+                        <th>Penagihan</th>`;
+
                     let hdRootCouseAPK = `
                         <th>Penagihan</th>
                         <th>Couse Code</th>
@@ -1851,14 +2122,23 @@
                         // <th style="text-align: center">Jumlah</th>`;
 
                     for (h = 0;h < trendWoMt.length; h++) {
+                        hdRootCouse = hdRootCouse +
+                            `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`;
+
                         hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`;
+                            //  <th style="text-align: center">% ${trendWoMt[h].bulan.toLocaleString()}</th>`
                     }
 
+                    $('#rootCouseHead').append(hdRootCouse + `</tr>`);
                     $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
+                    
 
 
                     $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+
+                        tbSumPenagihanAPK = `
+                                <tr><td>${itemPenagihan.penagihan}</td>`;
 
                         tbPenagihanAPK = `
                                 <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
@@ -1866,12 +2146,20 @@
                                 <th class="table-secondary"></th>`;
                         
                         for (p=0;p<trendWoMt.length; p++) {
+                            tbSumPenagihanAPK = tbSumPenagihanAPK +
+                                `<th style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                <td style="text-align: center">${itemPenagihan.persen[p].toLocaleString()} %</td>`;
+
                             tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                <th class="table-secondary" style="text-align: center">${itemPenagihan.persen[p].toLocaleString()} %</th>`;
+
    
                         }
 
+                        $('#bodyRootCouse').append(tbSumPenagihanAPK + `</tr>`);
                         $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
+
 
                         $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
                             if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
@@ -1881,7 +2169,9 @@
                                     <th class="table-info"></th>`;
 
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
-                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                    tbCouseCodeAPK = tbCouseCodeAPK + 
+                                    `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
+                                    <th class="table-info" style="text-align: center">${itemCouseCode.persen[cc].toLocaleString()} %</th>`;
                                 }
 
                                 $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
@@ -1901,7 +2191,8 @@
 
                                         for (rc = 0; rc < trendWoMt.length; rc++) {
                                             tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
+                                            <td style="text-align: center">${itemRootCouse.persen[rc].toLocaleString()} %</td>`;
                                         }
                                         $('#bodyRootCouseAPK').append(tbRootCouseAPK + `</tr>`);
                                     }
@@ -1910,7 +2201,6 @@
                         });
                     });
 
-                    
 
                     let totRootCouseAPK = `
                         <tr><th class="table-dark">TOTAL</th>
@@ -1918,15 +2208,28 @@
                             <th class="table-dark"></th>`;
                             // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
 
+                    let totSumRootCouseAPK = `
+                        <tr><th class="table-dark">TOTAL</th>`;
+
                     for (p=0;p<trendWoMt.length; p++) {
                         TotPenagihan[p] = 0
+                        TotSumPenagihan[p] = 0
+
                         $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
                             TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                            TotSumPenagihan[p] += Number(iPenagihan.bulanan[p]);
                         })
 
-                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                        totRootCouseAPK = totRootCouseAPK + 
+                        `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center"></th>`;
+
+                        totSumRootCouseAPK = totSumRootCouseAPK + 
+                        `<th class="table-dark" style="text-align: center">${TotSumPenagihan[p].toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center"></th>`;
                     }
 
+                    $('#bodyRootCouse').append(totSumRootCouseAPK + `</tr>`);
                     $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
                 }
 
@@ -2069,10 +2372,6 @@
                 }
 
             })
-
-            
-
-            
 
 
             $.ajax({
@@ -2227,6 +2526,7 @@
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
 
+                    var TotPenagihanPending = [];
                     var TotRootDonePending = 0;
                     let tbRootCousePending;
                     let hdRootCousePending = `
@@ -2238,44 +2538,49 @@
 
                     for (b = 0; b < trendWoMt.length; b++) {
                         $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
                         )
                     }
 
                     $.each(dataRootCousePending, function(key, item) {
 
-                        if (item.penagihan == 'total_pending') {
-                            tbRootCousePending = `
+                        tbRootCousePending = `
                             <tr>
-                                <th class="table-dark">Total Pending</th>
-                                
-                            `;
-                        } else {
-                            tbRootCousePending = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        }
+                            <td>${item.penagihan}</td>`;
 
-                        if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<th class="table-dark" style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
 
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                        for (pn=0; pn<trendWoMt.length; pn++){
 
-                            }
+                            tbRootCousePending = tbRootCousePending +
+                                    `<td style="text-align: center">${item.bulanan[pn].toLocaleString()}</td>
+                                    <td style="text-align: center">${item.persen[pn].toLocaleString()} %</td>`;
                         }
 
                         tbRootCousePending = tbRootCousePending + `</tr>`;
+
                         $('#rootCouseTbPending').append(tbRootCousePending);
 
                     });
+
+
+                    let totRootPending = `
+                        <th class="table-dark">TOTAL</th>`;
+                            // <th class="table-dark"></th>
+                            // <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+                    for (p=0;p<trendWoMt.length; p++) {
+                        TotPenagihanPending[p] = 0
+                        $.each(dataRootCousePending, function(key, iPenagihan) {
+                            TotPenagihanPending[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootPending = totRootPending + 
+                        `<th class="table-dark" style="text-align: center">${TotPenagihanPending[p].toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center"></th>`;
+                    }
+
+                    $('#totRootCousePending').append(totRootPending);
                 }
 
             });
@@ -2416,81 +2721,6 @@
             })
 
 
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseDone') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport,
-            //         filterTgl: filTglPeriode,
-            //         filterSite: filSite,
-            //         filterBranch: filBranch,
-            //         filterKotamadya: filKotamadya
-            //     },
-            //     success: function(dataRootCouse) {
-
-            //         $('#rootCouseHead').find("tr").remove();
-            //         $('#rootCouseTb').find("tr").remove();
-            //         $('#totRootCouse').find("th").remove();
-
-            //         var TotRootDone = 0;
-            //         let tbRootCouse;
-            //         let hdRootCouse = `
-            //             <tr>
-            //                     <th>RootCouse Done</th>
-            //             </tr>`;
-
-            //         $('#rootCouseHead').append(hdRootCouse);
-
-            //         for (b = 0; b < trendWoMt.length; b++) {
-            //             $('#rootCouseHead').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCouse, function(key, item) {
-
-            //             if (item.penagihan == 'total_done') {
-            //                 tbRootCouse = `
-            //                 <tr>
-            //                     <th>Total</th>
-                                
-            //                 `;
-            //             } else {
-            //                 tbRootCouse = `
-            //                 <tr>
-            //                     <td>${item.penagihan}</td>
-                                
-            //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_done') {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
-            //                     tbRootCouse = tbRootCouse +
-            //                         `<th style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoMt.length; bln++) {
-            //                     tbRootCouse = tbRootCouse +
-            //                         `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-
-            //             tbRootCouse = tbRootCouse + `</tr>`;
-            //             $('#rootCouseTb').append(tbRootCouse);
-
-            //         });
-
-            //         // $('#totRootCouse').append(tbTotalRootCouse);  
-            //     }
-
-            // });
-
-            
-
             $.ajax({
                 url: "{{ route('getRootCouseCancel') }}",
                 type: "GET",
@@ -2514,6 +2744,7 @@
                     $('#rootCouseTbCancel').find("tr").remove();
                     $('#totRootCouseCancel').find("th").remove();
 
+                    var TotPenagihanCancel = [];
                     var TotRootDoneCancel = 0;
                     let tbRootCouseCancel;
                     let hdRootCouseCancel = `
@@ -2525,49 +2756,51 @@
 
                     for (b = 0; b < trendWoMt.length; b++) {
                         $('#rootCouseHeadCancel').find("tr").append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
                         )
                     }
 
                     $.each(dataRootCouseCancel, function(key, item) {
 
-                        if (item.penagihan == 'total_cancel') {
-                            tbRootCouseCancel = `
+                        tbRootCouseCancel = `
                             <tr>
-                                <th class="table-dark">Total Cancel</th>
-                                
-                            `;
-                        } else {
-                            tbRootCouseCancel = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        }
+                                <td>${item.penagihan}</td>`;
+                        
 
-                        if (item.penagihan == 'total_cancel') {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseCancel = tbRootCouseCancel +
-                                    `<th class="table-dark" style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</th>`;
-                            }
-
-                        } else {
-                            for (bln = 0; bln < trendWoMt.length; bln++) {
-                                tbRootCouseCancel = tbRootCouseCancel +
-                                    `<td style="text-align: center">${item.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
-
-                            }
+                        for (bln = 0; bln < trendWoMt.length; bln++) {
+                            tbRootCouseCancel = tbRootCouseCancel +
+                                `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
+                                <td style="text-align: center">${item.persen[bln].toLocaleString()} %</td>`;
                         }
 
                         tbRootCouseCancel = tbRootCouseCancel + `</tr>`;
                         $('#rootCouseTbCancel').append(tbRootCouseCancel);
 
                     });
+
+                    let totRootCancel = `
+                        <th class="table-dark">TOTAL</th>`;
+                            // <th class="table-dark"></th>
+                            // <th class="table-dark"></th>`;
+                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
+
+                    for (p=0;p<trendWoMt.length; p++) {
+                        TotPenagihanCancel[p] = 0
+                        $.each(dataRootCouseCancel, function(key, iPenagihan) {
+                            TotPenagihanCancel[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCancel = totRootCancel + 
+                        `<th class="table-dark" style="text-align: center">${TotPenagihanCancel[p].toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center"></th>`;
+                    }
+
+                    $('#totRootCouseCancel').append(totRootCancel);
+
                 }
 
             });
 
-            
 
             $.ajax({
                 url: "{{ route('getCancelSystemProblem') }}",
@@ -2626,7 +2859,7 @@
 
                     for (b = 0; b < trendWoMt.length; b++) {
                         $('#backToNormalHead').append(
-                            `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
                         )
                     }
 
@@ -2638,14 +2871,14 @@
 
                         for (bln = 0; bln < trendWoMt.length; bln++) {
                             tbBtn = tbBtn +
-                                `<th class="table-secondary" style="text-align: center">${itemVisit.bulan[trendWoMt[bln].bulan]}</th>`;
+                                `<th class="table-secondary" style="text-align: center">${itemVisit.bulanan[bln].toLocaleString()}</th>
+                                <th class="table-secondary" style="text-align: center">${itemVisit.persen[bln].toLocaleString()}%</th>`;
 
                         }
 
                         tbBtn = tbBtn + `</tr>`;
 
                         $.each(btn.visitSysProblem, function(key, itemSysProblem) {
-
                             if (itemVisit.visit_novisit == itemSysProblem
                                 .visit_novisit) {
                                 tbBtn = tbBtn +
@@ -2655,7 +2888,8 @@
 
                                 for (bln = 0; bln < trendWoMt.length; bln++) {
                                     tbBtn = tbBtn +
-                                        `<td class="table-info" style="text-align: center">${itemSysProblem.bulan[trendWoMt[bln].bulan].toLocaleString()}</td>`;
+                                        `<td class="table-info" style="text-align: center">${itemSysProblem.bulanan[bln].toLocaleString()}</td>
+                                        <td class="table-info" style="text-align: center">${itemSysProblem.persen[bln].toLocaleString()}%</td>`;
 
                                 }
                             }
@@ -2670,6 +2904,7 @@
                     $.each(btn.totSysProblem, function(key, itemTot) {
                         $('#totSysProblem').append(
                             `<th class="table-dark" style="text-align: center">${itemTot.total}</th>
+                            <th class="table-dark" style="text-align: center"></th>
                             `);
 
                         $('#PersenBackToNormalHead').append(
@@ -2779,6 +3014,7 @@
                     $('#analisAPK').find("tr").remove();
 
                     let TotPenagihan = [];
+                    let TotMonthly = [];
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
@@ -2790,7 +3026,7 @@
 
                     for (h = 0;h < trendWoMt.length; h++) {
                         hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
                     }
 
                     $('#analisHeadAPK').append(hdRootCouseAPK + `</tr>`);
@@ -2804,8 +3040,14 @@
                                 <th class="table-secondary"></th>`;
                         
                         for (p=0;p<trendWoMt.length; p++) {
+                            TotMonthly[p] = 0
+                            $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                                TotMonthly[p] += Number(iPenagihan.bulanan[p]);
+                            })
+
                             tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                <th class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1)}%</th>`;
                         }
 
                         $('#analisAPK').append(tbPenagihanAPK + `</tr>`);
@@ -2818,7 +3060,14 @@
                                     <th class="table-info"></th>`;
 
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
-                                    tbCouseCodeAPK = tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                    TotMonthly[cc] = 0
+                                    $.each(apk.detCouseCodeSortir, function(key, iPenagihan) {
+                                        TotMonthly[cc] += Number(iPenagihan.bulanan[cc]);
+                                    })
+
+                                    tbCouseCodeAPK = tbCouseCodeAPK + 
+                                        `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
+                                        <th class="table-info" style="text-align: center">${parseFloat((itemCouseCode.bulanan[cc] * 100) / TotMonthly[cc]).toFixed(1)}%</th>`;
                                 }
 
                                 $('#analisAPK').append(tbCouseCodeAPK + '</tr>');
@@ -2837,8 +3086,16 @@
                                             <td>${itemRootCouse.root_couse}</td>`;
 
                                         for (rc = 0; rc < trendWoMt.length; rc++) {
+
+                                            TotMonthly[rc] = 0
+                                            $.each(apk.detRootCouseSortir, function(key, iPenagihan) {
+                                                TotMonthly[rc] += Number(iPenagihan.bulanan[rc]);
+                                            })
+
+
                                             tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
+                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
+                                            <td style="text-align: center">${parseFloat((itemRootCouse.bulanan[rc] * 100) / TotMonthly[rc]).toFixed(1)}%</td>`;
                                         }
                                         $('#analisAPK').append(tbRootCouseAPK + `</tr>`);
                                     }
@@ -2861,7 +3118,8 @@
                             TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
                         })
 
-                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center"></th>`;
                     }
 
                     $('#analisAPK').append(totRootCouseAPK + `</tr>`);

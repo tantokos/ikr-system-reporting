@@ -1180,7 +1180,16 @@
                             },
                             scales: {
                                 y: {
-                                    display: false, //this will remove all the x-axis grid lines
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: 6000,
+                                    // min: 2000,
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
                                 }
                             }
                         },
@@ -1231,7 +1240,16 @@
                             },
                             scales: {
                                 y: {
-                                    display: false, //this will remove all the x-axis grid lines
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: 6000,
+                                    // min: 2000,
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
                                 }
                             }
                         },

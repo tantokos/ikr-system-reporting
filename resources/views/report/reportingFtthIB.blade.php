@@ -115,6 +115,33 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotIBDone">
+                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotIBPending">
+                    {{-- <canvas id="TotWoMtClose"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotIBCancel">
+                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-body">
@@ -659,7 +686,7 @@
             })
 
             $.ajax({
-                url: "{{ route('getTrendMonthlyIBFtth') }}",
+                url: "{{ route('getMonthlyIBFtth') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -667,151 +694,18 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd,
-                    typePenagihanIB: typePenagihanIB
+                    filterDateEnd: filPeriodeEnd
 
-                },
-                beforeSend: () => {
-                    $("#smWOTrend").show();
-                },
-                complete: () => {
-                    $("#smWOTrend").hide();
                 },
                 success: function(dataTrendMonthly) {
+                    // var trendWoMt = {!! $trendMonthly !!}
                     trendWoIBFtth = dataTrendMonthly;
-
-                    document.querySelectorAll('#titleTrendTotWo').forEach(function(elem){
-                        elem.innerText = 'Trend Total WO FTTH ' + title1 + ' ' + titleBranch + " - " + bulanReport; 
-                    })
-
-                    document.querySelectorAll('#titleTrendWoClose').forEach(function(elem){
-                        elem.innerText = 'Trend WO FTTH ' + title1 + ' Done ' + titleBranch + " - " + bulanReport; 
-                    })
-
-                    var trendMonth = [''];
-                    var trendTotIBFtth = ['null'];
-                    var trendIBDone = ['null'];
-
-                    $.each(trendWoIBFtth, function(key, item) {
-                        
-                        trendMonth.push(item.bulan);
-                        trendTotIBFtth.push(item.trendIBFtthTotal);
-                        trendIBDone.push(item.trendIBFtthDone);
-
-                    });
-
-                    trendMonth.push('');
-                    trendTotIBFtth.push('null');
-                    trendIBDone.push('null');
-
-                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
-
-                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
-                    if (graphTrendTotWoIBFtth) {
-                        graphTrendTotWoIBFtth.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoIBFtth, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotIBFtth, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: true,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    display: 'auto',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: 'auto',
-                                    // text: 'Trend WO FTTH ' + title1,
-                                    // align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
-
-                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
-                    if (graphTrendTotWoIBFtthClose) {
-                        graphTrendTotWoIBFtthClose.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoIBFtthClose, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendIBDone, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: true,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    display: 'auto',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();
-                                    }
-                                },
-                                title: {
-                                    display: 'auto',
-                                    // text: 'Trend WO FTTH ' + title1 + ' Done',
-                                    // align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: false, //this will remove all the x-axis grid lines
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
 
                 }
 
             })
+
+            
  
             let uri;
             if ((filSite == "All") && (filBranch == "All") && (typePenagihanIB == "All")) {
@@ -949,6 +843,241 @@
                         }]
                     });
 
+
+                    var totChartDone = dataTotalWo;
+                    var totChartDone = totChartDone.sort((a,b) => b.done - a.done);
+                    var ChrBranchDone = [];
+                    var ChrDone = [];
+
+                    $.each(totChartDone, function(key, item) {
+
+                        ChrBranchDone.push(item.nama_branch);
+                        ChrDone.push([parseInt(item.done)]);
+
+                    });
+
+                    $('#canvasTotIBDone').empty();
+
+                    let chartIBDone = `
+					<figure class="highcharts-figure">
+					    <div id="TotIBDone"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotIBDone').append(chartIBDone);
+
+                    Highcharts.chart('TotIBDone', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'WO FTTH ' + title1 + ' Done ', //+ bulanReport,
+                            align: 'left',
+                            style: {
+                                fontSize: '13px' 
+                            }
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchDone, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Done',
+                            data: ChrDone // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    var totChartPending = dataTotalWo;
+                    var totChartPending = totChartPending.sort((a,b) => b.pending - a.pending);
+                    var ChrBranchPending = [];
+                    var ChrPending = [];
+
+                    $.each(totChartPending, function(key, item) {
+
+                        ChrBranchPending.push(item.nama_branch);
+                        ChrPending.push([parseInt(item.pending)]);
+
+                    });
+
+                    $('#canvasTotIBPending').empty();
+
+                    let chartIBPending = `
+					<figure class="highcharts-figure">
+					    <div id="TotIBPending"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotIBPending').append(chartIBPending);
+
+                    Highcharts.chart('TotIBPending', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'WO FTTH ' + title1 + ' Pending ', // + bulanReport,
+                            align: 'left',
+                            style: {
+                                fontSize: '13px' 
+                            }
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchPending, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Pending',
+                            data: ChrPending // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    var dataChartCancel = dataTotalWo;
+                    var totChartCancel = dataChartCancel.sort((a,b) => b.cancel - a.cancel);
+                    var ChrBranchCancel = [];
+                    var ChrCancel = [];
+
+                    $.each(totChartCancel, function(key, item) {
+
+                        ChrBranchCancel.push(item.nama_branch);
+                        ChrCancel.push([parseInt(item.cancel)]);
+
+                    });
+
+                    $('#canvasTotIBCancel').empty();
+
+                    let chartIBCancel = `
+					<figure class="highcharts-figure">
+					    <div id="TotIBCancel"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotIBCancel').append(chartIBCancel);
+
+                    Highcharts.chart('TotIBCancel', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'WO FTTH ' + title1 + ' Cancel ', // + bulanReport,
+                            align: 'left',
+                            style: {
+                                fontSize: '13px' 
+                            }
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchCancel, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Cancel',
+                            data: ChrCancel // [631, 727, 3202, 721]
+                        }]
+                    });
+
                     var totWo = 0;
                     var totWoClose = 0;
                     var totWoPending = 0;
@@ -987,6 +1116,8 @@
                             `);
 
                     let nmBranch;
+
+                    dataTotalWo.sort((a,b) => a.id - b.id);
 
                     $.each(dataTotalWo, function(key, item) {
 
@@ -1184,6 +1315,179 @@
                 }
 
             });
+
+            $.ajax({
+                url: "{{ route('getTrendMonthlyIBFtth') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
+
+                },
+                beforeSend: () => {
+                    $("#smWOTrend").show();
+                },
+                complete: () => {
+                    $("#smWOTrend").hide();
+                },
+                success: function(dataTrendMonthly) {
+                    trendWoIBFtth = dataTrendMonthly;
+
+                    document.querySelectorAll('#titleTrendTotWo').forEach(function(elem){
+                        elem.innerText = 'Trend Total WO FTTH ' + title1 + ' ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    document.querySelectorAll('#titleTrendWoClose').forEach(function(elem){
+                        elem.innerText = 'Trend WO FTTH ' + title1 + ' Done ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    var trendMonth = [''];
+                    var trendTotIBFtth = ['null'];
+                    var trendIBDone = ['null'];
+
+                    $.each(trendWoIBFtth, function(key, item) {
+                        
+                        trendMonth.push(item.bulan);
+                        trendTotIBFtth.push(item.trendIBFtthTotal);
+                        trendIBDone.push(item.trendIBFtthDone);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotIBFtth.push('null');
+                    trendIBDone.push('null');
+
+                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
+
+                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
+                    if (graphTrendTotWoIBFtth) {
+                        graphTrendTotWoIBFtth.destroy();
+                    }
+
+
+
+                    new Chart(ctxTrendTotWoIBFtth, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotIBFtth, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO FTTH ' + title1,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: 6000,
+                                    // min: 2000,
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
+
+                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
+                    if (graphTrendTotWoIBFtthClose) {
+                        graphTrendTotWoIBFtthClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoIBFtthClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendIBDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();
+                                    }
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO FTTH ' + title1 + ' Done',
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: 6000,
+                                    // min: 2000,
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                }
+
+            })
 
             $.ajax({
                 url: "{{ route('getTabelStatusIBFtth') }}",
