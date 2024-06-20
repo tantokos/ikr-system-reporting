@@ -116,6 +116,33 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotDone">
+                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotPending">
+                    {{-- <canvas id="TotWoMtClose"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body" id="canvasTotCancel">
+                    {{-- <canvas id="TotWoMtClose"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-body">
@@ -297,7 +324,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" style="font-size: 11px; table-layout: fixed;">
+                        <table class="table table-bordered" style="font-size: 11px; table-layout: auto;">
                             <thead>
                                 <tr id="tableHeadCluster">
                                 {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
@@ -441,7 +468,7 @@
         {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered border-primary" style="font-size: 11px; table-layout: fixed;">
+                <table class="table table-striped table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
                     <thead>
                         <tr id="rootCouseHeadAPK">
                             {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
@@ -506,126 +533,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <h6>Summary Root Cause Cancel New Installation FTTH - <h5 id="CardTitle">All Branch - All Site (Retail,
-                            Apartemen, Underground)<h5>
-                    </h6>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body" id="canvasRootCouseAPKCancel">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
-                            cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHeadCancel">
-                            </thead>
-                            <tbody id="rootCouseTbCancel">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totRootCouseCancel">
-                                    <th>Total</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h6>Summary WO New Installation Cancel System Problem - Back To Normal - <h5 id="CardTitle">All Branch - All
-                            Site (Retail, Apartemen, Underground)<h5>
-                    </h6>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-body">
-                    <canvas id="GraphWoBTN"></canvas>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row">
-
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered border-secondary"
-                            style="font-size: 11px; table-layout: fixed;">
-                            <thead>
-                                <tr id="backToNormalHead">
-                                </tr>
-                            </thead>
-                            <tbody id="bodyBackToNormal">
-                            </tbody>
-                            <tfoot>
-                                <tr id="totSysProblem">
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered border-secondary"
-                            style="font-size: 11px; table-layout: fixed;">
-                            <thead>
-                                <tr id="PersenBackToNormalHead">
-                                </tr>
-                            </thead>
-                            <tbody id="PersenBodyBackToNormal">
-                                <tr id="totWoMT">
-                                </tr>
-                                <tr id="totWoBtn">
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr id="PersenTotSysProblem">
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
    
 @endsection
@@ -765,7 +672,7 @@
             // console.log($('#CardTitle').html("testing"));
 
             $.ajax({
-                url: "{{ route('getTrendMonthlyDismantleFtth') }}",
+                url: "{{ route('getMonthlyDismantle') }}",
                 type: 'GET',
                 data: {
                     bulanTahunReport: bulanReport,
@@ -776,157 +683,15 @@
                     filterDateEnd: filPeriodeEnd
 
                 },
-                beforeSend: () => {
-                    $("#smWOTrend").show();
-                },
-                complete: () => {
-                    $("#smWOTrend").hide();
-                },
                 success: function(dataTrendMonthly) {
-                    // var trendWoIBFtth = {!! $trendMonthly !!}
+                    // var trendWoMt = {!! $trendMonthly !!}
                     trendWoIBFtth = dataTrendMonthly;
-
-                    var trendMonth = [''];
-                    var trendTotIBFtth = ['null'];
-                    var trendIBDone = ['null'];
-
-                    $.each(trendWoIBFtth, function(key, item) {
-                        
-                        trendMonth.push(item.bulan);
-                        trendTotIBFtth.push(item.trendIBFtthTotal);
-                        trendIBDone.push(item.trendIBFtthDone);
-
-                    });
-
-                    trendMonth.push('');
-                    trendTotIBFtth.push('null');
-                    trendIBDone.push('null');
-
-                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
-
-                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
-                    if (graphTrendTotWoIBFtth) {
-                        graphTrendTotWoIBFtth.destroy();
-                    }
-
-
-
-                    new Chart(ctxTrendTotWoIBFtth, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendTotIBFtth, //[3895],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();}
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Dismantle',
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: true, //this will remove all the x-axis grid lines
-                                    // max: 6000,
-                                    // min: 2000,
-                                    grace: '10%',
-                                    ticks: {
-                                            // beginAtZero: true,
-                                            stepSize: 1000,
-                                            // stepValue: 500,
-                                            // max: 6000
-                                        }
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
-
-                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
-
-                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
-                    if (graphTrendTotWoIBFtthClose) {
-                        graphTrendTotWoIBFtthClose.destroy();
-                    }
-
-                    new Chart(ctxTrendTotWoIBFtthClose, {
-                        type: 'line',
-                        data: {
-                            labels: trendMonth, //['Dec-23', 'Jan-24'],
-                            datasets: [{
-                                // label: '# of Votes',
-                                data: trendIBDone, //[3082, 3597],
-                                borderWidth: 1,
-
-                            }]
-                        },
-
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: false,
-
-                                },
-                                datalabels: {
-                                    anchor: 'end',
-                                    align: 'top',
-                                    formatter: function(value) {
-                                        return value.toLocaleString();
-                                    }
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Trend WO Dismantle Close',
-                                    align: 'start',
-                                },
-
-                            },
-                            scales: {
-                                y: {
-                                    display: true, //this will remove all the x-axis grid lines
-                                    // max: 6000,
-                                    // min: 2000,
-                                    grace: '10%',
-                                    ticks: {
-                                            // beginAtZero: true,
-                                            stepSize: 1000,
-                                            // stepValue: 500,
-                                            // max: 6000
-                                        }
-                                }
-                            }
-                        },
-                        plugins: [ChartDataLabels],
-
-                    });
 
                 }
 
             })
 
+            
             let uri;
             if ((filSite == "All") && (filBranch == "All")) {
                 uri = "{{ route('getTotalWoBranchDismantleFtth') }}";
@@ -956,14 +721,6 @@
                 },
                 success: function(dataTotalWo) {
 
-
-                    // const ctx = document.getElementById('TotWoMt');
-
-                    // let graphTotWoMt = Chart.getChart(ctx);
-                    // if (graphTotWoMt != undefined) {
-                    //     graphTotWoMt.destroy();
-                    // }
-
                     var totWoMt = dataTotalWo;
 
                     var branch = [];
@@ -973,21 +730,11 @@
 
                     $.each(totWoMt, function(key, item) {
 
-                        // console.log(item.site_penagihan);
-                        // console.log(item.nama_branch);
-                        // if(item.site_penagihan == "Retail"){
                         branch.push(item.nama_branch);
                         totWoDone.push([item.nama_branch + " " + item.done, item.done]);
                         branchWTot.push([item.nama_branch + " " + item.total, item.total]);
-                        // }
-                        // if((item.site_penagihan == "Apartemen") || (item.site_penagihan == "Underground") ){
-                        // branch.push(item.site_penagihan);
-                        // totWoDone.push([item.site_penagihan + " " + item.done, item.done]);
-                        // branchWTot.push([item.site_penagihan + " " + item.total, item.total]);
-                        // }
 
                         totWo.push(item.total);
-
 
                     });
 
@@ -1079,6 +826,243 @@
                         }]
                     });
 
+
+                    var totChartDone = dataTotalWo;
+                    var totChartDone = totChartDone.sort((a,b) => b.done - a.done);
+                    var ChrBranchDone = [];
+                    var ChrDone = [];
+
+                    $.each(totChartDone, function(key, item) {
+
+                        ChrBranchDone.push(item.nama_branch);
+                        ChrDone.push([parseInt(item.done)]);
+
+                    });
+
+                    $('#canvasTotDone').empty();
+
+                    let chartDone = `
+					<figure class="highcharts-figure">
+					    <div id="TotDone"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotDone').append(chartDone);
+
+                    Highcharts.chart('TotDone', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'WO Dismantle ' + titleBranch + ' Done ', //+ bulanReport,
+                            align: 'left',
+                            style: {
+                                fontSize: '13px' 
+                            }
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchDone, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Done',
+                            data: ChrDone // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    var totChartPending = dataTotalWo;
+                    var totChartPending = totChartPending.sort((a,b) => b.pending - a.pending);
+                    var ChrBranchPending = [];
+                    var ChrPending = [];
+
+                    $.each(totChartPending, function(key, item) {
+
+                        ChrBranchPending.push(item.nama_branch);
+                        ChrPending.push([parseInt(item.pending)]);
+
+                    });
+
+                    $('#canvasTotPending').empty();
+
+                    let chartPending = `
+					<figure class="highcharts-figure">
+					    <div id="TotPending"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotPending').append(chartPending);
+
+                    Highcharts.chart('TotPending', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'WO Dismantle ' + titleBranch + ' Pending ', // + bulanReport,
+                            align: 'left',
+                            style: {
+                                fontSize: '13px' 
+                            }
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchPending, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Pending',
+                            data: ChrPending // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    var dataChartCancel = dataTotalWo;
+                    var totChartCancel = dataChartCancel.sort((a,b) => b.cancel - a.cancel);
+                    var ChrBranchCancel = [];
+                    var ChrCancel = [];
+
+                    $.each(totChartCancel, function(key, item) {
+
+                        ChrBranchCancel.push(item.nama_branch);
+                        ChrCancel.push([parseInt(item.cancel)]);
+
+                    });
+
+                    $('#canvasTotCancel').empty();
+
+                    let chartCancel = `
+					<figure class="highcharts-figure">
+					    <div id="TotCancel"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTotCancel').append(chartCancel);
+
+                    Highcharts.chart('TotCancel', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'WO Dismantle ' + titleBranch + ' Cancel ', // + bulanReport,
+                            align: 'left',
+                            style: {
+                                fontSize: '13px' 
+                            }
+                        },
+                        subtitle: {
+                            text: bulanReport,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchCancel, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'WO Cancel',
+                            data: ChrCancel // [631, 727, 3202, 721]
+                        }]
+                    });
+
+
+
                     var totWo = 0;
                     var totWoClose = 0;
                     var totWoPending = 0;
@@ -1096,6 +1080,7 @@
                     $('#theadTotWo').append(`
                         <th>WO Dismantle</th>
                         <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
+                        <th style="text-align: center; vertical-align: middle;">%</th>
                             `);
 
                     $('#theadTotWoClose').append(`
@@ -1118,6 +1103,8 @@
 
                     let nmBranch;
 
+                    dataTotalWo.sort((a,b) => a.id - b.id);
+
                     $.each(dataTotalWo, function(key, item) {
 
                         // if(item.site_penagihan == "Retail"){
@@ -1131,6 +1118,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.total.toLocaleString()}</td>
+                                <td style="text-align: center">${item.persenTotal.toFixed(1) + "%"}</td>
                             </tr>    
                         `;
 
@@ -1184,6 +1172,7 @@
                     let isiTotalWo = `
                         <th>Total WO</th>
                         <th style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;"></th>
                     `;
 
                     $('#totalWo').append(isiTotalWo);
@@ -1217,11 +1206,7 @@
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
 
-
-
-
                 }
-
 
             })
 
@@ -1258,7 +1243,7 @@
 
                     for (h = 0;h < trendWoIBFtth.length; h++) {
                         hdRootCouseAPK = hdRootCouseAPK +
-                            `<th style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
                     }
 
                     $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
@@ -1273,7 +1258,8 @@
                         
                         for (p=0;p<trendWoIBFtth.length; p++) {
                             tbBranchCluster = tbBranchCluster +
-                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>`;
+                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>
+                                <th class="table-secondary" style="text-align: center">${nmBranch.persen[p].toLocaleString()} %</th>`;
    
                         }
 
@@ -1287,7 +1273,9 @@
                                     // <th class="table-info"></th>`;
 
                                 for (cc = 0;cc < trendWoIBFtth.length; cc++) {
-                                    tbCluster = tbCluster + `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>`;
+                                    tbCluster = tbCluster + 
+                                    `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>
+                                    <td style="text-align: center">${itemCluster.persen[cc].toLocaleString()} %</td>`;
                                 }
 
                                 $('#bodyCluster').append(tbCluster + '</tr>');
@@ -1329,7 +1317,9 @@
                             TotBranchCluster[p] += Number(totBranchCl.totbulanan[p]);
                         })
 
-                        totBulananCluster = totBulananCluster + `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>`;
+                        totBulananCluster = totBulananCluster + `
+                        <th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>
+                        <th class="table-dark" style="text-align: center"></th>`;
                     }
 
                     $('#bodyCluster').append(totBulananCluster + `</tr>`);
@@ -1542,6 +1532,170 @@
 
             })
 
+            $.ajax({
+                url: "{{ route('getTrendMonthlyDismantleFtth') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                beforeSend: () => {
+                    $("#smWOTrend").show();
+                },
+                complete: () => {
+                    $("#smWOTrend").hide();
+                },
+                success: function(dataTrendMonthly) {
+                    // var trendWoIBFtth = {!! $trendMonthly !!}
+                    trendWoIBFtth = dataTrendMonthly;
+
+                    var trendMonth = [''];
+                    var trendTotIBFtth = ['null'];
+                    var trendIBDone = ['null'];
+
+                    $.each(trendWoIBFtth, function(key, item) {
+                        
+                        trendMonth.push(item.bulan);
+                        trendTotIBFtth.push(item.trendIBFtthTotal);
+                        trendIBDone.push(item.trendIBFtthDone);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotIBFtth.push('null');
+                    trendIBDone.push('null');
+
+                    const ctxTrendTotWoIBFtth = document.getElementById('TrendTotWoIBFtth');
+
+                    var graphTrendTotWoIBFtth = Chart.getChart('TrendTotWoIBFtth');
+                    if (graphTrendTotWoIBFtth) {
+                        graphTrendTotWoIBFtth.destroy();
+                    }
+
+
+
+                    new Chart(ctxTrendTotWoIBFtth, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotIBFtth, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Dismantle',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: 6000,
+                                    // min: 2000,
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
+
+                    var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
+                    if (graphTrendTotWoIBFtthClose) {
+                        graphTrendTotWoIBFtthClose.destroy();
+                    }
+
+                    new Chart(ctxTrendTotWoIBFtthClose, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendIBDone, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Trend WO Dismantle Close',
+                                    align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: 6000,
+                                    // min: 2000,
+                                    grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                }
+
+            })
+
+
             
 
             $.ajax({
@@ -1707,6 +1861,7 @@
                     $('#couseCodePenagihanAPK').find("th").remove();
                     $('#rootCousePenagihanAPK').find("td").remove();
 
+                    let TotMonthly = [];
                     let TotPenagihan = [];
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
@@ -1719,7 +1874,7 @@
 
                 for (h = 0; h < trendWoIBFtth.length; h++) {
                     hdRootCouseAPK = hdRootCouseAPK +
-                        `<th style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                        `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
                 }
 
                 $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
@@ -1734,52 +1889,14 @@
 
                     for (p = 0; p < trendWoIBFtth.length; p++) {
                         tbPenagihanAPK = tbPenagihanAPK +
-                            `<th style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+                            `<td style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</td>
+                            <td style="text-align: center">${itemPenagihan.persen[p]}%</td>`;
 
                     }
 
                     $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
 
-                    // $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
-                        // if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
-                            // tbCouseCodeAPK = `
-                                        // <tr><th></th>
-                                        // <th class="table-info">${itemCouseCode.couse_code}</th>`;
-                                        // <th class="table-info"></th>`;
-
-                            // for (cc = 0; cc < trendWoIBFtth.length; cc++) {
-                                // tbCouseCodeAPK = tbCouseCodeAPK +
-                                    // `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
-                            // }
-
-                            // $('#bodyRootCouseAPK').append(tbCouseCodeAPK + '</tr>');
-
-
-                            // $.each(apk.detRootCouseSortir, function(key,
-                                // itemRootCouse) {
-
-                                // if (itemPenagihan.penagihan == itemRootCouse
-                                    // .penagihan && itemCouseCode
-                                    // .couse_code == itemRootCouse.couse_code
-                                // ) {
-                                    // tbRootCouseAPK = `
-                                                // <tr><td></td>
-                                                // <td></td>
-                                                // <td>${itemRootCouse.root_couse}</td>`;
-
-                                    // for (rc = 0; rc < trendWoIBFtth
-                                        // .length; rc++) {
-                                        // tbRootCouseAPK = tbRootCouseAPK +
-                                            // `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
-                                    // }
-                                    // $('#bodyRootCouseAPK').append(
-                                        // tbRootCouseAPK + `</tr>`);
-                                // }
-                            // });
-                        // }
-                    // });
                 });
-
 
 
                 let totRootCouseAPK = `
@@ -1795,7 +1912,8 @@
                         })
 
                         totRootCouseAPK = totRootCouseAPK +
-                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                            <th class="table-dark" style="text-align: center"></th>`;
                     }
 
                     $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
@@ -1941,218 +2059,6 @@
 
             })
 
-            // $.ajax({
-            //     url: "{{ route('getRootCouseCancelGraphIBFtth') }}",
-            //     type: 'GET',
-            //     data: {
-            //         bulanTahunReport: bulanReport,
-            //         filterTgl: filTglPeriode,
-            //         filterDateStart: filPeriodeStart,
-            //         filterDateEnd: filPeriodeEnd,
-            //         filterSite: filSite,
-            //         filterBranch: filBranch,
-            //         filterDateStart: filPeriodeStart,
-            //         filterDateEnd: filPeriodeEnd
-
-            //     },
-            //     success: function(data) {
-            //         // var day = new Date(tahun, bulan, 0).getDate();
-            //         var dayGraphCancel = [];
-            //         var nameGraphCancel = [];
-            //         var nameDataGraphCancel = [];
-            //         var objDataGraph = {};
-            //         var dayApk = [];
-            //         var pendingDay = [];
-            //         var cancelDay = [];
-            //         var donetb;
-            //         var totDone = 0;
-            //         var totPending = 0;
-            //         var totCancel = 0;
-            //         var totWo = 0;
-            //         var total = 0;
-
-            //         for (tg = 0; tg < data.tglGraphAPKCancel.length; tg++) {
-            //             // console.log(data.tglGraphAPK[tg].tgl_ikr)
-            //             dayGraphCancel.push(new Date(data.tglGraphAPKCancel[tg].tgl_ikr).getDate())
-
-
-            //         }
-
-            //         for (nm = 0; nm < data.nameGraphAPKCancel.length; nm++) {
-            //             // console.log(data.nameGraphAPK[nm].penagihan);
-            //             nameGraphCancel.push({
-            //                 name: data.nameGraphAPKCancel[nm].penagihan
-            //             });
-            //             // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
-
-            //             // for(dt=0;dt<data.dataGraphAPK.length;dt++){
-            //             // console.log(data.dataGraphAPK[dt].data);
-            //             nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
-            //             // }
-
-            //         }
-
-            //         // graph line dialy //
-
-            //         $('#canvasRootCouseAPKCancel').empty();
-
-            //         let chartRootCouseAPKDialyCancel = `
-			// 		<figure class="highcharts-figure">
-			// 		    <div id="conRooCouseAPKDialyCancel"></div>
-			// 		</figure>
-			// 	    `;
-
-            //         $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialyCancel);
-
-            //         Highcharts.chart('conRooCouseAPKDialyCancel', {
-
-            //             title: {
-            //                 text: 'Root Couse WO New Installation Cancel FTTH Dialy - ' +
-            //                     titleBranch + ' ' + bulanReport,
-            //                 align: 'left'
-            //             },
-
-
-            //             xAxis: {
-            //                 categories: dayGraphCancel
-            //             },
-
-            //             legend: {
-            //                 layout: 'vertical',
-            //                 align: 'right',
-            //                 verticalAlign: 'middle'
-            //             },
-
-            //             plotOptions: {
-            //                 line: {
-            //                     dataLabels: {
-            //                         enabled: true
-            //                     },
-            //                     enableMouseTracking: true
-            //                 },
-            //                 series: {
-            //                     label: {
-            //                         connectorAllowed: false
-            //                     },
-
-            //                 }
-            //             },
-
-            //             series: nameGraphCancel, //[{
-            //             // name: 'WO Done',
-            //             // data: doneDay //[
-            //             //43934, 48656, 65165, 81827, 112143, 142383,
-            //             //171533, 165174, 155157, 161454, 154610
-            //             //]
-            //             // }, {
-            //             // name: 'WO Pending',
-            //             // data: pendingDay //[
-            //             //24916, 37941, 29742, 29851, 32490, 30282,
-            //             //38121, 36885, 33726, 34243, 31050
-            //             //]
-            //             // }, {
-            //             // name: 'WO Cancel',
-            //             // data: cancelDay //[
-            //             //11744, 30000, 16005, 19771, 20185, 24377,
-            //             //32147, 30912, 29243, 29213, 25663
-            //             //]
-            //             // }],
-
-            //             responsive: {
-            //                 rules: [{
-            //                     condition: {
-            //                         maxWidth: 500
-            //                     },
-            //                     chartOptions: {
-            //                         legend: {
-            //                             layout: 'horizontal',
-            //                             align: 'center',
-            //                             verticalAlign: 'bottom'
-            //                         }
-            //                     }
-            //                 }]
-            //             }
-
-            //         });
-
-            //     }
-
-            // })
-
-
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseDone') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport,
-            //         filterTgl: filTglPeriode,
-            //         filterSite: filSite,
-            //         filterBranch: filBranch,
-            //         filterKotamadya: filKotamadya
-            //     },
-            //     success: function(dataRootCouse) {
-
-            //         $('#rootCouseHead').find("tr").remove();
-            //         $('#rootCouseTb').find("tr").remove();
-            //         $('#totRootCouse').find("th").remove();
-
-            //         var TotRootDone = 0;
-            //         let tbRootCouse;
-            //         let hdRootCouse = `
-        //             <tr>
-        //                     <th>RootCouse Done</th>
-        //             </tr>`;
-
-            //         $('#rootCouseHead').append(hdRootCouse);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#rootCouseHead').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCouse, function(key, item) {
-
-            //             if (item.penagihan == 'total_done') {
-            //                 tbRootCouse = `
-        //                 <tr>
-        //                     <th>Total</th>
-
-        //                 `;
-            //             } else {
-            //                 tbRootCouse = `
-        //                 <tr>
-        //                     <td>${item.penagihan}</td>
-
-        //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_done') {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouse = tbRootCouse +
-            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouse = tbRootCouse +
-            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-
-            //             tbRootCouse = tbRootCouse + `</tr>`;
-            //             $('#rootCouseTb').append(tbRootCouse);
-
-            //         });
-
-            //         // $('#totRootCouse').append(tbTotalRootCouse);  
-            //     }
-
-            // });
-
             $.ajax({
                 url: "{{ route('getRootCousePendingDismantleFtth') }}",
                 type: "GET",
@@ -2176,6 +2082,7 @@
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
 
+                    let TotPenagihan = [];
                     var TotRootDonePending = 0;
                     let tbRootCousePending;
                     let hdRootCousePending = `
@@ -2187,1273 +2094,51 @@
 
                     for (b = 0; b < trendWoIBFtth.length; b++) {
                         $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
                         )
                     }
 
                     $.each(dataRootCousePending, function(key, item) {
-
-                        if (item.penagihan == 'total_pending') {
-                            tbRootCousePending = `
-                            <tr>
-                                <th>Total</th>
-                                
-                            `;
-                        } else {
-                            tbRootCousePending = `
+                        console.log(item.bulanan);
+                        tbRootCousePending = `
                             <tr>
                                 <td>${item.penagihan}</td>
                                 
                             `;
-                        }
 
-                        if (item.penagihan == 'total_pending') {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                        for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                                 tbRootCousePending = tbRootCousePending +
-                                    `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-                            }
-
-                        } else {
-                            for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-                                tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
+                                    `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
+                                    <td style="text-align: center">${item.persen[bln].toLocaleString()} %</td>`;
 
                             }
-                        }
+                        
 
                         tbRootCousePending = tbRootCousePending + `</tr>`;
                         $('#rootCouseTbPending').append(tbRootCousePending);
 
                     });
+
+                    let totRootCouseAPK = `
+                            <th class="table-dark">TOTAL</th>`;
+
+                    for (p = 0; p < trendWoIBFtth.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(dataRootCousePending, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK +
+                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                            <th class="table-dark" style="text-align: center"></th>`;
+                    }
+
+                    $('#totRootCousePending').append(totRootCouseAPK);
+
+                    
                 }
 
             });
-
-            
-
-            
-
-            // $.ajax({
-            //     url: "{{ route('getCancelSystemProblem') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport,
-            //         filterTgl: filTglPeriode,
-            //         filterSite: filSite,
-            //         filterBranch: filBranch,
-            //         filterDateStart: filPeriodeStart,
-            //         filterDateEnd: filPeriodeEnd
-            //     },
-            //     success: function(btn) {
-
-            //         var btnMonth = [];
-            //         var btnTotMt = [];
-            //         var btnTot = [];
-
-            //         $('#backToNormalHead').find("th").remove();
-            //         $('#bodyBackToNormal').find("tr").remove();
-            //         $('#totSysProblem').find("th").remove();
-
-            //         $('#totSysProblem').append(
-            //             `<th class="table-dark">Total</th>
-            //             <th class="table-dark"></th>`);
-
-            //         $('#PersenBackToNormalHead').find("th").remove();
-            //         $('#PersenBackToNormalHead').append(`<th>Persentase WO Back To Normal</th>`);
-
-            //         $('#totWoMT').find("th").remove();
-            //         $('#totWoMT').find("td").remove();
-            //         $('#totWoMT').append(`<th>Total WO Maintenance</th>`);
-
-            //         $('#totWoBtn').find("th").remove();
-            //         $('#totWoBtn').find("td").remove();
-            //         $('#totWoBtn').append(`<th>Total WO Back To Normal</th>`);
-
-            //         $('#PersenTotSysProblem').find("th").remove();
-            //         $('#PersenTotSysProblem').append(`<th class="table-dark">Total</th>`);
-
-
-
-            //         var TotBtn = 0;
-            //         let tbBtn;
-            //         let hdBtn = `
-            //                     <th>WO Back To Normal</th>
-            //                     <th></th>`;
-
-            //         $('#backToNormalHead').append(hdBtn);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#backToNormalHead').append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-
-            //         $.each(btn.statVisit, function(key, itemVisit) {
-            //             tbBtn = tbBtn +
-            //                 `<tr><th class="table-secondary">${itemVisit.visit_novisit}</th>
-            //                 <th class="table-secondary"></th>`;
-
-            //             for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                 tbBtn = tbBtn +
-            //                     `<th class="table-secondary" style="text-align: center">${itemVisit.bulan[trendWoIBFtth[bln].bulan]}</th>`;
-
-            //             }
-
-            //             tbBtn = tbBtn + `</tr>`;
-
-            //             $.each(btn.visitSysProblem, function(key, itemSysProblem) {
-
-            //                 if (itemVisit.visit_novisit == itemSysProblem
-            //                     .visit_novisit) {
-            //                     tbBtn = tbBtn +
-            //                         `<tr><th></th>
-            //                                 <th class="table-info">${itemSysProblem.action_taken}</th>
-            //                                 `;
-
-            //                     for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                         tbBtn = tbBtn +
-            //                             `<td class="table-info" style="text-align: center">${itemSysProblem.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                     }
-            //                 }
-            //             });
-
-
-
-            //         });
-
-            //         $('#bodyBackToNormal').append(tbBtn + `</tr>`);
-
-            //         $.each(btn.totSysProblem, function(key, itemTot) {
-            //             $('#totSysProblem').append(
-            //                 `<th class="table-dark" style="text-align: center">${itemTot.total}</th>
-            //                 `);
-
-            //             $('#PersenBackToNormalHead').append(
-            //                 `<th style="text-align: center">${itemTot.bulan}</th>`);
-
-            //             $('#totWoMT').append(
-            //                 `<td style="text-align: center">${itemTot.totalMt.toLocaleString()}</td>`
-            //             );
-
-            //             $('#totWoBtn').append(
-            //                 `<td style="text-align: center">${itemTot.total.toLocaleString()}</td>`
-            //             );
-
-            //             $('#PersenTotSysProblem').append(
-            //                 `<th class="table-dark" style="text-align: center">${parseFloat((itemTot.total * 100) / itemTot.totalMt).toFixed(1)}%</th>`
-            //             );
-
-
-            //             btnMonth.push(itemTot.bulan);
-            //             btnTotMt.push(itemTot.totalMt);
-            //             btnTot.push(itemTot.total)
-
-            //         });
-
-            //         const ctxBtnWoMt = document.getElementById('GraphWoBTN');
-
-            //         var graphBtnWoMt = Chart.getChart('GraphWoBTN');
-            //         if (graphBtnWoMt) {
-            //             graphBtnWoMt.destroy();
-            //         }
-
-            //         new Chart(ctxBtnWoMt, {
-            //             type: 'bar',
-            //             data: {
-            //                 labels: btnMonth, //['Jan-24'],
-            //                 datasets: [{
-            //                         label: 'Total WO MT',
-            //                         data: btnTotMt, //[3895],
-            //                         borderWidth: 1,
-
-            //                     },
-            //                     {
-            //                         label: 'Total WO Back To Normal',
-            //                         data: btnTot, //[3895],
-            //                         borderWidth: 1,
-
-            //                     }
-            //                 ]
-            //             },
-
-            //             options: {
-            //                 responsive: true,
-            //                 maintainAspectRatio: false,
-            //                 plugins: {
-            //                     legend: {
-            //                         display: true,
-            //                         position: 'bottom',
-
-            //                     },
-            //                     datalabels: {
-            //                         anchor: 'end',
-            //                         align: 'top'
-            //                     },
-            //                     title: {
-            //                         display: true,
-            //                         text: 'WO Back To Normal',
-            //                         align: 'start',
-            //                     },
-
-            //                 },
-            //                 scales: {
-            //                     y: {
-            //                         display: true, //if false, this will remove all the x-axis grid lines
-            //                     }
-            //                 }
-            //             },
-            //             plugins: [ChartDataLabels],
-
-            //         });
-
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getTrendMonthlyApart') }}",
-            //     type: 'GET',
-            //     data: {
-            //         bulanTahunReport: bulanReport
-
-            //     },
-            //     success: function(dataTrendMonthlyApart) {
-            //         trendWoIBFtthApart = dataTrendMonthlyApart;
-
-            //         var trendMonthApart = [''];
-            //         var trendTotIBFtthApart = ['null'];
-            //         var trendIBDoneApart = ['null'];
-
-            //         $.each(trendWoIBFtthApart, function(key, item) {
-
-            //             trendMonthApart.push(item.bulan);
-            //             trendTotIBFtthApart.push(item.trendIBFtthTotal);
-            //             trendIBDoneApart.push(item.trendIBDone);
-
-            //         });
-
-            //         trendMonthApart.push('');
-            //         trendTotIBFtthApart.push('null');
-            //         trendIBDoneApart.push('null');
-
-            //         const ctxTrendTotWoIBFtthApart = document.getElementById('TrendTotWoIBFtthApart');
-
-            //         var graphTrendTotWoIBFtthApart = Chart.getChart('TrendTotWoIBFtthApart');
-            //         if (graphTrendTotWoIBFtthApart) {
-            //             graphTrendTotWoIBFtthApart.destroy();
-            //         }
-
-
-
-            //         new Chart(ctxTrendTotWoIBFtthApart, {
-            //             type: 'line',
-            //             data: {
-            //                 labels: trendMonthApart, //['Jan-24'],
-            //                 datasets: [{
-            //                     // label: '# of Votes',
-            //                     data: trendTotIBFtthApart, //[3895],
-            //                     borderWidth: 1,
-
-            //                 }]
-            //             },
-
-            //             options: {
-            //                 responsive: true,
-            //                 maintainAspectRatio: false,
-            //                 plugins: {
-            //                     legend: {
-            //                         display: false,
-
-            //                     },
-            //                     datalabels: {
-            //                         anchor: 'end',
-            //                         align: 'top'
-            //                     },
-            //                     title: {
-            //                         display: true,
-            //                         // text: 'Trend WO New Installation Apartment All Branch',
-            //                         // align: 'start',
-            //                     },
-
-            //                 },
-            //                 scales: {
-            //                     y: {
-            //                         display: false, //this will remove all the x-axis grid lines
-            //                     }
-            //                 }
-            //             },
-            //             plugins: [ChartDataLabels],
-
-            //         });
-
-            //         const ctxTrendTotWoIBFtthCloseApart = document.getElementById('TrendTotWoIBFtthCloseApart');
-
-            //         var graphTrendTotWoIBFtthCloseApart = Chart.getChart('TrendTotWoIBFtthCloseApart');
-            //         if (graphTrendTotWoIBFtthCloseApart) {
-            //             graphTrendTotWoIBFtthCloseApart.destroy();
-            //         }
-
-            //         new Chart(ctxTrendTotWoIBFtthCloseApart, {
-            //             type: 'line',
-            //             data: {
-            //                 labels: trendMonthApart, //['Dec-23', 'Jan-24'],
-            //                 datasets: [{
-            //                     // label: '# of Votes',
-            //                     data: trendIBDoneApart, //[3082, 3597],
-            //                     borderWidth: 1,
-
-            //                 }]
-            //             },
-
-            //             options: {
-            //                 responsive: true,
-            //                 maintainAspectRatio: false,
-            //                 plugins: {
-            //                     legend: {
-            //                         display: false,
-
-            //                     },
-            //                     datalabels: {
-            //                         anchor: 'end',
-            //                         align: 'top'
-            //                     },
-            //                     title: {
-            //                         display: true,
-            //                         // text: 'Trend WO New Installation Close Apartment All Branch',
-            //                         align: 'start',
-            //                     },
-
-            //                 },
-            //                 scales: {
-            //                     y: {
-            //                         display: false, //this will remove all the x-axis grid lines
-            //                     }
-            //                 }
-            //             },
-            //             plugins: [ChartDataLabels],
-
-            //         });
-
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getTabelStatusApart') }}",
-            //     type: 'GET',
-            //     data: {
-            //         bulanTahunReport: bulanReport
-
-            //     },
-            //     success: function(dataApart) {
-
-            //         // var day = new Date(tahun, bulan, 0).getDate();
-            //         var dayApart = [];
-            //         var daytbApart;
-            //         var donetbApart;
-            //         var totDoneApart = 0;
-            //         var totPendingApart = 0;
-            //         var totCancelApart = 0;
-            //         var totWoApart = 0;
-            //         var totalApart = 0;
-
-            //         $('#dateMonthApart').find("th").remove();
-            //         $('#dateMonthApart').append("<th>New Installation Apartment All Branch</th>")
-
-            //         $('#woDoneApart').find("td").remove();
-            //         $('#woDoneApart').find("th").remove();
-            //         $('#woDoneApart').append("<td>Done</td>")
-
-            //         $('#woPendingApart').find("td").remove();
-            //         $('#woPendingApart').find("th").remove();
-            //         $('#woPendingApart').append("<td>New Installation Failed</td>")
-
-            //         $('#woCancelApart').find("td").remove();
-            //         $('#woCancelApart').find("th").remove();
-            //         $('#woCancelApart').append("<td>Cancel</td>")
-
-            //         $('#totWoApart').find("td").remove()
-            //         $('#totWoApart').find("th").remove()
-            //         $('#totWoApart').append("<th>Total Wo</th>")
-
-            //         $.each(dataApart, function(key, itemApart) {
-
-            //             let htglApart = `
-        //                <th>${new Date(itemApart.tgl_ikr).getDate()}</th>
-        //             `;
-
-            //             $('#dateMonthApart').append(htglApart);
-
-            //             let dtDoneApart = `
-        //                 <td>${itemApart.Done.toLocaleString()}</td>
-        //             `;
-
-            //             $('#woDoneApart').append(dtDoneApart);
-
-            //             totDoneApart += itemApart.Done;
-
-            //             let dtPendingApart = `
-        //                 <td>${itemApart.Pending.toLocaleString()}</td>
-        //             `;
-
-            //             $('#woPendingApart').append(dtPendingApart);
-
-            //             totPendingApart += itemApart.Pending;
-            //             totCancelApart += itemApart.Cancel;
-
-            //             let dtCancelApart = `
-        //                 <td>${itemApart.Cancel.toLocaleString()}</td>
-        //             `;
-
-            //             $('#woCancelApart').append(dtCancelApart)
-
-            //             totWoApart = itemApart.Done + itemApart.Pending + itemApart.Cancel
-
-            //             let dtTotWoApart = `
-        //                 <td>${totWoApart.toLocaleString()}</td>
-        //             `;
-
-            //             $('#totWoApart').append(dtTotWoApart);
-
-
-            //         });
-
-            //         $('#dateMonthApart').append("<th>Total</th>")
-
-            //         $('#woDoneApart').append(`<th>${totDoneApart.toLocaleString()}</th>`)
-
-            //         $('#woPendingApart').append(`<th>${totPendingApart.toLocaleString()}</th>`)
-
-            //         $('#woCancelApart').append(`<th>${totCancelApart.toLocaleString()}</th>`)
-
-            //         totalApart = totDoneApart + totPendingApart + totCancelApart
-
-            //         $('#totWoApart').append(`<th>${totalApart.toLocaleString()}</th>`)
-
-            //         $('#dateMonthApart').append(`<th>%</th>`)
-
-            //         $('#woDoneApart').append(
-            //             `<th>${parseFloat((totDoneApart * 100) / totalApart).toFixed(2)}%</th>`)
-            //         $('#woPendingApart').append(
-            //             `<th>${parseFloat((totPendingApart * 100) / totalApart).toFixed(2)}%</th>`)
-            //         $('#woCancelApart').append(
-            //             `<th>${parseFloat((totCancelApart * 100) / totalApart).toFixed(2)}%</th>`)
-            //     }
-
-            // })
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseDoneApart') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(dataRootCouseApart) {
-
-            //         $('#rootCouseHeadApart').find("tr").remove();
-            //         $('#rootCouseTbApart').find("tr").remove();
-            //         $('#totRootCouseApart').find("th").remove();
-
-            //         var TotRootDoneApart = 0;
-            //         let tbRootCouseApart;
-            //         let hdRootCouseApart = `
-        //             <tr>
-        //                     <th>RootCouse Done</th>
-        //             </tr>`;
-
-            //         $('#rootCouseHeadApart').append(hdRootCouseApart);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#rootCouseHeadApart').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCouseApart, function(key, item) {
-
-            //             if (item.penagihan == 'total_done') {
-            //                 tbRootCouseApart = `
-        //                 <tr>
-        //                     <th>Total</th>
-
-        //                 `;
-            //             } else {
-            //                 tbRootCouseApart = `
-        //                 <tr>
-        //                     <td>${item.penagihan}</td>
-
-        //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_done') {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseApart = tbRootCouseApart +
-            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseApart = tbRootCouseApart +
-            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-            //             tbRootCouseApart = tbRootCouseApart + `</tr>`;
-            //             $('#rootCouseTbApart').append(tbRootCouseApart);
-
-            //         });
-
-            //         // $('#totRootCouse').append(tbTotalRootCouse);  
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseAPKApart') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(apkApart) {
-
-            //         $('#rootCouseHeadAPKApart').find("th").remove();
-            //         $('#bodyRootCouseAPKApart').find("tr").remove();
-            //         $('#penagihanAPKApart').find("th").remove();
-            //         $('#couseCodePenagihanAPKApart').find("th").remove();
-            //         $('#rootCousePenagihanAPKApart').find("td").remove();
-
-            //         let TotPenagihanApart = 0;
-            //         let tbPenagihanAPKApart;
-            //         let tbCouseCodeAPKApart;
-            //         let tbRootCouseAPKApart;
-            //         let hdRootCouseAPKApart = `
-        //             <th>RootCouse Aplikasi ${bulanReport}</th>
-        //             <th></th>
-        //             <th></th>
-        //             <th style="text-align: center">Jumlah</th>`;
-
-            //         $('#rootCouseHeadAPKApart').append(hdRootCouseAPKApart);
-
-
-
-            //         $.each(apkApart.detPenagihanSortirApart, function(key, itemPenagihanApart) {
-
-            //             tbPenagihanAPKApart = `
-        //                     <tr class="table-secondary"><th>${itemPenagihanApart.penagihan}</th>
-        //                     <th class="table-secondary"></th>
-        //                     <th class="table-secondary"></th>
-        //                     <th class="table-secondary" style="text-align: center">${itemPenagihanApart.jml}</th></tr>
-        //                 `;
-            //             // $('#penagihanAPK').append(tbPenagihanAPK);
-            //             $('#bodyRootCouseAPKApart').append(tbPenagihanAPKApart);
-
-            //             TotPenagihanApart += itemPenagihanApart.jml;
-
-            //             $.each(apkApart.detCouseCodeSortirApart, function(key,
-            //                 itemCouseCodeApart) {
-            //                 if (itemPenagihanApart.penagihan == itemCouseCodeApart
-            //                     .penagihan) {
-            //                     tbCouseCodeAPKApart = `
-        //                         <tr><th></th>
-        //                         <th class="table-info">${itemCouseCodeApart.couse_code}</th>
-        //                         <th class="table-info"></th>
-        //                         <th class="table-info" style="text-align: center">${itemCouseCodeApart.jml}</th></tr>
-        //                     `;
-            //                     //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
-            //                     $('#bodyRootCouseAPKApart').append(tbCouseCodeAPKApart);
-
-
-            //                     $.each(apkApart.detRootCouseSortirApart, function(key,
-            //                         itemRootCouseApart) {
-            //                         if (itemPenagihanApart.penagihan ==
-            //                             itemRootCouseApart.penagihan &&
-            //                             itemCouseCodeApart.couse_code ==
-            //                             itemRootCouseApart.couse_code) {
-            //                             tbRootCouseAPKApart = `
-        //                                 <tr><td></td>
-        //                                 <td></td>
-        //                                 <td>${itemRootCouseApart.root_couse}</td>
-        //                                 <td style="text-align: center">${itemRootCouseApart.jml}</td></tr>
-        //                             `;
-
-            //                             //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
-            //                             $('#bodyRootCouseAPKApart').append(
-            //                                 tbRootCouseAPKApart);
-            //                         }
-
-            //                     });
-            //                 }
-
-
-            //             });
-
-            //         });
-
-            //         let totRootCouseAPKApart = `
-        //             <tr><th class="table-dark">TOTAL</th>
-        //                 <th class="table-dark"></th>
-        //                 <th class="table-dark"></th>
-        //                 <th class="table-dark" style="text-align: center">${TotPenagihanApart}</th></tr>`;
-
-            //         $('#bodyRootCouseAPKApart').append(totRootCouseAPKApart);
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getRootCousePendingApart') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(dataRootCousePendingApart) {
-
-            //         $('#rootCouseHeadPendingApart').find("tr").remove();
-            //         $('#rootCouseTbPendingApart').find("tr").remove();
-            //         $('#totRootCousePendingApart').find("th").remove();
-
-            //         var TotRootDonePendingApart = 0;
-            //         let tbRootCousePendingApart;
-            //         let hdRootCousePendingApart = `
-        //             <tr>
-        //                     <th>RootCouse Pending</th>
-        //             </tr>`;
-
-            //         $('#rootCouseHeadPendingApart').append(hdRootCousePendingApart);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#rootCouseHeadPendingApart').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCousePendingApart, function(key, item) {
-
-            //             if (item.penagihan == 'total_pending') {
-            //                 tbRootCousePendingApart = `
-        //                 <tr>
-        //                     <th>Total</th>
-
-        //                 `;
-            //             } else {
-            //                 tbRootCousePendingApart = `
-        //                 <tr>
-        //                     <td>${item.penagihan}</td>
-
-        //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_pending') {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCousePendingApart = tbRootCousePendingApart +
-            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCousePendingApart = tbRootCousePendingApart +
-            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-            //             tbRootCousePendingApart = tbRootCousePendingApart + `</tr>`;
-            //             $('#rootCouseTbPendingApart').append(tbRootCousePendingApart);
-
-            //         });
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseCancelApart') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(dataRootCouseCancelApart) {
-
-            //         $('#rootCouseHeadCancelApart').find("tr").remove();
-            //         $('#rootCouseTbCancelApart').find("tr").remove();
-            //         $('#totRootCouseCancelApart').find("th").remove();
-
-            //         var TotRootDoneCancelApart = 0;
-            //         let tbRootCouseCancelApart;
-            //         let hdRootCouseCancelApart = `
-        //             <tr>
-        //                     <th>RootCouse Cancel</th>
-        //             </tr>`;
-
-            //         $('#rootCouseHeadCancelApart').append(hdRootCouseCancelApart);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#rootCouseHeadCancelApart').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCouseCancelApart, function(key, item) {
-
-            //             if (item.penagihan == 'total_cancel') {
-            //                 tbRootCouseCancelApart = `
-        //                 <tr>
-        //                     <th>Total</th>
-
-        //                 `;
-            //             } else {
-            //                 tbRootCouseCancelApart = `
-        //                 <tr>
-        //                     <td>${item.penagihan}</td>
-
-        //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_cancel') {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseCancelApart = tbRootCouseCancelApart +
-            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseCancelApart = tbRootCouseCancelApart +
-            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-            //             tbRootCouseCancelApart = tbRootCouseCancelApart + `</tr>`;
-            //             $('#rootCouseTbCancelApart').append(tbRootCouseCancelApart);
-
-            //         });
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getTrendMonthlyUG') }}",
-            //     type: 'GET',
-            //     data: {
-            //         bulanTahunReport: bulanReport
-
-            //     },
-            //     success: function(dataTrendMonthlyUG) {
-            //         trendWoIBFtthUG = dataTrendMonthlyUG;
-
-            //         var trendMonthUG = [''];
-            //         var trendTotIBFtthUG = ['null'];
-            //         var trendIBDoneUG = ['null'];
-
-            //         $.each(trendWoIBFtthUG, function(key, item) {
-
-            //             trendMonthUG.push(item.bulan);
-            //             trendTotIBFtthUG.push(item.trendIBFtthTotal);
-            //             trendIBDoneUG.push(item.trendIBDone);
-
-            //         });
-
-            //         trendMonthUG.push('');
-            //         trendTotIBFtthUG.push('null');
-            //         trendIBDoneUG.push('null');
-
-            //         const ctxTrendTotWoIBFtthUG = document.getElementById('TrendTotWoIBFtthUG');
-
-            //         var graphTrendTotWoIBFtthUG = Chart.getChart('TrendTotWoIBFtthUG');
-            //         if (graphTrendTotWoIBFtthUG) {
-            //             graphTrendTotWoIBFtthUG.destroy();
-            //         }
-
-
-
-            //         new Chart(ctxTrendTotWoIBFtthUG, {
-            //             type: 'line',
-            //             data: {
-            //                 labels: trendMonthUG, //['Jan-24'],
-            //                 datasets: [{
-            //                     // label: '# of Votes',
-            //                     data: trendTotIBFtthUG, //[3895],
-            //                     borderWidth: 1,
-
-            //                 }]
-            //             },
-
-            //             options: {
-            //                 responsive: true,
-            //                 maintainAspectRatio: false,
-            //                 plugins: {
-            //                     legend: {
-            //                         display: false,
-
-            //                     },
-            //                     datalabels: {
-            //                         anchor: 'end',
-            //                         align: 'top'
-            //                     },
-            //                     title: {
-            //                         display: true,
-            //                         // text: 'Trend WO New Installation Apartment All Branch',
-            //                         // align: 'start',
-            //                     },
-
-            //                 },
-            //                 scales: {
-            //                     y: {
-            //                         display: false, //this will remove all the x-axis grid lines
-            //                     }
-            //                 }
-            //             },
-            //             plugins: [ChartDataLabels],
-
-            //         });
-
-            //         const ctxTrendTotWoIBFtthCloseUG = document.getElementById('TrendTotWoIBFtthCloseUG');
-
-            //         var graphTrendTotWoIBFtthCloseUG = Chart.getChart('TrendTotWoIBFtthCloseUG');
-            //         if (graphTrendTotWoIBFtthCloseUG) {
-            //             graphTrendTotWoIBFtthCloseUG.destroy();
-            //         }
-
-            //         new Chart(ctxTrendTotWoIBFtthCloseUG, {
-            //             type: 'line',
-            //             data: {
-            //                 labels: trendMonthUG, //['Dec-23', 'Jan-24'],
-            //                 datasets: [{
-            //                     // label: '# of Votes',
-            //                     data: trendIBDoneUG, //[3082, 3597],
-            //                     borderWidth: 1,
-
-            //                 }]
-            //             },
-
-            //             options: {
-            //                 responsive: true,
-            //                 maintainAspectRatio: false,
-            //                 plugins: {
-            //                     legend: {
-            //                         display: false,
-
-            //                     },
-            //                     datalabels: {
-            //                         anchor: 'end',
-            //                         align: 'top'
-            //                     },
-            //                     title: {
-            //                         display: true,
-            //                         // text: 'Trend WO New Installation Close Apartment All Branch',
-            //                         align: 'start',
-            //                     },
-
-            //                 },
-            //                 scales: {
-            //                     y: {
-            //                         display: false, //this will remove all the x-axis grid lines
-            //                     }
-            //                 }
-            //             },
-            //             plugins: [ChartDataLabels],
-
-            //         });
-
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getTabelStatusUG') }}",
-            //     type: 'GET',
-            //     data: {
-            //         bulanTahunReport: bulanReport
-
-            //     },
-            //     success: function(dataUG) {
-
-            //         // var day = new Date(tahun, bulan, 0).getDate();
-            //         var dayUG = [];
-            //         var daytbUG;
-            //         var donetbUG;
-            //         var totDoneUG = 0;
-            //         var totPendingUG = 0;
-            //         var totCancelUG = 0;
-            //         var totWoUG = 0;
-            //         var totalUG = 0;
-
-            //         $('#dateMonthUG').find("th").remove();
-            //         $('#dateMonthUG').append("<th>New Installation Underground All Branch</th>")
-
-            //         $('#woDoneUG').find("td").remove();
-            //         $('#woDoneUG').find("th").remove();
-            //         $('#woDoneUG').append("<td>Done</td>")
-
-            //         $('#woPendingUG').find("td").remove();
-            //         $('#woPendingUG').find("th").remove();
-            //         $('#woPendingUG').append("<td>New Installation Failed</td>")
-
-            //         $('#woCancelUG').find("td").remove();
-            //         $('#woCancelUG').find("th").remove();
-            //         $('#woCancelUG').append("<td>Cancel</td>")
-
-            //         $('#totWoUG').find("td").remove()
-            //         $('#totWoUG').find("th").remove()
-            //         $('#totWoUG').append("<th>Total Wo</th>")
-
-            //         $.each(dataUG, function(key, itemUG) {
-
-            //             let htglUG = `
-        //                <th>${new Date(itemUG.tgl_ikr).getDate()}</th>
-        //             `;
-
-            //             $('#dateMonthUG').append(htglUG);
-
-            //             let dtDoneUG = `
-        //                 <td>${itemUG.Done.toLocaleString()}</td>
-        //             `;
-
-            //             $('#woDoneUG').append(dtDoneUG);
-
-            //             totDoneUG += itemUG.Done;
-
-            //             let dtPendingUG = `
-        //                 <td>${itemUG.Pending.toLocaleString()}</td>
-        //             `;
-
-            //             $('#woPendingUG').append(dtPendingUG);
-
-            //             totPendingUG += itemUG.Pending;
-            //             totCancelUG += itemUG.Cancel;
-
-            //             let dtCancelUG = `
-        //                 <td>${itemUG.Cancel.toLocaleString()}</td>
-        //             `;
-
-            //             $('#woCancelUG').append(dtCancelUG)
-
-            //             totWoUG = itemUG.Done + itemUG.Pending + itemUG.Cancel
-
-            //             let dtTotWoUG = `
-        //                 <td>${totWoUG.toLocaleString()}</td>
-        //             `;
-
-            //             $('#totWoUG').append(dtTotWoUG);
-
-
-            //         });
-
-            //         $('#dateMonthUG').append("<th>Total</th>")
-
-            //         $('#woDoneUG').append(`<th>${totDoneUG.toLocaleString()}</th>`)
-
-            //         $('#woPendingUG').append(`<th>${totPendingUG.toLocaleString()}</th>`)
-
-            //         $('#woCancelUG').append(`<th>${totCancelUG.toLocaleString()}</th>`)
-
-            //         totalUG = totDoneUG + totPendingUG + totCancelUG
-
-            //         $('#totWoUG').append(`<th>${totalUG.toLocaleString()}</th>`)
-
-            //         $('#dateMonthUG').append(`<th>%</th>`)
-
-            //         $('#woDoneUG').append(
-            //             `<th>${parseFloat((totDoneUG * 100) / totalUG).toFixed(2)}%</th>`)
-            //         $('#woPendingUG').append(
-            //             `<th>${parseFloat((totPendingUG * 100) / totalUG).toFixed(2)}%</th>`)
-            //         $('#woCancelUG').append(
-            //             `<th>${parseFloat((totCancelUG * 100) / totalUG).toFixed(2)}%</th>`)
-            //     }
-
-            // })
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseDoneUG') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(dataRootCouseUG) {
-
-            //         $('#rootCouseHeadUG').find("tr").remove();
-            //         $('#rootCouseTbUG').find("tr").remove();
-            //         $('#totRootCouseUG').find("th").remove();
-
-            //         var TotRootDoneUG = 0;
-            //         let tbRootCouseUG;
-            //         let hdRootCouseUG = `
-        //             <tr>
-        //                     <th>RootCouse Done</th>
-        //             </tr>`;
-
-            //         $('#rootCouseHeadUG').append(hdRootCouseUG);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#rootCouseHeadUG').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCouseUG, function(key, item) {
-
-            //             if (item.penagihan == 'total_done') {
-            //                 tbRootCouseUG = `
-        //                 <tr>
-        //                     <th>Total</th>
-
-        //                 `;
-            //             } else {
-            //                 tbRootCouseUG = `
-        //                 <tr>
-        //                     <td>${item.penagihan}</td>
-
-        //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_done') {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseUG = tbRootCouseUG +
-            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseUG = tbRootCouseUG +
-            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-            //             tbRootCouseUG = tbRootCouseUG + `</tr>`;
-            //             $('#rootCouseTbUG').append(tbRootCouseUG);
-
-            //         });
-
-            //         // $('#totRootCouse').append(tbTotalRootCouse);  
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseAPKUG') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(apkUG) {
-
-            //         $('#rootCouseHeadAPKUG').find("th").remove();
-            //         $('#bodyRootCouseAPKUG').find("tr").remove();
-            //         $('#penagihanAPKUG').find("th").remove();
-            //         $('#couseCodePenagihanAPKUG').find("th").remove();
-            //         $('#rootCousePenagihanAPKUG').find("td").remove();
-
-            //         let TotPenagihanUG = 0;
-            //         let tbPenagihanAPKUG;
-            //         let tbCouseCodeAPKUG;
-            //         let tbRootCouseAPKUG;
-            //         let hdRootCouseAPKUG = `
-        //             <th>RootCouse Aplikasi ${bulanReport}</th>
-        //             <th></th>
-        //             <th></th>
-        //             <th style="text-align: center">Jumlah</th>`;
-
-            //         $('#rootCouseHeadAPKUG').append(hdRootCouseAPKUG);
-
-
-
-            //         $.each(apkUG.detPenagihanSortirUG, function(key, itemPenagihanUG) {
-
-            //             tbPenagihanAPKUG = `
-        //                     <tr class="table-secondary"><th>${itemPenagihanUG.penagihan}</th>
-        //                     <th class="table-secondary"></th>
-        //                     <th class="table-secondary"></th>
-        //                     <th class="table-secondary" style="text-align: center">${itemPenagihanUG.jml}</th></tr>
-        //                 `;
-            //             // $('#penagihanAPK').append(tbPenagihanAPK);
-            //             $('#bodyRootCouseAPKUG').append(tbPenagihanAPKUG);
-
-            //             TotPenagihanUG += itemPenagihanUG.jml;
-
-            //             $.each(apkUG.detCouseCodeSortirUG, function(key,
-            //                 itemCouseCodeUG) {
-            //                 if (itemPenagihanUG.penagihan == itemCouseCodeUG
-            //                     .penagihan) {
-            //                     tbCouseCodeAPKUG = `
-        //                         <tr><th></th>
-        //                         <th class="table-info">${itemCouseCodeUG.couse_code}</th>
-        //                         <th class="table-info"></th>
-        //                         <th class="table-info" style="text-align: center">${itemCouseCodeUG.jml}</th></tr>
-        //                     `;
-            //                     //         // $('#couseCodePenagihanAPK').append(tbCouseCodeAPK);
-            //                     $('#bodyRootCouseAPKUG').append(tbCouseCodeAPKUG);
-
-
-            //                     $.each(apkUG.detRootCouseSortirUG, function(key,
-            //                         itemRootCouseUG) {
-            //                         if (itemPenagihanUG.penagihan ==
-            //                             itemRootCouseUG.penagihan &&
-            //                             itemCouseCodeUG.couse_code ==
-            //                             itemRootCouseUG.couse_code) {
-            //                             tbRootCouseAPKUG = `
-        //                                 <tr><td></td>
-        //                                 <td></td>
-        //                                 <td>${itemRootCouseUG.root_couse}</td>
-        //                                 <td style="text-align: center">${itemRootCouseUG.jml}</td></tr>
-        //                             `;
-
-            //                             //                 $('#rootCousePenagihanAPK').append(tbRootCouseAPK);
-            //                             $('#bodyRootCouseAPKUG').append(
-            //                                 tbRootCouseAPKUG);
-            //                         }
-
-            //                     });
-            //                 }
-
-
-            //             });
-
-            //         });
-
-            //         let totRootCouseAPKUG = `
-        //             <tr><th class="table-dark">TOTAL</th>
-        //                 <th class="table-dark"></th>
-        //                 <th class="table-dark"></th>
-        //                 <th class="table-dark" style="text-align: center">${TotPenagihanUG}</th></tr>`;
-
-            //         $('#bodyRootCouseAPKUG').append(totRootCouseAPKUG);
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getRootCousePendingUG') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(dataRootCousePendingUG) {
-
-            //         $('#rootCouseHeadPendingUG').find("tr").remove();
-            //         $('#rootCouseTbPendingUG').find("tr").remove();
-            //         $('#totRootCousePendingUG').find("th").remove();
-
-            //         var TotRootDonePendingUG = 0;
-            //         let tbRootCousePendingUG;
-            //         let hdRootCousePendingUG = `
-        //             <tr>
-        //                     <th>RootCouse Pending</th>
-        //             </tr>`;
-
-            //         $('#rootCouseHeadPendingUG').append(hdRootCousePendingUG);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#rootCouseHeadPendingUG').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCousePendingUG, function(key, item) {
-
-            //             if (item.penagihan == 'total_pending') {
-            //                 tbRootCousePendingUG = `
-        //                 <tr>
-        //                     <th>Total</th>
-
-        //                 `;
-            //             } else {
-            //                 tbRootCousePendingUG = `
-        //                 <tr>
-        //                     <td>${item.penagihan}</td>
-
-        //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_pending') {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCousePendingUG = tbRootCousePendingUG +
-            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCousePendingUG = tbRootCousePendingUG +
-            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-            //             tbRootCousePendingUG = tbRootCousePendingUG + `</tr>`;
-            //             $('#rootCouseTbPendingUG').append(tbRootCousePendingUG);
-
-            //         });
-            //     }
-
-            // });
-
-            // $.ajax({
-            //     url: "{{ route('getRootCouseCancelUG') }}",
-            //     type: "GET",
-            //     data: {
-            //         bulanTahunReport: bulanReport
-            //     },
-            //     success: function(dataRootCouseCancelUG) {
-
-            //         $('#rootCouseHeadCancelUG').find("tr").remove();
-            //         $('#rootCouseTbCancelUG').find("tr").remove();
-            //         $('#totRootCouseCancelUG').find("th").remove();
-
-            //         var TotRootDoneCancelUG = 0;
-            //         let tbRootCouseCancelUG;
-            //         let hdRootCouseCancelUG = `
-        //             <tr>
-        //                     <th>RootCouse Cancel</th>
-        //             </tr>`;
-
-            //         $('#rootCouseHeadCancelUG').append(hdRootCouseCancelUG);
-
-            //         for (b = 0; b < trendWoIBFtth.length; b++) {
-            //             $('#rootCouseHeadCancelUG').find("tr").append(
-            //                 `<th style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-            //             )
-            //         }
-
-            //         $.each(dataRootCouseCancelUG, function(key, item) {
-
-            //             if (item.penagihan == 'total_cancel') {
-            //                 tbRootCouseCancelUG = `
-        //                 <tr>
-        //                     <th>Total</th>
-
-        //                 `;
-            //             } else {
-            //                 tbRootCouseCancelUG = `
-        //                 <tr>
-        //                     <td>${item.penagihan}</td>
-
-        //                 `;
-            //             }
-
-            //             if (item.penagihan == 'total_cancel') {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseCancelUG = tbRootCouseCancelUG +
-            //                         `<th style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</th>`;
-            //                 }
-
-            //             } else {
-            //                 for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-            //                     tbRootCouseCancelUG = tbRootCouseCancelUG +
-            //                         `<td style="text-align: center">${item.bulan[trendWoIBFtth[bln].bulan].toLocaleString()}</td>`;
-
-            //                 }
-            //             }
-
-            //             tbRootCouseCancelUG = tbRootCouseCancelUG + `</tr>`;
-            //             $('#rootCouseTbCancelUG').append(tbRootCouseCancelUG);
-
-            //         });
-            //     }
-
-            // });
-
 
         });
     </script>
