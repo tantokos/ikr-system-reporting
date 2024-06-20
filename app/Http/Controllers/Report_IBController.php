@@ -63,6 +63,24 @@ class Report_IBController extends Controller
         return response()->json($kotamadyaPenagihan);
     }
 
+    public function getMonthlyIBFtth(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $trendBulanan = [];
+        $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        }       
+
+        return response()->json($trendBulanan);
+    }
+
     public function getTotalWoBranchIBFtth(Request $request)
     {
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
@@ -70,6 +88,10 @@ class Report_IBController extends Controller
 
         $startDate = $request->filterDateStart;
         $endDate = $request->filterDateEnd;
+
+        $totAllBranch = DataFtthIbSortir::whereMonth('tgl_ikr', $bulan)
+        ->whereYear('tgl_ikr', $tahun)
+        ->select('status_wo')->count();
 
         $branchPenagihan = Branch::select('id', 'nama_branch')->orderBy('id')->get();
 
@@ -97,6 +119,7 @@ class Report_IBController extends Controller
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
                     
                 $branchPenagihan[$b]->total = $totWo;
+                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
                 $branchPenagihan[$b]->done = $totWoDone;
                 $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
                 $branchPenagihan[$b]->pending = $totWoPending;
@@ -126,6 +149,7 @@ class Report_IBController extends Controller
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
                 $branchPenagihan[$b]->total = $totWo;
+                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
                 $branchPenagihan[$b]->done = $totWoDone;
                 $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
                 $branchPenagihan[$b]->pending = $totWoPending;
@@ -147,6 +171,7 @@ class Report_IBController extends Controller
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
                 $branchPenagihan[$b]->total = $totWo;
+                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
                 $branchPenagihan[$b]->done = $totWoDone;
                 $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
                 $branchPenagihan[$b]->pending = $totWoPending;
@@ -173,6 +198,7 @@ class Report_IBController extends Controller
 
                 
                 $branchPenagihan[$b]->total = $totWo;
+                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
                 $branchPenagihan[$b]->done = $totWoDone;
                 $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
                 $branchPenagihan[$b]->pending = $totWoPending;
@@ -185,23 +211,7 @@ class Report_IBController extends Controller
         return response()->json($branchPenagihan);
     }
 
-    public function getMonthlyIBFtth(Request $request)
-    {
-        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
-        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
-
-        $startDate = $request->filterDateStart;
-        $endDate = $request->filterDateEnd;
-
-        $trendBulanan = [];
-        $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
-
-        for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }       
-
-        return response()->json($trendBulanan);
-    }
+    
 
     public function getFilterDashboardIBFtth(Request $request)
     {
@@ -215,7 +225,8 @@ class Report_IBController extends Controller
         $branchPenagihan = DB::table('v_ftth_ib_cluster')
             ->select('id','nama_branch', 
                     DB::raw('
-                        sum(total_ftth_ib) as total, 
+                        sum(total_ftth_ib) as total,
+                        ((sum(total_ftth_ib) * 100) / (select sum(total_ftth_ib) from v_ftth_ib_cluster where bulan='.$bulan.' and tahun='.$tahun.'))  as persenTotal, 
                         sum(ftth_ib_done) as done, 
                         ((sum(ftth_ib_done) * 100) / sum(total_ftth_ib)) as  persenDone,
                         sum(ftth_ib_pending) as pending,
@@ -525,13 +536,13 @@ class Report_IBController extends Controller
 
         $totBranchCluster = DB::table('v_ftth_ib_cluster')
                         ->select('id','nama_branch','site_penagihan')
-                        ->groupBy('id','nama_branch','site_penagihan')
-                        ->orderBy('id');
+                        ->groupBy('id','nama_branch','site_penagihan');
+                        // ->orderBy('id');
 
         $totCluster = DB::table('v_ftth_ib_cluster')
                         ->select('id','nama_branch','cluster','site_penagihan')
-                        ->groupBy('id','nama_branch','cluster','site_penagihan')
-                        ->orderBy('id');
+                        ->groupBy('id','nama_branch','cluster','site_penagihan');
+                        // ->orderBy('id');
 
         if ($request->filterSite != "All") {
             $totBranchCluster = $totBranchCluster->where('site_penagihan', '=', $request->filterSite);
@@ -554,12 +565,19 @@ class Report_IBController extends Controller
             $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
             $Qbln = \Carbon\Carbon::parse($trendBulanan[$bt-1]['bulan'])->month;
             $blnThn = str_replace('-','_',$trendBulanan[$bt-1]['bulan']);
+
             $totBranchCluster = $totBranchCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_ib end),0) as ".$blnThn.""));
+            $totBranchCluster = $totBranchCluster->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_ib end),0)/(select sum(total_ftth_ib) from v_ftth_ib_cluster where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
             $totCluster = $totCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_ib end),0) as ".$blnThn.""));
+            $totCluster = $totCluster->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_ib end),0)/(select sum(total_ftth_ib) from v_ftth_ib_cluster where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
         }
 
-        $totBranchCluster = $totBranchCluster->get();
-        $totCluster = $totCluster->get();
+        $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
+
+        $totBranchCluster = $totBranchCluster->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+        $totCluster = $totCluster->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
 
 
         for($db=0; $db < $totBranchCluster->count(); $db++){
@@ -569,7 +587,10 @@ class Report_IBController extends Controller
                 $Qbln = \Carbon\Carbon::parse($trendBulanan[$tbln]['bulan'])->month;
                 $blnThn = str_replace('-','_',$trendBulanan[$tbln]['bulan']);
 
-                $totBranchBln[$db]['totbulanan'][$tbln] = $totBranchCluster[$db]->$blnThn; 
+                $persenBln = "persen_".$blnThn;
+
+                $totBranchBln[$db]['totbulanan'][$tbln] = $totBranchCluster[$db]->$blnThn;
+                $totBranchBln[$db]['persen'][$tbln] = round($totBranchCluster[$db]->$persenBln,1); 
             }
         }
 
@@ -581,7 +602,10 @@ class Report_IBController extends Controller
                 $Qbln = \Carbon\Carbon::parse($trendBulanan[$tbln]['bulan'])->month;
                 $blnThn = str_replace('-','_',$trendBulanan[$tbln]['bulan']);
 
+                $persenBln = "persen_".$blnThn;
+
                 $detCluster[$db]['bulanan'][$tbln] = $totCluster[$db]->$blnThn; 
+                $detCluster[$db]['persen'][$tbln] = round($totCluster[$db]->$persenBln,1); 
             }
         }
 
@@ -965,70 +989,10 @@ class Report_IBController extends Controller
             }
         }
 
-        $CouseCodeSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan,reason_status'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','IB FTTH');
-            // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional']);
-        // ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', $bulan)
-        // ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
-        // ->groupBy('data_ftth_ib_sortirs.penagihan', 'couse_code', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-
-        if ($request->filterSite != "All") {
-            $CouseCodeSortir = $CouseCodeSortir->where('site_penagihan', '=', $request->filterSite);
-        }
-        if ($request->filterBranch != "All") {
-            $CouseCodeSortir = $CouseCodeSortir->where('branch', '=', $request->filterBranch);
-        }
-        if ($request->typePenagihanIB == "Additional Service STB"){
-            $CouseCodeSortir = $CouseCodeSortir->where('data_ftth_ib_sortirs.penagihan', '=', $request->typePenagihanIB);
-        }
-        if ($request->typePenagihanIB == "New Installation"){
-            $CouseCodeSortir = $CouseCodeSortir->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
-        }
-
-        $CouseCodeSortir = $CouseCodeSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-
-        for ($cs = 0; $cs < count($CouseCodeSortir); $cs++) {
-
-            $detCouseCodeSortir[$cs]['penagihan'] = $CouseCodeSortir[$cs]->penagihan;
-            $detCouseCodeSortir[$cs]['reason_status'] = $CouseCodeSortir[$cs]->reason_status;
-
-            for ($mc = 0; $mc < count($trendBulanan); $mc++) {
-
-                $jmlCouseCode = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan,reason_status'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','IB FTTH')
-                    // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
-                    ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$mc]['bulan'])->month) // $bulan)
-                    ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
-                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_ftth_ib_sortirs.penagihan', '=', $CouseCodeSortir[$cs]->penagihan)
-                    ->where('data_ftth_ib_sortirs.reason_status', '=', $CouseCodeSortir[$cs]->reason_status);
-
-                if ($request->filterSite != "All") {
-                    $jmlCouseCode = $jmlCouseCode->where('site_penagihan', '=', $request->filterSite);
-                }
-                if ($request->filterBranch != "All") {
-                    $jmlCouseCode = $jmlCouseCode->where('branch', '=', $request->filterBranch);
-                }
-                if ($request->typePenagihanIB == "Additional Service STB"){
-                    $jmlCouseCode = $jmlCouseCode->where('data_ftth_ib_sortirs.penagihan', '=', $request->typePenagihanIB);
-                }
-                if ($request->typePenagihanIB == "New Installation"){
-                    $jmlCouseCode = $jmlCouseCode->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
-                }
-
-                $jmlCouseCode = $jmlCouseCode->groupBy('data_ftth_ib_sortirs.penagihan', 'reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
-
-                $detCouseCodeSortir[$cs]['bulanan'][$mc] = [$jmlCouseCode];
-            }
-        }
 
         return response()->json([
             'detPenagihanSortir' => $detPenagihanSortir,
-            'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
+            // 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
         ]);
     }
 
@@ -1125,6 +1089,76 @@ class Report_IBController extends Controller
     }
 
     public function getRootCousePendingIBFtth(Request $request)
+    {
+
+        $total = 0;
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $tglBulan = \Carbon\CarbonPeriod::between($startDate, $endDate);
+
+        foreach ($tglBulan as $date) {
+            $tgl[] = ['tgl_ikr' => $date->format('Y-m-d')];
+        }
+
+        // dd(\Carbon\Carbon::parse($startDate)->day);
+
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        }
+
+        $tblRootCousePending = [];
+
+        $rootCousePending = DB::table('v_ftth_ib_pending')
+                ->select('id','penagihan')
+                ->groupBy('id','penagihan');
+
+        for ($x = 0; $x < count($trendBulanan); $x++) {
+
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+
+            $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
+
+            $rootCousePending = $rootCousePending->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
+        }
+
+
+        if ($request->filterSite != "All") {
+            $rootCousePending = $rootCousePending->where('site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $rootCousePending = $rootCousePending->where('branch', '=', $request->filterBranch);
+        }
+
+        $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
+
+        $rootCousePending = $rootCousePending->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+
+        for($psx=0; $psx < $rootCousePending->count(); $psx++){
+            $tblRootCousePending[$psx] = ['penagihan' => $rootCousePending[$psx]->penagihan];
+
+            for($tb=0; $tb < count($trendBulanan); $tb++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+                $persenBln = "persen_".$blnThn;
+
+                $tblRootCousePending[$psx]['bulanan'][$tb] = [(int)$rootCousePending[$psx]->$blnThn];
+                $tblRootCousePending[$psx]['persen'][$tb] = [round($rootCousePending[$psx]->$persenBln, 1)];
+                
+            }
+
+        }
+
+        return response()->json($tblRootCousePending);
+    }
+
+    public function getRootCousePendingIBFtthOld(Request $request)
     {
 
         $total = 0;
@@ -1302,6 +1336,73 @@ class Report_IBController extends Controller
     }
 
     public function getRootCouseCancelIBFtth(Request $request)
+    {
+
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $tglBulan = \Carbon\CarbonPeriod::between($startDate, $endDate);
+
+        foreach ($tglBulan as $date) {
+            $tgl[] = ['tgl_ikr' => $date->format('Y-m-d')];
+        }
+
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        }
+
+        $tblRootCouseCancel = [];
+
+        $rootCouseCancel = DB::table('v_ftth_ib_cancel')
+                ->select('id','penagihan')
+                ->groupBy('id','penagihan');
+
+        for ($x = 0; $x < count($trendBulanan); $x++) {
+
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+
+            $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
+
+            $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_cancel where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
+        }
+
+
+        if ($request->filterSite != "All") {
+            $rootCouseCancel = $rootCouseCancel->where('site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $rootCouseCancel = $rootCouseCancel->where('branch', '=', $request->filterBranch);
+        }
+
+        $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
+
+        $rootCouseCancel = $rootCouseCancel->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+
+        for($psx=0; $psx < $rootCouseCancel->count(); $psx++){
+            $tblRootCouseCancel[$psx] = ['penagihan' => $rootCouseCancel[$psx]->penagihan];
+
+            for($tb=0; $tb < count($trendBulanan); $tb++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+                $persenBln = "persen_".$blnThn;
+
+                $tblRootCouseCancel[$psx]['bulanan'][$tb] = [(int)$rootCouseCancel[$psx]->$blnThn];
+                $tblRootCouseCancel[$psx]['persen'][$tb] = [round($rootCouseCancel[$psx]->$persenBln, 1)];
+                
+            }
+
+        }
+
+        return response()->json($tblRootCouseCancel);
+    }
+
+    public function getRootCouseCancelIBFtthOld(Request $request)
     {
 
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
