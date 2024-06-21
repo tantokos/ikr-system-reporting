@@ -960,7 +960,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTX IB ' + titleBranch + ' Done ', //+ bulanReport,
+                            text: 'Top WO FTTX IB ' + titleBranch + ' Done ', //+ bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -1038,7 +1038,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTX IB ' + titleBranch + ' Pending ', // + bulanReport,
+                            text: 'Top WO FTTX IB ' + titleBranch + ' Pending ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -1116,7 +1116,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTX IB ' + titleBranch + ' Cancel ', // + bulanReport,
+                            text: 'Top WO FTTX IB ' + titleBranch + ' Cancel ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 

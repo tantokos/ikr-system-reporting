@@ -795,7 +795,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTX MT ' + titleBranch + ' Done ', //+ bulanReport,
+                            text: 'Top WO FTTX MT ' + titleBranch + ' Done ', //+ bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -873,7 +873,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTX MT ' + titleBranch + ' Pending ', // + bulanReport,
+                            text: 'Top WO FTTX MT ' + titleBranch + ' Pending ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -951,7 +951,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTX MT ' + titleBranch + ' Cancel ', // + bulanReport,
+                            text: 'Top WO FTTX MT ' + titleBranch + ' Cancel ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 

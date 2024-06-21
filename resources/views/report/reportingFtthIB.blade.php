@@ -871,7 +871,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTH ' + title1 + ' Done ', //+ bulanReport,
+                            text: 'Top WO FTTH ' + title1 + ' Done ', //+ bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -949,7 +949,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTH ' + title1 + ' Pending ', // + bulanReport,
+                            text: 'Top WO FTTH ' + title1 + ' Pending ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -1027,7 +1027,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO FTTH ' + title1 + ' Cancel ', // + bulanReport,
+                            text: 'Top WO FTTH ' + title1 + ' Cancel ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
