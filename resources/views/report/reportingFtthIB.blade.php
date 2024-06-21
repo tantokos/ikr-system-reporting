@@ -267,7 +267,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" style="font-size: 11px; table-layout: auto;">
+                        <table class="table table-bordered" style="font-size: 11px; table-layout: auto;" id="tableCluster">
                             <thead>
                                 <tr id="tableHeadCluster">
                                 </tr>
@@ -1277,12 +1277,17 @@
                                 <th class="table-secondary"></th>`;
                                 // <th class="table-secondary"></th>`;
                         
+                        let subtotal = 0;
                         for (p=0;p<trendWoIBFtth.length; p++) {
                             tbBranchCluster = tbBranchCluster +
-                                `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>
+                                `<th class="table-secondary" style="text-align: center">${Number(nmBranch.totbulanan[p]).toLocaleString()}</th>
                                 <th class="table-secondary" style="text-align: center">${nmBranch.persen[p].toLocaleString()} %</th>`;
-   
+
+                            subtotal += Number(nmBranch.totbulanan[p]);
+
                         }
+
+                        
 
                         $('#bodyCluster').append(tbBranchCluster + `</tr>`);
 
@@ -1321,6 +1326,7 @@
                     }
 
                     $('#bodyCluster').append(totBulananCluster + `</tr>`);
+
                 }
 
             });

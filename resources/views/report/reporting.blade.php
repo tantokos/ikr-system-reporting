@@ -619,7 +619,10 @@
         <div class="col-sm">
             <div class="card">
                 <div class="card-body">
+                    <h6 class="card-title" id="titleBackToNormal"></h6>
+                    <div>
                     <canvas id="GraphWoBTN"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2830,6 +2833,10 @@
                 },
                 success: function(btn) {
 
+                    document.querySelectorAll('#titleBackToNormal').forEach(function(elem){
+                        elem.innerText = 'WO Back To Normal'
+                    })
+
                     var btnMonth = [];
                     var btnTotMt = [];
                     var btnTot = [];
@@ -2976,14 +2983,15 @@
                                 datalabels: {
                                     anchor: 'end',
                                     align: 'top',
+                                    display: 'auto',
                                     formatter: function(value) {
                                         return value.toLocaleString();}
                                     
                                 },
                                 title: {
                                     display: true,
-                                    text: 'WO Back To Normal',
-                                    align: 'start',
+                                    // text: 'WO Back To Normal',
+                                    // align: 'start',
                                 },
 
                             },
