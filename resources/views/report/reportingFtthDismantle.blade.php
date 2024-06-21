@@ -600,7 +600,6 @@
                 success: function(filterBranch) {
                     $('#kotamadya').find("option").remove();
 
-                    console.log(filterBranch);
                     $('#kotamadya').append(`
                         <option value="All">All</option>
                     `);
@@ -2107,7 +2106,6 @@
                     }
 
                     $.each(dataRootCousePending, function(key, item) {
-                        console.log(item.bulanan);
                         tbRootCousePending = `
                             <tr>
                                 <td>${item.penagihan}</td>
