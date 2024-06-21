@@ -53,9 +53,9 @@
                             <label class="form-text">Site</label>
                             <select class="col form-control-sm" id="site">
                                 <option value="All">All</option>
-                                <option value="Retail">Retail</option>
-                                <option value="Apartemen">Apartemen</option>
-                                <option value="Underground">Underground</option>
+                                <option value="Retail">FTTH Retail</option>
+                                <option value="Apartemen">FTTH Apartemen</option>
+                                <option value="Underground">FTTH Underground</option>
 
                             </select>
                         </div>
@@ -1192,7 +1192,7 @@
 
 
 
-                    new Chart(ctxTrendTotWoIBFtth, {
+                    var ChartTrendTotWo = new Chart(ctxTrendTotWoIBFtth, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Jan-24'],
@@ -1230,7 +1230,7 @@
                                     display: true, //this will remove all the x-axis grid lines
                                     // max: 6000,
                                     // min: 2000,
-                                    grace: '10%',
+                                    // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
                                             stepSize: 1000,
@@ -1251,7 +1251,7 @@
                         graphTrendTotWoIBFtthClose.destroy();
                     }
 
-                    new Chart(ctxTrendTotWoIBFtthClose, {
+                    var ChartTrendTotWoClose = new Chart(ctxTrendTotWoIBFtthClose, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Dec-23', 'Jan-24'],
@@ -1290,7 +1290,7 @@
                                     display: true, //this will remove all the x-axis grid lines
                                     // max: 6000,
                                     // min: 2000,
-                                    grace: '10%',
+                                    // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
                                             stepSize: 1000,
@@ -1303,6 +1303,14 @@
                         plugins: [ChartDataLabels],
 
                     });
+
+                    var maxChartTot = ChartTrendTotWo.scales.y.max;
+                    var minChartTotClose = ChartTrendTotWoClose.scales.y.min;
+                    ChartTrendTotWoClose.options.scales.y.max = ChartTrendTotWo.scales.y.max;
+                    ChartTrendTotWo.options.scales.y.min= minChartTotClose;
+
+                    ChartTrendTotWoClose.update();
+                    ChartTrendTotWo.update();
 
                 }
 

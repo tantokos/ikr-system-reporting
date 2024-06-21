@@ -34,9 +34,9 @@
                                 <label class="form-text">Site</label>
                                 <select class="col form-control-sm" id="site">
                                     <option value="All">All</option>
-                                    <option value="Retail">Retail</option>
-                                    <option value="Apartemen">Apartemen</option>
-                                    <option value="Underground">Underground</option>
+                                    <option value="Retail">FTTH Retail</option>
+                                    <option value="Apartemen">FTTH Apartemen</option>
+                                    <option value="Underground">FTTH Underground</option>
 
                                 </select>
                             </div>
@@ -1757,7 +1757,6 @@
                     }
 
 
-
                     var ChartTrendTotWoMT = new Chart(ctxTrendTotWoMt, {
                         type: 'line',
                         data: {
@@ -1771,6 +1770,7 @@
                         },
 
                         options: {
+                            
                             responsive: true,
                             maintainAspectRatio: true,
                             plugins: {
@@ -1795,7 +1795,7 @@
                             scales: {
                                 y: {
                                     display: true, //this will remove all the x-axis grid lines
-                                    grace: '10%',
+                                    // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
                                             stepSize: 1000,
@@ -1809,7 +1809,7 @@
 
                     });
 
-                    var maxChartTot = ChartTrendTotWoMT.scales.y.max;
+                    
 
                     const ctxTrendTotWoMtClose = document.getElementById('TrendTotWoMtClose');
 
@@ -1820,7 +1820,7 @@
 
 
 
-                    new Chart(ctxTrendTotWoMtClose, {
+                    var ChartTrendTotWoMTClose = new Chart(ctxTrendTotWoMtClose, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Dec-23', 'Jan-24'],
@@ -1833,6 +1833,7 @@
                         },
 
                         options: {
+                            
                             responsive: true,
                             maintainAspectRatio: true,
                             plugins: {
@@ -1857,9 +1858,9 @@
                             scales: {
                                 y: {
                                     display: true, //this will remove all the x-axis grid lines
-                                    max: maxChartTot,
-                                    // min: 2000,
-                                    grace: '10%',
+                                    // max: maxChartTot,
+                                    // min: minChartTot,
+                                    // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
                                             stepSize: 1000,
@@ -1872,6 +1873,14 @@
                         plugins: [ChartDataLabels],
 
                     });
+
+                    var maxChartTot = ChartTrendTotWoMT.scales.y.max;
+                    var minChartTotClose = ChartTrendTotWoMTClose.scales.y.min;
+                    ChartTrendTotWoMTClose.options.scales.y.max = ChartTrendTotWoMT.scales.y.max;
+                    ChartTrendTotWoMT.options.scales.y.min= minChartTotClose;
+
+                    ChartTrendTotWoMTClose.update();
+                    ChartTrendTotWoMT.update();
 
                 }
 
