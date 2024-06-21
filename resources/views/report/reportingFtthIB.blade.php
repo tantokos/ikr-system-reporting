@@ -38,9 +38,9 @@
                             <label class="form-text">Site</label>
                             <select class="col form-control-sm" id="site">
                                 <option value="All">All</option>
-                                <option value="Retail">Retail</option>
-                                <option value="Apartemen">Apartemen</option>
-                                <option value="Underground">Underground</option>
+                                <option value="Retail">FTTH Retail</option>
+                                <option value="Apartemen">FTTH Apartemen</option>
+                                <option value="Underground">FTTH Underground</option>
 
                             </select>
                         </div>
@@ -1380,7 +1380,7 @@
 
 
 
-                    new Chart(ctxTrendTotWoIBFtth, {
+                    var ChartTrendTotWoIB = new Chart(ctxTrendTotWoIBFtth, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Jan-24'],
@@ -1418,8 +1418,7 @@
                                 y: {
                                     display: true, //this will remove all the x-axis grid lines
                                     // max: 6000,
-                                    // min: 2000,
-                                    grace: '10%',
+                                    // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
                                             stepSize: 1000,
@@ -1433,6 +1432,8 @@
 
                     });
 
+                    var maxChartTot = ChartTrendTotWoIB.scales.y.max;
+
                     const ctxTrendTotWoIBFtthClose = document.getElementById('TrendTotWoIBFtthClose');
 
                     var graphTrendTotWoIBFtthClose = Chart.getChart('TrendTotWoIBFtthClose');
@@ -1440,7 +1441,7 @@
                         graphTrendTotWoIBFtthClose.destroy();
                     }
 
-                    new Chart(ctxTrendTotWoIBFtthClose, {
+                    var ChartTrendTotWoIBClose = new Chart(ctxTrendTotWoIBFtthClose, {
                         type: 'line',
                         data: {
                             labels: trendMonth, //['Dec-23', 'Jan-24'],
@@ -1478,9 +1479,8 @@
                             scales: {
                                 y: {
                                     display: true, //this will remove all the x-axis grid lines
-                                    // max: 6000,
-                                    // min: 2000,
-                                    grace: '10%',
+                                    // max: maxChartTot,
+                                    // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
                                             stepSize: 1000,
@@ -1493,6 +1493,14 @@
                         plugins: [ChartDataLabels],
 
                     });
+
+                    var maxChartTot = ChartTrendTotWoIB.scales.y.max;
+                    var minChartTotClose = ChartTrendTotWoIBClose.scales.y.min;
+                    ChartTrendTotWoIBClose.options.scales.y.max = ChartTrendTotWoIB.scales.y.max;
+                    ChartTrendTotWoIB.options.scales.y.min= minChartTotClose;
+
+                    ChartTrendTotWoIBClose.update();
+                    ChartTrendTotWoIB.update();
 
                 }
 
