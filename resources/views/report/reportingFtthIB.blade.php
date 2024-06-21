@@ -1226,11 +1226,7 @@
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
 
-
-
-
                 }
-
 
             })
 
@@ -1706,8 +1702,6 @@
                 }
 
             })
-            
-
             
 
             $.ajax({
