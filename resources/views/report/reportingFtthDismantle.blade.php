@@ -854,7 +854,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO Dismantle ' + titleBranch + ' Done ', //+ bulanReport,
+                            text: 'Top WO Dismantle ' + titleBranch + ' Done ', //+ bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -932,7 +932,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO Dismantle ' + titleBranch + ' Pending ', // + bulanReport,
+                            text: 'Top WO Dismantle ' + titleBranch + ' Pending ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
@@ -1010,7 +1010,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'WO Dismantle ' + titleBranch + ' Cancel ', // + bulanReport,
+                            text: 'Top WO Dismantle ' + titleBranch + ' Cancel ', // + bulanReport,
                             align: 'left',
                             style: {
                                 fontSize: '13px' 
