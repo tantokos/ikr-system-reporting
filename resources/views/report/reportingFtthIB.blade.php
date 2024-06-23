@@ -1252,6 +1252,7 @@
                     $('#tableHeadCluster').find("th").remove();
                     $('#bodyCluster').find("tr").remove();
 
+                    let subtotal
                     let TotBranchCluster = [];
                     let tbBranchCluster;
                     let tbCouseCodeAPK;
@@ -1267,7 +1268,9 @@
                             `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
                     }
 
-                    $('#tableHeadCluster').append(hdRootCouseAPK + `</tr>`);
+                    $('#tableHeadCluster').append(hdRootCouseAPK); // + `</tr>`);
+
+                    $('#tableHeadCluster').append(`<th style="text-align: center">Subtotal</th></tr>`);
 
 
                     $.each(dataCluster.branchCluster, function(key, nmBranch) {
@@ -1277,7 +1280,7 @@
                                 <th class="table-secondary"></th>`;
                                 // <th class="table-secondary"></th>`;
                         
-                        let subtotal = 0;
+                        subtotal = 0
                         for (p=0;p<trendWoIBFtth.length; p++) {
                             tbBranchCluster = tbBranchCluster +
                                 `<th class="table-secondary" style="text-align: center">${Number(nmBranch.totbulanan[p]).toLocaleString()}</th>
@@ -1287,9 +1290,9 @@
 
                         }
 
-                        
+                        $('#bodyCluster').append(tbBranchCluster + 
+                                    `<th class="table-secondary" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
 
-                        $('#bodyCluster').append(tbBranchCluster + `</tr>`);
 
                         $.each(dataCluster.detCluster, function(key, itemCluster) {
                             if (nmBranch.nmTbranch == itemCluster.nama_branch) {
@@ -1297,14 +1300,19 @@
                                     <tr><td></td>
                                     <td>${itemCluster.cluster}</td>`;
                                     // <th class="table-info"></th>`;
+                                
+                                subtotal = 0;
 
                                 for (cc = 0;cc < trendWoIBFtth.length; cc++) {
                                     tbCluster = tbCluster + 
                                     `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>
                                     <td style="text-align: center">${itemCluster.persen[cc].toLocaleString()}%</td>`;
+
+                                    subtotal += Number(itemCluster.bulanan[cc]);
                                 }
 
-                                $('#bodyCluster').append(tbCluster + '</tr>');
+                                $('#bodyCluster').append(tbCluster + 
+                                                `<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`);
 
                             }
                         });
@@ -1313,7 +1321,9 @@
                     let totBulananCluster = `
                         <tr><th class="table-dark">TOTAL</th>
                             <th class="table-dark"></th>`;
+                    
 
+                    subtotal=0;
                     for (p=0;p<trendWoIBFtth.length; p++) {
                         TotBranchCluster[p] = 0
                         $.each(dataCluster.branchCluster, function(key, totBranchCl) {
@@ -1323,9 +1333,12 @@
                         totBulananCluster = totBulananCluster + 
                         `<th class="table-dark" style="text-align: center">${TotBranchCluster[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
+
+                        subtotal += TotBranchCluster[p];
                     }
 
-                    $('#bodyCluster').append(totBulananCluster + `</tr>`);
+                    $('#bodyCluster').append(totBulananCluster + 
+                                `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
 
                 }
 
@@ -1883,6 +1896,7 @@
                     $('#couseCodePenagihanAPK').find("th").remove();
                     $('#rootCousePenagihanAPK').find("td").remove();
 
+                    let subtotal;
                     let TotPenagihan = [];
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
@@ -1893,43 +1907,51 @@
                         // <th>Root Couse</th>`;
                     // <th style="text-align: center">Jumlah</th>`;
 
-                for (h = 0; h < trendWoIBFtth.length; h++) {
-                    hdRootCouseAPK = hdRootCouseAPK +
-                        `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
-                }
+                    for (h = 0; h < trendWoIBFtth.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                    }
 
-                $('#rootCouseHeadAPK').append(hdRootCouseAPK + `</tr>`);
+                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + 
+                            `<th style="text-align: center">Subtotal</th></tr>`);
 
-                let TotMonthly = [];
-                $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+                    let TotMonthly = [];
+                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
 
-                    tbPenagihanAPK = `
+                        tbPenagihanAPK = `
                                     <tr><th>${itemPenagihan.penagihan}</th>`;
                                     // <th class="table-secondary"></th>`;
                                     // <th class="table-secondary"></th>`;
+                    
+                        subtotal = 0;
+                        for (p = 0; p < trendWoIBFtth.length; p++) {
 
-                    for (p = 0; p < trendWoIBFtth.length; p++) {
+                            TotMonthly[p] = 0
+                        
+                            $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                                TotMonthly[p] += Number(iPenagihan.bulanan[p]);
+                            })
 
-                        TotMonthly[p] = 0
-                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
-                            TotMonthly[p] += Number(iPenagihan.bulanan[p]);
-                        })
+                            tbPenagihanAPK = tbPenagihanAPK +
+                                `<th style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                <th style="text-align: center">${parseFloat((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1)}%</th>`;
 
-                        tbPenagihanAPK = tbPenagihanAPK +
-                            `<th style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
-                            <th style="text-align: center">${parseFloat((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1)}%</th>`;
+                            subtotal += Number(itemPenagihan.bulanan[p]);
 
-                    }
+                        }
 
-                    $('#bodyRootCouseAPK').append(tbPenagihanAPK + `</tr>`);
+                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + 
+                                `<th style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
 
-                });
+                    });
 
-                let totRootCouseAPK = `
+                    let totRootCouseAPK = `
                             <tr><th class="table-dark">TOTAL</th>`;
-
+                    
+                    subtotal=0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
                         TotPenagihan[p] = 0
+                        
                         $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
                             TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
                         })
@@ -1937,9 +1959,13 @@
                         totRootCouseAPK = totRootCouseAPK +
                             `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
                             <th class="table-dark" style="text-align: center"></th>`;
+
+                        subtotal += TotPenagihan[p];
                     }
 
-                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `</tr>`);
+                    $('#bodyRootCouseAPK').append(totRootCouseAPK + 
+                            `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
+
                 }
 
             });
@@ -2089,6 +2115,7 @@
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
 
+                    let subtotal;
                     var TotPenagihanPending = [];
                     var TotRootDonePending = 0;
                     let tbRootCousePending;
@@ -2105,34 +2132,39 @@
                         )
                     }
 
-                    $.each(dataRootCousePending, function(key, item) {
+                    $('#rootCouseHeadPending').find("tr").append(
+                            `<th style="text-align: center">Subtotal</th>`
+                    )
 
+                    $.each(dataRootCousePending, function(key, item) {
                         
                         tbRootCousePending = `
                             <tr>
                             <td>${item.penagihan}</td>`;
                         
-
+                        subtotal = 0;
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                             tbRootCousePending = tbRootCousePending +
                                 `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${item.persen[bln].toLocaleString()}%</td>`;
+
+                            subtotal += Number(item.bulanan[bln]);
                         }
 
-
-                        tbRootCousePending = tbRootCousePending + `</tr>`;
-                        $('#rootCouseTbPending').append(tbRootCousePending);
+                        tbRootCousePending = tbRootCousePending; // + `</tr>`;
+                        $('#rootCouseTbPending').append(tbRootCousePending + 
+                                    `<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`
+                        );
 
                     });
 
                     let totRootPending = `
                         <th class="table-dark">TOTAL</th>`;
-                            // <th class="table-dark"></th>
-                            // <th class="table-dark"></th>`;
-                            // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
 
+                    subtotal = 0;
                     for (p=0;p<trendWoIBFtth.length; p++) {
-                        TotPenagihanPending[p] = 0
+                        TotPenagihanPending[p] = 0;
+                        
                         $.each(dataRootCousePending, function(key, iPenagihan) {
                             TotPenagihanPending[p] += Number(iPenagihan.bulanan[p]);
                         })
@@ -2140,9 +2172,13 @@
                         totRootPending = totRootPending + 
                         `<th class="table-dark" style="text-align: center">${TotPenagihanPending[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
+
+                        subtotal += TotPenagihanPending[p];
                     }
 
-                    $('#totRootCousePending').append(totRootPending);
+                    $('#totRootCousePending').append(totRootPending + 
+                        `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`
+                    );
                 }
 
             });
@@ -2293,6 +2329,7 @@
                     $('#rootCouseTbCancel').find("tr").remove();
                     $('#totRootCouseCancel').find("th").remove();
 
+                    let subtotal;
                     var TotPenagihanCancel = [];
                     var TotRootDoneCancel = 0;
                     let tbRootCouseCancel;
@@ -2309,24 +2346,30 @@
                         )
                     }
 
-                    $.each(dataRootCouseCancel, function(key, item) {
+                    $('#rootCouseHeadCancel').find("tr").append(
+                            `<th style="text-align: center">Subtotal</th>`
+                        )
 
+                    $.each(dataRootCouseCancel, function(key, item) {
                         
                         tbRootCouseCancel = `
                             <tr>
                                 <td>${item.penagihan}</td>`;
                         
+                        subtotal = 0;
 
-                        
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
                             tbRootCouseCancel = tbRootCouseCancel +
                                 `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${item.persen[bln].toLocaleString()} %</td>`;
+
+                            subtotal += Number(item.bulanan[bln]);
                         }
                         
 
-                        tbRootCouseCancel = tbRootCouseCancel + `</tr>`;
-                        $('#rootCouseTbCancel').append(tbRootCouseCancel);
+                        tbRootCouseCancel = tbRootCouseCancel;
+                        $('#rootCouseTbCancel').append(tbRootCouseCancel  + 
+                                `<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`);
 
                     });
 
@@ -2336,8 +2379,10 @@
                             // <th class="table-dark"></th>`;
                             // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
 
+                    subtotal = 0;
                     for (p=0;p<trendWoIBFtth.length; p++) {
-                        TotPenagihanCancel[p] = 0
+                        TotPenagihanCancel[p] = 0;
+                        
                         $.each(dataRootCouseCancel, function(key, iPenagihan) {
                             TotPenagihanCancel[p] += Number(iPenagihan.bulanan[p]);
                         })
@@ -2345,9 +2390,13 @@
                         totRootCancel = totRootCancel + 
                         `<th class="table-dark" style="text-align: center">${TotPenagihanCancel[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
+
+                        subtotal += TotPenagihanCancel[p];
                     }
 
-                    $('#totRootCouseCancel').append(totRootCancel);
+                    $('#totRootCouseCancel').append(totRootCancel +
+                        `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th>`
+                    );
                 }
 
             });
