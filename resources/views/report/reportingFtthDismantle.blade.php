@@ -1117,7 +1117,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.total.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenTotal.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenTotal.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1130,7 +1130,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.done.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenDone.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenDone.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1142,7 +1142,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.pending.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenPending.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenPending.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1153,7 +1153,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.cancel.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenCancel.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenCancel.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1181,7 +1181,7 @@
                     let isiTotalWoClose = `
                     <th>Total WO Close</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1) + "%"}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
 
 
@@ -1192,7 +1192,7 @@
                     let isiTotalWoPending = `
                     <th>Total WO Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1) + "%"}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
                     $('#totWoPending').append(isiTotalWoPending);
 
@@ -1201,7 +1201,7 @@
                     let isiTotalWoCancel = `
                     <th>Total WO Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1) + "%"}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
 
@@ -1232,6 +1232,7 @@
 
                     let subtotal;
                     let TotBranchCluster = [];
+                    let TotMonthCluster = [];
                     let tbBranchCluster;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
@@ -1258,9 +1259,15 @@
                         
                         subtotal=0;
                         for (p=0;p<trendWoIBFtth.length; p++) {
+
+                            TotMonthCluster[p]=0
+                            $.each(dataCluster.branchCluster, function(key, jmlBln){
+                                TotMonthCluster[p] += Number(jmlBln.totbulanan[p]);
+                            })
+
                             tbBranchCluster = tbBranchCluster +
                                 `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>
-                                <th class="table-secondary" style="text-align: center">${nmBranch.persen[p].toLocaleString()} %</th>`;
+                                <th class="table-secondary" style="text-align: center">${parseFloat((nmBranch.totbulanan[p]*100)/TotMonthCluster[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                             subtotal += Number(nmBranch.totbulanan[p]);
    
@@ -1277,9 +1284,15 @@
                                 
                                 subtotal=0;
                                 for (cc = 0;cc < trendWoIBFtth.length; cc++) {
+
+                                    TotMonthCluster[cc]=0
+                                    $.each(dataCluster.detCluster, function(ky, jmlBlnCL){
+                                        TotMonthCluster[cc] += Number(jmlBlnCL.bulanan[cc]);
+                                    })
+
                                     tbCluster = tbCluster + 
                                     `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>
-                                    <td style="text-align: center">${itemCluster.persen[cc].toLocaleString()} %</td>`;
+                                    <td style="text-align: center">${parseFloat((itemCluster.bulanan[cc]*100)/TotMonthCluster[cc]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                                     subtotal += Number(itemCluster.bulanan[cc]);
                                 }
@@ -1427,11 +1440,11 @@
 
                     $('#dateMonth').append(`<th>%</th>`)
 
-                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(2)}%</th>`)
+                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed().replace(/\.0$/, '')}%</th>`)
                     $('#woPending').append(
-                        `<th>${parseFloat((totPending * 100) / total).toFixed(2)}%</th>`)
+                        `<th>${parseFloat((totPending * 100) / total).toFixed().replace(/\.0$/, '')}%</th>`)
                     $('#woCancel').append(
-                        `<th>${parseFloat((totCancel * 100) / total).toFixed(2)}%</th>`)
+                        `<th>${parseFloat((totCancel * 100) / total).toFixed().replace(/\.0$/, '')}%</th>`)
 
 
                     // graph line dialy //

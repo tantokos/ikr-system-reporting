@@ -1055,7 +1055,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.total.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenTotal.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenTotal.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1068,7 +1068,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.done.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenDone.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenDone.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1080,7 +1080,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.pending.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenPending.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenPending.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1091,7 +1091,7 @@
                             <tr>
                                 <td>${nmBranch}</td>
                                 <td style="text-align: center">${item.cancel.toLocaleString()}</td>
-                                <td style="text-align: center">${item.persenCancel.toFixed(1) + "%"}</td>
+                                <td style="text-align: center">${item.persenCancel.toFixed(1).replace(/\.0$/, '')}%</td>
                             </tr>    
                         `;
 
@@ -1119,7 +1119,7 @@
                     let isiTotalWoClose = `
                     <th>Total WO Close</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1) + "%"}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
 
 
@@ -1130,7 +1130,7 @@
                     let isiTotalWoPending = `
                     <th>Total WO Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1) + "%"}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
                     $('#totWoPending').append(isiTotalWoPending);
 
@@ -1139,13 +1139,9 @@
                     let isiTotalWoCancel = `
                     <th>Total WO Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1) + "%"}</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
-
-
-
-
                 }
 
 
@@ -1433,11 +1429,11 @@
 
                     $('#dateMonth').append(`<th>%</th>`)
 
-                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(2)}%</th>`)
+                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
                     $('#woPending').append(
-                        `<th>${parseFloat((totPending * 100) / total).toFixed(2)}%</th>`)
+                        `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
                     $('#woCancel').append(
-                        `<th>${parseFloat((totCancel * 100) / total).toFixed(2)}%</th>`)
+                        `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
 
 
                     // graph line dialy //
@@ -1674,6 +1670,7 @@
 
                     let subtotal;
                     let TotPenagihan = [];
+                    let TotMonth = [];
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
@@ -1700,9 +1697,14 @@
                     
                     subtotal = 0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
+
+                        TotMonth[p]=0;
+                        $.each(detPenagihanSortir, function(ky, itm) {
+                            TotMonth[p] += Number(itm.bulanan[p])
+                        })
                         tbPenagihanAPK = tbPenagihanAPK +
                             `<td style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</td>
-                            <td style="text-align: center">${itemPenagihan.persen[p]} %</td>`;
+                            <td style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                         subtotal += Number(itemPenagihan.bulanan[p]);
 
@@ -1901,6 +1903,7 @@
 
                     let subtotal;
                     var TotRootDonePending = 0;
+                    let TotMonthPending =[];
                     let TotPenagihan = [];
                     let tbRootCousePending;
                     let hdRootCousePending = `
@@ -1929,9 +1932,15 @@
                             `;
                         subtotal=0;
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+
+                                TotMonthPending[bln]=0;
+                                $.each(dataRootCousePending, function(ky,itm) {
+                                    TotMonthPending[bln] += Number(itm.bulanan[bln]);
+                                })
+
                                 tbRootCousePending = tbRootCousePending +
                                     `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
-                                    <td style="text-align: center">${item.persen[bln]} %</td>`;
+                                    <td style="text-align: center">${parseFloat((item.bulanan[bln]*100)/TotMonthPending[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                 subtotal += Number(item.bulanan[bln]);
 
@@ -2129,6 +2138,7 @@
 
                     let subtotal;
                     var TotRootDoneCancel = 0;
+                    let TotMonthCancel = [];
                     let TotPenagihan = [];
                     let tbRootCouseCancel;
                     let hdRootCouseCancel = `
@@ -2138,7 +2148,8 @@
 
                     $('#rootCouseHeadCancel').append(hdRootCouseCancel);
 
-                    for (b = 0; b < trendWoIBFtth.length; b++) {
+                    for (b = 0; b < trendWoIBFtth.length; b++) {                        
+
                         $('#rootCouseHeadCancel').find("tr").append(
                             `<th colspan="2" style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
                         )
@@ -2156,9 +2167,16 @@
                         
                         subtotal = 0;
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+
+                            TotMonthCancel[bln]=0;
+
+                            $.each(dataRootCouseCancel, function(ky, itm) {
+                                TotMonthCancel[bln] += Number(itm.bulanan[bln]);
+                            })
+
                             tbRootCouseCancel = tbRootCouseCancel +
                                 `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
-                                <td style="text-align: center">${item.persen[bln]} %</td>`;
+                                <td style="text-align: center">${item.persen[bln].toLocaleString()}%</td>`;
 
                             subtotal += Number(item.bulanan[bln]);
 

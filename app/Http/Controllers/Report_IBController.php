@@ -236,6 +236,7 @@ class Report_IBController extends Controller
                     '))
             ->where('bulan', '=', $bulan)->where('tahun', '=', $tahun);
 
+        
         if ($request->filterSite != "All") {
             $branchPenagihan = $branchPenagihan->where('site_penagihan', '=', $request->filterSite);
         }
@@ -1116,6 +1117,14 @@ class Report_IBController extends Controller
                 ->select('id','penagihan')
                 ->groupBy('id','penagihan');
 
+        
+        if ($request->filterSite != "All") {
+            $rootCousePending = $rootCousePending->where('site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $rootCousePending = $rootCousePending->where('branch', '=', $request->filterBranch);
+        }
+
         for ($x = 0; $x < count($trendBulanan); $x++) {
 
             $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
@@ -1123,16 +1132,17 @@ class Report_IBController extends Controller
             $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
 
             $rootCousePending = $rootCousePending->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-            $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            
 
-        }
+            if ($request->filterSite != "All") {
+                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_pending where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
+            if ($request->filterBranch != "All") {
+                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_pending where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            } else {
+                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
 
-
-        if ($request->filterSite != "All") {
-            $rootCousePending = $rootCousePending->where('site_penagihan', '=', $request->filterSite);
-        }
-        if ($request->filterBranch != "All") {
-            $rootCousePending = $rootCousePending->where('branch', '=', $request->filterBranch);
         }
 
         $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
@@ -1360,6 +1370,13 @@ class Report_IBController extends Controller
                 ->select('id','penagihan')
                 ->groupBy('id','penagihan');
 
+        if ($request->filterSite != "All") {
+            $rootCouseCancel = $rootCouseCancel->where('site_penagihan', '=', $request->filterSite);
+        }
+        if ($request->filterBranch != "All") {
+            $rootCouseCancel = $rootCouseCancel->where('branch', '=', $request->filterBranch);
+        }
+
         for ($x = 0; $x < count($trendBulanan); $x++) {
 
             $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
@@ -1367,17 +1384,21 @@ class Report_IBController extends Controller
             $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
 
             $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-            $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_cancel where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            
+
+            if ($request->filterSite != "All") {
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_cancel where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
+            if ($request->filterBranch != "All") {
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_cancel where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            } else {
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_ib_cancel where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
 
         }
 
 
-        if ($request->filterSite != "All") {
-            $rootCouseCancel = $rootCouseCancel->where('site_penagihan', '=', $request->filterSite);
-        }
-        if ($request->filterBranch != "All") {
-            $rootCouseCancel = $rootCouseCancel->where('branch', '=', $request->filterBranch);
-        }
+        
 
         $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
 
