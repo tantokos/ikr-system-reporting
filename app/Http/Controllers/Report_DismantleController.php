@@ -585,9 +585,12 @@ class Report_DismantleController extends Controller
             $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
 
             $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-            $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_dismantle where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
 
-               
+            if ($request->filterBranch != "All") {
+                $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_dismantle where main_branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            } else {
+                $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_dismantle where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
         }
 
         $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
@@ -893,7 +896,13 @@ class Report_DismantleController extends Controller
             $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
 
             $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-            $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_dismantle where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            
+
+            if ($request->filterBranch != "All") {
+                $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_dismantle where main_branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            } else {
+                $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_dismantle where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
 
                
         }

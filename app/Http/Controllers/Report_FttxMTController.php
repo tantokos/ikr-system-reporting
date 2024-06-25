@@ -896,7 +896,12 @@ class Report_FttxMTController extends Controller
             $blnThn = str_replace('-','_',$trendBulanan[$b]['bulan']);
 
             $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-            $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Cancel' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
+            if ($request->filterBranch != "All") {
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where branch='".$request->filterBranch."' and status='Cancel' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            } else {
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Cancel' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
         }
 
         $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
