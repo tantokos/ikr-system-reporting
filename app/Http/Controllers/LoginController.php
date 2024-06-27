@@ -41,7 +41,7 @@ class LoginController extends Controller
 
             
         
-            return redirect()->route('reportMtFtth.index')->with(['user' => $user]);
+            return redirect()->route('report.dashboard')->with(['user' => $user]);
             // return redirect('http://127.0.0.1:8000')->with(['user' => $user]);
         } else {
             return redirect()->route('login')->with('failed', 'Email atau Password Salah');

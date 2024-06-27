@@ -22,10 +22,20 @@
         
     </ul> --}}
 
+    
+
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
     <ul class="pcoded-item pcoded-left-item">
+        <li class="pcoded-trigger {{ request()->is('reportDash*', '/') ? 'active' : '' }}">
+            <a href="{{ route('report.dashboard')}}">
+                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main">IKR Dashboard</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+
         <li
-            class="pcoded-hasmenu pcoded-trigger {{ request()->is('report*', '/') ? 'active' : '' }}">
+            class="pcoded-hasmenu pcoded-trigger {{ request()->is('report*') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
                 <span class="pcoded-mtext" data-i18n="nav.basic-components.main">IKR Monthly Report</span>
@@ -33,7 +43,7 @@
             </a>
             <ul class="pcoded-submenu">
                 
-                <li class="{{ request()->is('reportIBFtth*','/') ? 'active' : '' }}">
+                <li class="{{ request()->is('reportIBFtth*') ? 'active' : '' }}">
                     <a href="{{ route('reportIBFtth.index')}}">
                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">FTTH New Installation</span>
