@@ -29,6 +29,7 @@ use App\Http\Controllers\MonitMtFtthController;
 use App\Http\Controllers\PeminjamanAsetController;
 use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
+use App\Http\Controllers\Report_DashboardController;
 use App\Http\Controllers\Report_DismantleController;
 use App\Http\Controllers\Report_FttxIBController;
 use App\Http\Controllers\Report_FttxMTController;
@@ -82,10 +83,14 @@ Route::group(
     ['middleware' => ['auth']],
     function () {
 
+        Route::get('reportDashboard',[Report_DashboardController::class, 'index'])->name('report.dashboard');
+
         //=====Start Import MT FTTH======//
 
         Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
-        Route::get('/', [Report_IBController::class, 'index'])->name('reportIBFtth.index');
+        // Route::get('/', [Report_IBController::class, 'index'])->name('reportIBFtth.index');
+        Route::get('/',[Report_DashboardController::class, 'index'])->name('report.dashboard');
+        Route::get('reportDashboard',[Report_DashboardController::class, 'index'])->name('report.dashboard');
 
         Route::get('/reportMtFtth', [ReportController::class, 'index'])->name('reportMtFtth.index');
         
