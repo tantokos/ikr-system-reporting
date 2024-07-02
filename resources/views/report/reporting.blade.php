@@ -466,7 +466,7 @@
         {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
             <div class="table-responsive">
-                <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
+                <table id="TabelRootCouseAPK" class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
                     <thead>
                         <tr id="rootCouseHeadAPK">
                             {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
@@ -731,41 +731,131 @@
     </div>
 
 
-   {{-- modal rusak detail --}}
+   {{-- modal rusak detail APK--}}
 
-    <div class="modal fade" id="md-rusakAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+    <div class="modal fade" id="md-detail" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
         aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg mw-100 w-75" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Aset Rusak</h5>
+                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Root Cause </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
 
                 <div class="modal-body" id="bdy-rusakAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
 
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-body" id="canvasDetailAPK">
+                                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
                     <div class="table-responsive">
-                        <table class="table table-striped" id="dataRusakAsetDt" width="100%" cellspacing="0"
+                        <table class="table table-striped" id="dataDetailRoot" width="100%" cellspacing="0"
                             style="font-size: 12px; table-layout: auto;">
                             <thead>
                                 <tr>
-                                    <th width="100%">No</th>
-                                    <th width="100%">Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th width="100%">Satuan</th>
-                                    <th width="100%">Jumlah</th>
-                                    <th width="100%">Kategori</th>
+                                    <th>No</th>
+                                    {{-- <th>pic_monitoring</th> --}}
+                                    <th>type_wo</th>
+                                    <th>no_wo</th>
+                                    {{-- <th>no_ticket</th> --}}
+                                    <th>cust_id</th>
+                                    <th>nama_cust</th>
+                                    {{-- <th>cust_address1</th> --}}
+                                    {{-- <th>cust_address2</th> --}}
+                                    {{-- <th>type_maintenance</th> --}}
+                                    <th>kode_fat</th>
+                                    <th>kode_wilayah</th>
+                                    <th>cluster</th>
+                                    <th>kotamadya</th>
+                                    <th>kotamadya_penagihan</th>
+                                    <th>branch</th>
+                                    <th>tgl_ikr</th>
+                                    {{-- <th>slot_time_leader</th> --}}
+                                    <th>slot_time_apk</th>
+                                    <th>sesi</th>
+                                    <th>remark_traffic</th>
+                                    <th>callsign</th>
+                                    <th>leader</th>
+                                    <th>teknisi1</th>
+                                    <th>teknisi2</th>
+                                    <th>teknisi3</th>
+                                    <th>status_wo</th>
+                                    <th>couse_code</th>
+                                    <th>root_couse</th>
+                                    <th>penagihan</th>
+                                    {{-- <th>alasan_tag_alarm</th> --}}
+                                    {{-- <th>tgl_jam_reschedule</th> --}}
+                                    {{-- <th>tgl_jam_fat_on</th> --}}
+                                    <th>action_taken</th>
+                                    <th>panjang_kabel</th>
+                                    <th>weather</th>
+                                    <th>remark_status</th>
+                                    <th>action_status</th>
+                                    {{-- <th>start_ikr_wa</th> --}}
+                                    {{-- <th>end_ikr_wa</th> --}}
+                                    <th>validasi_start</th>
+                                    <th>validasi_end</th>
+                                    <th>checkin_apk</th>
+                                    <th>checkout_apk</th>
+                                    <th>status_apk</th>
+                                    {{-- <th>keterangan</th> --}}
+                                    <th>ms_regular</th>
+                                    <th>wo_date_apk</th>
+                                    <th>wo_date_mail_reschedule</th>
+                                    <th>wo_date_slot_tim_apk</th>
+                                    <th>actual_sla_wo_minute_apk</th>
+                                    <th>actual_sla_wo_jam_apk</th>
+                                    <th>mttr_over_apk_minute</th>
+                                    <th>mttr_over_apk_jam</th>
+                                    <th>mttr_over_apk_persen</th>
+                                    <th>status_sla</th>
+                                    <th>root_couse_before</th>
+                                    <th>slot_time_assign_apk</th>
+                                    <th>slot_time_apk_delay</th>
+                                    <th>status_slot_time_apk_delay</th>
+                                    <th>ket_delay_slot_time</th>
+                                    <th>konfirmasi_customer</th>
+                                    <th>ont_merk_out</th>
+                                    <th>ont_sn_out</th>
+                                    <th>ont_mac_out</th>
+                                    <th>ont_merk_in</th>
+                                    <th>ont_sn_in</th>
+                                    <th>ont_mac_in</th>
+                                    <th>router_merk_out</th>
+                                    <th>router_sn_out</th>
+                                    <th>router_mac_out</th>
+                                    <th>router_merk_in</th>
+                                    <th>router_sn_in</th>
+                                    <th>router_mac_in</th>
+                                    <th>stb_merk_out</th>
+                                    <th>stb_sn_out</th>
+                                    <th>stb_mac_out</th>
+                                    <th>stb_merk_in</th>
+                                    <th>stb_sn_in</th>
+                                    <th>stb_mac_in</th>
+                                    <th>dw_out</th>
+                                    <th>precon_out</th>
+                                    <th>bad_precon</th>
+                                    <th>fast_connector</th>
+                                    <th>patchcord</th>
+                                    <th>terminal_box</th>
+                                    <th>remote_fiberhome</th>
+                                    <th>remote_extrem</th>
+                                    <th>port_fat</th>
+                                    <th>site_penagihan</th>
+                                    <th>konfirmasi_penjadwalan</th>
+                                    <th>konfirmasi_cst</th>
+                                    <th>konfirmasi_dispatch</th>
+                                    <th>remark_status2</th>
+                                    {{-- <th>login</th> --}}
+                                    {{-- <th>action</th> --}}
                                 </tr>
                             </thead>
 
@@ -796,129 +886,8 @@
             </div>
         </div>
     </div>
-    {{-- end modal rusak detail --}}
+    {{-- end modal detail APK --}}
 
-    {{-- modal hilang detail --}}
-
-    <div class="modal fade" id="md-hilangAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Aset Hilang</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-hilangAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
-
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataHilangAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th width="100%">No</th>
-                                    <th width="100%">Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th width="100%">Satuan</th>
-                                    <th width="100%">Jumlah</th>
-                                    <th width="100%">Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-
-                    {{-- </div> --}}
-                    {{-- </div> --}}
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal hilang detail --}}
-
-    {{-- modal disposal detail --}}
-
-    <div class="modal fade" id="md-disposalAset" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Disposal Aset</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <div class="modal-body" id="bdy-disposalAset">
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-12"> --}}
-                    {{-- <div class="card"> --}}
-                    {{-- <div class="card-header">
-                
-                                </div> --}}
-
-                    {{-- <div class="card-body"> --}}
-                    {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="dataDisposalAsetDt" width="100%" cellspacing="0"
-                            style="font-size: 12px">
-                            <thead>
-                                <tr>
-                                    <th width="100%">No</th>
-                                    <th width="100%">Nama Barang</th>
-                                    {{-- <th>Merk Barang</th> --}}
-                                    {{-- <th>Kondisi</th> --}}
-                                    <th width="100%">Satuan</th>
-                                    <th width="100%">Jumlah</th>
-                                    <th width="100%">Kategori</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
-                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
-
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- end modal disposal detail --}}
 @endsection
 
 @section('script')
@@ -932,9 +901,21 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.css" rel="stylesheet">
-    <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.js"></script>
+    {{-- <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.css" rel="stylesheet"> --}}
+    {{-- <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/fc-4.3.0/datatables.min.js"></script> --}}
 
+
+<link href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css" rel="stylesheet">
+
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> --}}
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+{{-- <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script> --}}
 
     {{-- <script src="{{ $chart->cdn() }}"></script> --}}
 
@@ -1002,6 +983,536 @@
             })
         });
 
+    </script>
+
+    <script type="text/javascript">
+
+        var _token = $('meta[name=csrf-token]').attr('content');
+
+        function det_click(apk_id)
+        {
+            let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
+            let dataSource;
+            let datafilter;
+            let detailTitle;
+            let detailSubTitle;
+            let filSite = $('#site').val();
+            let filBranch = $('#branch').val();
+
+            let detAPK = apk_id.split("|");
+
+             
+
+            if(detAPK[0]=="penagihan") {
+                datafilter = {
+                        detKategori: detAPK[0], 
+                        detPenagihan: detAPK[1],
+                        detBulan: detAPK[2],
+                        detThn: detAPK[3],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[1];
+                detailSubTitle = '';
+            }
+            if(detAPK[0]=="couse_code") {
+                datafilter = {
+                        detKategori: detAPK[0], 
+                        detPenagihan: detAPK[1],
+                        detCouse_code: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[1];
+                detailSubTitle = detAPK[2];
+            }
+            if(detAPK[0]=="root_couse") {
+                datafilter = {
+                        detKategori: detAPK[0], 
+                        detPenagihan: detAPK[1],
+                        detCouse_code: detAPK[2],
+                        detRoot_couse: detAPK[3],
+                        detBulan: detAPK[4],
+                        detThn: detAPK[5],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[1];
+                detailSubTitle = detAPK[2] + " - " + detAPK[3];
+            }
+
+            bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+
+            $('#md-detail').modal('show');
+            event.stopPropagation()
+
+            $.ajax({
+                url: "{{ route('getDetailAPK') }}",
+                type: "GET",
+                data: datafilter,
+                beforeSend: () => {
+                    $("#smDetWO").show();
+                },
+                complete: () => {
+                    $("#smDetWO").hide();
+                },
+                success: function(detAPK) {
+
+                    dataSource = detAPK.detailAPK;
+                    var totDetailAPK = detAPK;
+                    // var totDetailAPK = totDetailAPK.sort((a,b) => b.done - a.done);
+                    var ChrBranchAPK = [];
+                    var ChrBranchTot = [];
+
+                    $.each(detAPK.detailBranchAPK, function(key, item) {
+
+                        ChrBranchAPK.push(item.branch);
+                        ChrBranchTot.push([Number(item.total)]);
+
+                    });
+
+                    $('#canvasDetailAPK').empty();
+
+                    let chartBranchAPK = `
+					<figure class="highcharts-figure">
+					    <div id="detailAPK"></div>
+					</figure>
+				    `;
+
+                    $('#canvasDetailAPK').append(chartBranchAPK);
+
+                    Highcharts.chart('detailAPK', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Root Cause ' + detailTitle,
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: detailSubTitle,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchAPK, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: bulanData,
+                                // align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        legend:{ enabled:false },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: '',
+                            data: ChrBranchTot // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    fetch_detail();
+                }                
+            })
+
+            function fetch_detail() {
+                    $('#dataDetailRoot').DataTable({
+                        // dom: 'Bftip',
+                        layout: {
+                            topStart: {
+                                buttons: ['excel']
+                            }
+                        },
+                        paging: true,
+                        orderClasses: false,
+                        
+                        // fixedColumns: true,
+
+                        // fixedColumns: {
+                        //     // leftColumns: 4,
+                        //     rightColumns: 1
+                        // },
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scrollX: true,
+                        // scrollY: 300,
+                        // pageLength: 10,
+                        lengthChange: false,
+                        bFilter: true,
+                        destroy: true,
+                        processing: true,
+                        serverSide: false,
+                        // oLanguage: {
+                        //     sZeroRecords: "Tidak Ada Data",
+                        //     sSearch: "Pencarian _INPUT_",
+                        //     sLengthMenu: "_MENU_",
+                        //     sInfo: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                        //     sInfoEmpty: "0 data",
+                        //     oPaginate: {
+                        //         sNext: "<i class='fa fa-angle-right'></i>",
+                        //         sPrevious: "<i class='fa fa-angle-left'></i>"
+                        //     }
+                        // },
+                        ajax: {
+                            url: "{{ route('dataDetailAPK') }}",
+                            type: "get",
+                            dataType: "json",
+                            data: datafilter
+                        },
+                        
+                        columns: [{
+                                data: 'DT_RowIndex',
+                                name: 'DT_Row_Index',
+                                "className": "text-center",
+                                // orderable: false, 
+                                searchable: false,
+                                "width": '20'
+                            },
+                            // {
+                            //     data: 'pic_monitoring',
+                            //     "className": "text-center",
+                            //     width: '5%'
+
+                            // },
+                            {
+                                "data": 'type_wo',
+                                "width": '90'
+                            },
+                            {
+                                data: 'no_wo',
+                                width: '90'
+                            },
+                            // {
+                            //     data: 'no_ticket',
+                            //     width: '5%'
+                            // },
+                            {
+                                data: 'cust_id',
+                                width: '90'
+                            },
+                            {
+                                data: 'nama_cust',
+                                width: '90'
+                            },
+                            // {
+                            //     data: 'cust_address1',
+                            //     width: '90'
+                            // },
+                            // {
+                            //     data: 'cust_address2',
+                            //     width: '5%'
+                            // },
+                            // {
+                            //     data: 'type_maintenance',
+                            //     width: '90'
+                            // },
+                            {
+                                data: 'kode_fat',
+                                width: '90'
+                            },
+                            {
+                                data: 'kode_wilayah',
+                                width: '90'
+                            },
+                            {
+                                data: 'cluster',
+                                width: '90'
+                            },
+                            {
+                                data: 'kotamadya',
+                                width: '90'
+                            },
+                            {
+                                data: 'kotamadya_penagihan'
+                            },
+                            {
+                                data: 'branch'
+                            },
+                            {
+                                data: 'tgl_ikr'
+                            },
+                            // {
+                            //     data: 'slot_time_leader'
+                            // },
+                            {
+                                data: 'slot_time_apk'
+                            },
+                            {
+                                data: 'sesi'
+                            },
+                            {
+                                data: 'remark_traffic'
+                            },
+                            {
+                                data: 'callsign'
+                            },
+                            {
+                                data: 'leader'
+                            },
+                            {
+                                data: 'teknisi1'
+                            },
+                            {
+                                data: 'teknisi2'
+                            },
+                            {
+                                data: 'teknisi3'
+                            },
+                            {
+                                data: 'status_wo'
+                            },
+                            {
+                                data: 'couse_code'
+                            },
+                            {
+                                data: 'root_couse'
+                            },
+                            {
+                                data: 'penagihan'
+                            },
+                            // {
+                            //     data: 'alasan_tag_alarm'
+                            // },
+                            // {
+                            //     data: 'tgl_jam_reschedule'
+                            // },
+                            // {
+                            //     data: 'tgl_jam_fat_on'
+                            // },
+                            {
+                                data: 'action_taken'
+                            },
+                            {
+                                data: 'panjang_kabel'
+                            },
+                            {
+                                data: 'weather'
+                            },
+                            {
+                                data: 'remark_status'
+                            },
+                            {
+                                data: 'action_status'
+                            },
+                            // {
+                            //     data: 'start_ikr_wa'
+                            // },
+                            // {
+                            //     data: 'end_ikr_wa'
+                            // },
+                            {
+                                data: 'validasi_start'
+                            },
+                            {
+                                data: 'validasi_end'
+                            },
+                            {
+                                data: 'checkin_apk'
+                            },
+                            {
+                                data: 'checkout_apk'
+                            },
+                            {
+                                data: 'status_apk'
+                            },
+                            // {
+                            //     data: 'keterangan'
+                            // },
+                            {
+                                data: 'ms_regular'
+                            },
+                            {
+                                data: 'wo_date_apk'
+                            },
+                            {
+                                data: 'wo_date_mail_reschedule'
+                            },
+                            {
+                                data: 'wo_date_slot_time_apk'
+                            },
+                            {
+                                data: 'actual_sla_wo_minute_apk'
+                            },
+                            {
+                                data: 'actual_sla_wo_jam_apk'
+                            },
+                            {
+                                data: 'mttr_over_apk_minute'
+                            },
+                            {
+                                data: 'mttr_over_apk_jam'
+                            },
+                            {
+                                data: 'mttr_over_apk_persen'
+                            },
+                            {
+                                data: 'status_sla'
+                            },
+                            {
+                                data: 'root_couse_before'
+                            },
+                            {
+                                data: 'slot_time_assign_apk'
+                            },
+                            {
+                                data: 'slot_time_apk_delay'
+                            },
+                            {
+                                data: 'status_slot_time_apk_delay'
+                            },
+                            {
+                                data: 'ket_delay_slot_time'
+                            },
+                            {
+                                data: 'konfirmasi_customer'
+                            },
+                            {
+                                data: 'ont_merk_out'
+                            },
+                            {
+                                data: 'ont_sn_out'
+                            },
+                            {
+                                data: 'ont_mac_out'
+                            },
+                            {
+                                data: 'ont_merk_in'
+                            },
+                            {
+                                data: 'ont_sn_in'
+                            },
+                            {
+                                data: 'ont_mac_in'
+                            },
+                            {
+                                data: 'router_merk_out'
+                            },
+                            {
+                                data: 'router_sn_out'
+                            },
+                            {
+                                data: 'router_mac_out'
+                            },
+                            {
+                                data: 'router_merk_in'
+                            },
+                            {
+                                data: 'router_sn_in'
+                            },
+                            {
+                                data: 'router_mac_in'
+                            },
+                            {
+                                data: 'stb_merk_out'
+                            },
+                            {
+                                data: 'stb_sn_out'
+                            },
+                            {
+                                data: 'stb_mac_out'
+                            },
+                            {
+                                data: 'stb_merk_in'
+                            },
+                            {
+                                data: 'stb_sn_in'
+                            },
+                            {
+                                data: 'stb_mac_in'
+                            },
+                            {
+                                data: 'dw_out'
+                            },
+                            {
+                                data: 'precon_out'
+                            },
+                            {
+                                data: 'bad_precon'
+                            },
+                            {
+                                data: 'fast_connector'
+                            },
+                            {
+                                data: 'patchcord'
+                            },
+                            {
+                                data: 'terminal_box'
+                            },
+                            {
+                                data: 'remote_fiberhome'
+                            },
+                            {
+                                data: 'remote_extrem'
+                            },
+                            {
+                                data: 'port_fat'
+                            },
+                            {
+                                data: 'site_penagihan'
+                            },
+                            {
+                                data: 'konfirmasi_penjadwalan'
+                            },
+                            {
+                                data: 'konfirmasi_cst'
+                            },
+                            {
+                                data: 'konfirmasi_dispatch'
+                            },
+                            {
+                                data: 'remark_status2'
+                            },
+                            // {
+                            //     data: 'login'
+                            // },
+
+                            // {
+                            //     data: 'gender',
+                            //     "className": "text-center"      
+                            // },                                   
+                            // {
+                            //     data: 'action',
+                            //     "className": "text-center",
+                            //     orderable: false,
+                            //     searchable: false
+                            // },
+                        ]
+                    });
+
+
+                }
+        }
     </script>
 
     <script type="text/javascript">
@@ -2135,6 +2646,9 @@
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
+                    let blnId;
+                    let thnId;
+                    let detailCel;
 
                     let hdRootCouse = `
                         <th>Penagihan</th>`;
@@ -2165,20 +2679,27 @@
                                 <tr><td>${itemPenagihan.penagihan}</td>`;
 
                         tbPenagihanAPK = `
-                                <tr class="table-secondary"><th>${itemPenagihan.penagihan}</th>
-                                <th class="table-secondary"></th>
-                                <th class="table-secondary"></th>`;
+                                <tr class="table-secondary"><td style="font-weight:bold" >${itemPenagihan.penagihan}</td>
+                                <td class="table-secondary"></td>
+                                <td class="table-secondary"></td>`;
                         
                         subtotalSM = 0;
                         subtotalDT = 0;
                         for (p=0;p<trendWoMt.length; p++) {
+                            // console.log(trendWoMt[p]);
+                            // new Date($(this).val()).getMonth()
+                            blnId = new Date(trendWoMt[p].bulan).getMonth();
+                            thnId = new Date(trendWoMt[p].bulan).getFullYear();
+                            detailCel = `${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
                             tbSumPenagihanAPK = tbSumPenagihanAPK +
-                                `<td style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</td>
+                                `<td style="text-align: center" >${itemPenagihan.bulanan[p].toLocaleString()}</td>
                                 <td style="text-align: center">${itemPenagihan.persen[p].toLocaleString()}%</td>`;
 
                             tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
-                                <th class="table-secondary" style="text-align: center">${itemPenagihan.persen[p].toLocaleString()}%</th>`;
+                                `<td class="table-secondary" style="text-align: center; font-weight:bold" 
+                                ><span id="penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
+
+                                <td class="table-secondary" style="text-align: center; font-weight:bold">${itemPenagihan.persen[p].toLocaleString()}%</td>`;
 
                             subtotalSM += Number(itemPenagihan.bulanan[p]);
                             subtotalDT += Number(itemPenagihan.bulanan[p]);
@@ -2199,9 +2720,13 @@
                                 
                                 subtotalDT = 0;
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
+                                    blnId = new Date(trendWoMt[cc].bulan).getMonth();
+                                    thnId = new Date(trendWoMt[cc].bulan).getFullYear();
+                                    detailCel = `${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${(blnId + 1)}|${thnId}`;
                                     tbCouseCodeAPK = tbCouseCodeAPK + 
-                                    `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
-                                    <th class="table-info" style="text-align: center">${itemCouseCode.persen[cc].toLocaleString()} %</th>`;
+                                    `<td class="table-info" style="text-align: center" font-weight:bold">
+                                        <span id="couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
+                                    <td class="table-info" style="text-align: center" font-weight:bold">${itemCouseCode.persen[cc].toLocaleString()}%</td>`;
 
                                     subtotalDT += Number(itemCouseCode.bulanan[cc]);
                                 }
@@ -2223,9 +2748,14 @@
                                         
                                         subtotalDT=0;
                                         for (rc = 0; rc < trendWoMt.length; rc++) {
+                                            blnId = new Date(trendWoMt[rc].bulan).getMonth();
+                                            thnId = new Date(trendWoMt[rc].bulan).getFullYear();
+                                            detailCel = `${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}`;
+                                    
                                             tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
-                                            <td style="text-align: center">${itemRootCouse.persen[rc].toLocaleString()} %</td>`;
+                                            `<td style="text-align: center" >
+                                                <span id="root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
+                                            <td style="text-align: center">${itemRootCouse.persen[rc].toLocaleString()}%</td>`;
 
                                             subtotalDT += Number(itemRootCouse.bulanan[rc]);
 
