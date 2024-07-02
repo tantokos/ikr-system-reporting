@@ -33,7 +33,7 @@
 
                     <div class="row">
                         
-                        <h6><strong><span>Total {{ isset($woFtthIB->TotFtthIB) ? $woFtthIB->TotFtthIB : 0 }} WO</span></strong></h6>
+                        <h6><strong><span>Total {{ isset($woFtthIB->TotFtthIB) ? number_format($woFtthIB->TotFtthIB) : 0 }} WO</span></strong></h6>
                     </div>
                     <hr>
 
@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="col-auto">
-                                    <h4>{{ isset($woFtthIB->TotFtthIBDone) ? $woFtthIB->TotFtthIBDone : 0 }}
+                                    <h4>{{ isset($woFtthIB->TotFtthIBDone) ? number_format($woFtthIB->TotFtthIBDone) : 0 }}
                                     <p><span>WO Done</span></p></h4>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                 </div>
 
                                 <div class="col-auto">
-                                    <h4>{{ isset($woFtthIB->TotFtthIBPending) ? $woFtthIB->TotFtthIBPending : 0 }}
+                                    <h4>{{ isset($woFtthIB->TotFtthIBPending) ? number_format($woFtthIB->TotFtthIBPending) : 0 }}
                                     <p><span>WO Pending</span></p></h4>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 </div>
 
                                 <div class="col-auto">
-                                    <h4>{{ isset($woFtthIB->TotFtthIBCancel) ? $woFtthIB->TotFtthIBCancel : 0 }}
+                                    <h4>{{ isset($woFtthIB->TotFtthIBCancel) ? number_format($woFtthIB->TotFtthIBCancel) : 0 }}
                                     <p><span>WO Cancel</span></p></h4>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="row">
-                        <h6><strong><span>Total {{ isset($woFtthMT->TotFtthMT) ? $woFtthMT->TotFtthMT : 0 }} WO</span></strong></h6>
+                        <h6><strong><span>Total {{ isset($woFtthMT->TotFtthMT) ? number_format($woFtthMT->TotFtthMT) : 0 }} WO</span></strong></h6>
                     </div>
                     <hr>
 
@@ -116,7 +116,7 @@
                                 </div>
 
                                 <div class="col-auto">
-                                    <h4>{{ isset($woFtthMT->TotFtthMTDone) ? $woFtthMT->TotFtthMTDone : 0 }}
+                                    <h4>{{ isset($woFtthMT->TotFtthMTDone) ? number_format($woFtthMT->TotFtthMTDone) : 0 }}
                                     <p><span>WO Done</span></p></h4>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                 </div>
 
                                 <div class="col-auto">
-                                    <h4>{{ isset($woFtthMT->TotFtthMTPending) ? $woFtthMT->TotFtthMTPending : 0 }}
+                                    <h4>{{ isset($woFtthMT->TotFtthMTPending) ? number_format($woFtthMT->TotFtthMTPending) : 0 }}
                                     <p><span>WO Pending</span></p></h4>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                                 </div>
 
                                 <div class="col-auto">
-                                    <h4>{{ isset($woFtthMT->TotFtthMTCancel) ? $woFtthMT->TotFtthMTCancel : 0 }}
+                                    <h4>{{ isset($woFtthMT->TotFtthMTCancel) ? number_format($woFtthMT->TotFtthMTCancel) : 0 }}
                                     <p><span>WO Cancel</span></p></h4>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                     </div>
 
                     <div class="row">
-                        <h6><strong><span>Total {{ isset($woFtthDis->TotFtthDis) ? $woFtthDis->TotFtthDis : 0 }} WO</span></strong></h6>
+                        <h6><strong><span>Total {{ isset($woFtthDis->TotFtthDis) ? number_format($woFtthDis->TotFtthDis) : 0 }} WO</span></strong></h6>
                     </div>
                     <hr>
 
@@ -189,7 +189,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFtthDis->TotFtthDisDone) ? $woFtthDis->TotFtthDisDone : 0 }}
+                                    <h5>{{ isset($woFtthDis->TotFtthDisDone) ? number_format($woFtthDis->TotFtthDisDone) : 0 }}
                                     <p><small>WO Done</small></p></h5>
                                 </div>
                             </div>
@@ -202,7 +202,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFtthDis->TotFtthDisPending) ? $woFtthDis->TotFtthDisPending : 0 }}
+                                    <h5>{{ isset($woFtthDis->TotFtthDisPending) ? number_format($woFtthDis->TotFtthDisPending) : 0 }}
                                     <p><small>WO Pending</small></p</h5>
                                 </div>
                             </div>
@@ -215,7 +215,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFtthDis->TotFtthDisCancel) ? $woFtthDis->TotFtthDisCancel : 0 }}
+                                    <h5>{{ isset($woFtthDis->TotFtthDisCancel) ? number_format($woFtthDis->TotFtthDisCancel) : 0 }}
                                     <p><small>WO Cancel</small></p> </h5>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <a href="{{ route('reportDismantleFtth.index') }}" class="btn btn-warning btn-round">Show Report</a>
+                        <a href="{{ route('reportDismantleFtth.index') }}" class="btn btn-secondary btn-round">Show Report</a>
                     </div>
 
                 </div>
@@ -244,7 +244,7 @@
                     </div>
 
                     <div class="row">
-                        <h6><strong><span>Total {{ isset($woFttxIB->TotFttxIB) ? $woFttxIB->TotFttxIB : 0 }} WO</span></strong></h6>
+                        <h6><strong><span>Total {{ isset($woFttxIB->TotFttxIB) ? number_format($woFttxIB->TotFttxIB) : 0 }} WO</span></strong></h6>
                     </div>
                     <hr>
 
@@ -257,7 +257,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFttxIB->TotFttxIBDone) ? $woFttxIB->TotFttxIBDone : 0 }}
+                                    <h5>{{ isset($woFttxIB->TotFttxIBDone) ? number_format($woFttxIB->TotFttxIBDone) : 0 }}
                                     <p><small>WO Done</small></p> </h5>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFttxIB->TotFttxIBPending) ? $woFttxIB->TotFttxIBPending : 0 }}
+                                    <h5>{{ isset($woFttxIB->TotFttxIBPending) ? number_format($woFttxIB->TotFttxIBPending) : 0 }}
                                     <p><small>WO Pending</small></p> </h5>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFttxIB->TotFttxIBCancel) ? $woFttxIB->TotFttxIBCancel : 0 }}
+                                    <h5>{{ isset($woFttxIB->TotFttxIBCancel) ? number_format($woFttxIB->TotFttxIBCancel) : 0 }}
                                     <p><small>WO Cancel</small></p> </h5>
                                 </div>
                             </div>
@@ -312,7 +312,7 @@
                     </div>
 
                     <div class="row">
-                        <h6><strong><span>Total {{ isset($woFttxMT->TotFttxMT) ? $woFttxMT->TotFttxMT : 0 }} WO</span></strong></h6>
+                        <h6><strong><span>Total {{ isset($woFttxMT->TotFttxMT) ? number_format($woFttxMT->TotFttxMT) : 0 }} WO</span></strong></h6>
                     </div>
                     <hr>
 
@@ -325,7 +325,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFttxMT->TotFttxMTDone) ? $woFttxMT->TotFttxMTDone : 0 }}
+                                    <h5>{{ isset($woFttxMT->TotFttxMTDone) ? number_format($woFttxMT->TotFttxMTDone) : 0 }}
                                     <p><small>WO Done</small></p> </h5>
                                 </div>
                             </div>
@@ -338,7 +338,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFttxMT->TotFttxMTPending) ? $woFttxMT->TotFttxMTPending : 0 }}
+                                    <h5>{{ isset($woFttxMT->TotFttxMTPending) ? number_format($woFttxMT->TotFttxMTPending) : 0 }}
                                     <p><small>WO Pending</small></p> </h5>
                                 </div>
                             </div>
@@ -351,7 +351,7 @@
                                 </div>
 
                                 <div class="col-sm">
-                                    <h5>{{ isset($woFttxMT->TotFttxMTCancel) ? $woFttxMT->TotFttxMTCancel : 0 }}
+                                    <h5>{{ isset($woFttxMT->TotFttxMTCancel) ? number_format($woFttxMT->TotFttxMTCancel) : 0 }}
                                     <p><small>WO Cancel</small></p> </h5>
                                 </div>
                             </div>

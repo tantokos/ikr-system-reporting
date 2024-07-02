@@ -83,6 +83,8 @@ Route::group(
     ['middleware' => ['auth']],
     function () {
 
+        Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
+
         Route::get('reportDashboard',[Report_DashboardController::class, 'index'])->name('report.dashboard');
 
         //=====Start Import MT FTTH======//
@@ -112,6 +114,10 @@ Route::group(
         Route::get('/getRootCouseCancel', [ReportController::class, 'getRootCouseCancel'])->name('getRootCouseCancel');
         Route::get('/getRootCouseCancelGraph', [ReportController::class, 'getRootCouseCancelGraph'])->name('getRootCouseCancelGraph');
         Route::get('/getRootCouseAPK', [ReportController::class, 'getRootCouseAPK'])->name('getRootCouseAPK');
+
+        Route::get('/getDetailAPK', [ReportController::class, 'getDetailAPK'])->name('getDetailAPK');
+        Route::get('/dataDetailAPK', [ReportController::class, 'dataDetailAPK'])->name('dataDetailAPK');
+
         Route::get('/getRootCouseAPKGraph', [ReportController::class, 'getRootCouseAPKGraph'])->name('getRootCouseAPKGraph');
         Route::get('/getCancelSystemProblem', [ReportController::class, 'getCancelSystemProblem'])->name('getCancelSystemProblem');
         Route::get('/getAnalisPrecon', [ReportController::class, 'getAnalisPrecon'])->name('getAnalisPrecon');
