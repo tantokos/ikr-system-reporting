@@ -22,6 +22,7 @@ class DataFttxIbSortir extends Model
         'packages_type',
         'service_type',
         'slot_time',
+        'checkin_time',
         'teknisi1',
         'teknisi2',
         'teknisi3',
