@@ -18,6 +18,179 @@
     </div>
 
     <div class="row">
+        <div class="col-sm">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="row">
+                        <h6><span class="badge badge-primary">{{ isset($woFtthIB->MonthYearFtthIB) ? $woFtthIB->MonthYearFtthIB : '-' }}</span></h6>
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p><strong>WO FTTH New Installation & Additional Service STB</strong></p>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthIB->TotFtthIB) ? number_format($woFtthIB->TotFtthIB) : 0 }}
+                            <p><small>Total WO</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthIB->TotFtthIBDone) ? number_format($woFtthIB->TotFtthIBDone) : 0 }}
+                            <p><small>WO Done</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthIB->TotFtthIBPending) ? number_format($woFtthIB->TotFtthIBPending) : 0 }}
+                            <p><small>WO Pending</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthIB->TotFtthIBCancel) ? number_format($woFtthIB->TotFtthIBCancel) : 0 }}
+                            <p><small>WO Cancel</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <a href="{{ route('reportIBFtth.index') }}" class="btn btn-sm btn-primary btn-round"><small>Show Report</small></a>
+                        </div>
+                            <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p><strong>WO FTTH Maintenance</strong></p>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthMT->TotFtthMT) ? number_format($woFtthMT->TotFtthMT) : 0 }}
+                            <p><small>Total WO</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthMT->TotFtthMTDone) ? number_format($woFtthMT->TotFtthMTDone) : 0 }}
+                                <p><small>WO Done</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthMT->TotFtthMTPending) ? number_format($woFtthMT->TotFtthMTPending) : 0 }}
+                                <p><small>WO Pending</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthMT->TotFtthMTCancel) ? number_format($woFtthMT->TotFtthMTCancel) : 0 }}
+                            <p><small>WO Cancel</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <a href="{{ route('reportMtFtth.index') }}" class="btn btn-sm btn-primary btn-round"><small>Show Report</small></a>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p><strong>WO FTTH Dismantle</strong></p>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthDis->TotFtthDis) ? number_format($woFtthDis->TotFtthDis) : 0 }}
+                                <p><small>Total WO</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthDis->TotFtthDisDone) ? number_format($woFtthDis->TotFtthDisDone) : 0 }}
+                            <p><small>WO Done</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthDis->TotFtthDisPending) ? number_format($woFtthDis->TotFtthDisPending) : 0 }}
+                            <p><small>WO Pending</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFtthDis->TotFtthDisCancel) ? number_format($woFtthDis->TotFtthDisCancel) : 0 }}
+                            <p><small>WO Cancel</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <a href="{{ route('reportDismantleFtth.index') }}" class="btn btn-sm btn-primary btn-round"><small>Show Report</small></a>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p><strong>WO FTTX New Installation</strong></p>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxIB->TotFttxIB) ? number_format($woFttxIB->TotFttxIB) : 0 }}
+                            <p><small>Total WO</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxIB->TotFttxIBDone) ? number_format($woFttxIB->TotFttxIBDone) : 0 }}
+                            <p><small>WO Done</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxIB->TotFttxIBPending) ? number_format($woFttxIB->TotFttxIBPending) : 0 }}
+                            <p><small>WO Pending</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxIB->TotFttxIBCancel) ? number_format($woFttxIB->TotFttxIBCancel) : 0 }}
+                            <p><small>WO Cancel</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <a href="{{ route('reportIBFttx.index') }}" class="btn btn-sm btn-primary btn-round"><small>Show Report</small></a>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p><strong>WO FTTX Maintenance</strong></p>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxMT->TotFttxMT) ? number_format($woFttxMT->TotFttxMT) : 0 }}
+                            <p><small>Total WO</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxMT->TotFttxMTDone) ? number_format($woFttxMT->TotFttxMTDone) : 0 }}
+                            <p><small>WO Done</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxMT->TotFttxMTPending) ? number_format($woFttxMT->TotFttxMTPending) : 0 }}
+                            <p><small>WO Pending</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <h6>{{ isset($woFttxMT->TotFttxMTCancel) ? number_format($woFttxMT->TotFttxMTCancel) : 0 }}
+                            <p><small>WO Cancel</small></p> </h6>
+                        </div>
+
+                        <div class="col text-center">
+                            <a href="{{ route('reportMTFttx.index') }}" class="btn btn-sm btn-primary btn-round"><small>Show Report</small></a>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="row">
         <div class="col-sm-6">
             <div class="card bg-c-blue">
                 <div class="card-body">
@@ -82,7 +255,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <a href="{{ route('reportIBFtth.index') }}" class="btn btn-primary btn-round">Show Report</a>
+                        <a href="{{ route('reportIBFtth.index') }}" class="btn btn-sm btn-primary btn-round">Show Report</a>
                     </div>
 
                 </div>
@@ -366,7 +539,7 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 
     
 

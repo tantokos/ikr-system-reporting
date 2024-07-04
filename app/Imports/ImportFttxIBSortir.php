@@ -39,6 +39,7 @@ class ImportFttxIBSortir implements ToModel,WithHeadingRow, WithChunkReading
             'packages_type' => $row['packages_type'],
             'service_type' => $row['service_type'],
             'slot_time' => $row['slot_time'],
+            'checkin_time' => $row['checkin_time'],
             'teknisi1' => $row['teknisi1'],
             'teknisi2' => $row['teknisi2'],
             'teknisi3' => $row['teknisi3'],

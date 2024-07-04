@@ -738,7 +738,7 @@
         <div class="modal-dialog modal-lg mw-100 w-75" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Root Cause </h5>
+                    <h5 class="modal-title h5" id="myLargeModalLabel"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -1002,52 +1002,186 @@
             let detAPK = apk_id.split("|");
 
              
+            // RootCause APK
+            if(detAPK[0]=="rootCouseAPK"){
+                if(detAPK[1]=="penagihan") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
 
-            if(detAPK[0]=="penagihan") {
-                datafilter = {
-                        detKategori: detAPK[0], 
-                        detPenagihan: detAPK[1],
-                        detBulan: detAPK[2],
-                        detThn: detAPK[3],
-                        detSite: filSite,
-                        detBranch: filBranch,
-                        _token: _token
-                };
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+                if(detAPK[1]=="couse_code") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detCouse_code: detAPK[3],
+                            detBulan: detAPK[4],
+                            detThn: detAPK[5],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
 
-                detailTitle = detAPK[1];
-                detailSubTitle = '';
+                    detailTitle = detAPK[2];
+                    detailSubTitle = detAPK[3];
+                }
+                if(detAPK[1]=="root_couse") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detCouse_code: detAPK[3],
+                            detRoot_couse: detAPK[4],
+                            detBulan: detAPK[5],
+                            detThn: detAPK[6],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = detAPK[3] + " - " + detAPK[4];
+                }
             }
-            if(detAPK[0]=="couse_code") {
-                datafilter = {
-                        detKategori: detAPK[0], 
-                        detPenagihan: detAPK[1],
-                        detCouse_code: detAPK[2],
-                        detBulan: detAPK[3],
-                        detThn: detAPK[4],
-                        detSite: filSite,
-                        detBranch: filBranch,
-                        _token: _token
-                };
+            // End RootCause APK
 
-                detailTitle = detAPK[1];
-                detailSubTitle = detAPK[2];
-            }
-            if(detAPK[0]=="root_couse") {
-                datafilter = {
-                        detKategori: detAPK[0], 
-                        detPenagihan: detAPK[1],
-                        detCouse_code: detAPK[2],
-                        detRoot_couse: detAPK[3],
-                        detBulan: detAPK[4],
-                        detThn: detAPK[5],
-                        detSite: filSite,
-                        detBranch: filBranch,
-                        _token: _token
-                };
+            // Pending Detail
+            if(detAPK[0]=="pending"){
+                if(detAPK[1]=="penagihan") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
 
-                detailTitle = detAPK[1];
-                detailSubTitle = detAPK[2] + " - " + detAPK[3];
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                if(detAPK[1]=="total") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
             }
+            // end Pending Detail
+
+            // Cancel Detail
+            if(detAPK[0]=="cancel"){
+                if(detAPK[1]=="penagihan") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                if(detAPK[1]=="total") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+            }
+            // end Cancel Detail
+
+            // analisa Precon
+            if(detAPK[0]=="analisa_precon"){
+                if(detAPK[1]=="result") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1],
+                            detResult: detAPK[2], 
+                            // detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+                if(detAPK[1]=="penagihan") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1],
+                            detResult: detAPK[2], 
+                            detPenagihan: detAPK[3],
+                            // detCouse_code: detAPK[3],
+                            detBulan: detAPK[4],
+                            detThn: detAPK[5],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = detAPK[3];
+                }
+                if(detAPK[1]=="root_couse") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detResult: detAPK[2],
+                            detPenagihan: detAPK[3],
+                            // detCouse_code: detAPK[3],
+                            detRoot_couse: detAPK[4],
+                            detBulan: detAPK[5],
+                            detThn: detAPK[6],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = detAPK[3] + " - " + detAPK[4];
+                }
+            }
+            // End Analisa Precon
 
             bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
 
@@ -1094,7 +1228,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'Root Cause ' + detailTitle,
+                            text: detailTitle,
                             align: 'left'
                         },
                         subtitle: {
@@ -2627,6 +2761,7 @@
                     filterDateEnd: filPeriodeEnd
                 },
                 success: function(apk) {    
+                    // console.log(apk);
 
                     $('#rootCouseHeadAPK').find("th").remove();
                     $('#bodyRootCouseAPK').find("tr").remove();
@@ -2697,7 +2832,7 @@
 
                             tbPenagihanAPK = tbPenagihanAPK +
                                 `<td class="table-secondary" style="text-align: center; font-weight:bold" 
-                                ><span id="penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
+                                ><span id="rootCouseAPK|penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
 
                                 <td class="table-secondary" style="text-align: center; font-weight:bold">${itemPenagihan.persen[p].toLocaleString()}%</td>`;
 
@@ -2725,7 +2860,7 @@
                                     detailCel = `${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${(blnId + 1)}|${thnId}`;
                                     tbCouseCodeAPK = tbCouseCodeAPK + 
                                     `<td class="table-info" style="text-align: center" font-weight:bold">
-                                        <span id="couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
+                                        <span id="rootCouseAPK|couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
                                     <td class="table-info" style="text-align: center" font-weight:bold">${itemCouseCode.persen[cc].toLocaleString()}%</td>`;
 
                                     subtotalDT += Number(itemCouseCode.bulanan[cc]);
@@ -2754,7 +2889,7 @@
                                     
                                             tbRootCouseAPK = tbRootCouseAPK +
                                             `<td style="text-align: center" >
-                                                <span id="root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
+                                                <span id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
                                             <td style="text-align: center">${itemRootCouse.persen[rc].toLocaleString()}%</td>`;
 
                                             subtotalDT += Number(itemRootCouse.bulanan[rc]);
@@ -3101,6 +3236,10 @@
                     var TotPenagihanPending = [];
                     var TotRootDonePending = 0;
                     let tbRootCousePending;
+                    let blnId;
+                    let thnId;
+                    let detailCel;
+
                     let hdRootCousePending = `
                         <tr>
                                 <th>Status WO Pending</th>
@@ -3127,8 +3266,12 @@
                         subtotal=0
                         for (pn=0; pn<trendWoMt.length; pn++){
 
+                            blnId = new Date(trendWoMt[pn].bulan).getMonth();
+                            thnId = new Date(trendWoMt[pn].bulan).getFullYear();
+                            detailCel = `pending|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
                             tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulanan[pn].toLocaleString()}</td>
+                                    `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[pn].toLocaleString()}</td>
                                     <td style="text-align: center">${item.persen[pn].toLocaleString()} %</td>`;
 
                             subtotal += Number(item.bulanan[pn]);
@@ -3147,6 +3290,10 @@
                     subtotal=0;
                     for (p=0;p<trendWoMt.length; p++) {
                         TotPenagihanPending[p] = 0
+
+                        blnId = new Date(trendWoMt[p].bulan).getMonth();
+                        thnId = new Date(trendWoMt[p].bulan).getFullYear();
+                        detailCel = `pending|total|All|${(blnId + 1)}|${thnId}`;
                         
                         $.each(dataRootCousePending, function(key, iPenagihan) {
                             TotPenagihanPending[p] += Number(iPenagihan.bulanan[p]);
@@ -3154,7 +3301,7 @@
                         })
 
                         totRootPending = totRootPending + 
-                        `<th class="table-dark" style="text-align: center">${TotPenagihanPending[p].toLocaleString()}</th>
+                        `<th class="table-dark" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanPending[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
                     }
 
@@ -3328,6 +3475,9 @@
                     var TotPenagihanCancel = [];
                     var TotRootDoneCancel = 0;
                     let tbRootCouseCancel;
+                    let blnId;
+                    let thnId;
+                    let detailCel;
                     let hdRootCouseCancel = `
                         <tr>
                                 <th>Status WO Cancel</th>
@@ -3353,8 +3503,11 @@
                         
                         subtotal=0;
                         for (bln = 0; bln < trendWoMt.length; bln++) {
+                            blnId = new Date(trendWoMt[bln].bulan).getMonth();
+                            thnId = new Date(trendWoMt[bln].bulan).getFullYear();
+                            detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
                             tbRootCouseCancel = tbRootCouseCancel +
-                                `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
+                                `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${item.persen[bln].toLocaleString()} %</td>`;
 
                             subtotal += Number(item.bulanan[bln]);
@@ -3374,13 +3527,18 @@
                     subtotal=0;
                     for (p=0;p<trendWoMt.length; p++) {
                         TotPenagihanCancel[p] = 0
+
+                        blnId = new Date(trendWoMt[p].bulan).getMonth();
+                        thnId = new Date(trendWoMt[p].bulan).getFullYear();
+                        detailCel = `cancel|total|All|${(blnId + 1)}|${thnId}`;
+
                         $.each(dataRootCouseCancel, function(key, iPenagihan) {
                             TotPenagihanCancel[p] += Number(iPenagihan.bulanan[p]);
                             subtotal += Number(iPenagihan.bulanan[p]);
                         })
 
                         totRootCancel = totRootCancel + 
-                        `<th class="table-dark" style="text-align: center">${TotPenagihanCancel[p].toLocaleString()}</th>
+                        `<th class="table-dark" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanCancel[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
                     }
 
@@ -3644,6 +3802,9 @@
                     $('#analisHeadAPK').find("th").remove();
                     $('#analisAPK').find("tr").remove();
 
+                    let blnId;
+                    let thnId;
+                    let detailCel;
                     let TotPenagihan = [];
                     let TotMonthly = [];
                     let subtotal;
@@ -3674,13 +3835,18 @@
                         subtotal=0;
                         for (p=0;p<trendWoMt.length; p++) {
                             TotMonthly[p] = 0
+
+                            blnId = new Date(trendWoMt[p].bulan).getMonth();
+                            thnId = new Date(trendWoMt[p].bulan).getFullYear();
+                            detailCel = `analisa_precon|result|${itemPenagihan.result}|${(blnId + 1)}|${thnId}`;
+
                             $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
                                 TotMonthly[p] += Number(iPenagihan.bulanan[p]);
                                 
                             })
 
                             tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                `<th class="table-secondary" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
                                 <th class="table-secondary" style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                             subtotal+= Number(itemPenagihan.bulanan[p]);
@@ -3698,13 +3864,18 @@
                                 subtotal=0;
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
                                     TotMonthly[cc] = 0
+
+                                    blnId = new Date(trendWoMt[cc].bulan).getMonth();
+                                    thnId = new Date(trendWoMt[cc].bulan).getFullYear();
+                                    detailCel = `analisa_precon|penagihan|${itemPenagihan.result}|${itemCouseCode.penagihan}|${(blnId + 1)}|${thnId}`;
+
                                     $.each(apk.detCouseCodeSortir, function(key, iPenagihan) {
                                         TotMonthly[cc] += Number(iPenagihan.bulanan[cc]);
                                         
                                     })
 
                                     tbCouseCodeAPK = tbCouseCodeAPK + 
-                                        `<th class="table-info" style="text-align: center">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
+                                        `<th class="table-info" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
                                         <th class="table-info" style="text-align: center">${((itemCouseCode.bulanan[cc] * 100) / TotMonthly[cc]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                                     subtotal += Number(itemCouseCode.bulanan[cc]);
@@ -3732,6 +3903,11 @@
                                         for (rc = 0; rc < trendWoMt.length; rc++) {
 
                                             TotMonthly[rc] = 0
+
+                                            blnId = new Date(trendWoMt[rc].bulan).getMonth();
+                                            thnId = new Date(trendWoMt[rc].bulan).getFullYear();
+                                            detailCel = `analisa_precon|root_couse|${itemPenagihan.result}|${itemCouseCode.penagihan}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}`;
+
                                             $.each(apk.detRootCouseSortir, function(key, iPenagihan) {
                                                 TotMonthly[rc] += Number(iPenagihan.bulanan[rc]);
                                                 
@@ -3739,7 +3915,7 @@
 
 
                                             tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
+                                            `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
                                             <td style="text-align: center">${((itemRootCouse.bulanan[rc] * 100) / TotMonthly[rc]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                             subtotal += Number(itemRootCouse.bulanan[rc]);
