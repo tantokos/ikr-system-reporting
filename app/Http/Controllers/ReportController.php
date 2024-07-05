@@ -1332,7 +1332,7 @@ class ReportController extends Controller
             $detAPKBranch = DB::table('v_analis_precon')
                         ->select('branch', DB::raw('count(*) as total'))
                         ->whereMonth('mt_date',$request->detBulan)
-                        ->whereYear('mt_date','=', $request->detThn);
+                        ->whereYear('mt_date',$request->detThn);
 
             if($request->detSite != "All") {
                 $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
