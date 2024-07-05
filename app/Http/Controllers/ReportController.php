@@ -1356,15 +1356,15 @@ class ReportController extends Controller
             }
 
             if($request->detKategori == "result"){
-                $detAPKBranch=$detAPKBranch->whereRaw('result = ?' ,$request->detResult);
+                $detAPKBranch=$detAPKBranch->whereRaw('result = ?' ,[$request->detResult]);
             }
 
             if($request->detKategori == "penagihan"){
-                $detAPKBranch=$detAPKBranch->whereRaw('result = ?' ,$request->detResult)
+                $detAPKBranch=$detAPKBranch->whereRaw('result = ?' ,[$request->detResult])
                                             ->where('penagihan','=',$request->detPenagihan);
             }
             if($request->detKategori == "root_couse"){
-                $detAPKBranch=$detAPKBranch->whereRaw('result = ?' ,$request->detResult)
+                $detAPKBranch=$detAPKBranch->whereRaw('result = ?' ,[$request->detResult])
                                             ->where('penagihan','=',$request->detPenagihan)
                                             ->where('root_couse','=',$request->detRoot_couse);
             }
