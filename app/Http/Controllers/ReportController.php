@@ -1342,17 +1342,17 @@ class ReportController extends Controller
             }
 
             if($request->detKategori == "result"){
-                $detAPKBranch=$detAPKBranch->where('result','=',$request->detResult);
+                $detAPKBranch=$detAPKBranch->whereIn('result',[$request->detResult]);
             }
 
             if($request->detKategori == "penagihan"){
-                $detAPKBranch=$detAPKBranch->where('result','=',$request->detResult)
-                                            ->where('penagihan','=',$request->detPenagihan);
+                $detAPKBranch=$detAPKBranch->whereIn('result',[$request->detResult])
+                                            ->whereIn('penagihan',[$request->detPenagihan]);
             }
             if($request->detKategori == "root_couse"){
-                $detAPKBranch=$detAPKBranch->where('result','=',$request->detResult)
-                                            ->where('penagihan','=',$request->detPenagihan)
-                                            ->where('root_couse','=', $request->detRoot_couse);
+                $detAPKBranch=$detAPKBranch->whereIn('result',[$request->detResult])
+                                            ->whereIn('penagihan',[$request->detPenagihan])
+                                            ->whereIn('root_couse',[$request->detRoot_couse]);
             }
 
             $detAPKBranch=$detAPKBranch->groupBy('branch')->orderBy('total', 'DESC')->get();
