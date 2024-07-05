@@ -1188,6 +1188,7 @@
             bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
 
             $('#md-detail').modal('show');
+            $('#canvasDetailAPK').empty();
             event.stopPropagation()
 
             $.ajax({
