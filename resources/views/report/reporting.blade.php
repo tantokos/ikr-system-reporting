@@ -1052,6 +1052,8 @@
                     detailTitle = detAPK[2];
                     detailSubTitle = detAPK[3] + " - " + detAPK[4];
                 }
+
+                
             }
             // End RootCause APK
 
@@ -2842,8 +2844,11 @@
    
                         }
 
+                        detailCelDT = `rootCouseAPK|penagihan|${itemPenagihan.penagihan}|All|All`;
+
                         $('#bodyRootCouse').append(tbSumPenagihanAPK + `<td style="text-align: center">${subtotalSM.toLocaleString()}</td></tr>`);
-                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + `<th class="table-secondary" style="text-align: center">${subtotalDT.toLocaleString()}</th></tr>`);
+                        $('#bodyRootCouseAPK').append(tbPenagihanAPK + 
+                            `<th class="table-secondary" style="text-align: center" id="${detailCelDT}" onClick="det_click(this.id)">${subtotalDT.toLocaleString()}</th></tr>`);
 
 
                         $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
@@ -2866,7 +2871,10 @@
                                     subtotalDT += Number(itemCouseCode.bulanan[cc]);
                                 }
 
-                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + `<th class="table-info" style="text-align: center">${subtotalDT.toLocaleString()}</th></tr>`);
+                                detailCelDT = `rootCouseAPK|couse_code|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|All|All`;
+
+                                $('#bodyRootCouseAPK').append(tbCouseCodeAPK + 
+                                `<th class="table-info" style="text-align: center" id="${detailCelDT}" onClick="det_click(this.id)">${subtotalDT.toLocaleString()}</th></tr>`);
 
 
                                 $.each(apk.detRootCouseSortir, function(key,
@@ -2895,7 +2903,11 @@
                                             subtotalDT += Number(itemRootCouse.bulanan[rc]);
 
                                         }
-                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + `<td style="text-align: center">${subtotalDT.toLocaleString()}</td></tr>`);
+
+                                        detailCelDT = `rootCouseAPK|root_couse|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|All|All`;
+
+                                        $('#bodyRootCouseAPK').append(tbRootCouseAPK + 
+                                            `<td style="text-align: center" id="${detailCelDT}" onClick="det_click(this.id)">${subtotalDT.toLocaleString()}</td></tr>`);
                                     }
                                 });
                             }
@@ -2927,7 +2939,7 @@
                         })
 
                         totRootCouseAPK = totRootCouseAPK + 
-                        `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                        `<th class="table-dark" style="text-align: center" >${TotPenagihan[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
 
                         totSumRootCouseAPK = totSumRootCouseAPK + 
