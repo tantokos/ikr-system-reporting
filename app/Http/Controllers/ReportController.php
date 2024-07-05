@@ -1440,14 +1440,9 @@ class ReportController extends Controller
         }
 
         if($request->detSlide=="analisa_precon"){
-            $detAPK = DB::table('data_ftth_mt_sortirs as d')
-                    ->join('v_analis_precon as v', function($join){
-                        $join->on('d.no_wo','=','v.no_wo')
-                            ->on('d.penagihan','=','v.penagihan')
-                            ->on('d.root_couse','=','v.root_couse');
-                    })
-                    ->whereMonth('v.mt_date',$request->detBulan)
-                    ->whereYear('v.mt_date',$request->detThn);
+            $detAPK = DB::table('v_detail_analis_precon')
+                    ->whereMonth('tgl_ikr',$request->detBulan)
+                    ->whereYear('tgl_ikr',$request->detThn);
 
             if($request->detSite != "All") {
                 $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
@@ -1457,17 +1452,17 @@ class ReportController extends Controller
             }
 
             if($request->detKategori == "result"){
-                $detAPK=$detAPK->where('v.result','=',$request->detResult);
+                $detAPK=$detAPK->where('result','=',$request->detResult);
             }
             
             if($request->detKategori == "penagihan"){
-                $detAPK=$detAPK->where('v.result','=',$request->detResult)
-                                ->where('v.penagihan','=',$request->detPenagihan);
+                $detAPK=$detAPK->where('result','=',$request->detResult)
+                                ->where('penagihan','=',$request->detPenagihan);
             }
             if($request->detKategori == "root_couse"){
-                $detAPK=$detAPK->where('v.result','=',$request->detResult)
-                                ->where('v.penagihan','=',$request->detPenagihan)
-                                ->where('v.root_couse','=', $request->detRoot_couse);
+                $detAPK=$detAPK->where('result','=',$request->detResult)
+                                ->where('penagihan','=',$request->detPenagihan)
+                                ->where('root_couse','=', $request->detRoot_couse);
             }
             
             $detAPK=$detAPK->get();
