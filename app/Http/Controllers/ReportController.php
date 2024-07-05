@@ -1255,16 +1255,25 @@ class ReportController extends Controller
     {
         // dd($request->all());
         if($request->detSlide=="rootCouseAPK"){
+
             $detAPKBranch = DB::table('v_ftth_mt_rootcouse_done')
-                        ->select('branch', DB::raw('sum(total) as total'))->distinct()
-                        ->where('bulan','=', $request->detBulan)
-                        ->where('tahun','=', $request->detThn);
+                        ->select('branch', DB::raw('sum(total) as total'))->distinct();
+                        // ->where('bulan','=', $request->detBulan)
+                        // ->where('tahun','=', $request->detThn);
 
             if($request->detSite != "All") {
                 $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
             }
             if($request->detBranch != "All") {
                 $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detBulan != "All") {
+                $detAPKBranch=$detAPKBranch->where('bulan','=', $request->detBulan);
+            }
+
+            if($request->detThn != "All") {
+                $detAPKBranch=$detAPKBranch->where('tahun','=', $request->detThn);
             }
 
             if($request->detKategori == "penagihan"){
@@ -1280,7 +1289,7 @@ class ReportController extends Controller
                                             ->where('root_couse','=', $request->detRoot_couse);
             }
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+            $detAPKBranch=$detAPKBranch->groupBy('branch')->orderBy('total', 'DESC')->get();
 
         }
 
@@ -1342,7 +1351,7 @@ class ReportController extends Controller
             }
 
             if($request->detKategori == "result"){
-                $detAPKBranch=$detAPKBranch->whereIn('result',[$request->detResult]);
+                $detAPKBranch=$detAPKBranch->where('result','=',$request->detResult);
             }
 
             if($request->detKategori == "penagihan"){
@@ -1369,15 +1378,23 @@ class ReportController extends Controller
 
 
         if($request->detSlide=="rootCouseAPK"){
-            $detAPK = DB::table('data_ftth_mt_sortirs')
-                    ->whereMonth('tgl_ikr', '=',$request->detBulan)
-                    ->whereYear('tgl_ikr', '=',$request->detThn);
+            $detAPK = DB::table('data_ftth_mt_sortirs');
+                    // ->whereMonth('tgl_ikr', '=',$request->detBulan)
+                    // ->whereYear('tgl_ikr', '=',$request->detThn);
 
             if($request->detSite != "All") {
                 $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
             }
             if($request->detBranch != "All") {
                 $detAPK=$detAPK->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detBulan != "All") {
+                $detAPK=$detAPK->whereMonth('tgl_ikr', '=',$request->detBulan);
+            }
+
+            if($request->detThn != "All") {
+                $detAPK=$detAPK->whereYear('tgl_ikr', '=',$request->detThn);
             }
             
             if($request->detKategori == "penagihan"){
