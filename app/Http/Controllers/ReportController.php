@@ -1330,7 +1330,7 @@ class ReportController extends Controller
 
         if($request->detSlide=="analisa_precon"){
             $detAPKBranch = DB::table('v_analis_precon')
-                        ->select('branch', DB::raw('count(result) as total'))
+                        ->select('branch', DB::raw('count(*) as total'))
                         ->whereMonth('mt_date',$request->detBulan)
                         ->whereYear('mt_date','=', $request->detThn);
 
