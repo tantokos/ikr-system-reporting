@@ -1185,6 +1185,8 @@
 
                 
             }
+
+            console.log(datafilter);
             // End Analisa Precon
 
             bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
@@ -1233,7 +1235,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: detailTitle,
+                            text: detailTitle.replaceAll('_',' '),
                             align: 'left'
                         },
                         subtitle: {
@@ -3843,7 +3845,7 @@
                     $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
 
                         tbPenagihanAPK = `
-                                <tr class="table-secondary"><th>${itemPenagihan.result}</th>
+                                <tr class="table-secondary"><th>${itemPenagihan.result.replaceAll('_',' ')}</th>
                                 <th class="table-secondary"></th>
                                 <th class="table-secondary"></th>`;
                         
@@ -3853,7 +3855,7 @@
 
                             blnId = new Date(trendWoMt[p].bulan).getMonth();
                             thnId = new Date(trendWoMt[p].bulan).getFullYear();
-                            detailCel = `analisa_precon|result|${itemPenagihan.result}|${(blnId + 1)}|${thnId}`;
+                            detailCel = `analisa_precon|result|${itemPenagihan.result.replaceAll(' ','_')}|${(blnId + 1)}|${thnId}`;
 
                             $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
                                 TotMonthly[p] += Number(iPenagihan.bulanan[p]);
@@ -3882,7 +3884,7 @@
 
                                     blnId = new Date(trendWoMt[cc].bulan).getMonth();
                                     thnId = new Date(trendWoMt[cc].bulan).getFullYear();
-                                    detailCel = `analisa_precon|penagihan|${itemPenagihan.result}|${itemCouseCode.penagihan}|${(blnId + 1)}|${thnId}`;
+                                    detailCel = `analisa_precon|penagihan|${itemPenagihan.result.replaceAll(' ','_')}|${itemCouseCode.penagihan}|${(blnId + 1)}|${thnId}`;
 
                                     $.each(apk.detCouseCodeSortir, function(key, iPenagihan) {
                                         TotMonthly[cc] += Number(iPenagihan.bulanan[cc]);
@@ -3921,7 +3923,7 @@
 
                                             blnId = new Date(trendWoMt[rc].bulan).getMonth();
                                             thnId = new Date(trendWoMt[rc].bulan).getFullYear();
-                                            detailCel = `analisa_precon|root_couse|${itemPenagihan.result}|${itemCouseCode.penagihan}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}`;
+                                            detailCel = `analisa_precon|root_couse|${itemPenagihan.result.replaceAll(' ','_')}|${itemCouseCode.penagihan}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}`;
 
                                             $.each(apk.detRootCouseSortir, function(key, iPenagihan) {
                                                 TotMonthly[rc] += Number(iPenagihan.bulanan[rc]);
