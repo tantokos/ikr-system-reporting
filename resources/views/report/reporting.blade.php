@@ -2848,7 +2848,7 @@
 
                         $('#bodyRootCouse').append(tbSumPenagihanAPK + `<td style="text-align: center">${subtotalSM.toLocaleString()}</td></tr>`);
                         $('#bodyRootCouseAPK').append(tbPenagihanAPK + 
-                            `<th class="table-secondary" style="text-align: center" id="${detailCelDT}" onClick="det_click(this.id)">${subtotalDT.toLocaleString()}</th></tr>`);
+                            `<th class="table-secondary" style="text-align: center" id="${detailCelDT}" >${subtotalDT.toLocaleString()}</th></tr>`);
 
 
                         $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
@@ -2874,7 +2874,7 @@
                                 detailCelDT = `rootCouseAPK|couse_code|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|All|All`;
 
                                 $('#bodyRootCouseAPK').append(tbCouseCodeAPK + 
-                                `<th class="table-info" style="text-align: center" id="${detailCelDT}" onClick="det_click(this.id)">${subtotalDT.toLocaleString()}</th></tr>`);
+                                `<th class="table-info" style="text-align: center" id="${detailCelDT}">${subtotalDT.toLocaleString()}</th></tr>`);
 
 
                                 $.each(apk.detRootCouseSortir, function(key,
@@ -2907,7 +2907,7 @@
                                         detailCelDT = `rootCouseAPK|root_couse|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|All|All`;
 
                                         $('#bodyRootCouseAPK').append(tbRootCouseAPK + 
-                                            `<td style="text-align: center" id="${detailCelDT}" onClick="det_click(this.id)">${subtotalDT.toLocaleString()}</td></tr>`);
+                                            `<td style="text-align: center" id="${detailCelDT}">${subtotalDT.toLocaleString()}</td></tr>`);
                                     }
                                 });
                             }
