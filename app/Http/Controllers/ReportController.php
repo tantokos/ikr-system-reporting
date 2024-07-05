@@ -1342,6 +1342,11 @@ class ReportController extends Controller
                         ->select(DB::raw('branch, count(*) as total'))
                         ->whereMonth('mt_date',$request->detBulan)
                         ->whereYear('mt_date',$request->detThn);
+            
+            // $result = $request->detResult;
+
+            $filResult = urldecode($request->detResult);
+            // dd($filResult);
 
             if($request->detSite != "All") {
                 $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
@@ -1351,15 +1356,15 @@ class ReportController extends Controller
             }
 
             if($request->detKategori == "result"){
-                $detAPKBranch=$detAPKBranch->where('result','=',$request->detResult);
+                $detAPKBranch=$detAPKBranch->where('result','=',$filResult);
             }
 
             if($request->detKategori == "penagihan"){
-                $detAPKBranch=$detAPKBranch->whereIn('result',[$request->detResult])
+                $detAPKBranch=$detAPKBranch->whereIn('result',[$filResult])
                                             ->whereIn('penagihan',[$request->detPenagihan]);
             }
             if($request->detKategori == "root_couse"){
-                $detAPKBranch=$detAPKBranch->whereIn('result',[$request->detResult])
+                $detAPKBranch=$detAPKBranch->whereIn('result',[$filResult])
                                             ->whereIn('penagihan',[$request->detPenagihan])
                                             ->whereIn('root_couse',[$request->detRoot_couse]);
             }
@@ -1376,7 +1381,7 @@ class ReportController extends Controller
     {
         ini_set('max_execution_time', 900);
         ini_set('memory_limit', '2048M');
-        
+
         $akses = Auth::user()->name;
 
 

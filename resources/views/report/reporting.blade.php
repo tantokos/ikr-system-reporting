@@ -1182,6 +1182,8 @@
                     detailTitle = detAPK[2];
                     detailSubTitle = detAPK[3] + " - " + detAPK[4];
                 }
+
+                
             }
             // End Analisa Precon
 
