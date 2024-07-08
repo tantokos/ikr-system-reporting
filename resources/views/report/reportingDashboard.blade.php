@@ -23,7 +23,7 @@
         <div class="col-sm">
             <div class="card bg-light">
                 <div class="card-header text-center" style="background: linear-gradient(to right, #0071f3, #15559e)">
-                    <h5 class="text-white">Month Report :  {{ isset($month->monthYear) ? $month->monthYear : '-' }}</h5>
+                    <h4 class="text-white">Month Report :  {{ isset($month->monthYear) ? $month->monthYear : '-' }}</h4>
                 </div>
 
                     <div class="card-body">
