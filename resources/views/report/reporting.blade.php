@@ -1185,8 +1185,6 @@
 
                 
             }
-
-            console.log(datafilter);
             // End Analisa Precon
 
             bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
@@ -3972,5 +3970,18 @@
             });
 
         });
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let blnDashboard = urlParams.get('dashBoard');
+
+        if (blnDashboard != null){
+
+            document.getElementById('bulanReport').value= blnDashboard;
+
+            $('#bulanReport').change();
+            $('#filterDashBoard').click();
+        
+        }
     </script>
 @endsection
