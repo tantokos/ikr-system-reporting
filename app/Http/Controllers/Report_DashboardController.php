@@ -12,7 +12,18 @@ class Report_DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
+        $detailDash =[];
+
+        $monthYearReport = DB::table('v_report_dashboard')
+                    ->select('monthYear','bulan','tahun')
+                    ->groupBy('monthYear','bulan','tahun')->get();
+
+        $dataMonthlyReport = DB::table('v_report_dashboard')
+                    ->select('monthYear','bulan','tahun','type','total_wo','total_done','total_pending','total_cancel')
+                    ->get();
+
+
         $MaxFtthIB = DB::table('data_ftth_ib_sortirs')
                     ->select(DB::raw('max(month(tgl_ikr)) as maxMonth, max(year(tgl_ikr)) as maxYear'))
                     ->first();
@@ -33,6 +44,23 @@ class Report_DashboardController extends Controller
                     ->select(DB::raw('max(month(mt_date)) as maxMonth, max(year(mt_date)) as maxYear'))
                     ->first();
 
+
+        
+
+        // for ($x=0; $x < $monthYearReport->count(); $x++) {
+
+        //     $detailDash[$x] = $monthYearReport[$x]->monthYear;
+
+        //     for($t=0; $t < $dataMonthlyReport->count(); $t++){
+
+        //         if($monthYearReport[$x]->monthYear == $dataMonthlyReport[$t]->monthYear){
+        //             // $detailDash[$x] = ['type_wo' => 'satu'];
+        //         }
+        //     }
+
+        // }
+
+        // dd($detailDash, $dataMonthlyReport[0]);
 
         $woFtthIB = DB::table('data_ftth_ib_sortirs')
             ->select(DB::raw('date_format(tgl_ikr,"%b-%Y") as MonthYearFtthIB, 

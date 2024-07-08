@@ -93,63 +93,66 @@ class Report_FttxMTController extends Controller
                     ->join('data_fttx_mt_sortirs as d', 'b.nama_branch','=','d.branch')
                     ->select('b.id', 'b.nama_branch')
                     ->whereNotIn('b.nama_branch',['Apartemen', 'underground'])
+                    ->whereMonth('mt_date',$bulan)
+                    ->whereYear('mt_date',$tahun)
                     ->distinct()
                     ->orderBy('b.id')->get();
+
         
         for ($b = 0; $b < $branchPenagihan->count(); $b++) {
-            if ($branchPenagihan[$b]->nama_branch == "Apartemen") {
-                $totWo = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->count();
-                $totWoDone = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->where('status_wo', '=', 'Done')->count();
-                $totWoPending = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
-                $totWoCancel = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
+            // if ($branchPenagihan[$b]->nama_branch == "Apartemen") {
+            //     $totWo = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->count();
+            //     $totWoDone = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->where('status_wo', '=', 'Done')->count();
+            //     $totWoPending = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
+            //     $totWoCancel = DataFttxMtSortir::where('site_penagihan', '=', 'Apartemen')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
                     
-                $branchPenagihan[$b]->total = $totWo;
-                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
-                $branchPenagihan[$b]->done = $totWoDone;
-                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$b]->pending = $totWoPending;
-                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$b]->cancel = $totWoCancel;
-                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
-            } elseif ($branchPenagihan[$b]->nama_branch == "Underground") {
-                $totWo = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->count();
-                $totWoDone = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->where('status_wo', '=', 'Done')->count();
-                $totWoPending = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
-                $totWoCancel = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
-                    ->whereMonth('mt_date', $bulan)
-                    ->whereYear('mt_date', $tahun)
-                    ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
+            //     $branchPenagihan[$b]->total = $totWo;
+            //     $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
+            //     $branchPenagihan[$b]->done = $totWoDone;
+            //     $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
+            //     $branchPenagihan[$b]->pending = $totWoPending;
+            //     $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
+            //     $branchPenagihan[$b]->cancel = $totWoCancel;
+            //     $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+            // } elseif ($branchPenagihan[$b]->nama_branch == "Underground") {
+            //     $totWo = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->count();
+            //     $totWoDone = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->where('status_wo', '=', 'Done')->count();
+            //     $totWoPending = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
+            //     $totWoCancel = DataFttxMtSortir::where('site_penagihan', '=', 'Underground')
+            //         ->whereMonth('mt_date', $bulan)
+            //         ->whereYear('mt_date', $tahun)
+            //         ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
-                $branchPenagihan[$b]->total = $totWo;
-                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
-                $branchPenagihan[$b]->done = $totWoDone;
-                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$b]->pending = $totWoPending;
-                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$b]->cancel = $totWoCancel;
-                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
-            } //elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground")) {
+            //     $branchPenagihan[$b]->total = $totWo;
+            //     $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
+            //     $branchPenagihan[$b]->done = $totWoDone;
+            //     $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
+            //     $branchPenagihan[$b]->pending = $totWoPending;
+            //     $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
+            //     $branchPenagihan[$b]->cancel = $totWoCancel;
+            //     $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+            // } //elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground")) {
                 // $totWo = DataFttxMtSortir::where('site_penagihan', '=', 'Retail')->where('branch', '=', $branchPenagihan[$b]->nama_branch)
                 //     ->whereMonth('mt_date', $bulan)->whereYear('mt_date', $tahun)->whereBetween(DB::raw('day(mt_date)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                 //     ->select('status_wo')->count();
@@ -189,7 +192,7 @@ class Report_FttxMTController extends Controller
                     // ->whereBetween(DB::raw('day(mt_date)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
-                
+                // dump($branchPenagihan[$b]);
                 $branchPenagihan[$b]->total = $totWo;
                 $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
                 $branchPenagihan[$b]->done = $totWoDone;
