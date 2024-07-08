@@ -2165,5 +2165,18 @@
             });
 
         });
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let blnDashboard = urlParams.get('dashBoard');
+
+        if (blnDashboard != null){
+
+            document.getElementById('bulanReport').value= blnDashboard;
+
+            $('#bulanReport').change();
+            $('#filterDashBoard').click();
+        
+        }
     </script>
 @endsection

@@ -15,8 +15,9 @@ class Report_IBController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->dashBoard);
         $akses = Auth::user()->name;
 
         $branchPenagihan = DB::table('branches as b')->Join('data_ftth_ib_sortirs as d', 'b.nama_branch', '=', 'd.branch')
@@ -39,7 +40,7 @@ class Report_IBController extends Controller
             'report.reportingFtthIB',
             [
                 'trendMonthly' => $trendMonthly, 'branches' => $branchPenagihan, 
-                'kota_penagihan' => $kotamadyaPenagihan,
+                'kota_penagihan' => $kotamadyaPenagihan, 'dashBoard' => $request->dashBoard
                 // 'detPenagihanSortir' => $detPenagihanSortir, 'detCouseCodeSortir' => $detCouseCodeSortir,
                 // 'detRootCouseSortir' => $detRootCouseSortir
             ]

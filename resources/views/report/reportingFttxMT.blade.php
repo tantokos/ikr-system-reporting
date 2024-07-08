@@ -553,7 +553,6 @@
                 success: function(filterBranch) {
                     $('#kotamadya').find("option").remove();
 
-                    console.log(filterBranch);
                     $('#kotamadya').append(`
                         <option value="All">All</option>
                     `);
@@ -1540,7 +1539,6 @@
                 },
                 success: function(data) {
                     // var day = new Date(tahun, bulan, 0).getDate();
-                    console.log(data);
                     var dayGraph = [];
                     var nameGraph = [];
                     var nameDataGraph = [];
@@ -1896,7 +1894,6 @@
                 },
                 success: function(dataRootCousePending) {
 
-                    console.log(dataRootCousePending);
                     $('#rootCouseHeadPending').find("tr").remove();
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
@@ -2211,5 +2208,18 @@
             });      
 
         });
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let blnDashboard = urlParams.get('dashBoard');
+
+        if (blnDashboard != null){
+
+            document.getElementById('bulanReport').value= blnDashboard;
+
+            $('#bulanReport').change();
+            $('#filterDashBoard').click();
+        
+        }
     </script>
 @endsection

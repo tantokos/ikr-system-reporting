@@ -580,8 +580,6 @@
             }
         });
 
-
-
         $(document).on('change', '#bulanReport', function() {
             bln = new Date($(this).val()).getMonth();
             thn = new Date($(this).val()).getFullYear();
@@ -594,7 +592,7 @@
 
         });
 
-
+        
         $(document).on('change', '#branch', function() {
             let filBranch = $(this).val()
 
@@ -2416,5 +2414,20 @@
 
 
         });
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let blnDashboard = urlParams.get('dashBoard');
+
+        if (blnDashboard != null){
+
+        document.getElementById('bulanReport').value= blnDashboard;
+
+        $('#bulanReport').change();
+        $('#filterDashBoard').click();
+
+        
+        }
+
     </script>
 @endsection

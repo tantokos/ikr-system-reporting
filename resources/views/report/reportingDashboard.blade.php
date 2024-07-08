@@ -17,6 +17,61 @@
         </div>
     </div>
 
+    @foreach ( $monthYear as $month )
+        
+    <div class="row">
+        <div class="col-sm">
+            <div class="card bg-light">
+                <div class="card-header text-center" style="background: linear-gradient(to right, #0071f3, #15559e)">
+                    <h5 class="text-white">Month Report :  {{ isset($month->monthYear) ? $month->monthYear : '-' }}</h5>
+                </div>
+
+                    <div class="card-body">
+                        @foreach ( $dataMonthly as $data )
+                            
+                        @if($month->monthYear == $data->monthYear)
+                        <div class="row">
+                            <div class="col">
+                                <p>{{ isset($data->type_segment) ? $data->type_segment : '-' }}</p>
+                            </div>
+
+                            <div class="col text-center">
+                                <h6>{{ isset($data->total_wo) ? number_format($data->total_wo) : 0 }}
+                                <p><small>Total WO</small></p> </h6>
+                            </div>
+
+                            <div class="col text-center">
+                                <h6>{{ isset($data->total_done) ? number_format($data->total_done) : 0 }}
+                                <p><small>WO Done</small></p> </h6>
+                            </div>
+
+                            <div class="col text-center">
+                                <h6>{{ isset($data->total_pending) ? number_format($data->total_pending) : 0 }}
+                                <p><small>WO Pending</small></p> </h6>
+                            </div>
+
+                            <div class="col text-center">
+                                <h6>{{ isset($data->total_cancel) ? number_format($data->total_cancel) : 0 }}
+                                <p><small>WO Cancel</small></p> </h6>
+                            </div>
+
+                            <div class="col text-center">
+                                <a href="{{ route($data->rlink, 'dashBoard='.$data->monthYear.'') }}" class="btn btn-sm btn-primary btn-round"><small>Show Report</small></a>
+                            </div>
+                                <hr>
+                        </div>
+                        @endif
+
+                        @endforeach
+
+                        
+
+                    </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+
     <div class="row">
         <div class="col-sm">
             <div class="card bg-light">

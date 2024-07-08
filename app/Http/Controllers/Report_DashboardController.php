@@ -20,9 +20,10 @@ class Report_DashboardController extends Controller
                     ->groupBy('monthYear','bulan','tahun')->get();
 
         $dataMonthlyReport = DB::table('v_report_dashboard')
-                    ->select('monthYear','bulan','tahun','type','total_wo','total_done','total_pending','total_cancel')
+                    ->select('monthYear','bulan','tahun','type','type_segment','rlink','total_wo','total_done','total_pending','total_cancel')
                     ->get();
 
+        // dd($monthYearReport, $dataMonthlyReport);
 
         $MaxFtthIB = DB::table('data_ftth_ib_sortirs')
                     ->select(DB::raw('max(month(tgl_ikr)) as maxMonth, max(year(tgl_ikr)) as maxYear'))
@@ -45,23 +46,6 @@ class Report_DashboardController extends Controller
                     ->first();
 
 
-        
-
-        // for ($x=0; $x < $monthYearReport->count(); $x++) {
-
-        //     $detailDash[$x] = $monthYearReport[$x]->monthYear;
-
-        //     for($t=0; $t < $dataMonthlyReport->count(); $t++){
-
-        //         if($monthYearReport[$x]->monthYear == $dataMonthlyReport[$t]->monthYear){
-        //             // $detailDash[$x] = ['type_wo' => 'satu'];
-        //         }
-        //     }
-
-        // }
-
-        // dd($detailDash, $dataMonthlyReport[0]);
-
         $woFtthIB = DB::table('data_ftth_ib_sortirs')
             ->select(DB::raw('date_format(tgl_ikr,"%b-%Y") as MonthYearFtthIB, 
                             count(*) as TotFtthIB,
@@ -72,8 +56,6 @@ class Report_DashboardController extends Controller
             ->whereYear('tgl_ikr','=',$MaxFtthIB->maxYear)
             ->groupBy('MonthYearFtthIB')
             ->first();
-
-        // dd($woFtthIB->TotFtthIB);
 
         $woFtthMT = DB::table('data_ftth_mt_sortirs')
             ->select(DB::raw('date_format(tgl_ikr,"%b-%Y") as MonthYearFtthMT, 
@@ -123,7 +105,7 @@ class Report_DashboardController extends Controller
         return view('report.reportingDashboard',[
                 'woFtthIB' => $woFtthIB, 'woFtthMT' => $woFtthMT,
                 'woFtthDis' => $woFtthDis, 'woFttxIB' => $woFttxIB,
-                'woFttxMT' => $woFttxMT]);
+                'woFttxMT' => $woFttxMT, 'monthYear' => $monthYearReport, 'dataMonthly' => $dataMonthlyReport]);
     }
 
     /**
