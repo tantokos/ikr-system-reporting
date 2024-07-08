@@ -72,7 +72,7 @@
     </div>
     @endforeach
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm">
             <div class="card bg-light">
                 <div class="card-header text-center" style="background: linear-gradient(to right, #0071f3, #15559e)">
@@ -243,7 +243,7 @@
                     </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- <div class="row">
         <div class="col-sm-6">
