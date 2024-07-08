@@ -17,10 +17,15 @@ class Report_DashboardController extends Controller
 
         $monthYearReport = DB::table('v_report_dashboard')
                     ->select('monthYear','bulan','tahun')
-                    ->groupBy('monthYear','bulan','tahun')->get();
+                    ->groupBy('monthYear','bulan','tahun')
+                    ->orderBy('tahun')
+                    ->orderBy('bulan', 'DESC')
+                    ->get();
 
         $dataMonthlyReport = DB::table('v_report_dashboard')
                     ->select('monthYear','bulan','tahun','type','type_segment','rlink','total_wo','total_done','total_pending','total_cancel')
+                    ->orderBy('tahun')
+                    ->orderBy('bulan', 'DESC')
                     ->get();
 
         // dd($monthYearReport, $dataMonthlyReport);
