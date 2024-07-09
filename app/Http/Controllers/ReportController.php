@@ -1361,11 +1361,11 @@ class ReportController extends Controller
             }
 
             if($request->detKategori == "penagihan"){
-                $detAPKBranch=$detAPKBranch->where('result', '=' ,$request->detResult)
+                $detAPKBranch=$detAPKBranch->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
                                             ->where('penagihan','=',$request->detPenagihan);
             }
             if($request->detKategori == "root_couse"){
-                $detAPKBranch=$detAPKBranch->where('result', '=' ,$request->detResult)
+                $detAPKBranch=$detAPKBranch->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
                                             ->where('penagihan','=',$request->detPenagihan)
                                             ->where('root_couse','=',$request->detRoot_couse);
             }
@@ -1478,15 +1478,15 @@ class ReportController extends Controller
             }
 
             if($request->detKategori == "result"){
-                $detAPK=$detAPK->where('result','=',$request->detResult);
+                $detAPK=$detAPK->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci');
             }
             
             if($request->detKategori == "penagihan"){
-                $detAPK=$detAPK->where('result','=',$request->detResult)
+                $detAPK=$detAPK->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
                                 ->where('penagihan','=',$request->detPenagihan);
             }
             if($request->detKategori == "root_couse"){
-                $detAPK=$detAPK->where('result','=',$request->detResult)
+                $detAPK=$detAPK->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
                                 ->where('penagihan','=',$request->detPenagihan)
                                 ->where('root_couse','=', $request->detRoot_couse);
             }
