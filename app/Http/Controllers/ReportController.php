@@ -1357,7 +1357,7 @@ class ReportController extends Controller
 
 
             if($request->detKategori == "result"){
-                $detAPKBranch=$detAPKBranch->where('result', '=' ,$request->detResult);
+                $detAPKBranch=$detAPKBranch->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci');
             }
 
             if($request->detKategori == "penagihan"){
