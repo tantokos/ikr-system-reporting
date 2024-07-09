@@ -3882,7 +3882,7 @@
 
                                     blnId = new Date(trendWoMt[cc].bulan).getMonth();
                                     thnId = new Date(trendWoMt[cc].bulan).getFullYear();
-                                    detailCel = `"analisa_precon"|"penagihan"|"${itemPenagihan.result}"|"${itemCouseCode.penagihan}"|${(blnId + 1)}|${thnId}`;
+                                    detailCel = `analisa_precon|penagihan|${itemPenagihan.result}|${itemCouseCode.penagihan}|${(blnId + 1)}|${thnId}`;
 
                                     $.each(apk.detCouseCodeSortir, function(key, iPenagihan) {
                                         TotMonthly[cc] += Number(iPenagihan.bulanan[cc]);

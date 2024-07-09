@@ -15,6 +15,7 @@ use App\Http\Controllers\DashWoController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDashController;
 use App\Http\Controllers\FatController;
+use App\Http\Controllers\Import_AbsensiController;
 use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\ImportFtthDismantleTempController;
 use App\Http\Controllers\ImportFtthIbSortirController;
@@ -300,5 +301,10 @@ Route::group(
      Route::get('/getClusterBranchIBFttx', [Report_FttxIBController::class, 'getClusterBranchIBFttx'])->name('getClusterBranchIBFttx');
 
     //====End Report FTTX IB====//
+
+    //====Start Import Absensi===//
+    
+    Route::get('/importAbsensi', [Import_AbsensiController::class, 'index'])->name('importAbsensi.index');
+    
     }
 );
