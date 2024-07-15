@@ -31,7 +31,7 @@
                             
                         @if($month->monthYear == $data->monthYear)
                         <div class="row">
-                            <div class="col">
+                            <div class="col-sm-4">
                                 <p>{{ isset($data->type_segment) ? $data->type_segment : '-' }}</p>
                             </div>
 
@@ -58,13 +58,19 @@
                             <div class="col text-center">
                                 <a href="{{ route($data->rlink, 'dashBoard='.$data->monthYear.'') }}" class="btn btn-sm btn-primary btn-round"><small>Show Report</small></a>
                             </div>
+
+                            <div class="col text-center">
+                                <a href="{{ route('exportData', 'data=sortir&type_wo='.$data->type.'&month='.$month->bulan.'&year='.$month->tahun.'&monthYear='.$month->monthYear.'') }}" class="btn btn-sm btn-info btn-round"><small>Download Data Sortir</small></a>
+                            </div>
+
+                            <div class="col text-center">
+                                <a href="{{ route('exportData', 'data=ori&type_wo='.$data->type.'&month='.$month->bulan.'&year='.$month->tahun.'&monthYear='.$month->monthYear.'') }}" class="btn btn-sm btn-secondary btn-round"><small>Download Data Ori</small></a>
+                            </div>
                                 <hr>
                         </div>
                         @endif
 
                         @endforeach
-
-                        
 
                     </div>
             </div>
