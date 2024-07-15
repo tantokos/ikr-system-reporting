@@ -14,6 +14,7 @@ use App\Http\Controllers\CallsignTimController;
 use App\Http\Controllers\DashWoController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDashController;
+use App\Http\Controllers\Export_FtthIBController;
 use App\Http\Controllers\FatController;
 use App\Http\Controllers\Import_AbsensiController;
 use App\Http\Controllers\ImportexcelController;
@@ -323,6 +324,12 @@ Route::group(
     Route::get('/dataDetailFAT', [Report_FATController::class, 'dataDetailFAT'])->name('dataDetailFAT');
 
     //===End Report FAT===//
+
+    //===Start Download Export===//
+
+    Route::get('/exportData',[Export_FtthIBController::class, 'export'])->name('exportData');
+
+    //===End Download Export===//
     
     }
 

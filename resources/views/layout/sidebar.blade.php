@@ -97,7 +97,30 @@
         </li>
     </ul>
 
-    
+    {{-- <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li
+            class="pcoded-hasmenu pcoded-trigger {{ request()->is('download*') ? 'active' : '' }}">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
+                <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Download Data</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+
+            <ul class="pcoded-submenu">
+                
+                <li class="{{ request()->is('importftthIBtem*') ? 'active' : '' }}">
+                    <a href="{{ route('import.ftthIBtempIndex') }}"> 
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Data Ftth IB</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+    </ul> --}}
+
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
     <ul class="pcoded-item pcoded-left-item">
         <li
