@@ -89,8 +89,10 @@ class ImportFttxMT implements ToModel,WithHeadingRow, WithChunkReading
             'paku_beton' => $row['paku_beton'],
             'splitter' => $row['splitter'],
             'status_wo' => $row['status_wo'],
+            'couse_code' => $row['couse_code'],
             'root_couse' => $row['root_couse'],
             'action_taken' => $row['action_taken'],
+            'penagihan' => $row['penagihan'],
             'remarks' => $row['remarks'],
             'login' => $this->login
         ]);

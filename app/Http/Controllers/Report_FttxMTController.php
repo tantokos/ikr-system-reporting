@@ -496,8 +496,20 @@ class Report_FttxMTController extends Controller
                             ->where('status','=', 'Done')
                             ->groupBy('id','penagihan');
 
+        $CouseCodeSortir = DB::table('v_fttx_mt')
+                            ->select('id','penagihan','couse_code')
+                            ->where('status','=', 'Done')
+                            ->groupBy('id','penagihan','couse_code');
+
+        $RootCouseSortir = DB::table('v_fttx_mt')
+                            ->select('id','penagihan','couse_code','root_couse')
+                            ->where('status','=', 'Done')
+                            ->groupBy('id','penagihan','couse_code','root_couse');
+
         if ($request->filterBranch != "All") {
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
+            $CouseCodeSortir = $CouseCodeSortir->where('branch', '=', $request->filterBranch);
+            $RootCouseSortir = $RootCouseSortir->where('branch', '=', $request->filterBranch);
         }
 
         for ($tb =0; $tb < count($trendBulanan); $tb++) {
@@ -507,11 +519,19 @@ class Report_FttxMTController extends Controller
 
             $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
             $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Done' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
+            $CouseCodeSortir = $CouseCodeSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $CouseCodeSortir = $CouseCodeSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Done' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
+            $RootCouseSortir = $RootCouseSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $RootCouseSortir = $RootCouseSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Done' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
         }
 
         $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
 
         $PenagihanSortir = $PenagihanSortir->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+        $CouseCodeSortir = $CouseCodeSortir->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+        $RootCouseSortir = $RootCouseSortir->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
 
         
         for ($ps = 0; $ps < count($PenagihanSortir); $ps++) {
@@ -530,7 +550,166 @@ class Report_FttxMTController extends Controller
             }
         }
 
-        return response()->json($detPenagihanSortir);
+        for ($ps = 0; $ps < count($CouseCodeSortir); $ps++) {
+
+            $detCouseCodeSortir[$ps]['penagihan'] = $CouseCodeSortir[$ps]->penagihan;
+            for ($m = 0; $m < count($trendBulanan); $m++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
+                $persenBln = "persen_".$blnThn;
+                
+
+                $detCouseCodeSortir[$ps]['bulanan'][$m] = [(int)$CouseCodeSortir[$ps]->$blnThn];
+                $detCouseCodeSortir[$ps]['persen'][$m] = [round($CouseCodeSortir[$ps]->$persenBln, 1)];
+
+            }
+        }
+
+        for ($ps = 0; $ps < count($RootCouseSortir); $ps++) {
+
+            $detRootCouseSortir[$ps]['penagihan'] = $RootCouseSortir[$ps]->penagihan;
+            for ($m = 0; $m < count($trendBulanan); $m++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
+                $persenBln = "persen_".$blnThn;
+                
+
+                $detRootCouseSortir[$ps]['bulanan'][$m] = [(int)$RootCouseSortir[$ps]->$blnThn];
+                $detRootCouseSortir[$ps]['persen'][$m] = [round($RootCouseSortir[$ps]->$persenBln, 1)];
+
+            }
+        }
+
+        return response()->json([
+            'detPenagihanSortir' => $detPenagihanSortir, 
+            'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
+        ]);
+    }
+
+    public function getRootCouseAPKMTFttxDetail(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $trendBulanan = [];
+        $detPenagihanSortir = [];
+        $detCouseCodeSortir = [];
+        $detRootCouseSortir = [];
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        }
+
+        // $PenagihanSortir = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.action_taken'))
+        //     ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.action_taken')
+        //     ->where('root_couse_penagihan.status', '=', 'Done')
+        //     ->where('root_couse_penagihan.type_wo','=','MT FTTX');
+
+        $PenagihanSortir = DB::table('v_fttx_mt')
+                            ->select('id','penagihan')
+                            ->where('status','=', 'Done')
+                            ->groupBy('id','penagihan');
+
+        $CouseCodeSortir = DB::table('v_fttx_mt')
+                            ->select('id','penagihan','couse_code')
+                            ->where('status','=', 'Done')
+                            ->groupBy('id','penagihan','couse_code');
+
+        $RootCouseSortir = DB::table('v_fttx_mt')
+                            ->select('id','penagihan','couse_code','root_couse')
+                            ->where('status','=', 'Done')
+                            ->groupBy('id','penagihan','couse_code','root_couse');
+
+        if ($request->filterBranch != "All") {
+            $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
+            $CouseCodeSortir = $CouseCodeSortir->where('branch', '=', $request->filterBranch);
+            $RootCouseSortir = $RootCouseSortir->where('branch', '=', $request->filterBranch);
+        }
+
+        for ($tb =0; $tb < count($trendBulanan); $tb++) {
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+
+            $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+
+            $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Done' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
+            $CouseCodeSortir = $CouseCodeSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $CouseCodeSortir = $CouseCodeSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Done' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
+            $RootCouseSortir = $RootCouseSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $RootCouseSortir = $RootCouseSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_mt where status='Done' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+        }
+
+        $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
+
+        $PenagihanSortir = $PenagihanSortir->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+        $CouseCodeSortir = $CouseCodeSortir->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+        $RootCouseSortir = $RootCouseSortir->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+
+        
+        for ($ps = 0; $ps < count($PenagihanSortir); $ps++) {
+
+            $detPenagihanSortir[$ps]['penagihan'] = $PenagihanSortir[$ps]->penagihan;
+            for ($m = 0; $m < count($trendBulanan); $m++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
+                $persenBln = "persen_".$blnThn;
+                
+
+                $detPenagihanSortir[$ps]['bulanan'][$m] = [(int)$PenagihanSortir[$ps]->$blnThn];
+                $detPenagihanSortir[$ps]['persen'][$m] = [round($PenagihanSortir[$ps]->$persenBln, 1)];
+
+            }
+        }
+
+        for ($ps = 0; $ps < count($CouseCodeSortir); $ps++) {
+
+            $detCouseCodeSortir[$ps]['penagihan'] = $CouseCodeSortir[$ps]->penagihan;
+            $detCouseCodeSortir[$ps]['couse_code'] = $CouseCodeSortir[$ps]->couse_code;
+
+            for ($m = 0; $m < count($trendBulanan); $m++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
+                $persenBln = "persen_".$blnThn;
+                
+
+                $detCouseCodeSortir[$ps]['bulanan'][$m] = [(int)$CouseCodeSortir[$ps]->$blnThn];
+                $detCouseCodeSortir[$ps]['persen'][$m] = [round($CouseCodeSortir[$ps]->$persenBln, 1)];
+
+            }
+        }
+
+        for ($ps = 0; $ps < count($RootCouseSortir); $ps++) {
+
+            $detRootCouseSortir[$ps]['penagihan'] = $RootCouseSortir[$ps]->penagihan;
+            $detRootCouseSortir[$ps]['couse_code'] = $RootCouseSortir[$ps]->couse_code;
+            $detRootCouseSortir[$ps]['root_couse'] = $RootCouseSortir[$ps]->root_couse;
+
+            for ($m = 0; $m < count($trendBulanan); $m++) {
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
+                $persenBln = "persen_".$blnThn;
+                
+
+                $detRootCouseSortir[$ps]['bulanan'][$m] = [(int)$RootCouseSortir[$ps]->$blnThn];
+                $detRootCouseSortir[$ps]['persen'][$m] = [round($RootCouseSortir[$ps]->$persenBln, 1)];
+
+            }
+        }
+
+        return response()->json([
+            'detPenagihanSortir' => $detPenagihanSortir, 
+            'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
+        ]);
     }
 
     public function getRootCouseAPKMTFttxOld(Request $request)

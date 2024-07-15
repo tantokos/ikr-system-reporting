@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\DataFtthIbSortir;
 use App\Models\ImportFtthIbSortirTemp;
 use App\Models\Branch;
+use Yajra\DataTables\DataTables;
 
 class Report_IBController extends Controller
 {
@@ -996,6 +997,196 @@ class Report_IBController extends Controller
             'detPenagihanSortir' => $detPenagihanSortir,
             // 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
         ]);
+    }
+
+    public function getDetailAPKIb(Request $request)
+    {
+        
+        if($request->detSlide=="reason_status"){
+            $detAPKBranch = DB::table('v_ftth_ib_cluster')
+                        ->select('branch', DB::raw('sum(ftth_ib_done) as total'))
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        if($request->detSlide=="pending"){
+            $detAPKBranch = DB::table('v_ftth_ib_pending')
+                        ->select('branch', DB::raw('sum(total) as total'))->distinct()
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        if($request->detSlide=="cancel"){
+            $detAPKBranch = DB::table('v_ftth_ib_cancel')
+                        ->select('branch', DB::raw('sum(total) as total'))->distinct()
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        return response()->json(['detailBranchAPK' => $detAPKBranch]);
+
+    }
+
+    public function dataDetailAPKIb(Request $request)
+    {
+        ini_set('max_execution_time', 900);
+        ini_set('memory_limit', '2048M');
+
+        $akses = Auth::user()->name;
+
+        if($request->detSlide=="reason_status"){
+            $detAPK = DB::table('data_ftth_ib_sortirs')
+                    ->where('status_wo','=','Done')
+                    ->whereMonth('tgl_ikr', '=',$request->detBulan)
+                    ->whereYear('tgl_ikr', '=',$request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+            }
+            
+            if($request->detKategori == "penagihan"){
+                $detAPK=$detAPK->where('penagihan','=',$request->detPenagihan);
+            }
+            
+            $detAPK=$detAPK->get();
+
+        }
+
+        if($request->detSlide=="pending"){
+            $detAPK = DB::table('data_ftth_ib_sortirs')
+                    ->where('status_wo','=','Pending')
+                    ->whereMonth('tgl_ikr', '=',$request->detBulan)
+                    ->whereYear('tgl_ikr', '=',$request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+            }
+            
+            if($request->detKategori == "penagihan"){
+                $detAPK=$detAPK->where('penagihan','=',$request->detPenagihan);
+            }
+            
+            $detAPK=$detAPK->get();
+
+        }
+
+        if($request->detSlide=="cancel"){
+            $detAPK = DB::table('data_ftth_ib_sortirs')
+                    ->where('status_wo','=','Cancel')
+                    ->whereMonth('tgl_ikr', '=',$request->detBulan)
+                    ->whereYear('tgl_ikr', '=',$request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+            }
+            
+            if($request->detKategori == "penagihan"){
+                $detAPK=$detAPK->where('penagihan','=',$request->detPenagihan);
+            }
+            
+            $detAPK=$detAPK->get();
+
+        }
+
+        if($request->detSlide=="analisa_precon"){
+            $detAPK = DB::table('v_detail_analis_precon')
+                    ->whereMonth('tgl_ikr',$request->detBulan)
+                    ->whereYear('tgl_ikr',$request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "result"){
+                $detAPK=$detAPK->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci');
+            }
+            
+            if($request->detKategori == "penagihan"){
+                $detAPK=$detAPK->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
+                                ->where('penagihan','=',$request->detPenagihan);
+            }
+            if($request->detKategori == "root_couse"){
+                $detAPK=$detAPK->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
+                                ->where('penagihan','=',$request->detPenagihan)
+                                ->where('root_couse','=', $request->detRoot_couse);
+            }
+            
+            $detAPK=$detAPK->get();
+
+        }
+
+
+        if ($request->ajax()) {
+            // $datas = DB::table('import_ftth_mt_temps')->where('login', '=', $akses)->get();
+            return DataTables::of($detAPK)
+                ->addIndexColumn() //memberikan penomoran
+                // ->addColumn('action', function ($row) {
+                //     $btn = '<a href="#" class="btn btn-sm btn-primary edit-barang" > <i class="fas fa-edit"></i> Edit</a>
+                //              <a href="#" class="btn btn-sm btn-secondary disable"> <i class="fas fa-trash"></i> Hapus</a>';
+                //     return $btn;
+                // })
+                // ->rawColumns(['action'])   //merender content column dalam bentuk html
+                ->escapeColumns()  //mencegah XSS Attack
+                ->toJson(); //merubah response dalam bentuk Json
+            // ->make(true);
+        }
     }
 
     public function getRootCousePendingGraphIBFtth(Request $request)

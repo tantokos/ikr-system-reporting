@@ -544,6 +544,122 @@
         </div>
     </div>
 
+
+    {{-- modal rusak detail APK--}}
+
+    <div class="modal fade" id="md-detail" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h5" id="myLargeModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body" id="bdy-rusakAset">
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-body" id="canvasDetailAPK">
+                                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataDetailRoot" width="100%" cellspacing="0"
+                            style="font-size: 12px; table-layout: auto;">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>type_wo</th>
+                                    <th>no_wo</th>
+                                    <th>cust_id</th>
+                                    <th>nama_cust</th>
+                                    <th>kode_fat</th>
+                                    <th>kode_wilayah</th>
+                                    <th>cluster</th>
+                                    <th>kotamadya</th>
+                                    <th>kotamadya_penagihan</th>
+                                    <th>branch</th>
+                                    <th>tgl_ikr</th>
+                                    <th>slot_time_apk</th>
+                                    <th>sesi</th>
+                                    <th>callsign</th>
+                                    <th>leader</th>
+                                    <th>teknisi1</th>
+                                    <th>teknisi2</th>
+                                    <th>teknisi3</th>
+                                    <th>status_wo</th>
+                                    <th>reason status</th>
+                                    <th>penagihan</th>
+                                    <th>alasan cancel</th>
+                                    <th>alasan pending</th>
+                                    <th>weather</th>
+                                    <th>validasi_start</th>
+                                    <th>validasi_end</th>
+                                    <th>checkin_apk</th>
+                                    <th>checkout_apk</th>
+                                    <th>status_apk</th>
+                                    <th>ms_regular</th>
+                                    <th>wo_date_apk</th>
+                                    <th>wo_date_mail_reschedule</th>
+                                    <th>wo_date_slot_tim_apk</th>
+                                    <th>slot_time_assign_apk</th>
+                                    <th>slot_time_apk_delay</th>
+                                    <th>status_slot_time_apk_delay</th>
+                                    <th>ket_delay_slot_time</th>
+                                    <th>ont_merk_out</th>
+                                    <th>ont_sn_out</th>
+                                    <th>ont_mac_out</th>
+                                    <th>ont_merk_in</th>
+                                    <th>ont_sn_in</th>
+                                    <th>ont_mac_in</th>
+                                    <th>router_merk_out</th>
+                                    <th>router_sn_out</th>
+                                    <th>router_mac_out</th>
+                                    <th>router_merk_in</th>
+                                    <th>router_sn_in</th>
+                                    <th>router_mac_in</th>
+                                    <th>stb_merk_out</th>
+                                    <th>stb_sn_out</th>
+                                    <th>stb_mac_out</th>
+                                    <th>stb_merk_in</th>
+                                    <th>stb_sn_in</th>
+                                    <th>stb_mac_in</th>
+                                    <th>dw_out</th>
+                                    <th>precon_out</th>
+                                    <th>fast_connector</th>
+                                    <th>patchcord</th>
+                                    <th>terminal_box</th>
+                                    <th>remote_fiberhome</th>
+                                    <th>remote_extrem</th>
+                                    <th>port_fat</th>
+                                    <th>site_penagihan</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end modal detail APK --}}
+
 @endsection
 
 @section('script')
@@ -620,6 +736,568 @@
             })
         });
     </script>
+
+    <script type="text/javascript">
+
+        var _token = $('meta[name=csrf-token]').attr('content');
+
+        function det_click(apk_id)
+        {
+            let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
+            let dataSource;
+            let datafilter;
+            let detailTitle;
+            let detailSubTitle;
+            let filSite = $('#site').val();
+            let filBranch = $('#branch').val();
+
+            let detAPK = apk_id.split("|");
+            
+            // Reason Status Detail
+            if(detAPK[0]=="reason_status"){
+                if(detAPK[1]=="penagihan") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                if(detAPK[1]=="total") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+            }
+            // end reason status Detail
+
+            // Pending Detail
+            if(detAPK[0]=="pending"){
+                if(detAPK[1]=="penagihan") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                if(detAPK[1]=="total") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+            }
+            // end Pending Detail
+
+            // Cancel Detail
+            if(detAPK[0]=="cancel"){
+                if(detAPK[1]=="penagihan") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                if(detAPK[1]=="total") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                }
+
+                bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+            }
+            // end Cancel Detail            
+
+            
+
+            $('#md-detail').modal('show');
+            $('#canvasDetailAPK').empty();
+            event.stopPropagation()
+
+            $.ajax({
+                url: "{{ route('getDetailAPKIb') }}",
+                type: "GET",
+                data: datafilter,
+                beforeSend: () => {
+                    $("#smDetWO").show();
+                },
+                complete: () => {
+                    $("#smDetWO").hide();
+                },
+                success: function(detAPK) {
+
+                    dataSource = detAPK.detailAPK;
+                    var totDetailAPK = detAPK;
+                    // var totDetailAPK = totDetailAPK.sort((a,b) => b.done - a.done);
+                    var ChrBranchAPK = [];
+                    var ChrBranchTot = [];
+
+                    $.each(detAPK.detailBranchAPK, function(key, item) {
+
+                        ChrBranchAPK.push(item.branch);
+                        ChrBranchTot.push([Number(item.total)]);
+
+                    });
+
+                    $('#canvasDetailAPK').empty();
+
+                    let chartBranchAPK = `
+                    <figure class="highcharts-figure">
+                        <div id="detailAPK"></div>
+                    </figure>
+                    `;
+
+                    $('#canvasDetailAPK').append(chartBranchAPK);
+
+                    Highcharts.chart('detailAPK', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: detailTitle.replaceAll('_',' '),
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: detailSubTitle,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrBranchAPK, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: bulanData,
+                                // align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            }
+                        },
+                        legend:{ enabled:false },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: '',
+                            data: ChrBranchTot // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    fetch_detail();
+                }                
+            })
+
+            function fetch_detail() {
+                    var tabel = $('#dataDetailRoot').DataTable();
+                    tabel.clear().draw();
+
+                    $('#dataDetailRoot').DataTable({
+                        // dom: 'Bftip',
+                        layout: {
+                            topStart: {
+                                buttons: ['excel']
+                            }
+                        },
+                        paging: true,
+                        orderClasses: false,
+                        
+                        // fixedColumns: true,
+
+                        // fixedColumns: {
+                        //     // leftColumns: 4,
+                        //     rightColumns: 1
+                        // },
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scrollX: true,
+                        // scrollY: 300,
+                        // pageLength: 10,
+                        lengthChange: false,
+                        bFilter: true,
+                        destroy: true,
+                        processing: true,
+                        serverSide: false,
+                        // oLanguage: {
+                        //     sZeroRecords: "Tidak Ada Data",
+                        //     sSearch: "Pencarian _INPUT_",
+                        //     sLengthMenu: "_MENU_",
+                        //     sInfo: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                        //     sInfoEmpty: "0 data",
+                        //     oPaginate: {
+                        //         sNext: "<i class='fa fa-angle-right'></i>",
+                        //         sPrevious: "<i class='fa fa-angle-left'></i>"
+                        //     }
+                        // },
+                        ajax: {
+                            url: "{{ route('dataDetailAPKIb') }}",
+                            type: "get",
+                            dataType: "json",
+                            data: datafilter
+                        },
+                        
+                        columns: [{
+                                data: 'DT_RowIndex',
+                                name: 'DT_Row_Index',
+                                "className": "text-center",
+                                // orderable: false, 
+                                searchable: false,
+                                "width": '20'
+                            },
+                            // {
+                            //     data: 'pic_monitoring',
+                            //     "className": "text-center",
+                            //     width: '5%'
+
+                            // },
+                            {
+                                "data": 'type_wo',
+                                "width": '90'
+                            },
+                            {
+                                data: 'no_wo',
+                                width: '90'
+                            },
+                            // {
+                            //     data: 'no_ticket',
+                            //     width: '5%'
+                            // },
+                            {
+                                data: 'cust_id',
+                                width: '90'
+                            },
+                            {
+                                data: 'nama_cust',
+                                width: '90'
+                            },
+                            // {
+                            //     data: 'cust_address1',
+                            //     width: '90'
+                            // },
+                            // {
+                            //     data: 'cust_address2',
+                            //     width: '5%'
+                            // },
+                            // {
+                            //     data: 'type_maintenance',
+                            //     width: '90'
+                            // },
+                            {
+                                data: 'kode_fat',
+                                width: '90'
+                            },
+                            {
+                                data: 'kode_wilayah',
+                                width: '90'
+                            },
+                            {
+                                data: 'cluster',
+                                width: '90'
+                            },
+                            {
+                                data: 'kotamadya',
+                                width: '90'
+                            },
+                            {
+                                data: 'kotamadya_penagihan'
+                            },
+                            {
+                                data: 'branch'
+                            },
+                            {
+                                data: 'tgl_ikr'
+                            },
+                            // {
+                            //     data: 'slot_time_leader'
+                            // },
+                            {
+                                data: 'slot_time_apk'
+                            },
+                            {
+                                data: 'sesi'
+                            },
+                            {
+                                data: 'callsign'
+                            },
+                            {
+                                data: 'leader'
+                            },
+                            {
+                                data: 'teknisi1'
+                            },
+                            {
+                                data: 'teknisi2'
+                            },
+                            {
+                                data: 'teknisi3'
+                            },
+                            {
+                                data: 'status_wo'
+                            },
+                            {
+                                data: 'reason_status'
+                            },
+                            {
+                                data: 'penagihan'
+                            },
+                            // {
+                            //     data: 'alasan_tag_alarm'
+                            // },
+                            // {
+                            //     data: 'tgl_jam_reschedule'
+                            // },
+                            // {
+                            //     data: 'tgl_jam_fat_on'
+                            // },
+                            {
+                                data: 'alasan_cancel'
+                            },
+                            {
+                                data: 'alasan_pending'
+                            },
+                            {
+                                data: 'weather'
+                            },
+                            // {
+                            //     data: 'start_ikr_wa'
+                            // },
+                            // {
+                            //     data: 'end_ikr_wa'
+                            // },
+                            {
+                                data: 'validasi_start'
+                            },
+                            {
+                                data: 'validasi_end'
+                            },
+                            {
+                                data: 'checkin_apk'
+                            },
+                            {
+                                data: 'checkout_apk'
+                            },
+                            {
+                                data: 'status_apk'
+                            },
+                            // {
+                            //     data: 'keterangan'
+                            // },
+                            {
+                                data: 'ms_regular'
+                            },
+                            {
+                                data: 'wo_date_apk'
+                            },
+                            {
+                                data: 'wo_date_mail_reschedule'
+                            },
+                            {
+                                data: 'wo_date_slot_time_apk'
+                            },
+                            {
+                                data: 'slot_time_assign_apk'
+                            },
+                            {
+                                data: 'slot_time_apk_delay'
+                            },
+                            {
+                                data: 'status_slot_time_apk_delay'
+                            },
+                            {
+                                data: 'ket_delay_slot_time'
+                            },
+                            {
+                                data: 'ont_merk_out'
+                            },
+                            {
+                                data: 'ont_sn_out'
+                            },
+                            {
+                                data: 'ont_mac_out'
+                            },
+                            {
+                                data: 'ont_merk_in'
+                            },
+                            {
+                                data: 'ont_sn_in'
+                            },
+                            {
+                                data: 'ont_mac_in'
+                            },
+                            {
+                                data: 'router_merk_out'
+                            },
+                            {
+                                data: 'router_sn_out'
+                            },
+                            {
+                                data: 'router_mac_out'
+                            },
+                            {
+                                data: 'router_merk_in'
+                            },
+                            {
+                                data: 'router_sn_in'
+                            },
+                            {
+                                data: 'router_mac_in'
+                            },
+                            {
+                                data: 'stb_merk_out'
+                            },
+                            {
+                                data: 'stb_sn_out'
+                            },
+                            {
+                                data: 'stb_mac_out'
+                            },
+                            {
+                                data: 'stb_merk_in'
+                            },
+                            {
+                                data: 'stb_sn_in'
+                            },
+                            {
+                                data: 'stb_mac_in'
+                            },
+                            {
+                                data: 'dw_out'
+                            },
+                            {
+                                data: 'precon_out'
+                            },
+                            {
+                                data: 'fast_connector'
+                            },
+                            {
+                                data: 'patchcord'
+                            },
+                            {
+                                data: 'terminal_box'
+                            },
+                            {
+                                data: 'remote_fiberhome'
+                            },
+                            {
+                                data: 'remote_extrem'
+                            },
+                            {
+                                data: 'port_fat'
+                            },
+                            {
+                                data: 'site_penagihan'
+                            },
+                            // {
+                            //     data: 'konfirmasi_penjadwalan'
+                            // },
+                            // {
+                            //     data: 'konfirmasi_cst'
+                            // },
+                            // {
+                            //     data: 'konfirmasi_dispatch'
+                            // },
+                            // {
+                            //     data: 'remark_status2'
+                            // },
+                            // {
+                            //     data: 'login'
+                            // },
+
+                            // {
+                            //     data: 'gender',
+                            //     "className": "text-center"      
+                            // },                                   
+                            // {
+                            //     data: 'action',
+                            //     "className": "text-center",
+                            //     orderable: false,
+                            //     searchable: false
+                            // },
+                        ]
+                    });
+
+
+                }
+        }
+    </script>
+
 
     <script type="text/javascript">
         $(document).on('click', '.closeDetailToday', function() {
@@ -1912,6 +2590,10 @@
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
+                    let blnId;
+                    let thnId;
+                    let detailCel;
+
                     let hdRootCouseAPK = `
                         <th>Status Done</th>`;
                         // <th>Reason Status</th>`;
@@ -1943,8 +2625,12 @@
                                 TotMonthly[p] += Number(iPenagihan.bulanan[p]);
                             })
 
+                            blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
+                            thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
+                            detailCel = `reason_status|penagihan|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
+
                             tbPenagihanAPK = tbPenagihanAPK +
-                                `<th style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                `<th style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
                                 <th style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                             subtotal += Number(itemPenagihan.bulanan[p]);
@@ -2126,6 +2812,9 @@
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
 
+                    let blnId;
+                    let thnId;
+                    let detailCel;
                     let subtotal;
                     var TotPenagihanPending = [];
                     var TotRootDonePending = 0;
@@ -2155,8 +2844,13 @@
                         
                         subtotal = 0;
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                            
+                            blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                            thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                            detailCel = `pending|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
                             tbRootCousePending = tbRootCousePending +
-                                `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
+                                `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)"">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                             subtotal += Number(item.bulanan[bln]);
@@ -2340,6 +3034,9 @@
                     $('#rootCouseTbCancel').find("tr").remove();
                     $('#totRootCouseCancel').find("th").remove();
 
+                    let blnId;
+                    let thnId;
+                    let detailCel;
                     let subtotal;
                     var TotPenagihanCancel = [];
                     var TotRootDoneCancel = 0;
@@ -2370,8 +3067,13 @@
                         subtotal = 0;
 
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+
+                            blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                            thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                            detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
                             tbRootCouseCancel = tbRootCouseCancel +
-                                `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
+                                `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                             subtotal += Number(item.bulanan[bln]);

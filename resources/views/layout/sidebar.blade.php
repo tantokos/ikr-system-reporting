@@ -35,6 +35,7 @@
         </li>
 
         <li
+            {{-- class="pcoded-hasmenu pcoded-trigger {{ request()->is('report*') ? 'active' : '' }}"> --}}
             class="pcoded-hasmenu pcoded-trigger {{ request()->is('report*') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
@@ -83,11 +84,18 @@
                     </a>
                 </li>
 
+                {{-- <li class="{{ request()->is('reportFat*') ? 'active' : '' }}">
+                    <a href="{{ route('reportFat.index') }}">
+                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Report FAT Activity</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li> --}}
+
                 
             </ul>
         </li>
     </ul>
-
 
     
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
@@ -159,15 +167,11 @@
                     </a>
                 </li>
 
-                
-                
             </ul>
         </li>
     </ul>
 
     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"></div>
-    
-    
     
   
 </div>
