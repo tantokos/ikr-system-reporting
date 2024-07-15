@@ -32,6 +32,7 @@ use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\Report_DashboardController;
 use App\Http\Controllers\Report_DismantleController;
+use App\Http\Controllers\Report_FATController;
 use App\Http\Controllers\Report_FttxIBController;
 use App\Http\Controllers\Report_FttxMTController;
 use App\Http\Controllers\ReportController;
@@ -175,6 +176,9 @@ Route::group(
 
         Route::get('/getMonthlyIBFtth', [Report_IBController::class, 'getMonthlyIBFtth'])->name('getMonthlyIBFtth');
 
+        Route::get('/getDetailAPKIb', [Report_IBController::class, 'getDetailAPKIb'])->name('getDetailAPKIb');
+        Route::get('/dataDetailAPKIb', [Report_IBController::class, 'dataDetailAPKIb'])->name('dataDetailAPKIb');
+
         Route::get('/getFilterDashboardIBFtthOld', [Report_IBController::class, 'getFilterDashboardIBFtthOld'])->name('getFilterDashboardIBFtthOld');
 
         Route::get('/getTrendMonthlyIBFtth', [Report_IBController::class, 'getTrendMonthlyIBFtth'])->name('getTrendMonthlyIBFtth');
@@ -268,6 +272,7 @@ Route::group(
 
       Route::get('/getReasonStatusMTFttxGraph', [Report_FttxMTController::class, 'getReasonStatusMTFttxGraph'])->name('getReasonStatusMTFttxGraph');
       Route::get('/getRootCouseAPKMTFttx', [Report_FttxMTController::class, 'getRootCouseAPKMTFttx'])->name('getRootCouseAPKMTFttx');
+      Route::get('/getRootCouseAPKMTFttxDetail', [Report_FttxMTController::class, 'getRootCouseAPKMTFttxDetail'])->name('getRootCouseAPKMTFttxDetail');
 
       Route::get('/getRootCousePendingGraphMTFttx', [Report_FttxMTController::class, 'getRootCousePendingGraphMTFttx'])->name('getRootCousePendingGraphMTFttx');
       Route::get('/getRootCousePendingMTFttx', [Report_FttxMTController::class, 'getRootCousePendingMTFttx'])->name('getRootCousePendingMTFttx');
@@ -305,6 +310,21 @@ Route::group(
     //====Start Import Absensi===//
     
     Route::get('/importAbsensi', [Import_AbsensiController::class, 'index'])->name('importAbsensi.index');
+
+    //===End Import Absensi===//
+
+
+    //===Start Report FAT===//
+
+    Route::get('/reportFat',[Report_FATController::class, 'index'])->name('reportFat.index');
+
+    Route::get('/getBranchFat', [Report_FATController::class, 'getBranchFat'])->name('getBranchFat');
+    Route::get('/getDetailFAT', [Report_FATController::class, 'getDetailFAT'])->name('getDetailFAT');
+    Route::get('/dataDetailFAT', [Report_FATController::class, 'dataDetailFAT'])->name('dataDetailFAT');
+
+    //===End Report FAT===//
     
     }
+
+    
 );

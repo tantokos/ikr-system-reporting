@@ -391,6 +391,27 @@
     </div>
 
     <div class="row">
+        {{-- Root Couse Sortir MT --}}
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
+                    <thead>
+                        <tr id="rootCouseHeadAPKDetail">
+                            {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
+                            {{-- <th></th> --}}
+                            {{-- <th></th> --}}
+                            {{-- <th style="text-align: center">Jumlah</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody id="bodyRootCouseAPKDetail">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{-- End Root Couse Sortir MT --}}
+    </div>
+
+    <div class="row">
         <div class="col-sm-12">
             <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
                 <div class="card-body">
@@ -1658,7 +1679,7 @@
                 complete: () => {
                     $("#smWOClosing").hide();
                 },
-                success: function(detPenagihanSortir) {
+                success: function(apk) {
 
                     $('#rootCouseHeadAPK').find("th").remove();
                     $('#bodyRootCouseAPK').find("tr").remove();
@@ -1673,9 +1694,9 @@
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
                     let hdRootCouseAPK = `
-                        <th>Action Status</th>`;
-                        // <th>Reason Status</th>`;
-                        // <th>Root Couse</th>`;
+                        <th>Penagihan</th>`;
+                        // <th>Cause Code</th>
+                        // <th>Root Cause</th>`;
                     // <th style="text-align: center">Jumlah</th>`;
 
                 for (h = 0; h < trendWoIBFtth.length; h++) {
@@ -1686,18 +1707,18 @@
                 $('#rootCouseHeadAPK').append(hdRootCouseAPK + `<th colspan="2" style="text-align: center">Subtotal</th></tr>`);
 
 
-                $.each(detPenagihanSortir, function(key, itemPenagihan) {
+                $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
 
                     tbPenagihanAPK = `
                                     <tr><th>${itemPenagihan.penagihan}</th>`;
-                                    // <th class="table-secondary"></th>`;
+                                    // <th class="table-secondary"></th>
                                     // <th class="table-secondary"></th>`;
                     
                     subtotal = 0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
 
                         TotMonth[p]=0;
-                        $.each(detPenagihanSortir, function(ky, itm) {
+                        $.each(apk.detPenagihanSortir, function(ky, itm) {
                             TotMonth[p] += Number(itm.bulanan[p])
                         })
                         tbPenagihanAPK = tbPenagihanAPK +
@@ -1715,11 +1736,13 @@
 
                 let totRootCouseAPK = `
                             <tr><th class="table-dark">TOTAL</th>`;
+                                // <th class="table-dark"></th>
+                                // <th class="table-dark"></th>`;
                 
                     subtotal=0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
                         TotPenagihan[p] = 0
-                        $.each(detPenagihanSortir, function(key, iPenagihan) {
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
                             TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
                         })
 
@@ -1731,6 +1754,165 @@
                     }
 
                     $('#bodyRootCouseAPK').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
+                }
+
+            });
+
+            $.ajax({
+                url: "{{ route('getRootCouseAPKMTFttxDetail') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOClosing").show();
+                },
+                complete: () => {
+                    $("#smWOClosing").hide();
+                },
+                success: function(apk) {
+
+                    console.log(apk);
+
+                    $('#rootCouseHeadAPKDetail').find("th").remove();
+                    $('#bodyRootCouseAPKDetail').find("tr").remove();
+                    $('#penagihanAPKDetail').find("th").remove();
+                    $('#couseCodePenagihanAPKDetail').find("th").remove();
+                    $('#rootCousePenagihanAPKDetail').find("td").remove();
+
+                    let subtotal;
+                    let TotPenagihan = [];
+                    let TotMonth = [];
+                    let tbPenagihanAPK;
+                    let tbCouseCodeAPK;
+                    let tbRootCouseAPK;
+                    let hdRootCouseAPK = `
+                        <th>Penagihan</th>
+                        <th>Cause Code</th>
+                        <th>Root Cause</th>`;
+                    // <th style="text-align: center">Jumlah</th>`;
+
+                for (h = 0; h < trendWoIBFtth.length; h++) {
+                    hdRootCouseAPK = hdRootCouseAPK +
+                        `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                }
+
+                $('#rootCouseHeadAPKDetail').append(hdRootCouseAPK + `<th colspan="2" style="text-align: center">Subtotal</th></tr>`);
+
+
+                $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+
+                    tbPenagihanAPK = `
+                                    <tr><th class="table-secondary">${itemPenagihan.penagihan}</th>
+                                    <th class="table-secondary"></th>
+                                    <th class="table-secondary"></th>`;
+                    
+                    subtotal = 0;
+                    for (p = 0; p < trendWoIBFtth.length; p++) {
+
+                        TotMonth[p]=0;
+                        $.each(apk.detPenagihanSortir, function(ky, itm) {
+                            TotMonth[p] += Number(itm.bulanan[p])
+                        })
+                        tbPenagihanAPK = tbPenagihanAPK +
+                            `<td class="table-secondary" style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</td>
+                            <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+
+                        subtotal += Number(itemPenagihan.bulanan[p]);
+
+                    }
+
+                    $('#bodyRootCouseAPKDetail').append(tbPenagihanAPK + `<td class="table-secondary" style="text-align: center">${subtotal.toLocaleString()}</td></tr>`);
+
+                    $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
+                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
+                                tbCouseCodeAPK = `
+                                    <tr><th></th>
+                                    <th class="table-info">${itemCouseCode.couse_code}</th>
+                                    <th class="table-info"></th>`;
+                                
+                                subtotalDT = 0;
+                                for (cc = 0;cc < trendWoIBFtth.length; cc++) {
+                                    blnId = new Date(trendWoIBFtth[cc].bulan).getMonth();
+                                    thnId = new Date(trendWoIBFtth[cc].bulan).getFullYear();
+                                    detailCel = `${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${(blnId + 1)}|${thnId}`;
+                                    tbCouseCodeAPK = tbCouseCodeAPK + 
+                                    `<td class="table-info" style="text-align: center" font-weight:bold">
+                                        <span id="rootCouseAPK|couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
+                                    <td class="table-info" style="text-align: center" font-weight:bold">${itemCouseCode.persen[cc].toLocaleString()}%</td>`;
+
+                                    subtotalDT += Number(itemCouseCode.bulanan[cc]);
+                                }
+
+                                detailCelDT = `rootCouseAPK|couse_code|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|All|All`;
+
+                                $('#bodyRootCouseAPKDetail').append(tbCouseCodeAPK + 
+                                `<th class="table-info" style="text-align: center" id="${detailCelDT}">${subtotalDT.toLocaleString()}</th></tr>`);
+
+
+                                $.each(apk.detRootCouseSortir, function(key,
+                                    itemRootCouse) {
+
+                                    if (itemPenagihan.penagihan == itemRootCouse
+                                        .penagihan && itemCouseCode
+                                        .couse_code == itemRootCouse.couse_code
+                                    ) {
+                                        tbRootCouseAPK = `
+                                            <tr><td></td>
+                                            <td></td>
+                                            <td>${itemRootCouse.root_couse}</td>`;
+                                        
+                                        subtotalDT=0;
+                                        for (rc = 0; rc < trendWoIBFtth.length; rc++) {
+                                            blnId = new Date(trendWoIBFtth[rc].bulan).getMonth();
+                                            thnId = new Date(trendWoIBFtth[rc].bulan).getFullYear();
+                                            detailCel = `${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}`;
+                                    
+                                            tbRootCouseAPK = tbRootCouseAPK +
+                                            `<td style="text-align: center" >
+                                                <span id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
+                                            <td style="text-align: center">${itemRootCouse.persen[rc].toLocaleString()}%</td>`;
+
+                                            subtotalDT += Number(itemRootCouse.bulanan[rc]);
+
+                                        }
+
+                                        detailCelDT = `rootCouseAPK|root_couse|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|All|All`;
+
+                                        $('#bodyRootCouseAPKDetail').append(tbRootCouseAPK + 
+                                            `<td style="text-align: center" id="${detailCelDT}">${subtotalDT.toLocaleString()}</td></tr>`);
+                                    }
+                                });
+                            }
+                        });
+                    
+                });
+
+                let totRootCouseAPK = `
+                            <tr><th class="table-dark">TOTAL</th>
+                                <th class="table-dark"></th>
+                                <th class="table-dark"></th>`;
+                
+                    subtotal=0;
+                    for (p = 0; p < trendWoIBFtth.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK +
+                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                            <th class="table-dark" style="text-align: center"></th>`;
+
+                        subtotal += Number(TotPenagihan[p]);
+                    }
+
+                    $('#bodyRootCouseAPKDetail').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
                 }
 
             });

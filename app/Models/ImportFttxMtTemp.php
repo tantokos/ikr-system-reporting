@@ -72,8 +72,10 @@ class ImportFttxMtTemp extends Model
         'paku_beton',
         'splitter',
         'status_wo',
+        'couse_code',
         'root_couse',
         'action_taken',
+        'penagihan',
         'remarks',
         'login'
     ];
