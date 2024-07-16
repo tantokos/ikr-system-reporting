@@ -707,8 +707,8 @@ class ReportController extends Controller
 
         for ($d = 0; $d < count($tgl); $d++) {
             $tblStatus = DataFtthMtSortir::query()->where('tgl_ikr', '=', $tgl[$d]) //->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
-                ->select(DB::raw('tgl_ikr, sum(if(status_wo = "Done", 1, NULL)) as Done, 
-            sum(if(status_wo = "Pending", 1, NULL)) as Pending, sum(if(status_wo = "Cancel", 1, NULL)) as Cancel'));
+                ->select(DB::raw('tgl_ikr, sum(if(status_wo = "Done", 1, 0)) as Done, 
+            sum(if(status_wo = "Pending", 1, 0)) as Pending, sum(if(status_wo = "Cancel", 1, 0)) as Cancel'));
             // ->whereDay('tgl_ikr', $dayMonth);
 
             // dd($tblStatus);
@@ -723,9 +723,9 @@ class ReportController extends Controller
                 ->groupBy('tgl_ikr')->first();
 
             // dd($tblStatus->Done);
-            $tgl[$d]['Done'] = (int)$tblStatus->Done ?? 0;
-            $tgl[$d]['Pending'] = (int)$tblStatus->Pending ?? 0;
-            $tgl[$d]['Cancel'] = (int)$tblStatus->Cancel ?? 0;
+            $tgl[$d]['Done'] = isset($tblStatus->Done) ? (int)$tblStatus->Done : 0;
+            $tgl[$d]['Pending'] = isset($tblStatus->Pending) ? (int)$tblStatus->Pending : 0;
+            $tgl[$d]['Cancel'] = isset($tblStatus->Cancel) ? (int)$tblStatus->Cancel : 0;
         }
 
         return response()->json($tgl);
