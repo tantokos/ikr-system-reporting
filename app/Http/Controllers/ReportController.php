@@ -100,6 +100,7 @@ class ReportController extends Controller
 
     public function getFilterDashboard(Request $request)
     {
+        $akses = Auth::user()->name;
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
         $site = ['Retail', 'Apartemen', 'Underground'];
@@ -256,6 +257,8 @@ class ReportController extends Controller
 
     public function getTotalWoBranch(Request $request)
     {
+        $akses = Auth::user()->name;
+
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
@@ -618,6 +621,8 @@ class ReportController extends Controller
 
     public function getMonthly(Request $request)
     {
+        $akses = Auth::user()->name;
+
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
@@ -1510,6 +1515,51 @@ class ReportController extends Controller
                 ->toJson(); //merubah response dalam bentuk Json
             // ->make(true);
         }
+    }
+
+    public function getDetailAPKCluster(Request $request)
+    {
+        // dd($request->all());
+
+            $detAPKBranch = DB::table('v_ftth_mt_rootcouse_cluster')
+                        ->select('branch','cluster', DB::raw('sum(total) as total'))
+                        ->where('branch','=', $request->detBranch )
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            }
+            // if($request->detBranch != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            // }
+
+            // if($request->detBulan != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('bulan','=', $request->detBulan);
+            // }
+
+            // if($request->detThn != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('tahun','=', $request->detThn);
+            // }
+
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            }
+            if($request->detKategori == "couse_code"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan)
+                                            ->where('couse_code','=', $request->detCouse_code);
+            }
+            if($request->detKategori == "root_couse"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan)
+                                            ->where('couse_code','=', $request->detCouse_code)
+                                            ->where('root_couse','=', $request->detRoot_couse);
+            }
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster')->orderBy('total', 'DESC')->get();
+
+            // dd($request->all(), $detAPKBranch);
+        return response()->json(['detailBranchAPKCluster' => $detAPKBranch]);
+
     }
 
     public function getRootCouseAPKGraph(Request $request)

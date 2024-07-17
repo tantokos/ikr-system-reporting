@@ -120,6 +120,7 @@ Route::group(
 
         Route::get('/getDetailAPK', [ReportController::class, 'getDetailAPK'])->name('getDetailAPK');
         Route::get('/dataDetailAPK', [ReportController::class, 'dataDetailAPK'])->name('dataDetailAPK');
+        Route::get('/getDetailAPKCluster', [ReportController::class, 'getDetailAPKCluster'])->name('getDetailAPKCluster');
 
         Route::get('/getRootCouseAPKGraph', [ReportController::class, 'getRootCouseAPKGraph'])->name('getRootCouseAPKGraph');
         Route::get('/getCancelSystemProblem', [ReportController::class, 'getCancelSystemProblem'])->name('getCancelSystemProblem');
