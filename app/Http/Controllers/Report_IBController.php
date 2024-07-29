@@ -1189,6 +1189,79 @@ class Report_IBController extends Controller
         }
     }
 
+    public function getDetailAPKIbCluster(Request $request)
+    {
+        
+        if($request->detSlide=="reason_status"){
+            $detAPKBranch = DB::table('v_ftth_ib_cluster')
+                        ->select('branch', 'cluster', DB::raw('sum(ftth_ib_done) as total'))
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster','bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        if($request->detSlide=="pending"){
+            $detAPKBranch = DB::table('v_ftth_ib_cluster')
+                        ->select('branch', 'cluster', DB::raw('sum(ftth_ib_pending) as total'))->distinct()
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster', 'bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        if($request->detSlide=="cancel"){
+            $detAPKBranch = DB::table('v_ftth_ib_cluster')
+                        ->select('branch','cluster', DB::raw('sum(ftth_ib_cancel) as total'))->distinct()
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            if($request->detSite != "All") {
+                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster', 'bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        return response()->json(['detailBranchAPKCluster' => $detAPKBranch]);
+
+    }
+
     public function getRootCousePendingGraphIBFtth(Request $request)
     {
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;

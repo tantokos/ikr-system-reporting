@@ -25,7 +25,7 @@
         <div class="pcoded-container navbar-wrapper">
 
             <nav class="navbar header-navbar pcoded-header">
-               @include('layout.navbar');
+               @include('layout.navbar')
            </nav>
 
             <div class="pcoded-main-container">

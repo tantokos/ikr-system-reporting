@@ -95,44 +95,44 @@ Route::group(
         Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
         // Route::get('/', [Report_IBController::class, 'index'])->name('reportIBFtth.index');
         Route::get('/',[Report_DashboardController::class, 'index'])->name('report.dashboard');
-        Route::get('reportDashboard',[Report_DashboardController::class, 'index'])->name('report.dashboard');
+        Route::get('reportDashboard',[Report_DashboardController::class, 'index'])->name('report.dashboard')->middleware('auth');
 
-        Route::get('/reportMtFtth', [ReportController::class, 'index'])->name('reportMtFtth.index');
+        Route::get('/reportMtFtth', [ReportController::class, 'index'])->name('reportMtFtth.index')->middleware('auth');
         
-        Route::get('/getFilterBranch', [ReportController::class, 'getFilterBranch'])->name('getFilterBranch');
-        Route::get('/getFilterDashboard', [ReportController::class, 'getFilterDashboard'])->name('getFilterDashboard');
-        Route::get('/getFilterSite', [ReportController::class, 'getFilterSite'])->name('getFilterSite');
+        Route::get('/getFilterBranch', [ReportController::class, 'getFilterBranch'])->name('getFilterBranch')->middleware('auth');
+        Route::get('/getFilterDashboard', [ReportController::class, 'getFilterDashboard'])->name('getFilterDashboard')->middleware('auth');
+        Route::get('/getFilterSite', [ReportController::class, 'getFilterSite'])->name('getFilterSite')->middleware('auth');
         
-        Route::get('/getMonthly', [ReportController::class, 'getMonthly'])->name('getMonthly');
-        Route::get('/getTotalWoBranch', [ReportController::class, 'getTotalWoBranch'])->name('getTotalWoBranch');
-        Route::get('/getClusterBranch', [ReportController::class, 'getClusterBranch'])->name('getClusterBranch');
+        Route::get('/getMonthly', [ReportController::class, 'getMonthly'])->name('getMonthly')->middleware('auth');
+        Route::get('/getTotalWoBranch', [ReportController::class, 'getTotalWoBranch'])->name('getTotalWoBranch')->middleware('auth');
+        Route::get('/getClusterBranch', [ReportController::class, 'getClusterBranch'])->name('getClusterBranch')->middleware('auth');
 
-        Route::get('/getClusterBranchtest', [ReportController::class, 'getClusterBranchtest'])->name('getClusterBranchtest');
+        Route::get('/getClusterBranchtest', [ReportController::class, 'getClusterBranchtest'])->name('getClusterBranchtest')->middleware('auth');
 
-        Route::get('/getTabelStatus', [ReportController::class, 'getTabelStatus'])->name('getTabelStatus');
-        Route::get('/getTrendMonthly', [ReportController::class, 'getTrendMonthly'])->name('getTrendMonthly');
-        Route::get('/getRootCouseDone', [ReportController::class, 'getRootCouseDone'])->name('getRootCouseDone');
-        Route::get('/getRootCousePending', [ReportController::class, 'getRootCousePending'])->name('getRootCousePending');
-        Route::get('/getRootCousePendingGraph', [ReportController::class, 'getRootCousePendingGraph'])->name('getRootCousePendingGraph');
-        Route::get('/getRootCouseCancel', [ReportController::class, 'getRootCouseCancel'])->name('getRootCouseCancel');
-        Route::get('/getRootCouseCancelGraph', [ReportController::class, 'getRootCouseCancelGraph'])->name('getRootCouseCancelGraph');
-        Route::get('/getRootCouseAPK', [ReportController::class, 'getRootCouseAPK'])->name('getRootCouseAPK');
+        Route::get('/getTabelStatus', [ReportController::class, 'getTabelStatus'])->name('getTabelStatus')->middleware('auth');
+        Route::get('/getTrendMonthly', [ReportController::class, 'getTrendMonthly'])->name('getTrendMonthly')->middleware('auth');
+        Route::get('/getRootCouseDone', [ReportController::class, 'getRootCouseDone'])->name('getRootCouseDone')->middleware('auth');
+        Route::get('/getRootCousePending', [ReportController::class, 'getRootCousePending'])->name('getRootCousePending')->middleware('auth');
+        Route::get('/getRootCousePendingGraph', [ReportController::class, 'getRootCousePendingGraph'])->name('getRootCousePendingGraph')->middleware('auth');
+        Route::get('/getRootCouseCancel', [ReportController::class, 'getRootCouseCancel'])->name('getRootCouseCancel')->middleware('auth');
+        Route::get('/getRootCouseCancelGraph', [ReportController::class, 'getRootCouseCancelGraph'])->name('getRootCouseCancelGraph')->middleware('auth');
+        Route::get('/getRootCouseAPK', [ReportController::class, 'getRootCouseAPK'])->name('getRootCouseAPK')->middleware('auth');
 
-        Route::get('/getDetailAPK', [ReportController::class, 'getDetailAPK'])->name('getDetailAPK');
-        Route::get('/dataDetailAPK', [ReportController::class, 'dataDetailAPK'])->name('dataDetailAPK');
-        Route::get('/getDetailAPKCluster', [ReportController::class, 'getDetailAPKCluster'])->name('getDetailAPKCluster');
+        Route::get('/getDetailAPK', [ReportController::class, 'getDetailAPK'])->name('getDetailAPK')->middleware('auth');
+        Route::get('/dataDetailAPK', [ReportController::class, 'dataDetailAPK'])->name('dataDetailAPK')->middleware('auth');
+        Route::get('/getDetailAPKCluster', [ReportController::class, 'getDetailAPKCluster'])->name('getDetailAPKCluster')->middleware('auth');
 
-        Route::get('/getRootCouseAPKGraph', [ReportController::class, 'getRootCouseAPKGraph'])->name('getRootCouseAPKGraph');
-        Route::get('/getCancelSystemProblem', [ReportController::class, 'getCancelSystemProblem'])->name('getCancelSystemProblem');
-        Route::get('/getAnalisPrecon', [ReportController::class, 'getAnalisPrecon'])->name('getAnalisPrecon');
+        Route::get('/getRootCouseAPKGraph', [ReportController::class, 'getRootCouseAPKGraph'])->name('getRootCouseAPKGraph')->middleware('auth');
+        Route::get('/getCancelSystemProblem', [ReportController::class, 'getCancelSystemProblem'])->name('getCancelSystemProblem')->middleware('auth');
+        Route::get('/getAnalisPrecon', [ReportController::class, 'getAnalisPrecon'])->name('getAnalisPrecon')->middleware('auth');
 
         
-        Route::get('/getTrendMonthlyApart', [ReportController::class, 'getTrendMonthlyApart'])->name('getTrendMonthlyApart');
-        Route::get('/getTabelStatusApart', [ReportController::class, 'getTabelStatusApart'])->name('getTabelStatusApart');
-        Route::get('/getRootCouseDoneApart', [ReportController::class, 'getRootCouseDoneApart'])->name('getRootCouseDoneApart');
-        Route::get('/getRootCouseAPKApart', [ReportController::class, 'getRootCouseAPKApart'])->name('getRootCouseAPKApart');
-        Route::get('/getRootCousePendingApart', [ReportController::class, 'getRootCousePendingApart'])->name('getRootCousePendingApart');
-        Route::get('/getRootCouseCancelApart', [ReportController::class, 'getRootCouseCancelApart'])->name('getRootCouseCancelApart');
+        Route::get('/getTrendMonthlyApart', [ReportController::class, 'getTrendMonthlyApart'])->name('getTrendMonthlyApart')->middleware('auth');
+        Route::get('/getTabelStatusApart', [ReportController::class, 'getTabelStatusApart'])->name('getTabelStatusApart')->middleware('auth');
+        Route::get('/getRootCouseDoneApart', [ReportController::class, 'getRootCouseDoneApart'])->name('getRootCouseDoneApart')->middleware('auth');
+        Route::get('/getRootCouseAPKApart', [ReportController::class, 'getRootCouseAPKApart'])->name('getRootCouseAPKApart')->middleware('auth');
+        Route::get('/getRootCousePendingApart', [ReportController::class, 'getRootCousePendingApart'])->name('getRootCousePendingApart')->middleware('auth');
+        Route::get('/getRootCouseCancelApart', [ReportController::class, 'getRootCouseCancelApart'])->name('getRootCouseCancelApart')->middleware('auth');
         
         Route::get('/getTrendMonthlyUG', [ReportController::class, 'getTrendMonthlyUG'])->name('getTrendMonthlyUG');
         Route::get('/getTabelStatusUG', [ReportController::class, 'getTabelStatusUG'])->name('getTabelStatusUG');
@@ -171,31 +171,32 @@ Route::group(
 
         //====Start Report IB FTTH====//
 
-        Route::get('/reportIBFtth', [Report_IBController::class, 'index'])->name('reportIBFtth.index');
-        Route::get('/getFilterBranchIBFtth', [Report_IBController::class, 'getFilterBranchIBFtth'])->name('getFilterBranchIBFtth');
-        Route::get('/getTotalWoBranchIBFtth', [Report_IBController::class, 'getTotalWoBranchIBFtth'])->name('getTotalWoBranchIBFtth');
-        Route::get('/getFilterDashboardIBFtth', [Report_IBController::class, 'getFilterDashboardIBFtth'])->name('getFilterDashboardIBFtth');
+        Route::get('/reportIBFtth', [Report_IBController::class, 'index'])->name('reportIBFtth.index')->middleware('auth');
+        Route::get('/getFilterBranchIBFtth', [Report_IBController::class, 'getFilterBranchIBFtth'])->name('getFilterBranchIBFtth')->middleware('auth');
+        Route::get('/getTotalWoBranchIBFtth', [Report_IBController::class, 'getTotalWoBranchIBFtth'])->name('getTotalWoBranchIBFtth')->middleware('auth');
+        Route::get('/getFilterDashboardIBFtth', [Report_IBController::class, 'getFilterDashboardIBFtth'])->name('getFilterDashboardIBFtth')->middleware('auth');
 
-        Route::get('/getMonthlyIBFtth', [Report_IBController::class, 'getMonthlyIBFtth'])->name('getMonthlyIBFtth');
+        Route::get('/getMonthlyIBFtth', [Report_IBController::class, 'getMonthlyIBFtth'])->name('getMonthlyIBFtth')->middleware('auth');
 
-        Route::get('/getDetailAPKIb', [Report_IBController::class, 'getDetailAPKIb'])->name('getDetailAPKIb');
-        Route::get('/dataDetailAPKIb', [Report_IBController::class, 'dataDetailAPKIb'])->name('dataDetailAPKIb');
+        Route::get('/getDetailAPKIb', [Report_IBController::class, 'getDetailAPKIb'])->name('getDetailAPKIb')->middleware('auth');
+        Route::get('/dataDetailAPKIb', [Report_IBController::class, 'dataDetailAPKIb'])->name('dataDetailAPKIb')->middleware('auth');
+        Route::get('/getDetailAPKIbCluster', [Report_IBController::class, 'getDetailAPKIbCluster'])->name('getDetailAPKIbCluster')->middleware('auth');
 
-        Route::get('/getFilterDashboardIBFtthOld', [Report_IBController::class, 'getFilterDashboardIBFtthOld'])->name('getFilterDashboardIBFtthOld');
+        Route::get('/getFilterDashboardIBFtthOld', [Report_IBController::class, 'getFilterDashboardIBFtthOld'])->name('getFilterDashboardIBFtthOld')->middleware('auth');
 
-        Route::get('/getTrendMonthlyIBFtth', [Report_IBController::class, 'getTrendMonthlyIBFtth'])->name('getTrendMonthlyIBFtth');
-        Route::get('/getTabelStatusIBFtth', [Report_IBController::class, 'getTabelStatusIBFtth'])->name('getTabelStatusIBFtth');
+        Route::get('/getTrendMonthlyIBFtth', [Report_IBController::class, 'getTrendMonthlyIBFtth'])->name('getTrendMonthlyIBFtth')->middleware('auth');
+        Route::get('/getTabelStatusIBFtth', [Report_IBController::class, 'getTabelStatusIBFtth'])->name('getTabelStatusIBFtth')->middleware('auth');
 
-        Route::get('/getReasonStatusIBFtthGraph', [Report_IBController::class, 'getReasonStatusIBFtthGraph'])->name('getReasonStatusIBFtthGraph');
-        Route::get('/getRootCouseAPKIBFtth', [Report_IBController::class, 'getRootCouseAPKIBFtth'])->name('getRootCouseAPKIBFtth');
+        Route::get('/getReasonStatusIBFtthGraph', [Report_IBController::class, 'getReasonStatusIBFtthGraph'])->name('getReasonStatusIBFtthGraph')->middleware('auth');
+        Route::get('/getRootCouseAPKIBFtth', [Report_IBController::class, 'getRootCouseAPKIBFtth'])->name('getRootCouseAPKIBFtth')->middleware('auth');
 
-        Route::get('/getRootCousePendingGraphIBFtth', [Report_IBController::class, 'getRootCousePendingGraphIBFtth'])->name('getRootCousePendingGraphIBFtth');
-        Route::get('/getRootCousePendingIBFtth', [Report_IBController::class, 'getRootCousePendingIBFtth'])->name('getRootCousePendingIBFtth');
+        Route::get('/getRootCousePendingGraphIBFtth', [Report_IBController::class, 'getRootCousePendingGraphIBFtth'])->name('getRootCousePendingGraphIBFtth')->middleware('auth');
+        Route::get('/getRootCousePendingIBFtth', [Report_IBController::class, 'getRootCousePendingIBFtth'])->name('getRootCousePendingIBFtth')->middleware('auth');
 
-        Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth');
-        Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth');
+        Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth')->middleware('auth');
+        Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth')->middleware('auth');
 
-        Route::get('/getClusterBranchIBFtth', [Report_IBController::class, 'getClusterBranchIBFtth'])->name('getClusterBranchIBFtth');
+        Route::get('/getClusterBranchIBFtth', [Report_IBController::class, 'getClusterBranchIBFtth'])->name('getClusterBranchIBFtth')->middleware('auth');
 
        //====End Report IB FTTH====//
 
@@ -233,6 +234,10 @@ Route::group(
 
        Route::get('/getRootCousePendingGraphDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingGraphDismantleFtth'])->name('getRootCousePendingGraphDismantleFtth');
        Route::get('/getRootCousePendingDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingDismantleFtth'])->name('getRootCousePendingDismantleFtth');
+
+       Route::get('/getDetailAPKDismantle', [Report_DismantleController::class, 'getDetailAPKDismantle'])->name('getDetailAPKDismantle')->middleware('auth');
+       Route::get('/dataDetailAPKDismantle', [Report_DismantleController::class, 'dataDetailAPKDismantle'])->name('dataDetailAPKDismantle')->middleware('auth');
+       Route::get('/getDetailAPKDismantleCluster', [Report_DismantleController::class, 'getDetailAPKDismantleCluster'])->name('getDetailAPKDismantleCluster')->middleware('auth');
 
     //    Route::get('/getRootCouseCancelGraphIBFtth', [Report_IBController::class, 'getRootCouseCancelGraphIBFtth'])->name('getRootCouseCancelGraphIBFtth');
     //    Route::get('/getRootCouseCancelIBFtth', [Report_IBController::class, 'getRootCouseCancelIBFtth'])->name('getRootCouseCancelIBFtth');
@@ -284,6 +289,10 @@ Route::group(
 
       Route::get('/getClusterBranchMTFttx', [Report_FttxMTController::class, 'getClusterBranchMTFttx'])->name('getClusterBranchMTFttx');
 
+      Route::get('/getDetailAPKMtFttx', [Report_FttxMTController::class, 'getDetailAPKMtFttx'])->name('getDetailAPKMtFttx')->middleware('auth');
+      Route::get('/dataDetailAPKMtFttx', [Report_FttxMTController::class, 'dataDetailAPKMtFttx'])->name('dataDetailAPKMtFttx')->middleware('auth');
+      Route::get('/getDetailAPKMtFttxCluster', [Report_FttxMTController::class, 'getDetailAPKMtFttxCluster'])->name('getDetailAPKMtFttxCluster')->middleware('auth');
+
      //====End Report FTTX MT====//
 
      //====Start Report FTTX IB====//
@@ -306,6 +315,10 @@ Route::group(
      Route::get('/getRootCouseCancelIBFttx', [Report_FttxIBController::class, 'getRootCouseCancelIBFttx'])->name('getRootCouseCancelIBFttx');
 
      Route::get('/getClusterBranchIBFttx', [Report_FttxIBController::class, 'getClusterBranchIBFttx'])->name('getClusterBranchIBFttx');
+
+     Route::get('/getDetailAPKIbFttx', [Report_FttxIBController::class, 'getDetailAPKIbFttx'])->name('getDetailAPKIbFttx')->middleware('auth');
+     Route::get('/dataDetailAPKIbFttx', [Report_FttxIBController::class, 'dataDetailAPKIbFttx'])->name('dataDetailAPKIbFttx')->middleware('auth');
+     Route::get('/getDetailAPKIbFttxCluster', [Report_FttxIBController::class, 'getDetailAPKIbFttxCluster'])->name('getDetailAPKIbFttxCluster')->middleware('auth');
 
     //====End Report FTTX IB====//
 

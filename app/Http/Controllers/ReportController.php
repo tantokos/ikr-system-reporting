@@ -1521,11 +1521,35 @@ class ReportController extends Controller
     {
         // dd($request->all());
 
-            $detAPKBranch = DB::table('v_ftth_mt_rootcouse_cluster')
+        if($request->detSlide != "analisa_precon"){
+
+        
+            if($request->detSlide == "rootCouseAPK"){
+                $detAPKBranch = DB::table('v_ftth_mt_rootcouse_cluster')
                         ->select('branch','cluster', DB::raw('sum(total) as total'))
                         ->where('branch','=', $request->detBranch )
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
+
+            }
+
+            if($request->detSlide == "pending"){
+                $detAPKBranch = DB::table('v_ftth_mt_pending')
+                        ->select('branch','cluster', DB::raw('sum(total) as total'))
+                        ->where('branch','=', $request->detBranch )
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            }
+
+            if($request->detSlide == "cancel"){
+                $detAPKBranch = DB::table('v_ftth_mt_cancel')
+                        ->select('branch','cluster', DB::raw('sum(total) as total'))
+                        ->where('branch','=', $request->detBranch )
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+        }
 
             if($request->detSite != "All") {
                 $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
@@ -1554,6 +1578,31 @@ class ReportController extends Controller
                                             ->where('couse_code','=', $request->detCouse_code)
                                             ->where('root_couse','=', $request->detRoot_couse);
             }
+
+        }
+
+        if($request->detSlide == "analisa_precon"){
+            $detAPKBranch = DB::table('v_detail_analis_precon')
+                        ->select('branch','cluster', DB::raw('count(cluster) as total'))
+                        ->where('branch','=', $request->detBranch )
+                        ->whereMonth('tgl_ikr', $request->detBulan)
+                        ->whereYear('tgl_ikr', $request->detThn);
+
+            if($request->detKategori == "result"){
+                $detAPKBranch=$detAPKBranch->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci');
+            }
+                        
+            if($request->detKategori == "penagihan"){
+                $detAPKBranch=$detAPKBranch->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
+                                            ->where('penagihan','=',$request->detPenagihan);
+            }
+            if($request->detKategori == "root_couse"){
+                $detAPKBranch=$detAPKBranch->whereRaw('`result` = "'.$request->detResult.'" COLLATE utf8mb4_unicode_ci')
+                                            ->where('penagihan','=',$request->detPenagihan)
+                                            ->where('root_couse','=', $request->detRoot_couse);
+            }
+    
+        }
 
             $detAPKBranch=$detAPKBranch->groupBy('branch','cluster')->orderBy('total', 'DESC')->get();
 

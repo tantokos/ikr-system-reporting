@@ -660,6 +660,40 @@
     </div>
     {{-- end modal detail APK --}}
 
+    {{-- detail cluster Chart--}}
+
+    <div class="modal fade" id="md-detailAPKCluster" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Cluster per Branch </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body" id="bdy-rusakAsetCluster">
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-body" id="canvasDetailAPKCluster">
+                                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end modal detail cluster Chart --}}
+
 @endsection
 
 @section('script')
@@ -748,6 +782,7 @@
             let datafilter;
             let detailTitle;
             let detailSubTitle;
+            let detailClikChart;
             let filSite = $('#site').val();
             let filBranch = $('#branch').val();
 
@@ -769,6 +804,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 if(detAPK[1]=="total") {
@@ -785,6 +821,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
@@ -807,6 +844,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 if(detAPK[1]=="total") {
@@ -823,6 +861,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
@@ -845,6 +884,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 if(detAPK[1]=="total") {
@@ -861,6 +901,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
@@ -949,6 +990,18 @@
                                     enabled: true
                                 },
                                 groupPadding: 0.1
+                            },
+                            series: {
+                                point: {
+                                    events: {
+                                        click() {
+                                            // console.log(this.series.name)
+                                            // alert(this.category+"|"+detailClikChart)
+                                            dataDetail = this.category+"|"+detailClikChart;
+                                            detailAPKCluster(dataDetail);
+                                        }
+                                    }
+                                }
                             }
                         },
                         legend:{ enabled:false },
@@ -965,7 +1018,8 @@
                 }                
             })
 
-            function fetch_detail() {
+            function fetch_detail() 
+            {
                     var tabel = $('#dataDetailRoot').DataTable();
                     tabel.clear().draw();
 
@@ -1294,7 +1348,196 @@
                     });
 
 
+            }
+
+            function detailAPKCluster(dataDetail) 
+            {
+                console.log(dataDetail);
+
+                let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
+
+                let filSite = $('#site').val();
+                let filBranch = $('#branch').val();
+                let datafilterCluster;
+                let detAPKCluster=dataDetail.split("|");
+
+                //Reason Status
+                if(detAPKCluster[1]=="reason_status" ) {
+                    if(detAPKCluster[2]=="penagihan") {
+                        datafilterCluster = {
+
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detBulan: detAPKCluster[4],
+                            detThn: detAPKCluster[5],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                        };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[3];
                 }
+
+                bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+            }
+
+            //Pending
+            if(detAPKCluster[1]=="pending" ) {
+                if(detAPKCluster[2]=="penagihan") {
+                    datafilterCluster = {
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detBulan: detAPKCluster[4],
+                            detThn: detAPKCluster[5],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[3];
+                }
+
+                bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+            }
+
+            //Cancel
+            if(detAPKCluster[1]=="cancel" ) {
+                if(detAPKCluster[2]=="penagihan") {
+                    datafilterCluster = {
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detBulan: detAPKCluster[4],
+                            detThn: detAPKCluster[5],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[3];
+                }
+
+                bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+            }
+
+            
+
+
+            $('#md-detailAPKCluster').modal('show');
+            $('#canvasDetailAPKCluster').empty();
+
+            $.ajax({
+                url: "{{ route('getDetailAPKIbCluster') }}",
+                type: "GET",
+                data: datafilterCluster,
+                beforeSend: () => {
+                    $("#smDetWO").show();
+                },
+                complete: () => {
+                    $("#smDetWO").hide();
+                },
+                success: function(detAPKCluster) {
+
+                    // dataSource = detAPK.detailAPK;
+                    var totDetailAPK = detAPKCluster;
+                    // var totDetailAPK = totDetailAPK.sort((a,b) => b.done - a.done);
+                    var ChrClusterAPK = [];
+                    var ChrClusterTot = [];
+
+                    $.each(detAPKCluster.detailBranchAPKCluster, function(key, item) {
+
+                        ChrClusterAPK.push(item.cluster);
+                        ChrClusterTot.push([Number(item.total)]);
+
+                    });
+
+                    $('#canvasDetailAPKCluster').empty();
+
+                    let chartBranchAPK = `
+					<figure class="highcharts-figure">
+					    <div id="detailAPKCluster"></div>
+					</figure>
+				    `;
+
+                    $('#canvasDetailAPKCluster').append(chartBranchAPK);
+
+                    var chartDetailCluster = Highcharts.chart('detailAPKCluster', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: detailTitleCluster.replaceAll('_',' '),
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: detailSubTitleCluster,
+                            align: 'left'
+                        },
+                        xAxis: {
+                            categories: ChrClusterAPK, // ['Africa', 'America', 'Asia', 'Europe'],
+                            title: {
+                                text: null
+                            },
+                            gridLineWidth: 3,
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: bulanData,
+                                // align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            },
+                            gridLineWidth: 0
+                        },
+                        // tooltip: {
+                        //     valueSuffix: ' millions'
+                        // },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: '10%',
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                groupPadding: 0.1
+                            },
+                            // series: {
+                            //     point: {
+                            //         events: {
+                            //             click() {
+                            //                 console.log(this.series.name)
+                            //                 alert(this.category+"|"+detailClikChart)
+                            //             }
+                            //         }
+                            //     }
+                            // }
+                        },
+                        legend:{ enabled:false },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: '',
+                            data: ChrClusterTot // [631, 727, 3202, 721]
+                        }]
+                    });
+
+                    // console.log(chartDetail.series.points);
+                    // fetch_detail();
+                }                
+            })
+                
+            }
         }
     </script>
 
@@ -2630,7 +2873,7 @@
                             detailCel = `reason_status|penagihan|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
 
                             tbPenagihanAPK = tbPenagihanAPK +
-                                `<th style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                `<th style="text-align: center; cursos:pointer;" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
                                 <th style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                             subtotal += Number(itemPenagihan.bulanan[p]);
@@ -2850,7 +3093,7 @@
                             detailCel = `pending|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
 
                             tbRootCousePending = tbRootCousePending +
-                                `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)"">${item.bulanan[bln].toLocaleString()}</td>
+                                `<td style="text-align: center; cursos:pointer;" id="${detailCel}" onClick="det_click(this.id)"">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                             subtotal += Number(item.bulanan[bln]);
@@ -3073,7 +3316,7 @@
                             detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
 
                             tbRootCouseCancel = tbRootCouseCancel +
-                                `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
+                                `<td style="text-align: center; cursos:pointer;" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                             subtotal += Number(item.bulanan[bln]);

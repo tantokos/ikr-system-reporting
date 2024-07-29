@@ -1053,7 +1053,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
-                    detailClikChart = detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
                 if(detAPK[1]=="couse_code") {
                     datafilter = {
@@ -1070,7 +1070,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = detAPK[3];
-                    detailClikChart = detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4]+"|"+detAPK[5];
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4]+"|"+detAPK[5];
                 }
                 if(detAPK[1]=="root_couse") {
                     datafilter = {
@@ -1088,7 +1088,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = detAPK[3] + " - " + detAPK[4];
-                    detailClikChart = detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4]+"|"+detAPK[5]+"|"+detAPK[6];
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4]+"|"+detAPK[5]+"|"+detAPK[6];
                 }
 
                 
@@ -1111,6 +1111,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 if(detAPK[1]=="total") {
@@ -1147,6 +1148,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
 
                 if(detAPK[1]=="total") {
@@ -1184,6 +1186,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
                 }
                 if(detAPK[1]=="penagihan") {
                     datafilter = {
@@ -1201,6 +1204,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = detAPK[3];
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4]+"|"+detAPK[5];
                 }
                 if(detAPK[1]=="root_couse") {
                     datafilter = {
@@ -1219,6 +1223,7 @@
 
                     detailTitle = detAPK[2];
                     detailSubTitle = detAPK[3] + " - " + detAPK[4];
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4]+"|"+detAPK[5]+"|"+detAPK[6];
                 }
 
                 
@@ -1655,7 +1660,7 @@
         // Click Branch show Cluster
         function detailAPKCluster(dataDetail) {
 
-            // console.log(dataDetail.split("|"));
+            console.log(dataDetail);
 
             let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
 
@@ -1664,13 +1669,17 @@
             let datafilterCluster;
             let detAPKCluster=dataDetail.split("|");
 
-                if(detAPKCluster[1]=="penagihan") {
+            //Root Couse APK
+            if(detAPKCluster[1]=="rootCouseAPK" ) {
+                if(detAPKCluster[2]=="penagihan") {
                     datafilterCluster = {
+
                             detBranch: detAPKCluster[0],
-                            detKategori: detAPKCluster[1], 
-                            detPenagihan: detAPKCluster[2],
-                            detBulan: detAPKCluster[3],
-                            detThn: detAPKCluster[4],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detBulan: detAPKCluster[4],
+                            detThn: detAPKCluster[5],
                             detSite: filSite,
                             // detBranch: filBranch,
                             _token: _token
@@ -1680,14 +1689,15 @@
                     detailSubTitleCluster = detAPKCluster[2];
                 }
 
-                if(detAPKCluster[1]=="couse_code") {
+                if(detAPKCluster[2]=="couse_code") {
                     datafilterCluster = {
                             detBranch: detAPKCluster[0],
-                            detKategori: detAPKCluster[1], 
-                            detPenagihan: detAPKCluster[2],
-                            detCouse_code: detAPKCluster[3],
-                            detBulan: detAPKCluster[4],
-                            detThn: detAPKCluster[5],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detCouse_code: detAPKCluster[4],
+                            detBulan: detAPKCluster[5],
+                            detThn: detAPKCluster[6],
                             detSite: filSite,
                             // detBranch: filBranch,
                             _token: _token
@@ -1697,15 +1707,16 @@
                     detailSubTitleCluster = detAPKCluster[2] + " - " + detAPKCluster[3];
                 }
 
-                if(detAPKCluster[1]=="root_couse") {
+                if(detAPKCluster[2]=="root_couse") {
                     datafilterCluster = {
                             detBranch: detAPKCluster[0],
-                            detKategori: detAPKCluster[1], 
-                            detPenagihan: detAPKCluster[2],
-                            detCouse_code: detAPKCluster[3],
-                            detRoot_couse: detAPKCluster[4],
-                            detBulan: detAPKCluster[5],
-                            detThn: detAPKCluster[6],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detCouse_code: detAPKCluster[4],
+                            detRoot_couse: detAPKCluster[5],
+                            detBulan: detAPKCluster[6],
+                            detThn: detAPKCluster[7],
                             detSite: filSite,
                             // detBranch: filBranch,
                             _token: _token
@@ -1716,6 +1727,115 @@
                 }
 
                 bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+            }
+
+            //Pending
+            if(detAPKCluster[1]=="pending" ) {
+                if(detAPKCluster[2]=="penagihan") {
+                    datafilterCluster = {
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detBulan: detAPKCluster[4],
+                            detThn: detAPKCluster[5],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[2];
+                }
+
+                bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+            }
+
+            //Cancel
+            if(detAPKCluster[1]=="cancel" ) {
+                if(detAPKCluster[2]=="penagihan") {
+                    datafilterCluster = {
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detPenagihan: detAPKCluster[3],
+                            detBulan: detAPKCluster[4],
+                            detThn: detAPKCluster[5],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[2];
+                }
+
+                bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+            }
+
+            //analisa precon
+            if(detAPKCluster[1]=="analisa_precon" ) {
+                if(detAPKCluster[2]=="result") {
+                    datafilterCluster = {
+
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detResult: detAPKCluster[3],
+                            // detPenagihan: detAPKCluster[3],
+                            detBulan: detAPKCluster[4],
+                            detThn: detAPKCluster[5],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[3];
+                }
+
+                if(detAPKCluster[2]=="penagihan") {
+                    datafilterCluster = {
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detResult: detAPKCluster[3],
+                            detPenagihan: detAPKCluster[4],
+                            // detCouse_code: detAPKCluster[4],
+                            detBulan: detAPKCluster[5],
+                            detThn: detAPKCluster[6],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[3] + " - " + detAPKCluster[4];
+                }
+
+                if(detAPKCluster[2]=="root_couse") {
+                    datafilterCluster = {
+                            detBranch: detAPKCluster[0],
+                            detSlide: detAPKCluster[1],
+                            detKategori: detAPKCluster[2], 
+                            detResult: detAPKCluster[3],
+                            detPenagihan: detAPKCluster[4],
+                            // detCouse_code: detAPKCluster[4],
+                            detRoot_couse: detAPKCluster[5],
+                            detBulan: detAPKCluster[6],
+                            detThn: detAPKCluster[7],
+                            detSite: filSite,
+                            // detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitleCluster = detAPKCluster[0];
+                    detailSubTitleCluster = detAPKCluster[3] + " - " + detAPKCluster[4] + " - " + detAPKCluster[5];
+                }
+
+                bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+            }
+
 
             $('#md-detailAPKCluster').modal('show');
             $('#canvasDetailAPKCluster').empty();
@@ -1846,7 +1966,7 @@
             let bulanReport = $('#bulanReport').val();
 
             // console.log(moment([new Date(bulanReport).getFullYear(), new Date(bulanReport).getMonth()]).format("DD-MM-YYYY"));
-            let trendWoMt;
+            let trendWoMtGet;
             var dataResult;
 
             let filBulanReport = $('#bulanReport').val();
@@ -1895,7 +2015,7 @@
                 },
                 success: function(dataTrendMonthly) {
                     // var trendWoMt = {!! $trendMonthly !!}
-                    trendWoMt = dataTrendMonthly;
+                    trendWoMtGet = dataTrendMonthly;
 
                 }
 
@@ -2442,9 +2562,9 @@
                         // <th>Root Couse</th>`;
                         // <th style="text-align: center">Jumlah</th>`;
 
-                    for (h = 0;h < trendWoMt.length; h++) {
+                    for (h = 0;h < trendWoMtGet.length; h++) {
                         hdRootCouseAPK = hdRootCouseAPK +
-                            `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan}</th>`
+                            `<th colspan="2" style="text-align: center">${trendWoMtGet[h].bulan}</th>`
                     }
 
                     $('#tableHeadCluster').append(hdRootCouseAPK + `<th style="text-align: center">Subtotal</th></tr>`);
@@ -2457,7 +2577,7 @@
                                 // <th class="table-secondary"></th>`;
                         subtotal=0;
 
-                        for (p=0;p<trendWoMt.length; p++) {
+                        for (p=0;p<trendWoMtGet.length; p++) {
 
                             TotMonthCluster[p]=0
                             $.each(dataCluster.branchCluster, function(key, jmlBln){
@@ -2485,7 +2605,7 @@
                                     // <th class="table-info"></th>`;
                                 
                                 subtotal = 0;
-                                for (cc = 0;cc < trendWoMt.length; cc++) {
+                                for (cc = 0;cc < trendWoMtGet.length; cc++) {
 
                                     TotMonthCluster[cc]=0
                                     $.each(dataCluster.detCluster, function(ky, jmlBlnCL){
@@ -2515,8 +2635,8 @@
                             // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
                     
                     subtotal=0;
-                    for (p=0;p<trendWoMt.length; p++) {
-                        colBln = trendWoMt[p].bulan;
+                    for (p=0;p<trendWoMtGet.length; p++) {
+                        colBln = trendWoMtGet[p].bulan;
                         colBln = colBln.replace("-","_");
                             
                         TotBranchCluster[p] = 0
@@ -3009,7 +3129,7 @@
 
                             tbPenagihanAPK = tbPenagihanAPK +
                                 `<td class="table-secondary" style="text-align: center; font-weight:bold" 
-                                ><span id="rootCouseAPK|penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
+                                ><span style="cursor:pointer" id="rootCouseAPK|penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
 
                                 <td class="table-secondary" style="text-align: center; font-weight:bold">${itemPenagihan.persen[p].toLocaleString()}%</td>`;
 
@@ -3040,7 +3160,7 @@
                                     detailCel = `${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${(blnId + 1)}|${thnId}`;
                                     tbCouseCodeAPK = tbCouseCodeAPK + 
                                     `<td class="table-info" style="text-align: center" font-weight:bold">
-                                        <span id="rootCouseAPK|couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
+                                        <span style="cursor:pointer" id="rootCouseAPK|couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
                                     <td class="table-info" style="text-align: center" font-weight:bold">${itemCouseCode.persen[cc].toLocaleString()}%</td>`;
 
                                     subtotalDT += Number(itemCouseCode.bulanan[cc]);
@@ -3072,7 +3192,7 @@
                                     
                                             tbRootCouseAPK = tbRootCouseAPK +
                                             `<td style="text-align: center" >
-                                                <span id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
+                                                <span style="cursor:pointer" id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
                                             <td style="text-align: center">${itemRootCouse.persen[rc].toLocaleString()}%</td>`;
 
                                             subtotalDT += Number(itemRootCouse.bulanan[rc]);
@@ -3458,7 +3578,7 @@
                             detailCel = `pending|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
 
                             tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[pn].toLocaleString()}</td>
+                                    `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[pn].toLocaleString()}</td>
                                     <td style="text-align: center">${item.persen[pn].toLocaleString()} %</td>`;
 
                             subtotal += Number(item.bulanan[pn]);
@@ -3488,7 +3608,7 @@
                         })
 
                         totRootPending = totRootPending + 
-                        `<th class="table-dark" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanPending[p].toLocaleString()}</th>
+                        `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanPending[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
                     }
 
@@ -3694,7 +3814,7 @@
                             thnId = new Date(trendWoMt[bln].bulan).getFullYear();
                             detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
                             tbRootCouseCancel = tbRootCouseCancel +
-                                `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
+                                `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${item.persen[bln].toLocaleString()} %</td>`;
 
                             subtotal += Number(item.bulanan[bln]);
@@ -3725,7 +3845,7 @@
                         })
 
                         totRootCancel = totRootCancel + 
-                        `<th class="table-dark" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanCancel[p].toLocaleString()}</th>
+                        `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanCancel[p].toLocaleString()}</th>
                         <th class="table-dark" style="text-align: center"></th>`;
                     }
 
@@ -4033,7 +4153,7 @@
                             })
 
                             tbPenagihanAPK = tbPenagihanAPK +
-                                `<th class="table-secondary" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                                `<th class="table-secondary" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
                                 <th class="table-secondary" style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                             subtotal+= Number(itemPenagihan.bulanan[p]);
@@ -4062,7 +4182,7 @@
                                     })
 
                                     tbCouseCodeAPK = tbCouseCodeAPK + 
-                                        `<th class="table-info" style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
+                                        `<th class="table-info" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
                                         <th class="table-info" style="text-align: center">${((itemCouseCode.bulanan[cc] * 100) / TotMonthly[cc]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                                     subtotal += Number(itemCouseCode.bulanan[cc]);
@@ -4102,7 +4222,7 @@
 
 
                                             tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center" id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
+                                            `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
                                             <td style="text-align: center">${((itemRootCouse.bulanan[rc] * 100) / TotMonthly[rc]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                             subtotal += Number(itemRootCouse.bulanan[rc]);

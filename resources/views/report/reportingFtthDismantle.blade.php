@@ -534,6 +534,140 @@
         </div>
     </div>
 
+
+    {{-- modal detail APK--}}
+
+    <div class="modal fade" id="md-detail" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h5" id="myLargeModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body" id="bdy-rusakAset">
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-body" id="canvasDetailAPK">
+                                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataDetailRoot" width="100%" cellspacing="0"
+                            style="font-size: 12px; table-layout: auto;">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>No WO</th>
+                                    <th>WO Date</th>
+                                    <th>Visit Date</th>
+                                    <th>Dismantle Port Date</th>
+                                    <th>Takeout/No</th>
+                                    <th>Port</th>
+                                    <th>Close Date</th>
+                                    <th>Cust Id</th>
+                                    <th>Nama Cust</th>
+                                    <th>Cust Address</th>
+                                    <th>Slot Time</th>
+                                    <th>Teknisi1</th>
+                                    <th>Teknisi2</th>
+                                    <th>Teknisi3</th>
+                                    <th>Start</th>
+                                    <th>Finish</th>
+                                    <th>Kode FAT</th>
+                                    <th>Kode Area</th>
+                                    <th>Cluster</th>
+                                    <th>Kotamadya</th>
+                                    <th>Kotamadya Penagihan</th>
+                                    <th>Branch</th>
+                                    <th>Manage Service/Regular</th>
+                                    <th>FAT Status</th>
+                                    <th>SN ONT In</th>
+                                    <th>SN STB In</th>
+                                    <th>SN Router In</th>
+                                    <th>Rollback / No</th>
+                                    <th>Status WO</th>
+                                    <th>Reason Status</th>
+                                    <th>Remarks</th>
+                                    <th>Tgl Reschedule</th>
+                                    <th>Alasan No Rollback</th>
+                                    <th>Jam Reschedule</th>
+                                    <th>Callsign</th>
+                                    <th>Checkin APK</th>
+                                    <th>Checkout APK</th>
+                                    <th>Status APK</th>
+                                    <th>Keterangan</th>
+                                    <th>IKR Progress Date</th>
+                                    <th>IKR Report Date</th>
+                                    <th>Reconsile Date</th>
+                                    <th>Weather</th>
+                                    <th>Leader</th>
+                                    <th>Pic Monitoring</th>
+        
+                                    <th>login</th>
+                                    {{-- <th>action</th> --}}
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end modal detail APK --}}
+
+    {{-- detail cluster Chart--}}
+
+    <div class="modal fade" id="md-detailAPKCluster" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Cluster per Branch </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body" id="bdy-rusakAsetCluster">
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-body" id="canvasDetailAPKCluster">
+                                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end modal detail cluster Chart --}}
+
    
 @endsection
 
@@ -1898,8 +2032,11 @@
                     
                     subtotal=0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
+                        blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
+                        thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
+                        detailCel = `reason_status|reason_status|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
                         tbPenagihanAPK = tbPenagihanAPK +
-                            `<td style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</td>
+                            `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</td>
                             <td style="text-align: center">${itemPenagihan.persen[p]}%</td>`;
 
                         subtotal += Number(itemPenagihan.bulanan[p]);
@@ -2126,8 +2263,11 @@
                         
                         subtotal=0;
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                                blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                                thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                                detailCel = `pending|reason_status|${item.penagihan}|${(blnId + 1)}|${thnId}`;
                                 tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
+                                    `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)"">${item.bulanan[bln].toLocaleString()}</td>
                                     <td style="text-align: center">${item.persen[bln].toLocaleString()} %</td>`;
 
                                 subtotal += Number(item.bulanan[bln]);
@@ -2179,4 +2319,505 @@
         
         }
     </script>
+
+    
+    <script type="text/javascript">
+
+        var _token = $('meta[name=csrf-token]').attr('content');
+
+        function det_click(apk_id)
+        {
+            let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
+            let dataSource;
+            let datafilter;
+            let detailTitle;
+            let detailSubTitle;
+            let detailClikChart;
+            let filSite = $('#site').val();
+            let filBranch = $('#branch').val();
+
+            let detAPK = apk_id.split("|");
+        
+            // root couse Detail
+            if(detAPK[0]=="reason_status"){
+                if(detAPK[1]=="reason_status") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+                }
+
+                if(detAPK[1]=="total") {
+                    datafilter = {
+                            detSlide: detAPK[0],
+                            detKategori: detAPK[1], 
+                            detPenagihan: detAPK[2],
+                            detBulan: detAPK[3],
+                            detThn: detAPK[4],
+                            detSite: filSite,
+                            detBranch: filBranch,
+                            _token: _token
+                    };
+
+                    detailTitle = detAPK[2];
+                    detailSubTitle = '';
+                    detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+                }
+
+                bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+            }
+            // end reason status Detail
+
+        // Pending Detail
+        if(detAPK[0]=="pending"){
+            if(detAPK[1]=="reason_status") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            if(detAPK[1]=="total") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+        }
+        // end Pending Detail           
+
+
+        $('#md-detail').modal('show');
+        $('#canvasDetailAPK').empty();
+        event.stopPropagation()
+
+        $.ajax({
+            url: "{{ route('getDetailAPKDismantle') }}",
+            type: "GET",
+            data: datafilter,
+            beforeSend: () => {
+                $("#smDetWO").show();
+            },
+            complete: () => {
+                $("#smDetWO").hide();
+            },
+            success: function(detAPK) {
+
+                dataSource = detAPK.detailAPK;
+                var totDetailAPK = detAPK;
+                // var totDetailAPK = totDetailAPK.sort((a,b) => b.done - a.done);
+                var ChrBranchAPK = [];
+                var ChrBranchTot = [];
+
+                $.each(detAPK.detailBranchAPK, function(key, item) {
+
+                    ChrBranchAPK.push(item.branch);
+                    ChrBranchTot.push([Number(item.total)]);
+
+                });
+
+                $('#canvasDetailAPK').empty();
+
+                let chartBranchAPK = `
+                <figure class="highcharts-figure">
+                    <div id="detailAPK"></div>
+                </figure>
+                `;
+
+                $('#canvasDetailAPK').append(chartBranchAPK);
+
+                Highcharts.chart('detailAPK', {
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: detailTitle.replaceAll('_',' '),
+                        align: 'left'
+                    },
+                    subtitle: {
+                        text: detailSubTitle,
+                        align: 'left'
+                    },
+                    xAxis: {
+                        categories: ChrBranchAPK, // ['Africa', 'America', 'Asia', 'Europe'],
+                        title: {
+                            text: null
+                        },
+                        gridLineWidth: 3,
+                        lineWidth: 0
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: bulanData,
+                            // align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        },
+                        gridLineWidth: 0
+                    },
+                    // tooltip: {
+                    //     valueSuffix: ' millions'
+                    // },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: '10%',
+                            dataLabels: {
+                                enabled: true
+                            },
+                            groupPadding: 0.1
+                        },
+                        series: {
+                            point: {
+                                events: {
+                                    click() {
+                                        // console.log(this.series.name)
+                                        // alert(this.category+"|"+detailClikChart)
+                                        dataDetail = this.category+"|"+detailClikChart;
+                                        detailAPKCluster(dataDetail);
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    legend:{ enabled:false },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: '',
+                        data: ChrBranchTot // [631, 727, 3202, 721]
+                    }]
+                });
+
+                fetch_detail();
+            }                
+        })
+
+        function fetch_detail() 
+        {
+                var tabel = $('#dataDetailRoot').DataTable();
+                tabel.clear().draw();
+
+                $('#dataDetailRoot').DataTable({
+                        layout: {
+                            topStart: {
+                                buttons: ['excel']
+                            }
+                        },
+                        paging: true,
+                        orderClasses: false,
+                        
+                        // fixedColumns: true,
+
+                        // fixedColumns: {
+                        //     // leftColumns: 4,
+                        //     rightColumns: 1
+                        // },
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scrollX: true,
+                        // scrollY: 300,
+                        // pageLength: 10,
+                        lengthChange: false,
+                        bFilter: true,
+                        destroy: true,
+                        processing: true,
+                        serverSide: false,
+                        // oLanguage: {
+                        //     sZeroRecords: "Tidak Ada Data",
+                        //     sSearch: "Pencarian _INPUT_",
+                        //     sLengthMenu: "_MENU_",
+                        //     sInfo: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                        //     sInfoEmpty: "0 data",
+                        //     oPaginate: {
+                        //         sNext: "<i class='fa fa-angle-right'></i>",
+                        //         sPrevious: "<i class='fa fa-angle-left'></i>"
+                        //     }
+                        // },
+                        ajax: {
+                            url: "{{ route('dataDetailAPKDismantle') }}",
+                            type: "get",
+                            dataType: "json",
+                            data: datafilter
+
+                        },
+                        columns: [{
+                                data: 'DT_RowIndex',
+                                name: 'DT_Row_Index',
+                                "className": "text-center",
+                                // orderable: false, 
+                                searchable: false,
+                                "width": '20'
+                            },
+                            // {
+                            //     data: 'pic_monitoring',
+                            //     "className": "text-center",
+                            //     width: '5%'
+
+                            // },
+                            {data: 'no_wo' },
+                            {data: 'wo_date' },
+                            {data: 'visit_date' },
+                            {data: 'dis_port_date' },
+                            {data: 'takeout_notakeout' },
+                            {data: 'port' },
+                            {data: 'close_date' },
+                            {data: 'cust_id' },
+                            {data: 'nama_cust' },
+                            {data: 'cust_address' },
+                            {data: 'slot_time' },
+                            {data: 'teknisi1' },
+                            {data: 'teknisi2' },
+                            {data: 'teknisi3' },
+                            {data: 'start' },
+                            {data: 'finish' },
+                            {data: 'kode_fat' },
+                            {data: 'kode_area' },
+                            {data: 'cluster' },
+                            {data: 'kotamadya' },
+                            {data: 'kotamadya_penagihan' },
+                            {data: 'main_branch' },
+                            {data: 'ms_regular' },
+                            {data: 'fat_status' },
+                            {data: 'ont_sn_in' },
+                            {data: 'stb_sn_in' },
+                            {data: 'router_sn_in' },
+                            {data: 'tarik_cable' },
+                            {data: 'status_wo' },
+                            {data: 'reason_status' },
+                            {data: 'remarks' },
+                            {data: 'reschedule_date' },
+                            {data: 'alasan_no_rollback' },
+                            {data: 'reschedule_time' },
+                            {data: 'callsign' },
+                            {data: 'checkin_apk' },
+                            {data: 'checkout_apk' },
+                            {data: 'status_apk' },
+                            {data: 'keterangan' },
+                            {data: 'ikr_progress_date' },
+                            {data: 'ikr_report_date' },
+                            {data: 'reconsile_date' },
+                            {data: 'weather' },
+                            {data: 'leader' },
+                            {data: 'pic_monitoring' },
+
+                            {data: 'login'},
+
+
+                            // {
+                            //     data: 'gender',
+                            //     "className": "text-center"      
+                            // },                                   
+                            // {
+                            //     data: 'action',
+                            //     "className": "text-center",
+                            //     orderable: false,
+                            //     searchable: false
+                            // },
+                        ]
+                    });
+
+        }
+
+        function detailAPKCluster(dataDetail) 
+        {
+            console.log(dataDetail);
+
+            let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
+
+            let filSite = $('#site').val();
+            let filBranch = $('#branch').val();
+            let datafilterCluster;
+            let detAPKCluster=dataDetail.split("|");
+
+            //Reason Status
+            if(detAPKCluster[1]=="reason_status" ) {
+                if(detAPKCluster[2]=="reason_status") {
+                    datafilterCluster = {
+
+                        detBranch: detAPKCluster[0],
+                        detSlide: detAPKCluster[1],
+                        detKategori: detAPKCluster[2], 
+                        detPenagihan: detAPKCluster[3],
+                        detBulan: detAPKCluster[4],
+                        detThn: detAPKCluster[5],
+                        detSite: filSite,
+                        // detBranch: filBranch,
+                        _token: _token
+                    };
+
+                detailTitleCluster = detAPKCluster[0];
+                detailSubTitleCluster = detAPKCluster[3];
+            }
+
+            bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+        }
+
+        //Pending
+        if(detAPKCluster[1]=="pending" ) {
+            if(detAPKCluster[2]=="reason_status") {
+                datafilterCluster = {
+                        detBranch: detAPKCluster[0],
+                        detSlide: detAPKCluster[1],
+                        detKategori: detAPKCluster[2], 
+                        detPenagihan: detAPKCluster[3],
+                        detBulan: detAPKCluster[4],
+                        detThn: detAPKCluster[5],
+                        detSite: filSite,
+                        // detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitleCluster = detAPKCluster[0];
+                detailSubTitleCluster = detAPKCluster[3];
+            }
+
+            bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+        }
+
+        
+        $('#md-detailAPKCluster').modal('show');
+        $('#canvasDetailAPKCluster').empty();
+
+        $.ajax({
+            url: "{{ route('getDetailAPKDismantleCluster') }}",
+            type: "GET",
+            data: datafilterCluster,
+            beforeSend: () => {
+                $("#smDetWO").show();
+            },
+            complete: () => {
+                $("#smDetWO").hide();
+            },
+            success: function(detAPKCluster) {
+
+                // dataSource = detAPK.detailAPK;
+                var totDetailAPK = detAPKCluster;
+                // var totDetailAPK = totDetailAPK.sort((a,b) => b.done - a.done);
+                var ChrClusterAPK = [];
+                var ChrClusterTot = [];
+
+                $.each(detAPKCluster.detailBranchAPKCluster, function(key, item) {
+
+                    ChrClusterAPK.push(item.cluster);
+                    ChrClusterTot.push([Number(item.total)]);
+
+                });
+
+                $('#canvasDetailAPKCluster').empty();
+
+                let chartBranchAPK = `
+                <figure class="highcharts-figure">
+                    <div id="detailAPKCluster"></div>
+                </figure>
+                `;
+
+                $('#canvasDetailAPKCluster').append(chartBranchAPK);
+
+                var chartDetailCluster = Highcharts.chart('detailAPKCluster', {
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: detailTitleCluster.replaceAll('_',' '),
+                        align: 'left'
+                    },
+                    subtitle: {
+                        text: detailSubTitleCluster,
+                        align: 'left'
+                    },
+                    xAxis: {
+                        categories: ChrClusterAPK, // ['Africa', 'America', 'Asia', 'Europe'],
+                        title: {
+                            text: null
+                        },
+                        gridLineWidth: 3,
+                        lineWidth: 0
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: bulanData,
+                            // align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        },
+                        gridLineWidth: 0
+                    },
+                    // tooltip: {
+                    //     valueSuffix: ' millions'
+                    // },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: '10%',
+                            dataLabels: {
+                                enabled: true
+                            },
+                            groupPadding: 0.1
+                        },
+                        // series: {
+                        //     point: {
+                        //         events: {
+                        //             click() {
+                        //                 console.log(this.series.name)
+                        //                 alert(this.category+"|"+detailClikChart)
+                        //             }
+                        //         }
+                        //     }
+                        // }
+                    },
+                    legend:{ enabled:false },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: '',
+                        data: ChrClusterTot // [631, 727, 3202, 721]
+                    }]
+                });
+
+                // console.log(chartDetail.series.points);
+                // fetch_detail();
+            }                
+        })
+            
+        }
+    }
+</script>
+
 @endsection
