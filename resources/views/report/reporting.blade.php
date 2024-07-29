@@ -1660,7 +1660,7 @@
         // Click Branch show Cluster
         function detailAPKCluster(dataDetail) {
 
-            console.log(dataDetail);
+            // console.log(dataDetail);
 
             let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
 
@@ -1686,7 +1686,7 @@
                     };
 
                     detailTitleCluster = detAPKCluster[0];
-                    detailSubTitleCluster = detAPKCluster[2];
+                    detailSubTitleCluster = detAPKCluster[3];
                 }
 
                 if(detAPKCluster[2]=="couse_code") {
@@ -1704,7 +1704,7 @@
                     };
 
                     detailTitleCluster = detAPKCluster[0];
-                    detailSubTitleCluster = detAPKCluster[2] + " - " + detAPKCluster[3];
+                    detailSubTitleCluster = detAPKCluster[3] + " - " + detAPKCluster[4];
                 }
 
                 if(detAPKCluster[2]=="root_couse") {
@@ -1723,7 +1723,7 @@
                     };
 
                     detailTitleCluster = detAPKCluster[0];
-                    detailSubTitleCluster = detAPKCluster[2] + " - " + detAPKCluster[3] + " - " + detAPKCluster[4];
+                    detailSubTitleCluster = detAPKCluster[3] + " - " + detAPKCluster[4] + " - " + detAPKCluster[5];
                 }
 
                 bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
@@ -1745,7 +1745,7 @@
                     };
 
                     detailTitleCluster = detAPKCluster[0];
-                    detailSubTitleCluster = detAPKCluster[2];
+                    detailSubTitleCluster = detAPKCluster[3];
                 }
 
                 bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
@@ -1767,7 +1767,7 @@
                     };
 
                     detailTitleCluster = detAPKCluster[0];
-                    detailSubTitleCluster = detAPKCluster[2];
+                    detailSubTitleCluster = detAPKCluster[3];
                 }
 
                 bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
