@@ -662,6 +662,173 @@
         </div>
     </div> --}}
 
+    {{-- modal rusak detail APK--}}
+
+    <div class="modal fade" id="md-detail" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h5" id="myLargeModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body" id="bdy-rusakAset">
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-body" id="canvasDetailAPK">
+                                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataDetailRoot" width="100%" cellspacing="0"
+                            style="font-size: 12px; table-layout: auto;">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    {{-- <th>pic_monitoring</th> --}}
+                                    <th>no_so</th>
+                                    <th>no_wo</th>
+                                    <th>wo_date</th>
+                                    <th>ib_date</th>
+                                    <th>wo_type</th>
+                                    <th>cust_name</th>
+                                    <th>cust_address</th>
+                                    <th>area</th>
+                                    <th>site</th>
+                                    <th>packages_type</th>
+                                    <th>service_type</th>
+                                    <th>slot_time</th>
+                                    <th>teknisi1</th>
+                                    <th>teknisi2</th>
+                                    <th>teknisi3</th>
+                                    <th>leader</th>
+                                    <th>branch</th>
+                                    <th>callsign</th>
+                                    <th>nopol</th>
+                                    <th>start</th>
+                                    <th>finish</th>
+                                    <th>report_wa</th>
+                                    <th>fdt_code</th>
+                                    <th>fat_code</th>
+                                    <th>fat_port</th>
+                                    <th>signal_fat</th>
+                                    <th>signal_tb</th>
+                                    <th>signal_ont</th>
+                                    <th>ont_sn_out</th>
+                                    <th>ont_mac_out</th>
+                                    <th>ont_sn_in</th>
+                                    <th>ont_mac_in</th>
+                                    <th>stb1_sn</th>
+                                    <th>stb1_mac</th>
+                                    <th>stb2_sn</th>
+                                    <th>stb2_mac</th>
+                                    <th>stb3_sn</th>
+                                    <th>stb3_mac</th>
+                                    <th>stb4_sn</th>
+                                    <th>stb4_mac</th>
+                                    <th>stb5_sn</th>
+                                    <th>stb5_mac</th>
+                                    <th>stb6_sn</th>
+                                    <th>stb6_mac</th>
+                                    <th>stb7_sn</th>
+                                    <th>stb7_mac</th>
+                                    <th>stb8_sn</th>
+                                    <th>stb8_mac</th>
+                                    <th>stb9_sn</th>
+                                    <th>stb9_mac</th>
+                                    <th>router_sn</th>
+                                    <th>router_mac</th>
+                                    <th>drop_cable</th>
+                                    <th>precon</th>
+                                    <th>fast_connector</th>
+                                    <th>termination_box</th>
+                                    <th>patch_cord_3m</th>
+                                    <th>patch_cord_10m</th>
+                                    <th>screw_hanger</th>
+                                    <th>indor_cable_duct</th>
+                                    <th>pvc_pipe_20mm</th>
+                                    <th>socket_pvc_20mm</th>
+                                    <th>clamp_pvc_20mm</th>
+                                    <th>flexible_pvc_20mm</th>
+                                    <th>clamp_cable</th>
+                                    <th>cable_lan</th>
+                                    <th>connector_rj45</th>
+                                    <th>cable_marker</th>
+                                    <th>insulation</th>
+                                    <th>cable_ties</th>
+                                    <th>adapter_optic</th>
+                                    <th>fisher</th>
+                                    <th>paku_beton</th>
+                                    <th>splitter</th>
+                                    <th>status_wo</th>
+                                    <th>root_couse</th>
+                                    <th>action_taken</th>
+                                    <th>remarks</th>
+        
+                                    <th>login</th>
+                                    {{-- <th>action</th> --}}
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    {{-- <button type="submit" class="btn  btn-primary">Save</button> --}}
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end modal detail APK --}}
+
+    {{-- detail cluster Chart--}}
+
+    <div class="modal fade" id="md-detailAPKCluster" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h5" id="myLargeModalLabel">Detail Cluster per Branch </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body" id="bdy-rusakAsetCluster">
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-body" id="canvasDetailAPKCluster">
+                                    {{-- <canvas id="TotWoMt"></canvas> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">back</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end modal detail cluster Chart --}}
+
    
 @endsection
 
@@ -743,6 +910,606 @@
             })
         });
     </script>
+
+<script type="text/javascript">
+
+    var _token = $('meta[name=csrf-token]').attr('content');
+
+    function det_click(apk_id)
+    {
+        let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
+        let dataSource;
+        let datafilter;
+        let detailTitle;
+        let detailSubTitle;
+        let detailClikChart;
+        let filSite = $('#site').val();
+        let filBranch = $('#branch').val();
+
+        let detAPK = apk_id.split("|");
+        
+        // Reason Status Detail
+        if(detAPK[0]=="action_status"){
+            if(detAPK[1]=="penagihan") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            if(detAPK[1]=="total") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+        }
+        // end reason status Detail
+
+        // Pending Detail
+        if(detAPK[0]=="pending"){
+            if(detAPK[1]=="penagihan") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            if(detAPK[1]=="total") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+        }
+        // end Pending Detail
+
+        // Cancel Detail
+        if(detAPK[0]=="cancel"){
+            if(detAPK[1]=="penagihan") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            if(detAPK[1]=="total") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[2];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4];
+            }
+
+            bulanData = months[datafilter.detBulan - 1] + "-" + datafilter.detThn;
+        }
+        // end Cancel Detail            
+
+        
+
+        $('#md-detail').modal('show');
+        $('#canvasDetailAPK').empty();
+        event.stopPropagation()
+
+        $.ajax({
+            url: "{{ route('getDetailAPKIbFttx') }}",
+            type: "GET",
+            data: datafilter,
+            beforeSend: () => {
+                $("#smDetWO").show();
+            },
+            complete: () => {
+                $("#smDetWO").hide();
+            },
+            success: function(detAPK) {
+
+                dataSource = detAPK.detailAPK;
+                var totDetailAPK = detAPK;
+                // var totDetailAPK = totDetailAPK.sort((a,b) => b.done - a.done);
+                var ChrBranchAPK = [];
+                var ChrBranchTot = [];
+
+                $.each(detAPK.detailBranchAPK, function(key, item) {
+
+                    ChrBranchAPK.push(item.branch);
+                    ChrBranchTot.push([Number(item.total)]);
+
+                });
+
+                $('#canvasDetailAPK').empty();
+
+                let chartBranchAPK = `
+                <figure class="highcharts-figure">
+                    <div id="detailAPK"></div>
+                </figure>
+                `;
+
+                $('#canvasDetailAPK').append(chartBranchAPK);
+
+                Highcharts.chart('detailAPK', {
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: detailTitle.replaceAll('_',' '),
+                        align: 'left'
+                    },
+                    subtitle: {
+                        text: detailSubTitle,
+                        align: 'left'
+                    },
+                    xAxis: {
+                        categories: ChrBranchAPK, // ['Africa', 'America', 'Asia', 'Europe'],
+                        title: {
+                            text: null
+                        },
+                        gridLineWidth: 3,
+                        lineWidth: 0
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: bulanData,
+                            // align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        },
+                        gridLineWidth: 0
+                    },
+                    // tooltip: {
+                    //     valueSuffix: ' millions'
+                    // },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: '10%',
+                            dataLabels: {
+                                enabled: true
+                            },
+                            groupPadding: 0.1
+                        },
+                        series: {
+                            point: {
+                                events: {
+                                    click() {
+                                        // console.log(this.series.name)
+                                        // alert(this.category+"|"+detailClikChart)
+                                        dataDetail = this.category+"|"+detailClikChart;
+                                        // detailAPKCluster(dataDetail);
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    legend:{ enabled:false },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: '',
+                        data: ChrBranchTot // [631, 727, 3202, 721]
+                    }]
+                });
+
+                fetch_detail();
+            }                
+        })
+
+        function fetch_detail() 
+        {
+                var tabel = $('#dataDetailRoot').DataTable();
+                tabel.clear().draw();
+
+                $('#dataDetailRoot').DataTable({
+                    // dom: 'Bftip',
+                    layout: {
+                        topStart: {
+                            buttons: ['excel']
+                        }
+                    },
+                    paging: true,
+                    orderClasses: false,
+                    
+                    // fixedColumns: true,
+
+                    // fixedColumns: {
+                    //     // leftColumns: 4,
+                    //     rightColumns: 1
+                    // },
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scrollX: true,
+                    // scrollY: 300,
+                    // pageLength: 10,
+                    lengthChange: false,
+                    bFilter: true,
+                    destroy: true,
+                    processing: true,
+                    serverSide: false,
+                    // oLanguage: {
+                    //     sZeroRecords: "Tidak Ada Data",
+                    //     sSearch: "Pencarian _INPUT_",
+                    //     sLengthMenu: "_MENU_",
+                    //     sInfo: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                    //     sInfoEmpty: "0 data",
+                    //     oPaginate: {
+                    //         sNext: "<i class='fa fa-angle-right'></i>",
+                    //         sPrevious: "<i class='fa fa-angle-left'></i>"
+                    //     }
+                    // },
+                    ajax: {
+                        url: "{{ route('dataDetailAPKIbFttx') }}",
+                        type: "get",
+                        dataType: "json",
+                        data: datafilter
+                    },
+                    
+                    columns: [{
+                                data: 'DT_RowIndex',
+                                name: 'DT_Row_Index',
+                                "className": "text-center",
+                                // orderable: false, 
+                                searchable: false,
+                                "width": '20'
+                            },
+                            // {
+                            //     data: 'pic_monitoring',
+                            //     "className": "text-center",
+                            //     width: '5%'
+
+                            // },
+
+                            {data: 'no_so'},
+                            {data: 'no_wo'},
+                            {data: 'wo_date'},
+                            {data: 'ib_date'},
+                            {data: 'wo_type'},
+                            {data: 'cust_name'},
+                            {data: 'cust_address'},
+                            {data: 'area'},
+                            {data: 'site'},
+                            {data: 'packages_type'},
+                            {data: 'service_type'},
+                            {data: 'slot_time'},
+                            {data: 'teknisi1'},
+                            {data: 'teknisi2'},
+                            {data: 'teknisi3'},
+                            {data: 'leader'},
+                            {data: 'branch'},
+                            {data: 'callsign'},
+                            {data: 'nopol'},
+                            {data: 'start'},
+                            {data: 'finish'},
+                            {data: 'report_wa'},
+                            {data: 'fdt_code'},
+                            {data: 'fat_code'},
+                            {data: 'fat_port'},
+                            {data: 'signal_fat'},
+                            {data: 'signal_tb'},
+                            {data: 'signal_ont'},
+                            {data: 'ont_sn_out'},
+                            {data: 'ont_mac_out'},
+                            {data: 'ont_sn_in'},
+                            {data: 'ont_mac_in'},
+                            {data: 'stb1_sn'},
+                            {data: 'stb1_mac'},
+                            {data: 'stb2_sn'},
+                            {data: 'stb2_mac'},
+                            {data: 'stb3_sn'},
+                            {data: 'stb3_mac'},
+                            {data: 'stb4_sn'},
+                            {data: 'stb4_mac'},
+                            {data: 'stb5_sn'},
+                            {data: 'stb5_mac'},
+                            {data: 'stb6_sn'},
+                            {data: 'stb6_mac'},
+                            {data: 'stb7_sn'},
+                            {data: 'stb7_mac'},
+                            {data: 'stb8_sn'},
+                            {data: 'stb8_mac'},
+                            {data: 'stb9_sn'},
+                            {data: 'stb9_mac'},
+                            {data: 'router_sn'},
+                            {data: 'router_mac'},
+                            {data: 'drop_cable'},
+                            {data: 'precon'},
+                            {data: 'fast_connector'},
+                            {data: 'termination_box'},
+                            {data: 'patch_cord_3m'},
+                            {data: 'patch_cord_10m'},
+                            {data: 'screw_hanger'},
+                            {data: 'indor_cable_duct'},
+                            {data: 'pvc_pipe_20mm'},
+                            {data: 'socket_pvc_20mm'},
+                            {data: 'clamp_pvc_20mm'},
+                            {data: 'flexible_pvc_20mm'},
+                            {data: 'clamp_cable'},
+                            {data: 'cable_lan'},
+                            {data: 'connector_rj45'},
+                            {data: 'cable_marker'},
+                            {data: 'insulation'},
+                            {data: 'cable_ties'},
+                            {data: 'adapter_optic'},
+                            {data: 'fisher'},
+                            {data: 'paku_beton'},
+                            {data: 'splitter'},
+                            {data: 'status_wo'},
+                            {data: 'root_couse'},
+                            {data: 'action_taken'},
+                            {data: 'remarks'},
+
+                            {data: 'login'},
+
+
+                            // {
+                            //     data: 'gender',
+                            //     "className": "text-center"      
+                            // },                                   
+                            // {
+                            //     data: 'action',
+                            //     "className": "text-center",
+                            //     orderable: false,
+                            //     searchable: false
+                            // },
+                        ]
+                });
+
+
+        }
+
+        function detailAPKCluster(dataDetail) 
+        {
+            console.log(dataDetail);
+
+            let months = ["jan","Feb","Mar","Apr","May","Jun","Jul","Agt","Sept","Oct","Nov","Dec"];
+
+            let filSite = $('#site').val();
+            let filBranch = $('#branch').val();
+            let datafilterCluster;
+            let detAPKCluster=dataDetail.split("|");
+
+            //Reason Status
+            if(detAPKCluster[1]=="reason_status" ) {
+                if(detAPKCluster[2]=="penagihan") {
+                    datafilterCluster = {
+
+                        detBranch: detAPKCluster[0],
+                        detSlide: detAPKCluster[1],
+                        detKategori: detAPKCluster[2], 
+                        detPenagihan: detAPKCluster[3],
+                        detBulan: detAPKCluster[4],
+                        detThn: detAPKCluster[5],
+                        detSite: filSite,
+                        // detBranch: filBranch,
+                        _token: _token
+                    };
+
+                detailTitleCluster = detAPKCluster[0];
+                detailSubTitleCluster = detAPKCluster[3];
+            }
+
+            bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+        }
+
+        //Pending
+        if(detAPKCluster[1]=="pending" ) {
+            if(detAPKCluster[2]=="penagihan") {
+                datafilterCluster = {
+                        detBranch: detAPKCluster[0],
+                        detSlide: detAPKCluster[1],
+                        detKategori: detAPKCluster[2], 
+                        detPenagihan: detAPKCluster[3],
+                        detBulan: detAPKCluster[4],
+                        detThn: detAPKCluster[5],
+                        detSite: filSite,
+                        // detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitleCluster = detAPKCluster[0];
+                detailSubTitleCluster = detAPKCluster[3];
+            }
+
+            bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+        }
+
+        //Cancel
+        if(detAPKCluster[1]=="cancel" ) {
+            if(detAPKCluster[2]=="penagihan") {
+                datafilterCluster = {
+                        detBranch: detAPKCluster[0],
+                        detSlide: detAPKCluster[1],
+                        detKategori: detAPKCluster[2], 
+                        detPenagihan: detAPKCluster[3],
+                        detBulan: detAPKCluster[4],
+                        detThn: detAPKCluster[5],
+                        detSite: filSite,
+                        // detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitleCluster = detAPKCluster[0];
+                detailSubTitleCluster = detAPKCluster[3];
+            }
+
+            bulanData = months[datafilterCluster.detBulan - 1] + "-" + datafilterCluster.detThn;
+        }
+
+        
+
+
+        $('#md-detailAPKCluster').modal('show');
+        $('#canvasDetailAPKCluster').empty();
+
+        $.ajax({
+            url: "{{ route('getDetailAPKIbFttxCluster') }}",
+            type: "GET",
+            data: datafilterCluster,
+            beforeSend: () => {
+                $("#smDetWO").show();
+            },
+            complete: () => {
+                $("#smDetWO").hide();
+            },
+            success: function(detAPKCluster) {
+
+                // dataSource = detAPK.detailAPK;
+                var totDetailAPK = detAPKCluster;
+                // var totDetailAPK = totDetailAPK.sort((a,b) => b.done - a.done);
+                var ChrClusterAPK = [];
+                var ChrClusterTot = [];
+
+                $.each(detAPKCluster.detailBranchAPKCluster, function(key, item) {
+
+                    ChrClusterAPK.push(item.cluster);
+                    ChrClusterTot.push([Number(item.total)]);
+
+                });
+
+                $('#canvasDetailAPKCluster').empty();
+
+                let chartBranchAPK = `
+                <figure class="highcharts-figure">
+                    <div id="detailAPKCluster"></div>
+                </figure>
+                `;
+
+                $('#canvasDetailAPKCluster').append(chartBranchAPK);
+
+                var chartDetailCluster = Highcharts.chart('detailAPKCluster', {
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: detailTitleCluster.replaceAll('_',' '),
+                        align: 'left'
+                    },
+                    subtitle: {
+                        text: detailSubTitleCluster,
+                        align: 'left'
+                    },
+                    xAxis: {
+                        categories: ChrClusterAPK, // ['Africa', 'America', 'Asia', 'Europe'],
+                        title: {
+                            text: null
+                        },
+                        gridLineWidth: 3,
+                        lineWidth: 0
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: bulanData,
+                            // align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        },
+                        gridLineWidth: 0
+                    },
+                    // tooltip: {
+                    //     valueSuffix: ' millions'
+                    // },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: '10%',
+                            dataLabels: {
+                                enabled: true
+                            },
+                            groupPadding: 0.1
+                        },
+                        // series: {
+                        //     point: {
+                        //         events: {
+                        //             click() {
+                        //                 console.log(this.series.name)
+                        //                 alert(this.category+"|"+detailClikChart)
+                        //             }
+                        //         }
+                        //     }
+                        // }
+                    },
+                    legend:{ enabled:false },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: '',
+                        data: ChrClusterTot // [631, 727, 3202, 721]
+                    }]
+                });
+
+                // console.log(chartDetail.series.points);
+                // fetch_detail();
+            }                
+        })
+            
+        }
+    }
+</script>
 
     <script type="text/javascript">
         $(document).on('click', '.closeDetailToday', function() {
@@ -1871,13 +2638,17 @@
                     subtotal=0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
 
+                        blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
+                        thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
+                        detailCel = `action_status|penagihan|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
+
                         TotMonthly[p] = 0
                         $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
                             TotMonthly[p] += Number(iPenagihan.bulanan[p]);
                         })
 
                         tbPenagihanAPK = tbPenagihanAPK +
-                            `<th style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</th>
+                            `<th style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
                             <th style="text-align: center">${parseFloat((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                         subtotal += Number(itemPenagihan.bulanan[p]);
@@ -2109,13 +2880,17 @@
                             subtotal = 0;
                             for (bln = 0; bln < trendWoIBFtth.length; bln++) {
 
+                                blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                                thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                                detailCel = `pending|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
                                 TotMonthPending[bln] = 0;
                                 $.each(dataRootCousePending, function(ky,itm) {
                                     TotMonthPending[bln] += Number(itm.bulanan[bln]);
                                 })
 
                                 tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center">${item.bulanan[bln]}</td>
+                                    `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln]}</td>
                                     <td style="text-align: center">${parseFloat((item.bulanan[bln]*100)/TotMonthPending[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                 subtotal += Number(item.bulanan[bln]);
@@ -2345,13 +3120,17 @@
                         subtotal=0;
                         for (bln = 0; bln < trendWoIBFtth.length; bln++) {
 
+                            blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                            thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                            detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
                             TotMonthCancel[bln]=0;
                             $.each(dataRootCouseCancel, function(ky, itm) {
                                 TotMonthCancel[bln] += Number(itm.bulanan[bln]);
                             })
 
                             tbRootCouseCancel = tbRootCouseCancel +
-                                `<td style="text-align: center">${item.bulanan[bln].toLocaleString()}</td>
+                                `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${parseFloat((item.bulanan[bln]*100)/TotMonthCancel[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                             subtotal += Number(item.bulanan[bln]);

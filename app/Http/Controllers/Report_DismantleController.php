@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\ImportFtthDismantleSortirTemp;
 use App\Models\DataFtthDismantleSortir;
+use Yajra\DataTables\DataTables;
 
 class Report_DismantleController extends Controller
 {
@@ -1003,6 +1004,175 @@ class Report_DismantleController extends Controller
         }
 
         return response()->json($rootCousePending);
+    }
+
+    public function getDetailAPKDismantle(Request $request)
+    {
+        
+        if($request->detSlide=="reason_status"){
+            $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
+                        ->select('branch', DB::raw('sum(ftth_dismantle_done) as total'))
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            // if($request->detSite != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            // }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "reason_status"){
+                $detAPKBranch=$detAPKBranch->where('reason_status','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        if($request->detSlide=="pending"){
+            $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
+                        ->select('branch', DB::raw('sum(ftth_dismantle_pending) as total'))->distinct()
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            // if($request->detSite != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            // }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "reason_status"){
+                $detAPKBranch=$detAPKBranch->where('reason_status','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+
+        return response()->json(['detailBranchAPK' => $detAPKBranch]);
+
+    }
+
+    public function dataDetailAPKDismantle(Request $request)
+    {
+        ini_set('max_execution_time', 900);
+        ini_set('memory_limit', '2048M');
+
+        $akses = Auth::user()->name;
+
+        if($request->detSlide=="reason_status"){
+            $detAPK = DB::table('data_ftth_dismantle_sortirs')
+                    ->where('status_wo','=','Done')
+                    ->whereMonth('visit_date', '=',$request->detBulan)
+                    ->whereYear('visit_date', '=',$request->detThn);
+
+            // if($request->detSite != "All") {
+            //     $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
+            // }
+            if($request->detBranch != "All") {
+                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+            }
+            
+            if($request->detKategori == "reason_status"){
+                $detAPK=$detAPK->where('reason_status','=',$request->detPenagihan);
+            }
+            
+            $detAPK=$detAPK->get();
+
+        }
+
+        if($request->detSlide=="pending"){
+            $detAPK = DB::table('data_ftth_dismantle_sortirs')
+                    ->where('status_wo','=','Pending')
+                    ->whereMonth('visit_date', '=',$request->detBulan)
+                    ->whereYear('visit_date', '=',$request->detThn);
+
+            // if($request->detSite != "All") {
+            //     $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
+            // }
+            if($request->detBranch != "All") {
+                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+            }
+            
+            if($request->detKategori == "reason_status"){
+                $detAPK=$detAPK->where('reason_status','=',$request->detPenagihan);
+            }
+            
+            $detAPK=$detAPK->get();
+
+        }
+
+        
+
+        if ($request->ajax()) {
+            // $datas = DB::table('import_ftth_mt_temps')->where('login', '=', $akses)->get();
+            return DataTables::of($detAPK)
+                ->addIndexColumn() //memberikan penomoran
+                // ->addColumn('action', function ($row) {
+                //     $btn = '<a href="#" class="btn btn-sm btn-primary edit-barang" > <i class="fas fa-edit"></i> Edit</a>
+                //              <a href="#" class="btn btn-sm btn-secondary disable"> <i class="fas fa-trash"></i> Hapus</a>';
+                //     return $btn;
+                // })
+                // ->rawColumns(['action'])   //merender content column dalam bentuk html
+                ->escapeColumns()  //mencegah XSS Attack
+                ->toJson(); //merubah response dalam bentuk Json
+            // ->make(true);
+        }
+    }
+
+    public function getDetailAPKDismantleCluster(Request $request)
+    {
+        if($request->detSlide=="reason_status"){
+            $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
+                        ->select('branch', 'cluster', DB::raw('sum(ftth_dismantle_done) as total'))
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            // if($request->detSite != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            // }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "reason_status"){
+                $detAPKBranch=$detAPKBranch->where('reason_status','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster','bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        if($request->detSlide=="pending"){
+            $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
+                        ->select('branch', 'cluster', DB::raw('sum(ftth_dismantle_pending) as total'))->distinct()
+                        ->where('bulan','=', $request->detBulan)
+                        ->where('tahun','=', $request->detThn);
+
+            // if($request->detSite != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            // }
+            if($request->detBranch != "All") {
+                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            }
+
+            if($request->detKategori == "reason_status"){
+                $detAPKBranch=$detAPKBranch->where('reason_status','=',$request->detPenagihan);
+            }
+            
+
+            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster', 'bulan','tahun')->orderBy('total', 'DESC')->get();
+
+        }
+
+        return response()->json(['detailBranchAPKCluster' => $detAPKBranch]);
+
     }
 
 
