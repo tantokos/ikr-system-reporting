@@ -73,7 +73,7 @@ class Report_DismantleController extends Controller
     public function getFilterBranchDismantleFtth(Request $request)
     {
 
-        $kotamadyaPenagihan = DB::table('data_ftth_Dismantle_sortirs')
+        $kotamadyaPenagihan = DB::table('data_ftth_dismantle_sortirs')
             ->select('kotamadya_penagihan');
         // ->where('branch','=',$request->branchReport)
         // ->distinct()
