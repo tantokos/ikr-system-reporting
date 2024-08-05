@@ -283,8 +283,8 @@ class ImportFtthMtTempController extends Controller
     public function importFtthMtTemp(Request $request)
     {
 
-        ini_set('max_execution_time', 900);
-        ini_set('memory_limit', '2048M');
+        ini_set('max_execution_time', 1900);
+        ini_set('memory_limit', '8192M');
 
         if ($request->hasFile('fileFtthMT')) {
 
@@ -452,6 +452,9 @@ class ImportFtthMtTempController extends Controller
 
     public function dataImportFtthTemp(Request $request)
     {
+        ini_set('max_execution_time', 1900);
+        ini_set('memory_limit', '8192M');
+        
         $akses = Auth::user()->name;
         if ($request->ajax()) {
             $datas = DB::table('import_ftth_mt_temps')->where('login', '=', $akses)->get();
