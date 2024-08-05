@@ -323,7 +323,7 @@ class Report_DismantleController extends Controller
 
         if ($request->filterBranch != "All") {
             $branch = $branch->where('branch', '=', $request->filterBranch);
-            $branchCluster = $branchCluster->where('branch', '=', $request->filterBranch);
+            $branchCluster = $branchCluster->where('nama_branch', '=', $request->filterBranch);
         }
 
 
@@ -1011,7 +1011,7 @@ class Report_DismantleController extends Controller
         
         if($request->detSlide=="reason_status"){
             $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
-                        ->select('main_branch', DB::raw('sum(ftth_dismantle_done) as total'))
+                        ->select('nama_branch', DB::raw('sum(ftth_dismantle_done) as total'))
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
@@ -1019,7 +1019,7 @@ class Report_DismantleController extends Controller
             //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
             // }
             if($request->detBranch != "All") {
-                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+                $detAPKBranch=$detAPKBranch->where('nama_branch','=',$request->detBranch);
             }
 
             if($request->detKategori == "reason_status"){
@@ -1027,13 +1027,13 @@ class Report_DismantleController extends Controller
             }
             
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+            $detAPKBranch=$detAPKBranch->groupBy('nama_branch','bulan','tahun')->orderBy('total', 'DESC')->get();
 
         }
 
         if($request->detSlide=="pending"){
             $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
-                        ->select('branch', DB::raw('sum(ftth_dismantle_pending) as total'))->distinct()
+                        ->select('nama_branch', DB::raw('sum(ftth_dismantle_pending) as total'))->distinct()
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
@@ -1041,7 +1041,7 @@ class Report_DismantleController extends Controller
             //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
             // }
             if($request->detBranch != "All") {
-                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+                $detAPKBranch=$detAPKBranch->where('nama_branch','=',$request->detBranch);
             }
 
             if($request->detKategori == "reason_status"){
@@ -1049,7 +1049,7 @@ class Report_DismantleController extends Controller
             }
             
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+            $detAPKBranch=$detAPKBranch->groupBy('nama_branch','bulan','tahun')->orderBy('total', 'DESC')->get();
 
         }
 
@@ -1129,7 +1129,7 @@ class Report_DismantleController extends Controller
     {
         if($request->detSlide=="reason_status"){
             $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
-                        ->select('branch', 'cluster', DB::raw('sum(ftth_dismantle_done) as total'))
+                        ->select('nama_branch', 'cluster', DB::raw('sum(ftth_dismantle_done) as total'))
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
@@ -1137,7 +1137,7 @@ class Report_DismantleController extends Controller
             //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
             // }
             if($request->detBranch != "All") {
-                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+                $detAPKBranch=$detAPKBranch->where('nama_branch','=',$request->detBranch);
             }
 
             if($request->detKategori == "reason_status"){
@@ -1145,13 +1145,13 @@ class Report_DismantleController extends Controller
             }
             
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster','bulan','tahun')->orderBy('total', 'DESC')->get();
+            $detAPKBranch=$detAPKBranch->groupBy('nama_branch','cluster','bulan','tahun')->orderBy('total', 'DESC')->get();
 
         }
 
         if($request->detSlide=="pending"){
             $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
-                        ->select('branch', 'cluster', DB::raw('sum(ftth_dismantle_pending) as total'))->distinct()
+                        ->select('nama_branch', 'cluster', DB::raw('sum(ftth_dismantle_pending) as total'))->distinct()
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
@@ -1159,7 +1159,7 @@ class Report_DismantleController extends Controller
             //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
             // }
             if($request->detBranch != "All") {
-                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+                $detAPKBranch=$detAPKBranch->where('nama_branch','=',$request->detBranch);
             }
 
             if($request->detKategori == "reason_status"){
@@ -1167,7 +1167,7 @@ class Report_DismantleController extends Controller
             }
             
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','cluster', 'bulan','tahun')->orderBy('total', 'DESC')->get();
+            $detAPKBranch=$detAPKBranch->groupBy('nama_branch','cluster', 'bulan','tahun')->orderBy('total', 'DESC')->get();
 
         }
 
