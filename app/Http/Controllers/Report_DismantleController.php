@@ -1011,7 +1011,7 @@ class Report_DismantleController extends Controller
         
         if($request->detSlide=="reason_status"){
             $detAPKBranch = DB::table('v_ftth_dismantle_cluster')
-                        ->select('branch', DB::raw('sum(ftth_dismantle_done) as total'))
+                        ->select('main_branch', DB::raw('sum(ftth_dismantle_done) as total'))
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
@@ -1075,7 +1075,7 @@ class Report_DismantleController extends Controller
             //     $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
             // }
             if($request->detBranch != "All") {
-                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+                $detAPK=$detAPK->where('main_branch','=',$request->detBranch);
             }
             
             if($request->detKategori == "reason_status"){
@@ -1096,7 +1096,7 @@ class Report_DismantleController extends Controller
             //     $detAPK=$detAPK->where('site_penagihan','=',$request->detSite);
             // }
             if($request->detBranch != "All") {
-                $detAPK=$detAPK->where('branch','=',$request->detBranch);
+                $detAPK=$detAPK->where('main_branch','=',$request->detBranch);
             }
             
             if($request->detKategori == "reason_status"){
