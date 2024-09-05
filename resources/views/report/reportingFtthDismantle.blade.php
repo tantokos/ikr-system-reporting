@@ -2455,7 +2455,7 @@
 
                 $.each(detAPK.detailBranchAPK, function(key, item) {
 
-                    ChrBranchAPK.push(item.branch);
+                    ChrBranchAPK.push(item.nama_branch);
                     ChrBranchTot.push([Number(item.total)]);
 
                 });
