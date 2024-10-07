@@ -119,7 +119,7 @@ class Report_FttxMTController extends Controller
             //         ->whereYear('mt_date', $tahun)
             //         ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
                     
-            //     $branchPenagihan[$b]->total = $totWo;
+            //     $branchPenagihan[$b]->total = $totWo; ////
             //     $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
             //     $branchPenagihan[$b]->done = $totWoDone;
             //     $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
