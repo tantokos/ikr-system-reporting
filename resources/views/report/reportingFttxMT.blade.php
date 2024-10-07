@@ -2357,6 +2357,7 @@
 
                 },
                 success: function(data) {
+                    console.log(data);
                     // var day = new Date(tahun, bulan, 0).getDate();
                     var dayGraph = [];
                     var nameGraph = [];

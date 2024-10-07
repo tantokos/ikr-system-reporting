@@ -120,14 +120,14 @@ class Report_IBController extends Controller
                     ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
                     
-                $branchPenagihan[$b]->total = $totWo;
-                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
-                $branchPenagihan[$b]->done = $totWoDone;
-                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$b]->pending = $totWoPending;
-                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$b]->cancel = $totWoCancel;
-                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+                // $branchPenagihan[$b]->total = isset($totWo) ? $totWo : 0 ;
+                // $branchPenagihan[$b]->persenTotal = isset($totWo) ? ($totWo * 100) / $totAllBranch : 0;
+                // $branchPenagihan[$b]->done = isset($totWo) ? $totWoDone : 0;
+                // $branchPenagihan[$b]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                // $branchPenagihan[$b]->pending = isset($totWo) ? $totWoPending : 0;
+                // $branchPenagihan[$b]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                // $branchPenagihan[$b]->cancel = isset($totWo) ? $totWoCancel : 0;
+                // $branchPenagihan[$b]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
             } elseif ($branchPenagihan[$b]->nama_branch == "Underground") {
                 $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
@@ -150,14 +150,14 @@ class Report_IBController extends Controller
                     ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
-                $branchPenagihan[$b]->total = $totWo;
-                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
-                $branchPenagihan[$b]->done = $totWoDone;
-                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$b]->pending = $totWoPending;
-                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$b]->cancel = $totWoCancel;
-                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+                    // $branchPenagihan[$b]->total = isset($totWo) ? $totWo : 0 ;
+                    // $branchPenagihan[$b]->persenTotal = isset($totWo) ? ($totWo * 100) / $totAllBranch : 0;
+                    // $branchPenagihan[$b]->done = isset($totWo) ? $totWoDone : 0;
+                    // $branchPenagihan[$b]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->pending = isset($totWo) ? $totWoPending : 0;
+                    // $branchPenagihan[$b]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->cancel = isset($totWo) ? $totWoCancel : 0;
+                    // $branchPenagihan[$b]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
             } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground")) {
                 $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Retail')->where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
@@ -172,14 +172,14 @@ class Report_IBController extends Controller
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
-                $branchPenagihan[$b]->total = $totWo;
-                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
-                $branchPenagihan[$b]->done = $totWoDone;
-                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$b]->pending = $totWoPending;
-                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$b]->cancel = $totWoCancel;
-                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+                    // $branchPenagihan[$b]->total = isset($totWo) ? $totWo : 0 ;
+                    // $branchPenagihan[$b]->persenTotal = isset($totWo) ? ($totWo * 100) / $totAllBranch : 0;
+                    // $branchPenagihan[$b]->done = isset($totWo) ? $totWoDone : 0;
+                    // $branchPenagihan[$b]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->pending = isset($totWo) ? $totWoPending : 0;
+                    // $branchPenagihan[$b]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->cancel = isset($totWo) ? $totWoCancel : 0;
+                    // $branchPenagihan[$b]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
             } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground" && $branchPenagihan[$b]->nama_branch <> "Retail")) {
                 $totWo = DataFtthIbSortir::where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
@@ -199,15 +199,27 @@ class Report_IBController extends Controller
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
                 
-                $branchPenagihan[$b]->total = $totWo;
-                $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
-                $branchPenagihan[$b]->done = $totWoDone;
-                $branchPenagihan[$b]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$b]->pending = $totWoPending;
-                $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$b]->cancel = $totWoCancel;
-                $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+                    // $branchPenagihan[$b]->total = isset($totWo) ? $totWo : 0 ;
+                    // $branchPenagihan[$b]->persenTotal = isset($totWo) ? ($totWo * 100) / $totAllBranch : 0;
+                    // $branchPenagihan[$b]->done = isset($totWo) ? $totWoDone : 0;
+                    // $branchPenagihan[$b]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->pending = isset($totWo) ? $totWoPending : 0;
+                    // $branchPenagihan[$b]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->cancel = isset($totWo) ? $totWoCancel : 0;
+                    // $branchPenagihan[$b]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
             }
+
+            // if($totWo > 0) {
+                $branchPenagihan[$b]->total = ($totWo > 0) ? $totWo : 0 ;
+                $branchPenagihan[$b]->persenTotal = ($totWo > 0) ? ($totWo * 100) / $totAllBranch : 0;
+                $branchPenagihan[$b]->done = ($totWo > 0) ? $totWoDone : 0;
+                $branchPenagihan[$b]->persenDone = ($totWo > 0) ? ($totWoDone * 100) / $totWo : 0;
+                $branchPenagihan[$b]->pending = ($totWo > 0) ? $totWoPending : 0;
+                $branchPenagihan[$b]->persenPending = ($totWo > 0) ? ($totWoPending * 100) / $totWo : 0;
+                $branchPenagihan[$b]->cancel = ($totWo > 0) ? $totWoCancel : 0;
+                $branchPenagihan[$b]->persenCancel = ($totWo > 0) ? ($totWoCancel * 100) / $totWo : 0;
+            // }
+
         }
 
         return response()->json($branchPenagihan);
@@ -289,7 +301,6 @@ class Report_IBController extends Controller
         }
 
         $branchPenagihan = $branchPenagihan->distinct()->orderBy('b.id')->get();
-        dd($branchPenagihan);
 
         for ($br = 0; $br < $branchPenagihan->count(); $br++) {
             if ($branchPenagihan[$br]->site_penagihan == "Apartemen") {
@@ -361,13 +372,14 @@ class Report_IBController extends Controller
                     $branchPenagihan[$br]->nama_branch = "Apartemen";
                 }
                 // $branchPenagihan[$br]->nama_branch = "Apartemen";
-                $branchPenagihan[$br]->total = $totWo;
-                $branchPenagihan[$br]->done = $totWoDone;
-                $branchPenagihan[$br]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$br]->pending = $totWoPending;
-                $branchPenagihan[$br]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$br]->cancel = $totWoCancel;
-                $branchPenagihan[$br]->persenCancel = ($totWoCancel * 100) / $totWo;
+
+                // $branchPenagihan[$br]->total = isset($totWo) ? $totWo : 0 ;
+                // $branchPenagihan[$br]->done = isset($totWo) ? $totWoDone : 0;
+                // $branchPenagihan[$br]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                // $branchPenagihan[$br]->pending = isset($totWo) ? $totWoPending : 0;
+                // $branchPenagihan[$br]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                // $branchPenagihan[$br]->cancel = isset($totWo) ? $totWoCancel : 0;
+                // $branchPenagihan[$br]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
             } elseif ($branchPenagihan[$br]->site_penagihan == "Underground") {
                 $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
@@ -436,14 +448,14 @@ class Report_IBController extends Controller
                     // $branchPenagihan[$br]->id = "12";
                     $branchPenagihan[$br]->nama_branch = "Underground";
                 }
-                // $branchPenagihan[$br]->nama_branch = "Underground";
-                $branchPenagihan[$br]->total = $totWo;
-                $branchPenagihan[$br]->done = $totWoDone;
-                $branchPenagihan[$br]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$br]->pending = $totWoPending;
-                $branchPenagihan[$br]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$br]->cancel = $totWoCancel;
-                $branchPenagihan[$br]->persenCancel = ($totWoCancel * 100) / $totWo;
+                // // $branchPenagihan[$br]->nama_branch = "Underground";
+                // $branchPenagihan[$br]->total = isset($totWo) ? $totWo : 0 ;
+                // $branchPenagihan[$br]->done = isset($totWo) ? $totWoDone : 0;
+                // $branchPenagihan[$br]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                // $branchPenagihan[$br]->pending = isset($totWo) ? $totWoPending : 0;
+                // $branchPenagihan[$br]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                // $branchPenagihan[$br]->cancel = isset($totWo) ? $totWoCancel : 0;
+                // $branchPenagihan[$br]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
             } elseif ($branchPenagihan[$br]->site_penagihan == "Retail") {
                 $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Retail')
                     ->whereMonth('tgl_ikr', $bulan)
@@ -508,14 +520,22 @@ class Report_IBController extends Controller
 
                     $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
 
-                $branchPenagihan[$br]->total = $totWo;
-                $branchPenagihan[$br]->done = $totWoDone;
-                $branchPenagihan[$br]->persenDone = ($totWoDone * 100) / $totWo;
-                $branchPenagihan[$br]->pending = $totWoPending;
-                $branchPenagihan[$br]->persenPending = ($totWoPending * 100) / $totWo;
-                $branchPenagihan[$br]->cancel = $totWoCancel;
-                $branchPenagihan[$br]->persenCancel = ($totWoCancel * 100) / $totWo;
+                    // $branchPenagihan[$br]->total = isset($totWo) ? $totWo : 0 ;
+                    // $branchPenagihan[$br]->done = isset($totWo) ? $totWoDone : 0;
+                    // $branchPenagihan[$br]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                    // $branchPenagihan[$br]->pending = isset($totWo) ? $totWoPending : 0;
+                    // $branchPenagihan[$br]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                    // $branchPenagihan[$br]->cancel = isset($totWo) ? $totWoCancel : 0;
+                    // $branchPenagihan[$br]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
             }
+
+            $branchPenagihan[$br]->total = ($totWo > 0) ? $totWo : 0 ;
+            $branchPenagihan[$br]->done = ($totWo > 0) ? $totWoDone : 0;
+            $branchPenagihan[$br]->persenDone = ($totWo > 0) ? ($totWoDone * 100) / $totWo : 0;
+            $branchPenagihan[$br]->pending = ($totWo > 0) ? $totWoPending : 0;
+            $branchPenagihan[$br]->persenPending = ($totWo > 0) ? ($totWoPending * 100) / $totWo : 0;
+            $branchPenagihan[$br]->cancel = ($totWo > 0) ? $totWoCancel : 0;
+            $branchPenagihan[$br]->persenCancel = ($totWo > 0) ? ($totWoCancel * 100) / $totWo : 0;
         }
 
         return response()->json($branchPenagihan);
@@ -1662,8 +1682,6 @@ class Report_IBController extends Controller
 
         }
 
-
-        
 
         $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
 

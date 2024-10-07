@@ -105,7 +105,9 @@ class EmployeeController extends Controller
 
         if ($request->hasFile('foto_karyawan')) {
             $file = $request->file('foto_karyawan')->getClientOriginalName();
-            $request->file('foto_karyawan')->move(public_path('storage/image-kry'), $file);
+            $extension = $request->file('foto_karyawan')->getClientOriginalExtension();
+            $fileName = $file.'_'.time().'.'.$extension;
+            $request->file('foto_karyawan')->move(public_path('storage/image-kry'), $fileName);
         } else {
             $file = 'foto-blank.jpg';
         }
@@ -121,7 +123,7 @@ class EmployeeController extends Controller
             'posisi' => $request->posisi,
             'email' => $request->email,
             'status_active' => $request->status_active,
-            'foto_karyawan' => $file,
+            'foto_karyawan' => $fileName,
         ]);
 
         return redirect('employee');

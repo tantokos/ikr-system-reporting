@@ -1131,8 +1131,8 @@ class Report_FttxMTController extends Controller
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
 
-        $PenagihanSortir = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.action_taken'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.action_taken')
+        $PenagihanSortir = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
             ->where('root_couse_penagihan.status', '=', 'Cancel')
             ->where('root_couse_penagihan.type_wo','=','MT FTTX')
             // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
@@ -1149,14 +1149,14 @@ class Report_FttxMTController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
         
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
-            $nameGraphCancel[$p] = ['penagihan' => $PenagihanSortir[$p]->action_taken];
+            $nameGraphCancel[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
         }
 
         
@@ -1167,8 +1167,8 @@ class Report_FttxMTController extends Controller
                 // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.action_taken'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.action_taken')
+                $jml = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
+                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
                     ->where('root_couse_penagihan.status', '=', 'Cancel')
                     ->where('root_couse_penagihan.type_wo','=','MT FTTX')
                     // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
@@ -1176,13 +1176,13 @@ class Report_FttxMTController extends Controller
                     // ->whereMonth('data_fttx_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
                     // ->whereYear('data_fttx_mt_sortirs.tgl_ikr', '=', $tahun)
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_fttx_mt_sortirs.action_taken', '=', $PenagihanSortir[$pn]->action_taken);
+                    ->where('data_fttx_mt_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
 
                 if ($request->filterBranch != "All") {
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_fttx_mt_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
