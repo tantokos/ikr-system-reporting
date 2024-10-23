@@ -34,9 +34,17 @@
             </a>
         </li>
 
+        <li class="pcoded-trigger {{ request()->is('reportTrendWOIkr*') ? 'active' : '' }}">
+            <a href="{{ route('report.reportTrendWOIkr')}}">
+                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main">Trend WO IKR</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+
         <li
             {{-- class="pcoded-hasmenu pcoded-trigger {{ request()->is('report*') ? 'active' : '' }}"> --}}
-            class="pcoded-hasmenu pcoded-trigger {{ request()->is('report*') ? 'active' : '' }}">
+            class="pcoded-hasmenu pcoded-trigger {{ request()->is('reportIBFtth') || request()->is('reportMtFtth') || request()->is('reportDismantleFtth') || request()->is('reportIBFttx') || request()->is('reportMTFttx') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-view-list-alt"></i></span>
                 <span class="pcoded-mtext" data-i18n="nav.basic-components.main">IKR Monthly Report</span>
