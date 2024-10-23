@@ -460,6 +460,27 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title" id="titleTrendTotWoFttxIB_pending"></h6>
+                    <canvas id="TrendTotWoFttxIB_pending" ></canvas> {{-- style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title" id="titleTrendWoPendingFttxIB"></h6>
+                    <canvas id="TrendTotWoFttxIBPending" ></canvas> {{-- style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body" id="canvasRootCouseAPKPending">
@@ -506,6 +527,27 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title" id="titleTrendTotWoFttxIB_cancel"></h6>
+                    <canvas id="TrendTotWoFttxIB_cancel" ></canvas> {{-- style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title" id="titleTrendWoCancelFttxIB"></h6>
+                    <canvas id="TrendTotWoFttxIBCancel"></canvas>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="row">
@@ -2697,6 +2739,351 @@
                 }
 
             });
+
+            //**Script get data trend wo Fttx IB**//
+            $.ajax({
+                url: "{{ route('getTrendMonthlyFttxIB') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                beforeSend: () => {
+                    $("#smWOPending").show();
+                },
+                complete: () => {
+                    $("#smWOPending").hide();
+                },
+                success: function(dataTrendMonthlyFttxIB) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    trendWoFttxIB = dataTrendMonthlyFttxIB;
+
+                    document.querySelectorAll('#titleTrendTotWoFttxIB_pending').forEach(function(elem){
+                        elem.innerText = 'Trend Total WO FTTX New Installation ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    document.querySelectorAll('#titleTrendTotWoFttxIB_cancel').forEach(function(elem){
+                        elem.innerText = 'Trend Total WO FTTX New Installation ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    document.querySelectorAll('#titleTrendWoPendingFttxIB').forEach(function(elem){
+                        elem.innerText = 'Trend WO FTTX New Installation Pending ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    document.querySelectorAll('#titleTrendWoCancelFttxIB').forEach(function(elem){
+                        elem.innerText = 'Trend WO FTTX New Installation Cancel ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    var trendMonth = [''];
+                    var trendTotFttxIB = ['null'];
+                    // var trendFttxIBDone = ['null'];
+                    var trendFttxIBPending = ['null'];
+                    var trendFttxIBCancel = ['null'];
+
+                    $.each(trendWoFttxIB, function(key, item) {
+
+                        trendMonth.push(item.bulan);
+                        trendTotFttxIB.push(item.trendFttxIBTotal);
+                        // trendFttxIBDone.push(item.trendFttxIBDone);
+                        trendFttxIBPending.push(item.trendFttxIBPending);
+                        trendFttxIBCancel.push(item.trendFttxIBCancel);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotFttxIB.push('null');
+                    // trendFttxIBDone.push('null');
+                    trendFttxIBPending.push('null');
+                    trendFttxIBCancel.push('null');
+
+
+                    //**Canvas line graph tot WO IB**//
+                    const ctxTrendTotWoFttxIB_pending = document.getElementById('TrendTotWoFttxIB_pending');
+
+                    var graphTrendTotWoFttxIB_pending = Chart.getChart('TrendTotWoFttxIB_pending');
+                    if (graphTrendTotWoFttxIB_pending) {
+                        graphTrendTotWoFttxIB_pending.destroy();
+                    }
+
+
+                    var ChartTrendTotWoFttxIB_pending = new Chart(ctxTrendTotWoFttxIB_pending, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotFttxIB, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+                    
+
+                    //**Canvas line graph tot WO FttxIBPending**//
+                    const ctxTrendTotWoFttxIBPending = document.getElementById('TrendTotWoFttxIBPending');
+
+                    var graphTrendTotWoFttxIBPending = Chart.getChart('TrendTotWoFttxIBPending');
+                    if (graphTrendTotWoFttxIBPending) {
+                        graphTrendTotWoFttxIBPending.destroy();
+                    }
+
+
+                    var ChartTrendTotWoFttxIBPending = new Chart(ctxTrendTotWoFttxIBPending, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendFttxIBPending, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();},
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: maxChartTot,
+                                    // min: minChartTot,
+                                    // grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    var maxChartTot_pending = ChartTrendTotWoFttxIB_pending.scales.y.max;
+                    // var minChartTotClose = ChartTrendTotWoFttxIBClose.scales.y.min;
+                    var minChartTotPending = ChartTrendTotWoFttxIBPending.scales.y.min;
+                    // var minChartTotCancel = ChartTrendTotWoFttxIBCancel.scales.y.min;
+                    // ChartTrendTotWoFttxIBClose.options.scales.y.max = ChartTrendTotWoFttxIB.scales.y.max;
+                    ChartTrendTotWoFttxIBPending.options.scales.y.max = ChartTrendTotWoFttxIB_pending.scales.y.max;
+                    // ChartTrendTotWoFttxIBCancel.options.scales.y.max = ChartTrendTotWoFttxIB.scales.y.max;
+                    ChartTrendTotWoFttxIB_pending.options.scales.y.min= minChartTotPending;
+
+                    // ChartTrendTotWoFttxIBClose.update();
+                    ChartTrendTotWoFttxIBPending.update();
+                    // ChartTrendTotWoFttxIBCancel.update();
+                    ChartTrendTotWoFttxIB_pending.update();
+
+
+                    //**Canvas line graph tot WO IB**//
+                    const ctxTrendTotWoFttxIB_cancel = document.getElementById('TrendTotWoFttxIB_cancel');
+
+                    var graphTrendTotWoFttxIB_cancel = Chart.getChart('TrendTotWoFttxIB_cancel');
+                    if (graphTrendTotWoFttxIB_cancel) {
+                        graphTrendTotWoFttxIB_cancel.destroy();
+                    }
+
+
+                    var ChartTrendTotWoFttxIB_cancel = new Chart(ctxTrendTotWoFttxIB_cancel, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotFttxIB, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    //**Canvas line graph tot WO MT Cancel**//
+                    const ctxTrendTotWoFttxIBCancel = document.getElementById('TrendTotWoFttxIBCancel');
+
+                    var graphTrendTotWoFttxIBCancel = Chart.getChart('TrendTotWoFttxIBCancel');
+                    if (graphTrendTotWoFttxIBCancel) {
+                        graphTrendTotWoFttxIBCancel.destroy();
+                    }
+
+
+
+                    var ChartTrendTotWoFttxIBCancel = new Chart(ctxTrendTotWoFttxIBCancel, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendFttxIBCancel, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();},
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: maxChartTot,
+                                    // min: minChartTot,
+                                    // grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+
+                    var maxChartTot_cancel = ChartTrendTotWoFttxIB_cancel.scales.y.max;
+                    // var minChartTotClose = ChartTrendTotWoFttxIBClose.scales.y.min;
+                    // var minChartTotPending = ChartTrendTotWoFttxIBPending.scales.y.min;
+                    var minChartTotCancel = ChartTrendTotWoFttxIBCancel.scales.y.min;
+                    // ChartTrendTotWoFttxIBClose.options.scales.y.max = ChartTrendTotWoFttxIB.scales.y.max;
+                    // ChartTrendTotWoFttxIBPending.options.scales.y.max = ChartTrendTotWoFttxIB.scales.y.max;
+                    ChartTrendTotWoFttxIBCancel.options.scales.y.max = ChartTrendTotWoFttxIB_cancel.scales.y.max;
+                    ChartTrendTotWoFttxIB_cancel.options.scales.y.min= minChartTotCancel;
+
+                    // ChartTrendTotWoFttxIBClose.update();
+                    // ChartTrendTotWoFttxIBPending.update();
+                    ChartTrendTotWoFttxIBCancel.update();
+                    ChartTrendTotWoFttxIB_cancel.update();
+
+                }
+
+            })
 
             $.ajax({
                 url: "{{ route('getRootCousePendingGraphIBFttx') }}",

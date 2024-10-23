@@ -32,6 +32,7 @@ use App\Http\Controllers\PeminjamanAsetController;
 use App\Http\Controllers\PengembalianAsetController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\Report_DashboardController;
+use App\Http\Controllers\report_DashTrendWOController;
 use App\Http\Controllers\Report_DismantleController;
 use App\Http\Controllers\Report_FATController;
 use App\Http\Controllers\Report_FttxIBController;
@@ -89,6 +90,17 @@ Route::group(
         Route::get('/portal',[PortalController::class, 'index'])->name('portal.index');
 
         Route::get('reportDashboard',[Report_DashboardController::class, 'index'])->name('report.dashboard');
+
+        //*****Start Dashboard Trend WO IKR */
+        Route::get('reportTrendWOIkr',[report_DashTrendWOController::class, 'index'])->name('report.reportTrendWOIkr');
+        Route::get('getTrendMonthlyMT',[report_DashTrendWOController::class, 'getTrendMonthlyMT'])->name('getTrendMonthlyMT');
+        Route::get('getTrendMonthlyIB',[report_DashTrendWOController::class, 'getTrendMonthlyIB'])->name('getTrendMonthlyIB');
+        Route::get('getTrendMonthlyDismantle',[report_DashTrendWOController::class, 'getTrendMonthlyDismantle'])->name('getTrendMonthlyDismantle');
+        Route::get('getTrendMonthlyFttxIB',[report_DashTrendWOController::class, 'getTrendMonthlyFttxIB'])->name('getTrendMonthlyFttxIB');
+        Route::get('getTrendMonthlyFttxMT',[report_DashTrendWOController::class, 'getTrendMonthlyFttxMT'])->name('getTrendMonthlyFttxMT');
+
+
+        //*****End Dashboard Trend WO IKR */
 
         //=====Start Import MT FTTH======//
 
