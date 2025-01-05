@@ -302,9 +302,9 @@
             {{-- <div class="col"> --}}
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="overflow-y: auto; height: 600px;">
                         <table class="table table-bordered" style="font-size: 11px; table-layout: auto;">
-                            <thead>
+                            <thead style="position: sticky; top: 0px">
                                 <tr id="tableHeadCluster">
                                 {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
                                 {{-- <th></th> --}}
@@ -461,23 +461,27 @@
         </div>
     </div>
 
-
     <div class="row">
-        {{-- Root Couse Sortir MT --}}
         <div class="col-sm-12">
-            <div class="table-responsive">
-                <table id="TabelRootCouseAPK" class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
-                    <thead>
-                        <tr id="rootCouseHeadAPK">
-                            {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
-                            {{-- <th></th> --}}
-                            {{-- <th></th> --}}
-                            {{-- <th style="text-align: center">Jumlah</th> --}}
-                        </tr>
-                    </thead>
-                    <tbody id="bodyRootCouseAPK">
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="card-body">
+                    {{-- Root Couse Sortir MT --}}
+                
+                    <div class="table-responsive" style="overflow-y: auto; height: 600px;">
+                        <table id="TabelRootCouseAPK" class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
+                            <thead style="position: sticky; top: 0px; z-index:9;">
+                                <tr id="rootCouseHeadAPK">
+                                    {{-- <th>Root Couse Penagihan (Sortir)</th> --}}
+                                    {{-- <th></th> --}}
+                                    {{-- <th></th> --}}
+                                    {{-- <th style="text-align: center">Jumlah</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody id="bodyRootCouseAPK">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         {{-- End Root Couse Sortir MT --}}
@@ -3100,7 +3104,6 @@
                     filterDateEnd: filPeriodeEnd
                 },
                 success: function(apk) {    
-                    // console.log(apk);
 
                     $('#rootCouseHeadAPK').find("th").remove();
                     $('#bodyRootCouseAPK').find("tr").remove();
@@ -3128,9 +3131,9 @@
                         <th>Penagihan</th>`;
 
                     let hdRootCouseAPK = `
-                        <th>Penagihan</th>
-                        <th>Couse Code</th>
-                        <th>Root Couse</th>`;
+                        <th style="position:sticky;left: 0;">Penagihan</th>
+                        <th style="position:sticky;left: 150.25px;">Couse Code</th>
+                        <th style="position:sticky;left:340px;">Root Couse</th>`;
                         // <th style="text-align: center">Jumlah</th>`;
 
                     for (h = 0;h < trendWoMt.length; h++) {
@@ -3153,9 +3156,10 @@
                                 <tr><td>${itemPenagihan.penagihan}</td>`;
 
                         tbPenagihanAPK = `
-                                <tr class="table-secondary"><td style="font-weight:bold" >${itemPenagihan.penagihan}</td>
-                                <td class="table-secondary"></td>
-                                <td class="table-secondary"></td>`;
+                                <tr class="table-secondary">
+                                    <td style="position:sticky;left: 0;z-index:8;font-weight:bold;">${itemPenagihan.penagihan}</td>
+                                <td style="position:sticky;left: 150.25px;"></td>
+                                <td style="position:sticky;left:340px;"></td>`;
                         
                         subtotalSM = 0;
                         subtotalDT = 0;
@@ -3166,8 +3170,14 @@
                             thnId = new Date(trendWoMt[p].bulan).getFullYear();
                             detailCel = `${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
                             tbSumPenagihanAPK = tbSumPenagihanAPK +
-                                `<td style="text-align: center" >${itemPenagihan.bulanan[p].toLocaleString()}</td>
+                                // `<td style="text-align: center" >${itemPenagihan.bulanan[p].toLocaleString()}</td>
+                                // <td style="text-align: center">${itemPenagihan.persen[p].toLocaleString()}%</td>`;
+
+                                `<td class="bg-gray-100" style="text-align: center; font-weight:bold" 
+                                ><span style="cursor:pointer" id="rootCouseAPK|penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
+                                
                                 <td style="text-align: center">${itemPenagihan.persen[p].toLocaleString()}%</td>`;
+
 
                             tbPenagihanAPK = tbPenagihanAPK +
                                 `<td class="table-secondary" style="text-align: center; font-weight:bold" 
@@ -3191,10 +3201,10 @@
                         $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
                             if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
                                 tbCouseCodeAPK = `
-                                    <tr><th></th>
-                                    <th class="table-info">${itemCouseCode.couse_code}</th>
-                                    <th class="table-info"></th>`;
-                                
+                                    <tr><td style="position:sticky;left: 0;z-index:8;"></td>
+                                    <td class="table-info" style="position:sticky;left: 150.25px;font-weight:bold;">${itemCouseCode.couse_code}</td>
+                                    <td class="table-info" style="position:sticky;left:340px;"></td>`;
+                                                                 
                                 subtotalDT = 0;
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
                                     blnId = new Date(trendWoMt[cc].bulan).getMonth();
@@ -3222,9 +3232,9 @@
                                         .couse_code == itemRootCouse.couse_code
                                     ) {
                                         tbRootCouseAPK = `
-                                            <tr><td></td>
-                                            <td></td>
-                                            <td>${itemRootCouse.root_couse}</td>`;
+                                            <tr><td style="position:sticky;left: 0;z-index:8;"></td>
+                                            <td style="position:sticky;left: 150.25px;font-weight:bold;"></td>
+                                            <td style="position:sticky;left:340px;word-wrap: break-word;min-width: 160px;max-width: 160px;white-space: normal;">${itemRootCouse.root_couse}</td>`;
                                         
                                         subtotalDT=0;
                                         for (rc = 0; rc < trendWoMt.length; rc++) {
