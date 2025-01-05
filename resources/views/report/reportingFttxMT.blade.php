@@ -3308,10 +3308,12 @@
                                 $.each(dataRootCousePending, function(ky,itm) {
                                     TotMonthPending[bln] += Number(itm.bulanan[bln]);
                                 })
+                                console.log("item.bulanan : ",item.bulanan[bln])
+                                console.log("TotMonthPending : ",TotMonthPending[bln])
 
                                 tbRootCousePending = tbRootCousePending +
                                     `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
-                                    <td style="text-align: center">${parseFloat((item.bulanan[bln]*100)/TotMonthPending[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                    <td style="text-align: center">${parseFloat((Number(item.bulanan[bln])*100)/Number(TotMonthPending[bln])).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                 subtotal += Number(item.bulanan[bln]);
 

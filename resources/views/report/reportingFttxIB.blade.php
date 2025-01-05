@@ -3290,7 +3290,7 @@
 
                                 tbRootCousePending = tbRootCousePending +
                                     `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln]}</td>
-                                    <td style="text-align: center">${parseFloat((item.bulanan[bln]*100)/TotMonthPending[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                    <td style="text-align: center">${parseFloat((Number(item.bulanan[bln])*100)/TotMonthPending[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                 subtotal += Number(item.bulanan[bln]);
 
