@@ -3590,7 +3590,7 @@
                 },
                 success: function(dataTrendMonthly) {
                     // var trendWoMt = {!! $trendMonthly !!}
-                    // trendWoMt = dataTrendMonthly;
+                    trendWoMt = dataTrendMonthly;
 
                     document.querySelectorAll('#titleTrendTotMt-pending').forEach(function(elem){
                         elem.innerText = 'Trend Total WO FTTH Maintenance ' + titleBranch + " - " + bulanReport; 
