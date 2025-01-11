@@ -302,7 +302,7 @@
             {{-- <div class="col"> --}}
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive" style="overflow-y: auto; height: 600px;">
+                    <div class="table-responsive" style="overflow-y: auto; max-height: 600px;">
                         <table class="table table-bordered" style="font-size: 11px; table-layout: auto;">
                             <thead style="position: sticky; top: 0px">
                                 <tr id="tableHeadCluster">
@@ -467,7 +467,7 @@
                 <div class="card-body">
                     {{-- Root Couse Sortir MT --}}
                 
-                    <div class="table-responsive" style="overflow-y: auto; height: 600px;">
+                    <div class="table-responsive" style="overflow-y: auto; max-height: 600px;">
                         <table id="TabelRootCouseAPK" class="table table-bordered border-primary" style="font-size: 11px; table-layout: auto;">
                             <thead style="position: sticky; top: 0px; z-index:9;">
                                 <tr id="rootCouseHeadAPK">
@@ -1382,7 +1382,6 @@
                         }]
                     });
 
-                    console.log(chartDetail.series.points);
                     fetch_detail();
                 }                
             })
@@ -2014,6 +2013,7 @@
             // console.log(moment([new Date(bulanReport).getFullYear(), new Date(bulanReport).getMonth()]).format("DD-MM-YYYY"));
             let trendWoMtGet;
             var dataResult;
+            var trendWoMt;
 
             let filBulanReport = $('#bulanReport').val();
             let filTglPeriode = $('#periode').val();
@@ -2561,7 +2561,7 @@
                     `;
                     $('#totWoPending').append(isiTotalWoPending);
 
-                    persenTotCancel = (totWoCancel * 100) / totWo;
+                    persenTotCancel = (Number(totWoCancel) * 100) / Number(totWo);
 
                     let isiTotalWoCancel = `
                     <th class="table-dark">Total Cancel</th>
@@ -2632,7 +2632,7 @@
                             
                             tbBranchCluster = tbBranchCluster +
                                 `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>
-                                <th class="table-secondary" style="text-align: center">${((nmBranch.totbulanan[p]*100)/TotMonthCluster[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                <th class="table-secondary" style="text-align: center">${((Number(nmBranch.totbulanan[p])*100)/Number(TotMonthCluster[p]) || 0).toFixed(1).replace(/\.0$/, '')}%</th>`;
                                 // <th class="table-secondary" style="text-align: center">${nmBranch.persen[p].toLocaleString()}%</th>`;
 
                             subtotal += Number(nmBranch.totbulanan[p]);
@@ -2660,7 +2660,7 @@
 
                                     tbCluster = tbCluster + 
                                     `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>
-                                    <td style="text-align: center">${((itemCluster.bulanan[cc]*100)/TotMonthCluster[cc]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                    <td style="text-align: center">${((Number(itemCluster.bulanan[cc])*100)/Number(TotMonthCluster[cc]) || 0).toFixed(1).replace(/\.0$/, '')}%</td>`;
                                     // <td style="text-align: center">${itemCluster.persen[cc].toLocaleString()}%</td>`;
 
                                     subtotal += Number(itemCluster.bulanan[cc]);
@@ -3133,7 +3133,7 @@
                     let hdRootCouseAPK = `
                         <th style="position:sticky;left: 0;">Penagihan</th>
                         <th style="position:sticky;left: 150.25px;">Couse Code</th>
-                        <th style="position:sticky;left:340px;">Root Couse</th>`;
+                        <th style="position:sticky;left:335.5px;">Root Couse</th>`;
                         // <th style="text-align: center">Jumlah</th>`;
 
                     for (h = 0;h < trendWoMt.length; h++) {
@@ -3159,7 +3159,7 @@
                                 <tr class="table-secondary">
                                     <td style="position:sticky;left: 0;z-index:8;font-weight:bold;">${itemPenagihan.penagihan}</td>
                                 <td style="position:sticky;left: 150.25px;"></td>
-                                <td style="position:sticky;left:340px;"></td>`;
+                                <td style="position:sticky;left:335.5px;"></td>`;
                         
                         subtotalSM = 0;
                         subtotalDT = 0;
@@ -3203,7 +3203,7 @@
                                 tbCouseCodeAPK = `
                                     <tr><td style="position:sticky;left: 0;z-index:8;"></td>
                                     <td class="table-info" style="position:sticky;left: 150.25px;font-weight:bold;">${itemCouseCode.couse_code}</td>
-                                    <td class="table-info" style="position:sticky;left:340px;"></td>`;
+                                    <td class="table-info" style="position:sticky;left:335.5px;"></td>`;
                                                                  
                                 subtotalDT = 0;
                                 for (cc = 0;cc < trendWoMt.length; cc++) {
@@ -3234,7 +3234,7 @@
                                         tbRootCouseAPK = `
                                             <tr><td style="position:sticky;left: 0;z-index:8;"></td>
                                             <td style="position:sticky;left: 150.25px;font-weight:bold;"></td>
-                                            <td style="position:sticky;left:340px;word-wrap: break-word;min-width: 160px;max-width: 160px;white-space: normal;">${itemRootCouse.root_couse}</td>`;
+                                            <td style="position:sticky;left:335.5px;word-wrap: break-word;min-width: 160px;max-width: 160px;white-space: normal;">${itemRootCouse.root_couse}</td>`;
                                         
                                         subtotalDT=0;
                                         for (rc = 0; rc < trendWoMt.length; rc++) {
@@ -3263,9 +3263,9 @@
 
 
                     let totRootCouseAPK = `
-                        <tr><th class="table-dark">TOTAL</th>
-                            <th class="table-dark"></th>
-                            <th class="table-dark"></th>`;
+                        <tr><th class="table-dark" style="position:sticky;left: 0;z-index:8;">TOTAL</th>
+                            <th class="table-dark" style="position:sticky;left: 150.25px;"></th>
+                            <th class="table-dark" style="position:sticky;left:335.5px;word-wrap: break-word;min-width: 160px;max-width: 160px;white-space: normal;"></th>`;
                             // <th class="table-dark" style="text-align: center">totpenagihan</th></tr>`;
 
                     let totSumRootCouseAPK = `
@@ -4397,7 +4397,7 @@
                         TotPersenSysBtn += Number(itemTot.total);
 
                         $('#PersenTotSysProblem').append(
-                            `<th class="table-dark" style="text-align: center">${parseFloat((itemTot.total * 100) / itemTot.totalMt).toFixed(1).replace(/\.0$/, '')}%</th>`
+                            `<th class="table-dark" style="text-align: center">${(parseFloat((itemTot.total * 100) / itemTot.totalMt) || 0).toFixed(1).replace(/\.0$/, '')}%</th>`
                         );
 
 
@@ -4555,7 +4555,7 @@
 
                             tbPenagihanAPK = tbPenagihanAPK +
                                 `<th class="table-secondary" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
-                                <th class="table-secondary" style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                <th class="table-secondary" style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p] || 0).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                             subtotal+= Number(itemPenagihan.bulanan[p]);
                         }
@@ -4584,7 +4584,7 @@
 
                                     tbCouseCodeAPK = tbCouseCodeAPK + 
                                         `<th class="table-info" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
-                                        <th class="table-info" style="text-align: center">${((itemCouseCode.bulanan[cc] * 100) / TotMonthly[cc]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                        <th class="table-info" style="text-align: center">${((itemCouseCode.bulanan[cc] * 100) / TotMonthly[cc] || 0).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
                                     subtotal += Number(itemCouseCode.bulanan[cc]);
 
@@ -4624,7 +4624,7 @@
 
                                             tbRootCouseAPK = tbRootCouseAPK +
                                             `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
-                                            <td style="text-align: center">${((itemRootCouse.bulanan[rc] * 100) / TotMonthly[rc]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                            <td style="text-align: center">${((itemRootCouse.bulanan[rc] * 100) / TotMonthly[rc] || 0).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                             subtotal += Number(itemRootCouse.bulanan[rc]);
                                         }
