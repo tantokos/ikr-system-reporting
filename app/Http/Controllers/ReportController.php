@@ -880,8 +880,12 @@ class ReportController extends Controller
 
         $rootCousePending = $rootCousePending->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
 
-        for($psx=0; $psx < $rootCousePending->count(); $psx++){
-            $tblRootCousePending[$psx] = ['penagihan' => $rootCousePending[$psx]->penagihan];
+        if($rootCousePending->count() == 0) {
+            $tblRootCousePending[0] = ['penagihan' => "Reschedule"];
+            $tblRootCousePending[1] = ['penagihan' => "Material"];
+            $tblRootCousePending[2] = ['penagihan' => "FAT Loss"];
+            $tblRootCousePending[3] = ['penagihan' => "No Customer"];
+            $tblRootCousePending[4] = ['penagihan' => "Registration"];
 
             for($tb=0; $tb < count($trendBulanan); $tb++){
                 $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
@@ -889,12 +893,37 @@ class ReportController extends Controller
                 $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
                 $persenBln = "persen_".$blnThn;
 
-                $tblRootCousePending[$psx]['bulanan'][$tb] = [(int)$rootCousePending[$psx]->$blnThn];
-                $tblRootCousePending[$psx]['persen'][$tb] = [round($rootCousePending[$psx]->$persenBln, 1)];
+                $tblRootCousePending[0]['bulanan'][$tb] = [0];
+                $tblRootCousePending[0]['persen'][$tb] = [0];
+                $tblRootCousePending[1]['bulanan'][$tb] = [0];
+                $tblRootCousePending[1]['persen'][$tb] = [0];
+                $tblRootCousePending[2]['bulanan'][$tb] = [0];
+                $tblRootCousePending[2]['persen'][$tb] = [0];
+                $tblRootCousePending[3]['bulanan'][$tb] = [0];
+                $tblRootCousePending[3]['persen'][$tb] = [0];
+                $tblRootCousePending[4]['bulanan'][$tb] = [0];
+                $tblRootCousePending[4]['persen'][$tb] = [0];
                 
             }
 
+        } else {
+            for($psx=0; $psx < $rootCousePending->count(); $psx++){
+                $tblRootCousePending[$psx] = ['penagihan' => $rootCousePending[$psx]->penagihan];
+    
+                for($tb=0; $tb < count($trendBulanan); $tb++){
+                    $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+    
+                    $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+                    $persenBln = "persen_".$blnThn;
+    
+                    $tblRootCousePending[$psx]['bulanan'][$tb] = [(int)$rootCousePending[$psx]->$blnThn];
+                    $tblRootCousePending[$psx]['persen'][$tb] = [round($rootCousePending[$psx]->$persenBln, 1)];
+                    
+                }
+    
+            }
         }
+        
 
         return response()->json($tblRootCousePending);
     }
@@ -1819,44 +1848,58 @@ class ReportController extends Controller
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
-        
-
-        for ($p = 0; $p < count($PenagihanSortir); $p++) {
-            $nameGraphPending[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
+        if(count($PenagihanSortir) == 0) {
+            $nameGraphPending[0] = ['penagihan' => "Reschedule"];
+            $nameGraphPending[1] = ['penagihan' => "Material"];
+            $nameGraphPending[2] = ['penagihan' => "FAT Loss"];
+            $nameGraphPending[3] = ['penagihan' => "No Customer"];
+            $nameGraphPending[4] = ['penagihan' => "Registration"];
+        }else {
+            for ($p = 0; $p < count($PenagihanSortir); $p++) {
+                $nameGraphPending[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
+            }
         }
-
         
         for ($t = 0; $t < count($tglGraphPending); $t++) {
-            for ($pn = 0; $pn < count($PenagihanSortir); $pn++) {
+            if(count($PenagihanSortir) == 0) {
+                $dataGraphPending[0]['data'][] = 0;
+                $dataGraphPending[1]['data'][] = 0;
+                $dataGraphPending[2]['data'][] = 0;
+                $dataGraphPending[3]['data'][] = 0;
+                $dataGraphPending[4]['data'][] = 0;
+
+            }else {
+                for ($pn = 0; $pn < count($PenagihanSortir); $pn++) {
 
 
-                // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
+                    // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Pending')
-                    ->where('root_couse_penagihan.type_wo','=','MT FTTH')
-                    ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
-                    ->where('tgl_ikr', '=', $tglGraphPending[$t])
-                    // ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
-                    // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
-                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_ftth_mt_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
+                    $jml = DataFtthMtSortir::query()->select(DB::raw('data_ftth_mt_sortirs.penagihan'))
+                        ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_mt_sortirs.penagihan')
+                        ->where('root_couse_penagihan.status', '=', 'Pending')
+                        ->where('root_couse_penagihan.type_wo','=','MT FTTH')
+                        ->whereNotIn('data_ftth_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
+                        ->where('tgl_ikr', '=', $tglGraphPending[$t])
+                        // ->whereMonth('data_ftth_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
+                        // ->whereYear('data_ftth_mt_sortirs.tgl_ikr', '=', $tahun)
+                        // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
+                        ->where('data_ftth_mt_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
 
-                if ($request->filterSite != "All") {
-                    $jml = $jml->where('site_penagihan', '=', $request->filterSite);
+                    if ($request->filterSite != "All") {
+                        $jml = $jml->where('site_penagihan', '=', $request->filterSite);
+                    }
+                    if ($request->filterBranch != "All") {
+                        $jml = $jml->where('branch', '=', $request->filterBranch);
+                    }
+
+                    $jml = $jml->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+
+                    // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
+                    // $tglGraph[$t]['jml'][$p] = $jml;
+                    // $dataGraph[$p]['penagihan'][$t] = ['jumlah' => $jml];
+                    $dataGraphPending[$pn]['data'][] = $jml;
                 }
-                if ($request->filterBranch != "All") {
-                    $jml = $jml->where('branch', '=', $request->filterBranch);
-                }
-
-                $jml = $jml->groupBy('data_ftth_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
-
-                // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
-                // $tglGraph[$t]['jml'][$p] = $jml;
-                // $dataGraph[$p]['penagihan'][$t] = ['jumlah' => $jml];
-                $dataGraphPending[$pn]['data'][] = $jml;
             }
         }
         // }
