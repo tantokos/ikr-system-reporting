@@ -78,100 +78,198 @@ class ImportFtthDismantleTempController extends Controller
 
         if ($request->hasFile('fileFtthMT')) {
 
-            $request->validate([
-                'fileFtthMT' => ['required', 'mimes:xlsx,xls,csv']
-            ]);
+            DB::beginTransaction();
+            try {
 
-            $akses = Auth::user()->name;
-
-            Excel::import(new ImportFtthDismantle($akses), request()->file('fileFtthMT'));
-
-            $doneSortir = DB::table('import_ftth_dismantle_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(visit_date) as visit_date'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
-
-            $pendingSortir = DB::table('import_ftth_dismantle_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(visit_date) as visit_date'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->whereNotIn('no_wo', function ($p) {
-                    $p->select('no_wo')->from('import_ftth_dismantle_temps as import1')->where('status_wo', '=', 'Done');
-                })
-                ->whereNotIn('no_wo', function ($c) {
-                    $c->select('no_wo')->from('import_ftth_dismantle_temps as import2')->where('status_wo', '=', 'Cancel');
-                })
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
-
-            $cancelSortir = DB::table('import_ftth_dismantle_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(visit_date) as visit_date'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->whereNotIn('no_wo', function ($p) {
-                    $p->select('no_wo')->from('import_ftth_dismantle_temps as import1')->where('status_wo', '=', 'Done');
-                })
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
-
-            $donePendingSortir = $doneSortir->merge($pendingSortir);
-            $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
-
-            for ($x = 0; $x < $donePendingCancelSortir->count(); $x++) {
-
-                $importFtthDismantleOri = ImportFtthDismantleTemp::where('no_wo', '=', $donePendingCancelSortir[$x]->no_wo)
-                    ->where('visit_date', '=', $donePendingCancelSortir[$x]->visit_date)->first();
-
-                // dd($importFtthIBOri->no_wo);
-
-                ImportFtthDismantleSortirTemp::create([
-
-                    'no_wo' => $importFtthDismantleOri->no_wo,
-                    'wo_date' => $importFtthDismantleOri->wo_date,
-                    'visit_date' => $importFtthDismantleOri->visit_date,
-                    'dis_port_date' => $importFtthDismantleOri->dis_port_date,
-                    'takeout_notakeout' => $importFtthDismantleOri->takeout_notakeout,
-                    'port' => $importFtthDismantleOri->port,
-                    'close_date' => $importFtthDismantleOri->close_date,
-                    'cust_id' => $importFtthDismantleOri->cust_id,
-                    'nama_cust' => $importFtthDismantleOri->nama_cust,
-                    'cust_address' => $importFtthDismantleOri->cust_address,
-                    'slot_time' => $importFtthDismantleOri->slot_time,
-                    'teknisi1' => $importFtthDismantleOri->teknisi1,
-                    'teknisi2' => $importFtthDismantleOri->teknisi2,
-                    'teknisi3' => $importFtthDismantleOri->teknisi3,
-                    'start' => $importFtthDismantleOri->start,
-                    'finish' => $importFtthDismantleOri->finish,
-                    'kode_fat' => $importFtthDismantleOri->kode_fat,
-                    'kode_area' => $importFtthDismantleOri->kode_area,
-                    'cluster' => $importFtthDismantleOri->cluster,
-                    'kotamadya' => $importFtthDismantleOri->kotamadya,
-                    'main_branch' => $importFtthDismantleOri->main_branch,
-                    'ms_regular' => $importFtthDismantleOri->ms_regular,
-                    'fat_status' => $importFtthDismantleOri->fat_status,
-                    'ont_sn_in' => $importFtthDismantleOri->ont_sn_in,
-                    'stb_sn_in' => $importFtthDismantleOri->stb_sn_in,
-                    'router_sn_in' => $importFtthDismantleOri->router_sn_in,
-                    'tarik_cable' => $importFtthDismantleOri->tarik_cable,
-                    'status_wo' => $importFtthDismantleOri->status_wo,
-                    'reason_status' => $importFtthDismantleOri->reason_status,
-                    'remarks' => $importFtthDismantleOri->remarks,
-                    'reschedule_date' => $importFtthDismantleOri->reschedule_date,
-                    'alasan_no_rollback' => $importFtthDismantleOri->alasan_no_rollback,
-                    'reschedule_time' => $importFtthDismantleOri->reschedule_time,
-                    'callsign' => $importFtthDismantleOri->callsign,
-                    'checkin_apk' => $importFtthDismantleOri->checkin_apk,
-                    'checkout_apk' => $importFtthDismantleOri->checkout_apk,
-                    'status_apk' => $importFtthDismantleOri->status_apk,
-                    'keterangan' => $importFtthDismantleOri->keterangan,
-                    'ikr_progress_date' => $importFtthDismantleOri->ikr_progress_date,
-                    'ikr_report_date' => $importFtthDismantleOri->ikr_report_date,
-                    'reconsile_date' => $importFtthDismantleOri->reconsile_date,
-                    'weather' => $importFtthDismantleOri->weather,
-                    'leader' => $importFtthDismantleOri->leader,
-                    'pic_monitoring' => $importFtthDismantleOri->pic_monitoring,
-                    'login' => $akses
-
+                $request->validate([
+                    'fileFtthMT' => ['required', 'mimes:xlsx,xls,csv']
                 ]);
+    
+                $akses = Auth::user()->name;
+    
+                Excel::import(new ImportFtthDismantle($akses), request()->file('fileFtthMT'));
+    
+                $doneSortir = DB::table('import_ftth_dismantle_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(visit_date) as visit_date'))
+                    // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                    ->orderBy('no_wo')
+                    ->groupBy('no_wo')->get();
+    
+                $pendingSortir = DB::table('import_ftth_dismantle_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(visit_date) as visit_date'))
+                    // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                    ->whereNotIn('no_wo', function ($p) {
+                        $p->select('no_wo')->from('import_ftth_dismantle_temps as import1')->where('status_wo', '=', 'Done');
+                    })
+                    ->whereNotIn('no_wo', function ($c) {
+                        $c->select('no_wo')->from('import_ftth_dismantle_temps as import2')->where('status_wo', '=', 'Cancel');
+                    })
+                    ->orderBy('no_wo')
+                    ->groupBy('no_wo')->get();
+    
+                $cancelSortir = DB::table('import_ftth_dismantle_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(visit_date) as visit_date'))
+                    // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                    ->whereNotIn('no_wo', function ($p) {
+                        $p->select('no_wo')->from('import_ftth_dismantle_temps as import1')->where('status_wo', '=', 'Done');
+                    })
+                    ->orderBy('no_wo')
+                    ->groupBy('no_wo')->get();
+    
+                $donePendingSortir = $doneSortir->merge($pendingSortir);
+                $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
+    
+                for ($x = 0; $x < $donePendingCancelSortir->count(); $x++) {
+    
+                    $importFtthDismantleOri = ImportFtthDismantleTemp::where('no_wo', '=', $donePendingCancelSortir[$x]->no_wo)
+                        ->where('visit_date', '=', $donePendingCancelSortir[$x]->visit_date)->first();
+    
+                    // dd($importFtthIBOri->no_wo);
+    
+                    ImportFtthDismantleSortirTemp::create([
+    
+                        'no_wo' => $importFtthDismantleOri->no_wo,
+                        'site' => $importFtthDismantleOri->site,
+                        'type_wo' => $importFtthDismantleOri->type_wo,
+                        'wo_type_apk' => $importFtthDismantleOri->wo_type_apk,
+                        'type_maintenance' => $importFtthDismantleOri->type_maintenance,
+                        'no_ticket' => $importFtthDismantleOri->no_ticket,
+                        'sesi' => $importFtthDismantleOri->sesi,
+                        'wo_date' => $importFtthDismantleOri->wo_date,
+                        'visit_date' => $importFtthDismantleOri->visit_date,
+                        'dis_port_date' => $importFtthDismantleOri->dis_port_date,
+                        'takeout_notakeout' => $importFtthDismantleOri->takeout_notakeout,
+                        'port' => $importFtthDismantleOri->port,
+                        'close_date' => $importFtthDismantleOri->close_date,
+                        'cust_id' => $importFtthDismantleOri->cust_id,
+                        'nama_cust' => $importFtthDismantleOri->nama_cust,
+                        'branch_id' => $importFtthDismantleOri->branch_id,
+                        'leadcall_id' => $importFtthDismantleOri->leadcall_id,
+                        'leadcall' => $importFtthDismantleOri->leadcall,
+                        'cust_address' => $importFtthDismantleOri->cust_address,
+                        'cust_address1' => $importFtthDismantleOri->cust_address1,
+                        'slot_time' => $importFtthDismantleOri->slot_time,
+                        'tek1_nik' => $importFtthDismantleOri->tek1_nik,
+                        'tek2_nik' => $importFtthDismantleOri->tek2_nik,
+                        'tek3_nik' => $importFtthDismantleOri->tek3_nik,
+                        'tek4_nik' => $importFtthDismantleOri->tek4_nik,
+                        'teknisi1' => $importFtthDismantleOri->teknisi1,
+                        'teknisi2' => $importFtthDismantleOri->teknisi2,
+                        'teknisi3' => $importFtthDismantleOri->teknisi3,
+                        'teknisi4' => $importFtthDismantleOri->teknisi4,
+                        'start' => $importFtthDismantleOri->start,
+                        'finish' => $importFtthDismantleOri->finish,
+                        'kode_fat' => $importFtthDismantleOri->kode_fat,
+                        'kode_area' => $importFtthDismantleOri->kode_area,
+                        'cluster' => $importFtthDismantleOri->cluster,
+                        'kotamadya' => $importFtthDismantleOri->kotamadya,
+                        'kotamadya_penagihan' => $importFtthDismantleOri->kotamadya_penagihan,
+                        'main_branch' => $importFtthDismantleOri->main_branch,
+                        'ms_regular' => $importFtthDismantleOri->ms_regular,
+                        'fat_status' => $importFtthDismantleOri->fat_status,
+                        'tarik_cable' => $importFtthDismantleOri->tarik_cable,
+                        'action_status' => $importFtthDismantleOri->action_status,
+                        'detail_alasan' => $importFtthDismantleOri->detail_alasan,
+                        'visit_novisit' => $importFtthDismantleOri->visit_novisit,
+                        'status_wo' => $importFtthDismantleOri->status_wo,
+                        'penagihan' => $importFtthDismantleOri->penagihan,
+                        'reason_status' => $importFtthDismantleOri->reason_status,
+                        'root_couse' => $importFtthDismantleOri->root_couse,
+                        'remarks' => $importFtthDismantleOri->remarks,
+                        'reschedule_date' => $importFtthDismantleOri->reschedule_date,
+                        'respon_cst' => $importFtthDismantleOri->respon_cst,
+                        'jawaban_cst' => $importFtthDismantleOri->jawaban_cst,
+                        'permintaan_rsch' => $importFtthDismantleOri->permintaan_rsch,
+                        'pic_dispatch' => $importFtthDismantleOri->pic_dispatch,
+                        'telp_dispatch' => $importFtthDismantleOri->telp_dispatch,
+                        'alasan_no_rollback' => $importFtthDismantleOri->alasan_no_rollback,
+                        'reschedule_time' => $importFtthDismantleOri->reschedule_time,
+                        'callsign_id' => $importFtthDismantleOri->callsign_id,
+                        'callsign' => $importFtthDismantleOri->callsign,
+                        'checkin_apk' => $importFtthDismantleOri->checkin_apk,
+                        'checkout_apk' => $importFtthDismantleOri->checkout_apk,
+                        'selisih_menit' => $importFtthDismantleOri->selisih_menit,
+                        'status_checkin' => $importFtthDismantleOri->status_checkin,
+                        'waktu_instalasi' => $importFtthDismantleOri->waktu_instalasi,
+                        'status_apk' => $importFtthDismantleOri->status_apk,
+                        'keterangan' => $importFtthDismantleOri->keterangan,
+                        'ikr_progress_date' => $importFtthDismantleOri->ikr_progress_date,
+                        'ikr_report_date' => $importFtthDismantleOri->ikr_report_date,
+                        'reconsile_date' => $importFtthDismantleOri->reconsile_date,
+                        'weather' => $importFtthDismantleOri->weather,
+                        'validasi_start' => $importFtthDismantleOri->validasi_start,
+                        'validasi_end' => $importFtthDismantleOri->validasi_end,
+                        'regist_start' => $importFtthDismantleOri->regist_start,
+                        'regist_end' => $importFtthDismantleOri->regist_end,
+                        'kode_otp' => $importFtthDismantleOri->kode_otp,
+                        'pic_konf_cst' => $importFtthDismantleOri->pic_konf_cst,
+                        'konfirmasi_customer' => $importFtthDismantleOri->konfirmasi_customer,
+                        'tgl_konf_cst' => $importFtthDismantleOri->tgl_konf_cst,
+                        'jam_konf_cst' => $importFtthDismantleOri->jam_konf_cst,
+                        'menit_konfirmasi' => $importFtthDismantleOri->menit_konfirmasi,
+                        'ket_konf_cst' => $importFtthDismantleOri->ket_konf_cst,
+                        'waktu_keterlambatan' => $importFtthDismantleOri->waktu_keterlambatan,
+                        'bukti_konf_cst' => $importFtthDismantleOri->bukti_konf_cst,
+                        'material_out' => $importFtthDismantleOri->material_out,
+                        'material_in' => $importFtthDismantleOri->material_in,
+                        'ont_merk_out' => $importFtthDismantleOri->ont_merk_out,
+                        'ont_sn_out' => $importFtthDismantleOri->ont_sn_out,
+                        'ont_mac_out' => $importFtthDismantleOri->ont_mac_out,
+                        'ont_merk_in' => $importFtthDismantleOri->ont_merk_in,
+                        'ont_sn_in' => $importFtthDismantleOri->ont_sn_in,
+                        'ont_mac_in' => $importFtthDismantleOri->ont_mac_in,
+                        'router_merk_out' => $importFtthDismantleOri->router_merk_out,
+                        'router_sn_out' => $importFtthDismantleOri->router_sn_out,
+                        'router_mac_out' => $importFtthDismantleOri->router_mac_out,
+                        'router_merk_in' => $importFtthDismantleOri->router_merk_in,
+                        'router_sn_in' => $importFtthDismantleOri->router_sn_in,
+                        'router_mac_in' => $importFtthDismantleOri->router_mac_in,
+                        'stb_merk_out' => $importFtthDismantleOri->stb_merk_out,
+                        'stb_sn_out' => $importFtthDismantleOri->stb_sn_out,
+                        'stb_mac_out' => $importFtthDismantleOri->stb_mac_out,
+                        'stb_merk_in' => $importFtthDismantleOri->stb_merk_in,
+                        'stb_sn_in' => $importFtthDismantleOri->stb_sn_in,
+                        'stb_mac_in' => $importFtthDismantleOri->stb_mac_in,
+                        'dw_out' => $importFtthDismantleOri->dw_out,
+                        'precon_out' => $importFtthDismantleOri->precon_out,
+                        'bad_precon' => $importFtthDismantleOri->bad_precon,
+                        'remote_out' => $importFtthDismantleOri->remote_out,
+                        'remote_in' => $importFtthDismantleOri->remote_in,
+                        'fast_connector' => $importFtthDismantleOri->fast_connector,
+                        'patchcord' => $importFtthDismantleOri->patchcord,
+                        'terminal_box' => $importFtthDismantleOri->terminal_box,
+                        'kabel_utp' => $importFtthDismantleOri->kabel_utp,
+                        'pipa' => $importFtthDismantleOri->pipa,
+                        'socket_pipa' => $importFtthDismantleOri->socket_pipa,
+                        'cable_duct' => $importFtthDismantleOri->cable_duct,
+                        'rj45' => $importFtthDismantleOri->rj45,
+                        'leader_id' => $importFtthDismantleOri->leader_id,
+                        'leader' => $importFtthDismantleOri->leader,
+                        // 'slot_time_leader' => $importFtthDismantleOri->slot_time_leader,
+                        // 'slot_time_apk' => $importFtthDismantleOri->slot_time_apk,
+                        // 'port_fat' => $importFtthDismantleOri->port_fat,
+                        
+                        'pic_monitoring' => $importFtthDismantleOri->pic_monitoring,
+                        'pic_pengecekan' => $importFtthDismantleOri->pic_pengecekan,
+                        'mttr_all' => $importFtthDismantleOri->mttr_all,
+                        'mttr_pending' => $importFtthDismantleOri->mttr_pending,
+                        'mttr_progress' => $importFtthDismantleOri->mttr_progress,
+                        'mttr_technician' => $importFtthDismantleOri->mttr_technician,
+                        'sla_over' => $importFtthDismantleOri->sla_over,
+                        'login' => $akses,
+                        'cek_telebot' => $importFtthDismantleOri->cek_telebot,
+                        'hasil_cek_telebot' => $importFtthDismantleOri->hasil_cek_telebot,
+                        // 'is_checked' => $importFtthDismantleOri->is_checked,
+    
+                    ]);
+                }
+
+                DB::commit();    
+                return back();
+
+            } catch (\Throwable $e) {
+                return $e->getMessage();
+                DB::rollback();
             }
 
-            return back();
+            
         }
     }
 

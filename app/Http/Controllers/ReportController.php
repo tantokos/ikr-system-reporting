@@ -40,7 +40,7 @@ class ReportController extends Controller
 
         $tgl = ImportFtthMtSortirTemp::select('tgl_ikr')->distinct()->get();
 
-        $trendMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan, month(tgl_ikr) as bln, year(tgl_ikr) as thn'))->distinct()->orderBy('bln','ASC')->orderBy('thn','ASC')->get();
+        $trendMonthly = DataFtthMtSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan, month(tgl_ikr) as bln, year(tgl_ikr) as thn'))->distinct()->orderBy('bln','ASC')->orderBy('thn','DESC')->get();
 
         $tblStatus = ImportFtthMtSortirTemp::select(DB::raw('tgl_ikr, count(if(status_wo = "Done", 1, NULL)) as Done, 
         count(if(status_wo = "Pending", 1, NULL)) as Pending, count(if(status_wo = "Cancel", 1, NULL)) as Cancel'))
@@ -311,6 +311,7 @@ class ReportController extends Controller
                 // $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
                 // $branchPenagihan[$b]->cancel = $totWoCancel;
                 // $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+                
             } elseif ($branchPenagihan[$b]->nama_branch == "Underground") {
                 $totWo = DataFtthMtSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
@@ -358,7 +359,7 @@ class ReportController extends Controller
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
-
+                    
                 // $branchPenagihan[$b]->total = $totWo;
                 // $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
                 // $branchPenagihan[$b]->done = $totWoDone;
@@ -367,6 +368,7 @@ class ReportController extends Controller
                 // $branchPenagihan[$b]->persenPending = ($totWoPending * 100) / $totWo;
                 // $branchPenagihan[$b]->cancel = $totWoCancel;
                 // $branchPenagihan[$b]->persenCancel = ($totWoCancel * 100) / $totWo;
+                
             } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground" && $branchPenagihan[$b]->nama_branch <> "Retail")) {
                 $totWo = DataFtthMtSortir::where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
@@ -385,6 +387,7 @@ class ReportController extends Controller
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
 
+                    
                 // $branchPenagihan[$b]->total = $totWo;
                 // $branchPenagihan[$b]->persenTotal = ($totWo * 100) / $totAllBranch;
                 // $branchPenagihan[$b]->done = $totWoDone;
@@ -404,6 +407,7 @@ class ReportController extends Controller
             $branchPenagihan[$b]->cancel = ($totWo > 0) ? $totWoCancel : 0;
             $branchPenagihan[$b]->persenCancel = ($totWo > 0) ? ($totWoCancel * 100) / $totWo : 0;
         }
+        
 
         return response()->json($branchPenagihan);
     }
@@ -449,18 +453,37 @@ class ReportController extends Controller
         }
 
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            // $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
 
-            $Qbln = \Carbon\Carbon::parse($trendBulanan[$bt-1]['bulan'])->month;
-            $blnThn = str_replace('-','_',$trendBulanan[$bt-1]['bulan']);
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+
+                for($x=0; $x < count($trendBulanan); $x++) {
+                    $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+                    $Qthn = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
+                    $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
+
+                    $totBranchCluster = $totBranchCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total_ftth_mt end),0) as ".$blnThn.""));
+                    $detClusterxx = $detClusterxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total_ftth_mt end),0) as ".$blnThn.""));
+
+
+                };
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$bt-1]['bulan'])->month;
+                $blnThn = str_replace('-','_',$trendBulanan[$bt-1]['bulan']);
+    
+                $totBranchCluster = $totBranchCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0) as ".$blnThn.""));
+                // $totBranchCluster = $totBranchCluster->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0)/(select sum(total_ftth_mt) from v_ftth_mt_cluster where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+    
+                $detClusterxx = $detClusterxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0) as ".$blnThn.""));
+                // $detClusterxx = $detClusterxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0)/(select sum(total_ftth_mt) from v_ftth_mt_cluster where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+            }
 
             
-
-            $totBranchCluster = $totBranchCluster->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0) as ".$blnThn.""));
-            // $totBranchCluster = $totBranchCluster->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0)/(select sum(total_ftth_mt) from v_ftth_mt_cluster where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-
-            $detClusterxx = $detClusterxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0) as ".$blnThn.""));
-            // $detClusterxx = $detClusterxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total_ftth_mt end),0)/(select sum(total_ftth_mt) from v_ftth_mt_cluster where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
         }
 
         $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
@@ -526,8 +549,18 @@ class ReportController extends Controller
         $detCouseCodeSortirxx = [];
         $detRootCouseSortirxx = [];
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
         }
 
         // dd($trendBulanan[0]['bulan']);
@@ -562,12 +595,13 @@ class ReportController extends Controller
 
         for ($tb = 0; $tb < count($trendBulanan); $tb++) {
             $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+            $Qthn = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->year;
 
             $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
 
-            $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("ifnull(count(case when month(mt_date)=".$Qbln." and year(mt_date)=".$tahun." then root_couse end),0) as ".$blnThn.""));
-            $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("ifnull(count(case when month(mt_date)=".$Qbln." and year(mt_date)=".$tahun." then root_couse end),0) as ".$blnThn.""));
-            $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("ifnull(count(case when month(mt_date)=".$Qbln." and year(mt_date)=".$tahun." then root_couse end),0) as ".$blnThn.""));
+            $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("ifnull(count(case when month(mt_date)=".$Qbln." and year(mt_date)=".$Qthn." then root_couse end),0) as ".$blnThn.""));
+            $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("ifnull(count(case when month(mt_date)=".$Qbln." and year(mt_date)=".$Qthn." then root_couse end),0) as ".$blnThn.""));
+            $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("ifnull(count(case when month(mt_date)=".$Qbln." and year(mt_date)=".$Qthn." then root_couse end),0) as ".$blnThn.""));
 
         }
 
@@ -650,9 +684,19 @@ class ReportController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }       
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }       
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+        }
 
         return response()->json($trendBulanan);
     }
@@ -668,10 +712,19 @@ class ReportController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
-        for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
 
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+        }
 
         for ($m = 0; $m < count($trendBulanan); $m++) {
             $totMtMontly = DB::table('data_ftth_mt_sortirs')
@@ -840,8 +893,17 @@ class ReportController extends Controller
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
         }
 
         $tblRootCousePending = [];
@@ -860,18 +922,19 @@ class ReportController extends Controller
         for ($x = 0; $x < count($trendBulanan); $x++) {
 
             $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+            $Qthn = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
 
             $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
 
-            $rootCousePending = $rootCousePending->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $rootCousePending = $rootCousePending->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0) as ".$blnThn.""));
 
             if ($request->filterSite != "All") {
-                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_pending where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_pending where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             }
             if ($request->filterBranch != "All") {
-                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_pending where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_pending where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             } else {
-                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $rootCousePending = $rootCousePending->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_pending where bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             }
 
         }
@@ -1023,8 +1086,18 @@ class ReportController extends Controller
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
         }
 
         $tblRootCouseCancel = [];
@@ -1043,18 +1116,19 @@ class ReportController extends Controller
         for ($x = 0; $x < count($trendBulanan); $x++) {
 
             $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+            $Qthn = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
 
             $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
 
-            $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0) as ".$blnThn.""));
 
             if ($request->filterSite != "All") {
-                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_cancel where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_cancel where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             }
             if ($request->filterBranch != "All") {
-                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_cancel where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_cancel where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             } else {
-                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_cancel where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $rootCouseCancel = $rootCouseCancel->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_cancel where bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             }
 
         }
@@ -1174,8 +1248,18 @@ class ReportController extends Controller
         $detCouseCodeSortirxx = [];
         $detRootCouseSortirxx = [];
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
         }
 
         // dd($trendBulanan[0]['bulan']);
@@ -1217,27 +1301,28 @@ class ReportController extends Controller
 
         for ($tb = 0; $tb < count($trendBulanan); $tb++) {
             $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+            $Qthn = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->year;
 
             $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
 
-            $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-            $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-            $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+            $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0) as ".$blnThn.""));
+            $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0) as ".$blnThn.""));
+            $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0) as ".$blnThn.""));
 
             if ($request->filterSite != "All") {
-                $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-                $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-                $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+                $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+                $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where site_penagihan='".$request->filterSite."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             }
 
             if ($request->filterBranch != "All") {
-                $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-                $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-                $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+                $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+                $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             } else {
-                $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-                $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-                $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+                $PenagihanSortirxx = $PenagihanSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+                $CouseCodeSortirxx = $CouseCodeSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+                $RootCouseSortirxx = $RootCouseSortirxx->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_mt_rootcouse_done where bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
             }
 
         }
@@ -1807,6 +1892,9 @@ class ReportController extends Controller
 
     public function getRootCousePendingGraph(Request $request)
     {
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '2048M');
+
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
         $tglGraphPending = [];
@@ -1913,6 +2001,9 @@ class ReportController extends Controller
 
     public function getRootCouseCancelGraph(Request $request)
     {
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '2048M');
+
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
         $tglGraphCancel = [];
@@ -2006,6 +2097,9 @@ class ReportController extends Controller
 
     public function getCancelSystemProblem(Request $request)
     {
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '2048M');
+
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
@@ -2014,12 +2108,29 @@ class ReportController extends Controller
 
         $trendBulanan = [];
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
+        $th = [];
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            }
         }
 
+        for ($x=0; $x < count($trendBulanan); $x++) {
+            $th[] = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
+        }
+        // dd(implode(",",$th));
         $RootCancelMonthly = DataFtthMtSortir::query()->select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
-            ->whereYear('tgl_ikr', '=', $tahun)
+            // ->whereYear('tgl_ikr', '=', $tahun)
+            ->where(DB::raw('year(tgl_ikr) in ('.implode(",", $th).')'))
             ->distinct()->get();
 
         // $statVisit = DB::table('data_ftth_mt_sortirs')->select('visit_novisit')->whereNotNull('visit_novisit')->distinct()->get();
@@ -2050,21 +2161,22 @@ class ReportController extends Controller
             for ($b = 0; $b < count($trendBulanan); $b++) {
 
                 $bln = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->month;
+                $thn = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->year;
                 $blnThn = str_replace('-','_',$trendBulanan[$b]['bulan']);
 
-                $statVisit = $statVisit->addSelect(DB::raw("ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0) as ".$blnThn.""));
-                $visitSysProblem = $visitSysProblem->addSelect(DB::raw("ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0) as ".$blnThn.""));
+                $statVisit = $statVisit->addSelect(DB::raw("ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0) as ".$blnThn.""));
+                $visitSysProblem = $visitSysProblem->addSelect(DB::raw("ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0) as ".$blnThn.""));
 
                 if ($request->filterSite != "All") {
-                    $statVisit = $statVisit->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where site_penagihan='".$request->filterSite."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
-                    $visitSysProblem = $visitSysProblem->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where site_penagihan='".$request->filterSite."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
+                    $statVisit = $statVisit->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where site_penagihan='".$request->filterSite."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
+                    $visitSysProblem = $visitSysProblem->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where site_penagihan='".$request->filterSite."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
                 }
                 if ($request->filterBranch != "All") {
-                    $statVisit = $statVisit->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where branch='".$request->filterBranch."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
-                    $visitSysProblem = $visitSysProblem->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where branch='".$request->filterBranch."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
+                    $statVisit = $statVisit->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where branch='".$request->filterBranch."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
+                    $visitSysProblem = $visitSysProblem->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where branch='".$request->filterBranch."' and month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
                 } else {
-                    $statVisit = $statVisit->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
-                    $visitSysProblem = $visitSysProblem->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$tahun." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
+                    $statVisit = $statVisit->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
+                    $visitSysProblem = $visitSysProblem->addSelect(DB::raw("(ifnull(count(case when month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." then visit_novisit end),0)/(select count(visit_novisit) from data_ftth_mt_sortirs where month(tgl_ikr)=".$bln." and year(tgl_ikr)=".$thn." and visit_novisit is not null and penagihan='Cancel System Problem/Back To Normal'))*100 as persen_".$blnThn.""));
                 }
 
             }
@@ -2119,7 +2231,7 @@ class ReportController extends Controller
             $bln = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->month;
             $thn = \Carbon\Carbon::parse($trendBulanan[$b]['bulan'])->year;
 
-            $jmlBln = $RootCancelMonthly[$b]->bulan;
+            // $jmlBln = $RootCancelMonthly[$b]->bulan;
 
             $jml = DataFtthMtSortir::where('penagihan', '=', 'Cancel System Problem/Back To Normal')
                 // ->where('visit_novisit','=', $totVisit[$x]->visit_novisit)
@@ -2164,12 +2276,29 @@ class ReportController extends Controller
 
         $trendBulanan = [];
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
+        $th = [];
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            }
         }
 
+        for ($x=0; $x < count($trendBulanan); $x++) {
+            $th[] = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
+        }
+        
         $RootCancelMonthly = DataFtthMtSortir::query()->select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))
-            ->whereYear('tgl_ikr', '=', $tahun)
+            // ->whereYear('tgl_ikr', '=', $tahun)
+            ->whereRaw('year(tgl_ikr) in '.$th)
             ->distinct()->get();
 
         $statVisit = DB::table('data_ftth_mt_sortirs')->select('visit_novisit')->whereNotNull('visit_novisit')->distinct()->get();

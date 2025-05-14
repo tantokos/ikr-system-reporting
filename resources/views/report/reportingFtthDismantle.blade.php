@@ -1549,9 +1549,9 @@
                     $.each(data, function(key, item) {
                         // day.push(new Date(item.tgl_ikr).getDate());
                         day.push(new Date(item.visit_date).getDate());
-                        doneDay.push(item.Done);
-                        pendingDay.push(item.Pending);
-                        cancelDay.push(item.Cancel);
+                        doneDay.push(Number(item.Done));
+                        pendingDay.push(Number(item.Pending));
+                        cancelDay.push(Number(item.Cancel));
 
                         let htgl = `
                            <th>${new Date(item.visit_date).getDate()}</th>
@@ -1565,7 +1565,7 @@
 
                         $('#woDone').append(dtDone);
 
-                        totDone += item.Done;
+                        totDone += Number(item.Done);
 
                         let dtPending = `
                             <td>${item.Pending.toLocaleString()}</td>
@@ -1573,8 +1573,8 @@
 
                         $('#woPending').append(dtPending);
 
-                        totPending += item.Pending;
-                        totCancel += item.Cancel;
+                        totPending += Number(item.Pending);
+                        totCancel += Number(item.Cancel);
 
                         let dtCancel = `
                             <td>${item.Cancel.toLocaleString()}</td>
@@ -1582,7 +1582,7 @@
 
                         $('#woCancel').append(dtCancel)
 
-                        totWo = item.Done + item.Pending + item.Cancel
+                        totWo = Number(item.Done) + Number(item.Pending) + Number(item.Cancel)
 
                         let dtTotWo = `
                             <td>${totWo.toLocaleString()}</td>
@@ -1601,7 +1601,7 @@
 
                     $('#woCancel').append(`<th>${totCancel.toLocaleString()}</th>`)
 
-                    total = totDone + totPending + totCancel
+                    total = Number(totDone) + Number(totPending) + Number(totCancel)
 
                     $('#totWo').append(`<th>${total.toLocaleString()}</th>`)
 

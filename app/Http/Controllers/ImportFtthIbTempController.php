@@ -11,6 +11,7 @@ use App\Models\ImportFtthIbTemp;
 use Illuminate\Support\Facades\DB;
 use App\Models\ImportFtthIbSortirTemp;
 use App\Models\DataFtthIbOri;
+use PhpParser\Node\Stmt\TryCatch;
 use Yajra\DataTables\DataTables;
 
 class ImportFtthIbTempController extends Controller
@@ -111,163 +112,208 @@ class ImportFtthIbTempController extends Controller
     public function importFtthIBTemp(Request $request)
     {
 
-        ini_set('max_execution_time', 300);
-        ini_set('memory_limit', '2048M');
+        ini_set('max_execution_time', 1000);
+        ini_set('memory_limit', '5048M');
 
         if ($request->hasFile('fileFtthMT')) {
 
-            $request->validate([
-                'fileFtthMT' => ['required', 'mimes:xlsx,xls,csv']
-            ]);
-
-            $akses = Auth::user()->name;
-
-            Excel::import(new ImportFtthIB($akses), request()->file('fileFtthMT'));
-
-            $doneSortir = DB::table('import_ftth_ib_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
-
-            $pendingSortir = DB::table('import_ftth_ib_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->whereNotIn('no_wo', function ($p) {
-                    $p->select('no_wo')->from('import_ftth_ib_temps as import1')->where('status_wo', '=', 'Done');
-                })
-                ->whereNotIn('no_wo', function ($c) {
-                    $c->select('no_wo')->from('import_ftth_ib_temps as import2')->where('status_wo', '=', 'Cancel');
-                })
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
-
-            $cancelSortir = DB::table('import_ftth_ib_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
-                // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
-                ->whereNotIn('no_wo', function ($p) {
-                    $p->select('no_wo')->from('import_ftth_ib_temps as import1')->where('status_wo', '=', 'Done');
-                })
-                ->orderBy('no_wo')
-                ->groupBy('no_wo')->get();
-
-            $donePendingSortir = $doneSortir->merge($pendingSortir);
-            $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
-
-            for ($x = 0; $x < $donePendingCancelSortir->count(); $x++) {
-
-                $importFtthIBOri = ImportFtthIBTemp::where('no_wo', '=', $donePendingCancelSortir[$x]->no_wo)
-                    ->where('tgl_ikr', '=', $donePendingCancelSortir[$x]->tgl_ikr)->first();
-
-                // dd($importFtthIBOri->no_wo);
-
-                ImportFtthIBSortirTemp::create([
-
-                    'pic_monitoring' => $importFtthIBOri->pic_monitoring,
-                    'site' => $importFtthIBOri->site,
-                    'type_wo' => $importFtthIBOri->type_wo,
-                    'no_wo' => $importFtthIBOri->no_wo,
-                    'no_ticket' => $importFtthIBOri->no_ticket,
-                    'cust_id' => $importFtthIBOri->cust_id,
-                    'nama_cust' => $importFtthIBOri->nama_cust,
-                    'cust_address1' => $importFtthIBOri->cust_address1,
-                    'cust_address2' => $importFtthIBOri->cust_address2,
-                    'type_maintenance' => $importFtthIBOri->type_maintenance,
-                    'kode_fat' => $importFtthIBOri->kode_fat,
-                    'kode_wilayah' => $importFtthIBOri->kode_wilayah,
-                    'cluster' => $importFtthIBOri->cluster,
-                    'kotamadya' => $importFtthIBOri->kotamadya,
-                    'kotamadya_penagihan' => $importFtthIBOri->kotamadya_penagihan,
-                    'branch' => $importFtthIBOri->branch,
-                    'tgl_ikr' => $importFtthIBOri->tgl_ikr,
-                    'slot_time_leader' => $importFtthIBOri->slot_time_leader,
-                    'slot_time_apk' => $importFtthIBOri->slot_time_apk,
-                    'sesi' => $importFtthIBOri->sesi,
-                    'callsign' => $importFtthIBOri->callsign,
-                    'leader' => $importFtthIBOri->leader,
-                    'teknisi1' => $importFtthIBOri->teknisi1,
-                    'teknisi2' => $importFtthIBOri->teknisi2,
-                    'teknisi3' => $importFtthIBOri->teknisi3,
-                    'status_wo' => $importFtthIBOri->status_wo,
-                    'reason_status' => $importFtthIBOri->reason_status,
-                    'penagihan' => $importFtthIBOri->penagihan,
-                    'tgl_jam_reschedule' => $importFtthIBOri->tgl_jam_reschedule,
-                    'alasan_cancel' => $importFtthIBOri->alasan_cancel,
-                    'alasan_pending' => $importFtthIBOri->alasan_pending,
-                    'respon_konf_cst' => $importFtthIBOri->respon_konf_cst,
-                    'jawaban_konf_cst' => $importFtthIBOri->jawaban_konf_cst,
-                    'permintaan_reschedule' => $importFtthIBOri->permintaan_reschedule,
-                    'weather' => $importFtthIBOri->weather,
-                    'start_ikr_wa' => $importFtthIBOri->start_ikr_wa,
-                    'end_ikr_wa' => $importFtthIBOri->end_ikr_wa,
-                    'nama_dispatch' => $importFtthIBOri->nama_dispatch,
-                    'telp_dispatch' => $importFtthIBOri->telp_dispatch,
-                    'jam_tek_foto_rmh' => $importFtthIBOri->jam_tek_foto_rmh,
-                    'jam_dispatch_respon_foto' => $importFtthIBOri->jam_dispatch_respon_foto,
-                    'jam_teknisi_cek_fat' => $importFtthIBOri->jam_teknisi_cek_fat,
-                    'jam_dispatch_respon_fat' => $importFtthIBOri->jam_dispatch_respon_fat,
-                    'jam_teknisi_cek_port_fat' => $importFtthIBOri->jam_teknisi_cek_port_fat,
-                    'jam_dispatch_respon_port_fat' => $importFtthIBOri->jam_dispatch_respon_port_fat,
-                    'jam_teknisi_aktifasi_perangkat' => $importFtthIBOri->jam_teknisi_aktifasi_perangkat,
-                    'jam_dispatch_respon_aktifasi_perangkat' => $importFtthIBOri->jam_dispatch_respon_aktifasi_perangkat,
-                    
-                    'validasi_start' => $importFtthIBOri->validasi_start,
-                    'validasi_end' => $importFtthIBOri->validasi_end,
-                    'otp_start' => $importFtthIBOri->otp_start,
-                    'otp_end' => $importFtthIBOri->otp_end,
-                    'checkin_apk' => $importFtthIBOri->checkin_apk,
-                    'checkout_apk' => $importFtthIBOri->checkout_apk,
-                    'status_apk' => $importFtthIBOri->status_apk,
-                    'keterangan' => $importFtthIBOri->keterangan,
-                    'ms_regular' => $importFtthIBOri->ms_regular,
-                    'wo_date_apk' => $importFtthIBOri->wo_date_apk,
-                    'wo_date_mail_reschedule' => $importFtthIBOri->wo_date_mail_reschedule,
-                    'wo_date_slot_time_apk' => $importFtthIBOri->wo_date_slot_time_apk,
-                    
-                    'slot_time_assign_apk' => $importFtthIBOri->slot_time_assign_apk,
-                    'slot_time_apk_delay' => $importFtthIBOri->slot_time_apk_delay,
-                    'status_slot_time_apk_delay' => $importFtthIBOri->status_slot_time_apk_delay,
-                    'ket_delay_slot_time' => $importFtthIBOri->ket_delay_slot_time,
-
-                    'ont_merk_out' => $importFtthIBOri->ont_merk_out,
-                    'ont_sn_out' => $importFtthIBOri->ont_sn_out,
-                    'ont_mac_out' => $importFtthIBOri->ont_mac_out,
-                    'ont_merk_in' => $importFtthIBOri->ont_merk_in,
-                    'ont_sn_in' => $importFtthIBOri->ont_sn_in,
-                    'ont_mac_in' => $importFtthIBOri->ont_mac_in,
-                    'router_merk_out' => $importFtthIBOri->router_merk_out,
-                    'router_sn_out' => $importFtthIBOri->router_sn_out,
-                    'router_mac_out' => $importFtthIBOri->router_mac_out,
-                    'router_merk_in' => $importFtthIBOri->router_merk_in,
-                    'router_sn_in' => $importFtthIBOri->router_sn_in,
-                    'router_mac_in' => $importFtthIBOri->router_mac_in,
-                    'stb_merk_out' => $importFtthIBOri->stb_merk_out,
-                    'stb_sn_out' => $importFtthIBOri->stb_sn_out,
-                    'stb_mac_out' => $importFtthIBOri->stb_mac_out,
-                    'stb_merk_in' => $importFtthIBOri->stb_merk_in,
-                    'stb_sn_in' => $importFtthIBOri->stb_sn_in,
-                    'stb_mac_in' => $importFtthIBOri->stb_mac_in,
-                    'dw_out' => $importFtthIBOri->dw_out,
-                    'precon_out' => $importFtthIBOri->precon_out,
-
-                    'kabel_utp' => $importFtthIBOri->kabel_utp,
-                    'fast_connector' => $importFtthIBOri->fast_connector,
-                    'patchcord' => $importFtthIBOri->patchcord,
-                    'pipa' => $importFtthIBOri->pipa,
-                    'socket_pipa' => $importFtthIBOri->socket_pipa,
-                    'terminal_box' => $importFtthIBOri->terminal_box,
-                    'cable_duct' => $importFtthIBOri->cable_duct,
-                    // 'remote_fiberhome' => $importFtthIBOri->remote_fiberhome,
-                    // 'remote_extrem' => $importFtthIBOri->remote_extrem,
-                    'port_fat' => $importFtthIBOri->port_fat,
-                    'marker' => $importFtthIBOri->marker,
-                    'site_penagihan' => $importFtthIBOri->site_penagihan,
-                    // 'konfirmasi_penjadwalan' => $importFtthIBOri->konfirmasi_penjadwalan,
-                    // 'konfirmasi_cst' => $importFtthIBOri->konfirmasi_cst,
-                    // 'konfirmasi_dispatch' => $importFtthIBOri->konfirmasi_dispatch,
-                    // 'remark_status2' => $importFtthIBOri->remark_status2,
-                    'login' => $akses
+            DB::beginTransaction();
+            try {
+                $request->validate([
+                    'fileFtthMT' => ['required', 'mimes:xlsx,xls,csv']
                 ]);
-            }
+    
+                $akses = Auth::user()->name;
+    
+                Excel::import(new ImportFtthIB($akses), request()->file('fileFtthMT'));
+    
+                $doneSortir = DB::table('import_ftth_ib_temps')->where('status_wo', '=', 'Done')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
+                    // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                    ->orderBy('no_wo')
+                    ->groupBy('no_wo')->get();
+    
+                $pendingSortir = DB::table('import_ftth_ib_temps')->where('status_wo', '=', 'Pending')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
+                    // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                    ->whereNotIn('no_wo', function ($p) {
+                        $p->select('no_wo')->from('import_ftth_ib_temps as import1')->where('status_wo', '=', 'Done');
+                    })
+                    ->whereNotIn('no_wo', function ($c) {
+                        $c->select('no_wo')->from('import_ftth_ib_temps as import2')->where('status_wo', '=', 'Cancel');
+                    })
+                    ->orderBy('no_wo')
+                    ->groupBy('no_wo')->get();
+    
+                $cancelSortir = DB::table('import_ftth_ib_temps')->where('status_wo', '=', 'Cancel')->select(DB::raw('no_wo,max(tgl_ikr) as tgl_ikr'))
+                    // ->whereNotIn('type_wo', ['Dismantle', 'Additional'])
+                    ->whereNotIn('no_wo', function ($p) {
+                        $p->select('no_wo')->from('import_ftth_ib_temps as import1')->where('status_wo', '=', 'Done');
+                    })
+                    ->orderBy('no_wo')
+                    ->groupBy('no_wo')->get();
+    
+                $donePendingSortir = $doneSortir->merge($pendingSortir);
+                $donePendingCancelSortir = $donePendingSortir->merge($cancelSortir);
+    
+                //jika record banyak dibuat part, maka bagian ini di comment dulu, di open lg ketika import part terakhir 
+                for ($x = 0; $x < $donePendingCancelSortir->count(); $x++) {
+    
+                    $importFtthIBOri = ImportFtthIBTemp::where('no_wo', '=', $donePendingCancelSortir[$x]->no_wo)
+                        ->where('tgl_ikr', '=', $donePendingCancelSortir[$x]->tgl_ikr)->first();
+    
+                    // dd($importFtthIBOri->no_wo);
+    
+                    ImportFtthIBSortirTemp::create([
+                        'pic_monitoring' => $importFtthIBOri->pic_monitoring, //1
+                        'site' => $importFtthIBOri->site,
+                        'type_wo' => $importFtthIBOri->type_wo,
+                        'wo_type_apk' => $importFtthIBOri->wo_type_apk,
+                        'no_wo' => $importFtthIBOri->no_wo,
+                        'no_ticket' => $importFtthIBOri->no_ticket,
+                        'cust_id' => $importFtthIBOri->cust_id,
+                        'nama_cust' => $importFtthIBOri->nama_cust,
+                        'cust_address1' => $importFtthIBOri->cust_address1,
+                        'cust_address2' => $importFtthIBOri->cust_address2,
+                        'cust_phone_apk' => $importFtthIBOri->cust_phone_apk,
+                        'type_maintenance' => $importFtthIBOri->type_maintenance,
+                        'kode_fat' => $importFtthIBOri->kode_fat,
+                        'kode_wilayah' => $importFtthIBOri->kode_wilayah,
+                        'cluster' => $importFtthIBOri->cluster,
+                        'kotamadya' => $importFtthIBOri->kotamadya,
+                        'kotamadya_penagihan' => $importFtthIBOri->kotamadya_penagihan,
+                        'branch_id' => $importFtthIBOri->branch_id,
+                        'branch' => $importFtthIBOri->branch,
+                        'leadcall_id' => $importFtthIBOri->leadcall_id,
+                        'leadcall' => $importFtthIBOri->leadcall,
+                        'tgl_ikr' => $importFtthIBOri->tgl_ikr,
+                        'slot_time_leader' => $importFtthIBOri->slot_time_apk,
+                        'slot_time_apk' => $importFtthIBOri->slot_time_apk,
+                        'sesi' => $importFtthIBOri->sesi,
+                        'callsign' => $importFtthIBOri->callsign,
+                        'callsign_id' => $importFtthIBOri->callsign_id,
+                        'leader_id' => $importFtthIBOri->leader_id,
+                        'leader' => $importFtthIBOri->leader,
+                        'tek1_nik' => $importFtthIBOri->tek1_nik,
+                        'tek2_nik' => $importFtthIBOri->tek2_nik,
+                        'tek3_nik' => $importFtthIBOri->tek3_nik,
+                        // 'tek4_nik' => $importFtthIBOri->tek4_nik,
+                        'teknisi1' => $importFtthIBOri->teknisi1,
+                        'teknisi2' => $importFtthIBOri->teknisi2,
+                        'teknisi3' => $importFtthIBOri->teknisi3,
+                        'teknisi4' => $importFtthIBOri->teknisi4,
+                        'status_wo' => $importFtthIBOri->status_wo,
+                        'reason_status' => $importFtthIBOri->reason_status,
+                        'action_status' => $importFtthIBOri->action_status,
+                        'visit_novisit' => $importFtthIBOri->visit_novisit,
+                        'remarks_teknisi' => $importFtthIBOri->remarks_teknisi,
+                        'remarks_wo' => $importFtthIBOri->remarks_wo,
+                        'penagihan' => $importFtthIBOri->penagihan,
+                        'tgl_jam_reschedule' => $importFtthIBOri->tgl_jam_reschedule,
+                        'tgl_reschedule' => $importFtthIBOri->tgl_reschedule,
+                        'alasan_cancel' => $importFtthIBOri->alasan_cancel,
+                        'alasan_pending' => $importFtthIBOri->alasan_pending,
+                        'detail_alasan' => $importFtthIBOri->detail_alasan,
+                        'respon_konf_cst' => $importFtthIBOri->respon_konf_cst,
+                        'jawaban_konf_cst' => $importFtthIBOri->jawaban_konf_cst,
+                        'permintaan_reschedule' => $importFtthIBOri->permintaan_reschedule,
+                        'weather' => $importFtthIBOri->weather,
+                        'start_ikr_wa' => $importFtthIBOri->start_ikr_wa,
+                        'end_ikr_wa' => $importFtthIBOri->end_ikr_wa,
+                        'nama_dispatch' => $importFtthIBOri->nama_dispatch,
+                        'telp_dispatch' => $importFtthIBOri->telp_dispatch,
+                        'jam_tek_foto_rmh' => $importFtthIBOri->jam_tek_foto_rmh,
+                        'jam_dispatch_respon_foto' => $importFtthIBOri->jam_dispatch_respon_foto,
+                        'jam_teknisi_cek_fat' => $importFtthIBOri->jam_teknisi_cek_fat,
+                        'jam_dispatch_respon_fat' => $importFtthIBOri->jam_dispatch_respon_fat,
+                        'jam_teknisi_cek_port_fat' => $importFtthIBOri->jam_teknisi_cek_port_fat,
+                        'jam_dispatch_respon_port_fat' => $importFtthIBOri->jam_dispatch_respon_port_fat,
+                        'jam_teknisi_aktifasi_perangkat' => $importFtthIBOri->jam_teknisi_aktifasi_perangkat,
+                        'jam_dispatch_respon_aktifasi_perangkat' => $importFtthIBOri->jam_dispatch_respon_aktifasi_perangkat,
+                        'validasi_start' => $importFtthIBOri->validasi_start,
+                        'validasi_end' => $importFtthIBOri->validasi_end,
+                        'start_regist' => $importFtthIBOri->start_regist,
+                        'end_regist' => $importFtthIBOri->end_regist,
+                        'otp_start' => $importFtthIBOri->otp_start,
+                        'otp_end' => $importFtthIBOri->otp_end,
+                        'checkin_apk' => $importFtthIBOri->checkin_apk,
+                        'checkout_apk' => $importFtthIBOri->checkout_apk,
+                        'waktu_instalasi' => $importFtthIBOri->waktu_instalasi,
+                        'selisih_menit' => $importFtthIBOri->selisih_menit,
+                        'status_checkin' => $importFtthIBOri->status_checkin,
+                        'status_apk' => $importFtthIBOri->status_apk,
+                        'mttr_all' => $importFtthIBOri->mttr_all,
+                        'mttr_pending' => $importFtthIBOri->mttr_pending,
+                        'mttr_progress' => $importFtthIBOri->mttr_progress,
+                        'mttr_technician' => $importFtthIBOri->mttr_technician,
+                        'sla_over' => $importFtthIBOri->sla_over,
+                        'keterangan' => $importFtthIBOri->keterangan,
+                        'qty_material_out' => $importFtthIBOri->qty_material_out,
+                        'qty_material_in' => $importFtthIBOri->qty_material_in,
+                        'ms_regular' => $importFtthIBOri->ms_regular,
+                        'wo_date_apk' => $importFtthIBOri->wo_date_apk,
+                        'wo_date_mail_reschedule' => $importFtthIBOri->wo_date_mail_reschedule,
+                        'wo_date_slot_time_apk' => $importFtthIBOri->wo_date_slot_time_apk,
+                        'slot_time_assign_apk' => $importFtthIBOri->slot_time_assign_apk,
+                        'slot_time_apk_delay' => $importFtthIBOri->slot_time_apk_delay,
+                        'status_slot_time_apk_delay' => $importFtthIBOri->status_slot_time_apk_delay,
+                        'ket_delay_slot_time' => $importFtthIBOri->ket_delay_slot_time,
+                        'ont_merk_out' => $importFtthIBOri->ont_merk_out,
+                        'ont_sn_out' => $importFtthIBOri->ont_sn_out,
+                        'ont_mac_out' => $importFtthIBOri->ont_mac_out,
+                        'ont_merk_in' => $importFtthIBOri->ont_merk_in,
+                        'ont_sn_in' => $importFtthIBOri->ont_sn_in,
+                        'ont_mac_in' => $importFtthIBOri->ont_mac_in,
+                        'ont_condition_in' => $importFtthIBOri->ont_condition_in,
+                        'router_merk_out' => $importFtthIBOri->router_merk_out,
+                        'router_sn_out' => $importFtthIBOri->router_sn_out,
+                        'router_mac_out' => $importFtthIBOri->router_mac_out,
+                        'router_merk_in' => $importFtthIBOri->router_merk_in,
+                        'router_sn_in' => $importFtthIBOri->router_sn_in,
+                        'router_mac_in' => $importFtthIBOri->router_mac_in,
+                        'router_condition_in' => $importFtthIBOri->router_condition_in,
+                        'stb_merk_out' => $importFtthIBOri->stb_merk_out,
+                        'stb_sn_out' => $importFtthIBOri->stb_sn_out,
+                        'stb_mac_out' => $importFtthIBOri->stb_mac_out,
+                        'stb_merk_in' => $importFtthIBOri->stb_merk_in,
+                        'stb_sn_in' => $importFtthIBOri->stb_sn_in,
+                        'stb_mac_in' => $importFtthIBOri->stb_mac_in,
+                        'stb_condition_in' => $importFtthIBOri->stb_condition_in,
+                        'dw_out' => $importFtthIBOri->dw_out,
+                        'precon_out' => $importFtthIBOri->precon_out,
+                        'kabel_utp' => $importFtthIBOri->kabel_utp,
+                        'fast_connector' => $importFtthIBOri->fast_connector,
+                        'patchcord' => $importFtthIBOri->patchcord,
+                        'pipa' => $importFtthIBOri->pipa,
+                        'socket_pipa' => $importFtthIBOri->socket_pipa,
+                        'terminal_box' => $importFtthIBOri->terminal_box,
+                        'cable_duct' => $importFtthIBOri->cable_duct,
+                        'remote_fiberhome' => $importFtthIBOri->remote_fiberhome,
+                        'remote_extrem' => $importFtthIBOri->remote_extrem,
+                        'rj45' => $importFtthIBOri->rj45,
+                        'flexible' => $importFtthIBOri->flexible,
+                        'port_fat' => $importFtthIBOri->port_fat,
+                        'marker' => $importFtthIBOri->marker,
+                        'site_penagihan' => $importFtthIBOri->site_penagihan,
+                        'is_checked' => $importFtthIBOri->is_checked,
+                        'is_confirmation' => $importFtthIBOri->is_confirmation,
+                        'cek_telebot' => $importFtthIBOri->cek_telebot,
+                        'hasil_cek_telebot' => $importFtthIBOri->hasil_cek_telebot,
+                        'kode_fat_relokasi' => $importFtthIBOri->kode_fat_relokasi,
+                        'port_fat_relokasi' => $importFtthIBOri->port_fat_relokasi,
+                        'last_import' => $importFtthIBOri->last_import,
+                        'time_last_import' => $importFtthIBOri->time_last_import,
 
-            return back();
+                        'login' => $akses
+                    ]);
+                }
+    
+                DB::commit();
+                return back();
+
+            } catch (\Throwable $e) {
+                return $e;
+                DB::rollback();
+            }
+            
         }
     }
 
@@ -422,33 +468,45 @@ class ImportFtthIbTempController extends Controller
 
     public function saveImportFtthIb(Request $request)
     {
+        ini_set('max_execution_time', 500);
+        ini_set('memory_limit', '5048M');
+
         $akses = Auth::user()->name;
 
         switch ($request->input('action')) {
 
             case 'simpan':
-
-                // ===== copy data Ftth MT Ori Temporary ke table Data Ftth MT Ori ======//
-                $dataimportFtthIbOri = ImportFtthIbTemp::where('login', '=', $akses)->get()
+                DB::beginTransaction();
+                try {
+                    // ===== copy data Ftth MT Ori Temporary ke table Data Ftth MT Ori ======//
+                    $dataimportFtthIbOri = ImportFtthIbTemp::where('login', '=', $akses)->get()
                     ->each(function ($item) {
                         $dataFtthIbOri = $item->replicate();
                         $dataFtthIbOri->setTable('data_ftth_ib_oris');
                         $dataFtthIbOri->save();
                     });
 
-                if ($dataimportFtthIbOri) {
+                    if ($dataimportFtthIbOri) {
 
-                    // ==== copy data Ftth Mt Sortir Temporary ke table Data Ftth Mt Sortir =======//
-                    $dataimportFtthIbSortir = ImportFtthIbSortirTemp::where('login', '=', $akses)->get()
-                        ->each(function ($item) {
-                            $dataFtthIbSortir = $item->replicate();
-                            $dataFtthIbSortir->setTable('data_ftth_ib_sortirs');
-                            $dataFtthIbSortir->save();
-                        });
+                        // ==== copy data Ftth Mt Sortir Temporary ke table Data Ftth Mt Sortir =======//
+                        $dataimportFtthIbSortir = ImportFtthIbSortirTemp::where('login', '=', $akses)->get()
+                            ->each(function ($item) {
+                                $dataFtthIbSortir = $item->replicate();
+                                $dataFtthIbSortir->setTable('data_ftth_ib_sortirs');
+                                $dataFtthIbSortir->save();
+                            });
 
-                    ImportFtthIbTemp::where('login', '=', $akses)->delete();
-                    ImportFtthIbSortirTemp::where('login', '=', $akses)->delete();
-                }
+                        ImportFtthIbTemp::where('login', '=', $akses)->delete();
+                        ImportFtthIbSortirTemp::where('login', '=', $akses)->delete();
+                    }
+
+                    DB::commit();
+                    return back();
+
+                } catch (\Throwable $e) {
+                    return $e;
+                    DB::rollback();
+                }                
 
                 break;
 
@@ -456,9 +514,12 @@ class ImportFtthIbTempController extends Controller
                 ImportFtthIbTemp::where('login', '=', $akses)->delete();
                 ImportFtthIbSortirTemp::where('login', '=', $akses)->delete();
 
+                return back();
+
                 break;
+                
         }
 
-        return back();
+        
     }
 }

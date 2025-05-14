@@ -3105,7 +3105,7 @@
                     filterDateEnd: filPeriodeEnd
                 },
                 success: function(apk) {    
-
+                    console.log('apk : ', apk);
                     $('#rootCouseHeadAPK').find("th").remove();
                     $('#bodyRootCouseAPK').find("tr").remove();
 
@@ -3227,11 +3227,7 @@
 
                                 $.each(apk.detRootCouseSortir, function(key,
                                     itemRootCouse) {
-
-                                    if (itemPenagihan.penagihan == itemRootCouse
-                                        .penagihan && itemCouseCode
-                                        .couse_code == itemRootCouse.couse_code
-                                    ) {
+                                    if (itemPenagihan.penagihan == itemRootCouse.penagihan && itemCouseCode.couse_code == itemRootCouse.couse_code) {
                                         tbRootCouseAPK = `
                                             <tr><td style="position:sticky;left: 0;z-index:8;"></td>
                                             <td style="position:sticky;left: 150.25px;font-weight:bold;"></td>

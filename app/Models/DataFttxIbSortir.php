@@ -15,6 +15,7 @@ class DataFttxIbSortir extends Model
         'wo_date',
         'ib_date',
         'wo_type',
+        'sub_wo_type',
         'cust_name',
         'cust_address',
         'area',

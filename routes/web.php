@@ -288,15 +288,18 @@ Route::group(
 
       Route::get('/getTrendMonthlyMTFttx', [Report_FttxMTController::class, 'getTrendMonthlyMTFttx'])->name('getTrendMonthlyMTFttx');
       Route::get('/getTabelStatusMTFttx', [Report_FttxMTController::class, 'getTabelStatusMTFttx'])->name('getTabelStatusMTFttx');
+      Route::get('/getTabelStatusMTFttxType', [Report_FttxMTController::class, 'getTabelStatusMTFttxType'])->name('getTabelStatusMTFttxType');
 
       Route::get('/getReasonStatusMTFttxGraph', [Report_FttxMTController::class, 'getReasonStatusMTFttxGraph'])->name('getReasonStatusMTFttxGraph');
       Route::get('/getRootCouseAPKMTFttx', [Report_FttxMTController::class, 'getRootCouseAPKMTFttx'])->name('getRootCouseAPKMTFttx');
       Route::get('/getRootCouseAPKMTFttxDetail', [Report_FttxMTController::class, 'getRootCouseAPKMTFttxDetail'])->name('getRootCouseAPKMTFttxDetail');
 
       Route::get('/getRootCousePendingGraphMTFttx', [Report_FttxMTController::class, 'getRootCousePendingGraphMTFttx'])->name('getRootCousePendingGraphMTFttx');
+      Route::get('/getRootCousePendingGraphMTFttxType', [Report_FttxMTController::class, 'getRootCousePendingGraphMTFttxType'])->name('getRootCousePendingGraphMTFttxType');
       Route::get('/getRootCousePendingMTFttx', [Report_FttxMTController::class, 'getRootCousePendingMTFttx'])->name('getRootCousePendingMTFttx');
 
       Route::get('/getRootCouseCancelGraphMTFttx', [Report_FttxMTController::class, 'getRootCouseCancelGraphMTFttx'])->name('getRootCouseCancelGraphMTFttx');
+      Route::get('/getRootCouseCancelGraphMTFttxType', [Report_FttxMTController::class, 'getRootCouseCancelGraphMTFttxType'])->name('getRootCouseCancelGraphMTFttxType');
       Route::get('/getRootCouseCancelMTFttx', [Report_FttxMTController::class, 'getRootCouseCancelMTFttx'])->name('getRootCouseCancelMTFttx');
 
       Route::get('/getClusterBranchMTFttx', [Report_FttxMTController::class, 'getClusterBranchMTFttx'])->name('getClusterBranchMTFttx');
@@ -316,14 +319,17 @@ Route::group(
 
      Route::get('/getTrendMonthlyIBFttx', [Report_FttxIBController::class, 'getTrendMonthlyIBFttx'])->name('getTrendMonthlyIBFttx');
      Route::get('/getTabelStatusIBFttx', [Report_FttxIBController::class, 'getTabelStatusIBFttx'])->name('getTabelStatusIBFttx');
+     Route::get('/getTabelStatusIBFttxType', [Report_FttxIBController::class, 'getTabelStatusIBFttxType'])->name('getTabelStatusIBFttxType');
 
      Route::get('/getReasonStatusIBFttxGraph', [Report_FttxIBController::class, 'getReasonStatusIBFttxGraph'])->name('getReasonStatusIBFttxGraph');
      Route::get('/getRootCouseAPKIBFttx', [Report_FttxIBController::class, 'getRootCouseAPKIBFttx'])->name('getRootCouseAPKIBFttx');
 
      Route::get('/getRootCousePendingGraphIBFttx', [Report_FttxIBController::class, 'getRootCousePendingGraphIBFttx'])->name('getRootCousePendingGraphIBFttx');
+     Route::get('/getRootCousePendingGraphIBFttxType', [Report_FttxIBController::class, 'getRootCousePendingGraphIBFttxType'])->name('getRootCousePendingGraphIBFttxType');
      Route::get('/getRootCousePendingIBFttx', [Report_FttxIBController::class, 'getRootCousePendingIBFttx'])->name('getRootCousePendingIBFttx');
 
      Route::get('/getRootCouseCancelGraphIBFttx', [Report_FttxIBController::class, 'getRootCouseCancelGraphIBFttx'])->name('getRootCouseCancelGraphIBFttx');
+     Route::get('/getRootCouseCancelGraphIBFttxType', [Report_FttxIBController::class, 'getRootCouseCancelGraphIBFttxType'])->name('getRootCouseCancelGraphIBFttxType');
      Route::get('/getRootCouseCancelIBFttx', [Report_FttxIBController::class, 'getRootCouseCancelIBFttx'])->name('getRootCouseCancelIBFttx');
 
      Route::get('/getClusterBranchIBFttx', [Report_FttxIBController::class, 'getClusterBranchIBFttx'])->name('getClusterBranchIBFttx');

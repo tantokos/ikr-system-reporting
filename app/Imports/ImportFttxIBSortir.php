@@ -32,6 +32,7 @@ class ImportFttxIBSortir implements ToModel,WithHeadingRow, WithChunkReading
             'wo_date' => $row['wo_date'],
             'ib_date' => Date::excelToDateTimeObject($row['ib_date']),
             'wo_type' => $row['wo_type'],
+            'sub_wo_type' => $row['sub_wo_type'],
             'cust_name' => $row['cust_name'],
             'cust_address' => $row['cust_address'],
             'area' => $row['area'],

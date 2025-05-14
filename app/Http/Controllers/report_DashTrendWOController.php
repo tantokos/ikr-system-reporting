@@ -82,8 +82,19 @@ class report_DashTrendWOController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+            
         }
 
 
@@ -176,10 +187,20 @@ class report_DashTrendWOController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
-        for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
 
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+            
+        }
 
         for ($m = 0; $m < count($trendBulanan); $m++) {
 
@@ -270,8 +291,19 @@ class report_DashTrendWOController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+            
         }
 
 
@@ -364,10 +396,20 @@ class report_DashTrendWOController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
-        for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
 
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+            
+        }
 
         for ($m = 0; $m < count($trendBulanan); $m++) {
 
@@ -458,10 +500,20 @@ class report_DashTrendWOController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
-        for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
 
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+            
+        }
 
         for ($m = 0; $m < count($trendBulanan); $m++) {
 
