@@ -15,6 +15,7 @@ class DataFttxMtSortir extends Model
         'wo_date',
         'mt_date',
         'wo_type',
+        'sub_wo_type',
         'cust_name',
         'cust_address',
         'area',

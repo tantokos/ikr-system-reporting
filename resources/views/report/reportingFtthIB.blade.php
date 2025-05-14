@@ -2562,9 +2562,9 @@
                     $.each(data, function(key, item) {
                         // day.push(new Date(item.tgl_ikr).getDate());
                         day.push(new Date(item.tgl_ikr).getDate());
-                        doneDay.push(item.Done);
-                        pendingDay.push(item.Pending);
-                        cancelDay.push(item.Cancel);
+                        doneDay.push(Number(item.Done));
+                        pendingDay.push(Number(item.Pending));
+                        cancelDay.push(Number(item.Cancel));
 
                         let htgl = `
                            <th>${new Date(item.tgl_ikr).getDate()}</th>
@@ -2578,7 +2578,7 @@
 
                         $('#woDone').append(dtDone);
 
-                        totDone += item.Done;
+                        totDone += Number(item.Done);
 
                         let dtPending = `
                             <td>${item.Pending.toLocaleString()}</td>
@@ -2586,8 +2586,8 @@
 
                         $('#woPending').append(dtPending);
 
-                        totPending += item.Pending;
-                        totCancel += item.Cancel;
+                        totPending += Number(item.Pending);
+                        totCancel += Number(item.Cancel);
 
                         let dtCancel = `
                             <td>${item.Cancel.toLocaleString()}</td>
@@ -2595,7 +2595,7 @@
 
                         $('#woCancel').append(dtCancel)
 
-                        totWo = item.Done + item.Pending + item.Cancel
+                        totWo = Number(item.Done) + Number(item.Pending) + Number(item.Cancel)
 
                         let dtTotWo = `
                             <td>${totWo.toLocaleString()}</td>
@@ -2614,7 +2614,7 @@
 
                     $('#woCancel').append(`<th>${totCancel.toLocaleString()}</th>`)
 
-                    total = totDone + totPending + totCancel
+                    total = Number(totDone) + Number(totPending) + Number(totCancel)
 
                     $('#totWo').append(`<th>${total.toLocaleString()}</th>`)
 
@@ -2924,9 +2924,12 @@
                             thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
                             detailCel = `reason_status|penagihan|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
 
+                            CalcPersen = ((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '');
+
                             tbPenagihanAPK = tbPenagihanAPK +
                                 `<th style="text-align: center; cursos:pointer;" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
-                                <th style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                <th style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`;
+                                // <th style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p]).toFixed(1).replace(/\.0$/, '')}%</th>
 
                             subtotal += Number(itemPenagihan.bulanan[p]);
 
@@ -3326,6 +3329,15 @@
                             `<th style="text-align: center">Subtotal</th>`
                     )
 
+                    for (p=0;p<trendWoIBFtth.length; p++) {
+                        TotPenagihanPending[p] = 0;
+                        
+                        $.each(dataRootCousePending, function(key, iPenagihan) {
+                            TotPenagihanPending[p] += Number(iPenagihan.bulanan[p]);
+                        })
+                        
+                    }
+
                     $.each(dataRootCousePending, function(key, item) {
                         
                         tbRootCousePending = `
@@ -3339,9 +3351,12 @@
                             thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
                             detailCel = `pending|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
 
+                            CalcPersen = parseFloat((item.bulanan[bln] * 100) / TotPenagihanPending[bln]).toFixed(1).replace(/\.0$/, '');
+
                             tbRootCousePending = tbRootCousePending +
                                 `<td style="text-align: center; cursos:pointer;" id="${detailCel}" onClick="det_click(this.id)"">${item.bulanan[bln].toLocaleString()}</td>
-                                <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
+                                // <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>
 
                             subtotal += Number(item.bulanan[bln]);
                         }
@@ -3744,6 +3759,15 @@
                             `<th style="text-align: center">Subtotal</th>`
                         )
 
+                    for (p=0;p<trendWoIBFtth.length; p++) {
+                        TotPenagihanCancel[p] = 0;
+                        
+                        $.each(dataRootCouseCancel, function(key, iPenagihan) {
+                            TotPenagihanCancel[p] += Number(iPenagihan.bulanan[p]);
+                        })
+                    }
+
+                    
                     $.each(dataRootCouseCancel, function(key, item) {
                         
                         tbRootCouseCancel = `
@@ -3758,9 +3782,12 @@
                             thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
                             detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
 
+                            CalcPersen = parseFloat((item.bulanan[bln] * 100) / TotPenagihanCancel[bln]).toFixed(1).replace(/\.0$/, '');
+
                             tbRootCouseCancel = tbRootCouseCancel +
                                 `<td style="text-align: center; cursos:pointer;" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
-                                <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
+                                // <td style="text-align: center">${parseFloat(item.persen[bln]).toFixed(1).replace(/\.0$/, '')}%</td>
 
                             subtotal += Number(item.bulanan[bln]);
                         }

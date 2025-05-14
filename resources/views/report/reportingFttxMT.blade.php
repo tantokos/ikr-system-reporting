@@ -285,6 +285,108 @@
     </div>
 
     <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body" id="canvasTrendDialyWoType">
+
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body" id="canvasTrendDialyWoTypeDone">
+
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="tabelTrendWoTypeFttxIb"
+                            width="100%" cellspacing="0" style="font-size: 12px;">
+                            <thead>
+                                <tr id="monthWoType">
+                                    <th>WO IB FTTX</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="typeFttx">
+                                    <td>FTTX</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                </tr>
+                                <tr id="typeFttb">
+                                    <td>FTTB</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                </tr>
+                                <tr id="typeUtp">
+                                    <td>UTP</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr id="typeTotWo">
+                                    <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="tabelTrendWoTypeFttxIb"
+                            width="100%" cellspacing="0" style="font-size: 12px;">
+                            <thead>
+                                <tr id="monthWoTypeDone">
+                                    <th>WO IB FTTX</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="typeFttxDone">
+                                    <td>FTTX</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                </tr>
+                                <tr id="typeFttbDone">
+                                    <td>FTTB</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                </tr>
+                                <tr id="typeUtpDone">
+                                    <td>UTP</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr id="typeTotWoDone">
+                                    <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body" id="canvasTrendDialyWo">
@@ -309,7 +411,7 @@
                                     {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="bodyType">
                                 <tr id="woDone">
                                     <td>Done</td>
                                     {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
@@ -324,8 +426,9 @@
                                 </tr>
                             </tbody>
                             <tfoot>
-                                <tr id="totWo">
+                                <tr id="totWo" class="table-secondary">
                                     <th>Total WO</th>
+                                    <th></th>
                                     {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
                                 </tr>
                             </tfoot>
@@ -444,7 +547,67 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body" id="canvasTrendTotWoTypePending">
+
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body" id="canvasTrendWoTypePending">
+
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="tabelTrendWoTypeFttxIbPending"
+                            width="100%" cellspacing="0" style="font-size: 12px;">
+                            <thead>
+                                <tr id="monthWoTypePending">
+                                    <th>WO IB FTTX</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="typeFttxPending">
+                                    <td>FTTX</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                </tr>
+                                <tr id="typeFttbPending">
+                                    <td>FTTB</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                </tr>
+                                <tr id="typeUtpPending">
+                                    <td>UTP</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr id="typeTotWoPending">
+                                    <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -465,7 +628,7 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered border-secondary" id="rootCousePendingtable"
                             cellspacing="0" style="font-size: 12px">
-                            <thead id="rootCouseHeadPending">
+                            <thead id="rootCouseHeadPending">                          
                             </thead>
                             <tbody id="rootCouseTbPending">
                             </tbody>
@@ -515,6 +678,67 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body" id="canvasTrendTotWoTypeCancel">
+
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body" id="canvasTrendWoTypeCancel">
+
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="tabelTrendWoTypeFttxIbCancel"
+                            width="100%" cellspacing="0" style="font-size: 12px;">
+                            <thead>
+                                <tr id="monthWoTypeCancel">
+                                    <th>WO IB FTTX</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="typeFttxCancel">
+                                    <td>FTTX</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                </tr>
+                                <tr id="typeFttbCancel">
+                                    <td>FTTB</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                </tr>
+                                <tr id="typeUtpCancel">
+                                    <td>UTP</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr id="typeTotWoCancel">
+                                    <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -813,10 +1037,27 @@
         let filBranch = $('#branch').val();
 
         let detAPK = apk_id.split("|");
-
+        console.log('detAPK : ',detAPK);
          
         // RootCause APK
         if(detAPK[0]=="rootCouseAPK"){
+            if(detAPK[1]=="type") {
+                datafilter = {
+                        detSlide: detAPK[0],
+                        detKategori: detAPK[1], 
+                        detPenagihan: detAPK[2],
+                        detBulan: detAPK[3],
+                        detThn: detAPK[4],
+                        detType: detAPK[5],
+                        detSite: filSite,
+                        detBranch: filBranch,
+                        _token: _token
+                };
+
+                detailTitle = detAPK[1];
+                detailSubTitle = '';
+                detailClikChart = detAPK[0]+"|"+detAPK[1]+"|"+detAPK[2]+"|"+detAPK[3]+"|"+detAPK[4]+"|"+detAPK[5];
+            }
             if(detAPK[1]=="penagihan") {
                 datafilter = {
                         detSlide: detAPK[0],
@@ -1526,8 +1767,8 @@
                         // console.log(item.nama_branch);
                         // if(item.site_penagihan == "Retail"){
                         branch.push(item.nama_branch);
-                        totWoDone.push([item.nama_branch + " " + item.done, item.done]);
-                        branchWTot.push([item.nama_branch + " " + item.total, item.total]);
+                        totWoDone.push([item.nama_branch + " " + Number(item.done), Number(item.done)]);
+                        branchWTot.push([item.nama_branch + " " + Number(item.total), Number(item.total)]);
                         // }
                         // if((item.site_penagihan == "Apartemen") || (item.site_penagihan == "Underground") ){
                         // branch.push(item.site_penagihan);
@@ -1535,7 +1776,7 @@
                         // branchWTot.push([item.site_penagihan + " " + item.total, item.total]);
                         // }
 
-                        totWo.push(item.total);
+                        totWo.push(Number(item.total));
 
 
                     });
@@ -2030,8 +2271,8 @@
                     $.each(trendWoIBFtth, function(key, item) {
                         
                         trendMonth.push(item.bulan);
-                        trendTotIBFtth.push(item.trendIBFtthTotal);
-                        trendIBDone.push(item.trendIBFtthDone);
+                        trendTotIBFtth.push(Number(item.trendIBFtthTotal));
+                        trendIBDone.push(Number(item.trendIBFtthDone));
 
                     });
 
@@ -2193,7 +2434,7 @@
                 complete: () => {
                     $("#smWOTrend").hide();
                 },
-                success: function(data) {
+                success: function(res) {
 
                     // var day = new Date(tahun, bulan, 0).getDate();
                     var day = [];
@@ -2205,95 +2446,193 @@
                     var totDone = 0;
                     var totPending = 0;
                     var totCancel = 0;
+                    var totcol = [];
                     var totWo = 0;
                     var total = 0;
+                    var totRow = 0;
 
                     $('#dateMonth').find("th").remove();
-                    $('#dateMonth').append(`<th>FTTX MT ${titleBranch}</th>`)
+                    $('#dateMonth').append(`<th>Type WO</th>`)
+                    $('#dateMonth').append(`<th>Status WO MT</th>`)
 
-                    $('#woDone').find("td").remove();
-                    $('#woDone').find("th").remove();
-                    $('#woDone').append("<td>Done</td>")
+                    // $('#woDone').find("td").remove();
+                    // $('#woDone').find("th").remove();
+                    // $('#woDone').append("<td>Done</td>")
 
-                    $('#woPending').find("td").remove();
-                    $('#woPending').find("th").remove();
-                    $('#woPending').append("<td>FTTX MT Failed</td>")
+                    // $('#woPending').find("td").remove();
+                    // $('#woPending').find("th").remove();
+                    // $('#woPending').append("<td>FTTX MT Failed</td>")
 
-                    $('#woCancel').find("td").remove();
-                    $('#woCancel').find("th").remove();
-                    $('#woCancel').append("<td>Cancel</td>")
+                    // $('#woCancel').find("td").remove();
+                    // $('#woCancel').find("th").remove();
+                    // $('#woCancel').append("<td>Cancel</td>")
 
-                    $('#totWo').find("td").remove()
-                    $('#totWo').find("th").remove()
-                    $('#totWo').append("<th>Total Wo</th>")
+                    // $('#totWo').find("td").remove()
+                    // $('#totWo').find("th").remove()
+                    // $('#totWo').append("<th>Total Wo</th>")
 
+                    $('#bodyType').find("tr").remove();
 
-                    $.each(data, function(key, item) {
-                        // day.push(new Date(item.tgl_ikr).getDate());
-                        day.push(new Date(item.mt_date).getDate());
-                        doneDay.push(item.Done);
-                        pendingDay.push(item.Pending);
-                        cancelDay.push(item.Cancel);
-
+                    $.each(res.data, function(k, tg) {
                         let htgl = `
-                           <th>${new Date(item.mt_date).getDate()}</th>
+                           <th>${new Date(tg.mt_date).getDate()}</th>
                         `;
 
                         $('#dateMonth').append(htgl);
 
-                        let dtDone = `
-                            <td>${item.Done.toLocaleString()}</td>
-                        `;
+                        totcol[k] = 0;
+                        doneDay[k] = 0;
+                        pendingDay[k] = 0;
+                        cancelDay[k] = 0;
+                    })
 
-                        $('#woDone').append(dtDone);
+                    $.each(res.type, function(k, tp) {
+                        let btype = `
+                            <tr id="rowType_${tp.type}" class="table-secondary">
+                                <th>${tp.type}</th>
+                                <td></td>
+                            </tr>
+                            <tr id="woDone_${tp.type}">
+                                <td></td>
+                                <td>Done</td>
+                            </tr>
+                            <tr id="woPending_${tp.type}">
+                                <td></td>
+                                <td>Pending</td>
+                            </tr>
+                            <tr id="woCancel_${tp.type}">
+                                <td></td>
+                                <td>Cancel</td>
+                            </tr>`;
+                            
+                        
+                        $('#bodyType').append(btype);
 
-                        totDone += item.Done;
+                        totRow = 0
+                        totDone = 0;
+                        totPending = 0;
+                        totCancel = 0;
 
-                        let dtPending = `
-                            <td>${item.Pending.toLocaleString()}</td>
-                        `;
+                        $.each(tp.detail, function(ky, dt) {
 
-                        $('#woPending').append(dtPending);
+                            // totcol[ky] = 0;
+                            let totDay = 0;
+                            let totRowType = Number(dt.Done) + Number(dt.Pending) + Number(dt.Cancel);
+                            
+                            let dtype = `
+                                <th>${totRowType}</th>
+                            `;                            
 
-                        totPending += item.Pending;
-                        totCancel += item.Cancel;
+                            let detDone = `
+                                <td>${dt.Done.toLocaleString()}</td>
+                            `;
+                            let detPending = `
+                                <td>${dt.Pending.toLocaleString()}</td>
+                            `;
+                            let detCancel = `
+                                <td>${dt.Cancel.toLocaleString()}</td>
+                            `;
 
-                        let dtCancel = `
-                            <td>${item.Cancel.toLocaleString()}</td>
-                        `;
+                            totRow = Number(totRow) + Number(totRowType);
+                            totDone = Number(totDone) + Number(dt.Done);
+                            totPending = Number(totPending) + Number(dt.Pending);
+                            totCancel = Number(totCancel) + Number(dt.Cancel);
+                            totWo = Number(totWo) + Number(totRow);
+                            totcol[ky] = Number(totcol[ky]) + Number(totRowType);
+                            doneDay[ky] = Number(doneDay[ky]) + Number(dt.Done);
+                            pendingDay[ky] = Number(pendingDay[ky]) + Number(dt.Pending);
+                            cancelDay[ky] = Number(cancelDay[ky]) + Number(dt.Cancel);
 
-                        $('#woCancel').append(dtCancel)
+                            
+                            $('#rowType_'+tp.type).append(dtype);
+                            $('#woDone_'+tp.type).append(detDone);
+                            $('#woPending_'+tp.type).append(detPending);
+                            $('#woCancel_'+tp.type).append(detCancel);       
+                        })
 
-                        totWo = item.Done + item.Pending + item.Cancel
-
-                        let dtTotWo = `
-                            <td>${totWo.toLocaleString()}</td>
-                        `;
-
-                        $('#totWo').append(dtTotWo);
-
-
-                    });
+                        
+                        
+                        $('#rowType_'+tp.type).append(`<th>${totRow.toLocaleString()}</th>`);
+                        $('#woDone_'+tp.type).append(`<th>${totDone.toLocaleString()}</th>`);
+                        $('#woPending_'+tp.type).append(`<th>${totPending.toLocaleString()}</th>`);
+                        $('#woCancel_'+tp.type).append(`<th>${totCancel.toLocaleString()}</th>`);
+                        // $('#totWo').append(`<th>${totcol.toLocaleString()}</th>`);
+                    })
+                    
+                    $.each(totcol, function(c, i) {
+                        $('#totWo').append(`<th>${i.toLocaleString()}</th>`);
+                        total = Number(total) + Number(i);
+                    })
 
                     $('#dateMonth').append("<th>Total</th>")
-
-                    $('#woDone').append(`<th>${totDone.toLocaleString()}</th>`)
-
-                    $('#woPending').append(`<th>${totPending.toLocaleString()}</th>`)
-
-                    $('#woCancel').append(`<th>${totCancel.toLocaleString()}</th>`)
-
-                    total = totDone + totPending + totCancel
-
                     $('#totWo').append(`<th>${total.toLocaleString()}</th>`)
 
-                    $('#dateMonth').append(`<th>%</th>`)
+                    // $.each(data, function(key, item) {
+                    //     // day.push(new Date(item.tgl_ikr).getDate());
+                    //     day.push(new Date(item.mt_date).getDate());
+                    //     doneDay.push(item.Done);
+                    //     pendingDay.push(item.Pending);
+                    //     cancelDay.push(item.Cancel);
 
-                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
-                    $('#woPending').append(
-                        `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
-                    $('#woCancel').append(
-                        `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    //     let htgl = `
+                    //        <th>${new Date(item.mt_date).getDate()}</th>
+                    //     `;
+
+                    //     $('#dateMonth').append(htgl);
+
+                    //     let dtDone = `
+                    //         <td>${item.Done.toLocaleString()}</td>
+                    //     `;
+
+                    //     $('#woDone').append(dtDone);
+
+                    //     totDone += item.Done;
+
+                    //     let dtPending = `
+                    //         <td>${item.Pending.toLocaleString()}</td>
+                    //     `;
+
+                    //     $('#woPending').append(dtPending);
+
+                    //     totPending += item.Pending;
+                    //     totCancel += item.Cancel;
+
+                    //     let dtCancel = `
+                    //         <td>${item.Cancel.toLocaleString()}</td>
+                    //     `;
+
+                    //     $('#woCancel').append(dtCancel)
+
+                    //     totWo = item.Done + item.Pending + item.Cancel
+
+                    //     let dtTotWo = `
+                    //         <td>${totWo.toLocaleString()}</td>
+                    //     `;
+
+                    //     $('#totWo').append(dtTotWo);
+
+
+                    // });
+
+                    // $('#dateMonth').append("<th>Total</th>")
+
+                    // $('#woDone').append(`<th>${totDone.toLocaleString()}</th>`)
+
+                    // $('#woPending').append(`<th>${totPending.toLocaleString()}</th>`)
+
+                    // $('#woCancel').append(`<th>${totCancel.toLocaleString()}</th>`)
+
+                    // total = totDone + totPending + totCancel
+
+                    // $('#totWo').append(`<th>${total.toLocaleString()}</th>`)
+
+                    // $('#dateMonth').append(`<th>%</th>`)
+
+                    // $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woPending').append(
+                    //     `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woCancel').append(
+                    //     `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
 
 
                     // graph line dialy //
@@ -2383,6 +2722,398 @@
 
             })
 
+            $.ajax({
+                url: "{{ route('getTabelStatusMTFttxType') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                beforeSend: () => {
+                    $("#smWOClosing").show();
+                },
+                complete: () => {
+                    $("#smWOClosing").hide();
+                },
+                success: function(data) {
+
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var blnthn = [];
+                    var daytb;
+                    var totfttx = [];
+                    var totfttb = [];
+                    var totutp = [];
+                    var totfttxDone = [];
+                    var totfttbDone = [];
+                    var totutpDone = [];
+                    var donetb;
+                    var totFttxType = 0;
+                    var totFttbType = 0;
+                    var totUtpType = 0;
+                    var totFttxTypeDone = 0;
+                    var totFttbTypeDone = 0;
+                    var totUtpTypeDone = 0;
+                    var totWo = 0;
+                    var total = 0;
+                    var totWoDone = 0;
+                    var totalDone = 0;
+
+                    //Start Total Type WO FTTX IB
+                    $('#monthWoType').find("th").remove();
+                    $('#monthWoType').append(`<th>Type WO FTTX MT</th>`)
+
+                    $('#typeFttx').find("td").remove();
+                    $('#typeFttx').find("th").remove();
+                    $('#typeFttx').append("<td>FTTX</td>")
+
+                    $('#typeFttb').find("td").remove();
+                    $('#typeFttb').find("th").remove();
+                    $('#typeFttb').append("<td>FTTB</td>")
+
+                    $('#typeUtp').find("td").remove();
+                    $('#typeUtp').find("th").remove();
+                    $('#typeUtp').append("<td>UTP</td>")
+
+                    $('#typeTotWo').find("td").remove()
+                    $('#typeTotWo').find("th").remove()
+                    $('#typeTotWo').append("<th>Total Wo</th>")
+                    //End Total Type WO FTTX IB
+
+                    //Start Total Type WO FTTX IB DONE
+                    $('#monthWoTypeDone').find("th").remove();
+                    $('#monthWoTypeDone').append(`<th>Type WO FTTX MT Close</th>`)
+
+                    $('#typeFttxDone').find("td").remove();
+                    $('#typeFttxDone').find("th").remove();
+                    $('#typeFttxDone').append("<td>FTTX</td>")
+
+                    $('#typeFttbDone').find("td").remove();
+                    $('#typeFttbDone').find("th").remove();
+                    $('#typeFttbDone').append("<td>FTTB</td>")
+
+                    $('#typeUtpDone').find("td").remove();
+                    $('#typeUtpDone').find("th").remove();
+                    $('#typeUtpDone').append("<td>UTP</td>")
+
+                    $('#typeTotWoDone').find("td").remove()
+                    $('#typeTotWoDone').find("th").remove()
+                    $('#typeTotWoDone').append("<th>Total Wo</th>")
+                    //End Total Type WO FTTX IB DONE
+
+                    $.each(data, function(key, item) {
+                        blnthn.push(item.bulan);
+                        totfttx.push(Number(item.totfttx));
+                        totfttb.push(Number(item.totfttb));
+                        totutp.push(Number(item.totutp));
+                        totfttxDone.push(Number(item.totfttxdone));
+                        totfttbDone.push(Number(item.totfttbdone));
+                        totutpDone.push(Number(item.totutpdone));
+
+                        //tabel total type wo fttx ib
+                        let htgl = `
+                           <th style="text-align: center; vertical-align: middle;">${item.bulan}</th>
+                        `;
+
+                        $('#monthWoType').append(htgl);
+
+                        let dtFttx = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttx.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttx').append(dtFttx);
+
+                        totFttxType += Number(item.totfttx);
+
+                        let dtFttb = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttb.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttb').append(dtFttb);
+
+                        totFttbType += Number(item.totfttb);
+                        totUtpType += Number(item.totutp);
+
+                        let dtUtp = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totutp.toLocaleString()}</td>
+                        `;
+
+                        $('#typeUtp').append(dtUtp)
+
+                        totWo = Number(item.totfttx) + Number(item.totfttb) + Number(item.totutp)
+
+                        let dtTotWo = `
+                            <td style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</td>
+                        `;
+
+                        $('#typeTotWo').append(dtTotWo);
+                        //End total type wo Fttx iB
+
+                        //tabel total type wo fttx ib Done
+                        let htglDone = `
+                           <th style="text-align: center; vertical-align: middle;">${item.bulan}</th>
+                        `;
+
+                        $('#monthWoTypeDone').append(htglDone);
+
+                        let dtFttxDone = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttxdone.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttxDone').append(dtFttxDone);
+
+                        totFttxTypeDone += Number(item.totfttxdone);
+
+                        let dtFttbDone = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttbdone.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttbDone').append(dtFttbDone);
+
+                        totFttbTypeDone += Number(item.totfttbdone);
+                        totUtpTypeDone += Number(item.totutpdone);
+
+                        let dtUtpDone = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totutpdone.toLocaleString()}</td>
+                        `;
+
+                        $('#typeUtpDone').append(dtUtpDone)
+
+                        totWoDone = Number(item.totfttxdone) + Number(item.totfttbdone) + Number(item.totutpdone)
+
+                        let dtTotWoDone = `
+                            <td style="text-align: center; vertical-align: middle;">${totWoDone.toLocaleString()}</td>
+                        `;
+
+                        $('#typeTotWoDone').append(dtTotWoDone);
+                        //End total type wo Fttx iB Done
+
+
+                    });       
+                    
+                    //Total type wo FTTX IB
+                    $('#monthWoType').append(`<th style="text-align: center; vertical-align: middle;">Total</th>`)
+
+                    $('#typeFttx').append(`<th style="text-align: center; vertical-align: middle;">${totFttxType.toLocaleString()}</th>`)
+
+                    $('#typeFttb').append(`<th style="text-align: center; vertical-align: middle;">${totFttbType.toLocaleString()}</th>`)
+
+                    $('#typeUtp').append(`<th style="text-align: center; vertical-align: middle;">${totUtpType.toLocaleString()}</th>`)
+
+                    total = Number(totFttxType) + Number(totFttbType) + Number(totUtpType)
+
+                    $('#typeTotWo').append(`<th style="text-align: center; vertical-align: middle;">${total.toLocaleString()}</th>`)
+
+                    // $('#monthWoType').append(`<th>%</th>`)
+
+                    // $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woPending').append(
+                    //     `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woCancel').append(
+                    //     `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+
+                    //End Total type wo FTTX IB
+
+                    //Total type wo FTTX IB DONE
+                    $('#monthWoTypeDone').append(`<th style="text-align: center; vertical-align: middle;">Total</th>`)
+
+                    $('#typeFttxDone').append(`<th style="text-align: center; vertical-align: middle;">${totFttxTypeDone.toLocaleString()}</th>`)
+
+                    $('#typeFttbDone').append(`<th style="text-align: center; vertical-align: middle;">${totFttbTypeDone.toLocaleString()}</th>`)
+
+                    $('#typeUtpDone').append(`<th style="text-align: center; vertical-align: middle;">${totUtpTypeDone.toLocaleString()}</th>`)
+
+                    totalDone = Number(totFttxTypeDone) + Number(totFttbTypeDone) + Number(totUtpTypeDone)
+
+                    $('#typeTotWoDone').append(`<th style="text-align: center; vertical-align: middle;">${totalDone.toLocaleString()}</th>`)
+
+                    // $('#monthWoType').append(`<th>%</th>`)
+
+                    // $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woPending').append(
+                    //     `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woCancel').append(
+                    //     `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+
+                    //End Total type wo FTTX IB DONE
+
+                    // graph line dialy //
+
+                    $('#canvasTrendDialyWoType').empty();
+                    $('#canvasTrendDialyWoTypeDone').empty();
+
+                    let chartTrendDialyWo = `
+					<figure class="highcharts-figure">
+					    <div id="conTrendDialyWoType"></div>
+					</figure>
+				    `;
+
+                    let chartTrendDialyWoDone = `
+					<figure class="highcharts-figure">
+					    <div id="conTrendDialyWoTypeDone"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTrendDialyWoType').append(chartTrendDialyWo);
+                    $('#canvasTrendDialyWoTypeDone').append(chartTrendDialyWoDone);
+
+                    let chartrendtWoType = Highcharts.chart('conTrendDialyWoType', {
+
+                        title: {
+                            text: 'Trend Type WO FTTX MT - ' + titleBranch + ' ' +
+                                bulanReport,
+                            align: 'left'
+                        },
+
+
+                        xAxis: {
+                            categories: blnthn
+                        },
+
+                        // legend: {
+                        //     layout: 'vertical',
+                        //     align: 'right',
+                        //     verticalAlign: 'middle'
+                        // },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: [{
+                            name: 'WO FTTX',
+                            data: totfttx //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        }, {
+                            name: 'WO FTTB',
+                            data: totfttb //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        }, {
+                            name: 'WO UTP',
+                            data: totutp //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                    let maxYaxisWoType = chartrendtWoType.yAxis[0].max;
+
+                    Highcharts.chart('conTrendDialyWoTypeDone', {
+
+                        title: {
+                            text: 'Trend Type WO FTTX MT Close - ' + titleBranch + ' ' +
+                                bulanReport,
+                            align: 'left'
+                        },
+
+                        xAxis: {
+                            categories: blnthn
+                        },
+
+                        yAxis: {
+                            max: maxYaxisWoType,
+                        },
+
+                        // legend: {
+                        //     layout: 'vertical',
+                        //     align: 'right',
+                        //     verticalAlign: 'middle'
+                        // },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: [{
+                            name: 'WO FTTX',
+                            data: totfttxDone //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        }, {
+                            name: 'WO FTTB',
+                            data: totfttbDone //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        }, {
+                            name: 'WO UTP',
+                            data: totutpDone //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                }
+
+            })
+
 
             $.ajax({
                 url: "{{ route('getReasonStatusMTFttxGraph') }}",
@@ -2399,7 +3130,6 @@
 
                 },
                 success: function(data) {
-                    console.log(data);
                     // var day = new Date(tahun, bulan, 0).getDate();
                     var dayGraph = [];
                     var nameGraph = [];
@@ -2521,80 +3251,113 @@
                     $("#smWOClosing").hide();
                 },
                 success: function(apk) {
-
                     $('#rootCouseHeadAPK').find("th").remove();
                     $('#bodyRootCouseAPK').find("tr").remove();
-                    $('#penagihanAPK').find("th").remove();
-                    $('#couseCodePenagihanAPK').find("th").remove();
-                    $('#rootCousePenagihanAPK').find("td").remove();
+                    // $('#penagihanAPK').find("th").remove();
+                    // $('#couseCodePenagihanAPK').find("th").remove();
+                    // $('#rootCousePenagihanAPK').find("td").remove();
 
                     let subtotal;
+                    let subtotalType;
                     let TotPenagihan = [];
                     let TotMonth = [];
+                    let totType = [];
+                    let total = [];
+                    let tbType;
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
                     let hdRootCouseAPK = `
-                        <th>Penagihan</th>`;
+                        <th>Type WO</th>
+                        <th>Penagihan FTTX MT</th>`;
                         // <th>Cause Code</th>
                         // <th>Root Cause</th>`;
                     // <th style="text-align: center">Jumlah</th>`;
 
-                for (h = 0; h < trendWoIBFtth.length; h++) {
-                    hdRootCouseAPK = hdRootCouseAPK +
-                        `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
-                }
-
-                $('#rootCouseHeadAPK').append(hdRootCouseAPK + `<th colspan="2" style="text-align: center">Subtotal</th></tr>`);
-
-
-                $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
-
-                    tbPenagihanAPK = `
-                                    <tr><th>${itemPenagihan.penagihan}</th>`;
-                                    // <th class="table-secondary"></th>
-                                    // <th class="table-secondary"></th>`;
-                    
-                    subtotal = 0;
-                    for (p = 0; p < trendWoIBFtth.length; p++) {
-
-                        TotMonth[p]=0;
-                        $.each(apk.detPenagihanSortir, function(ky, itm) {
-                            TotMonth[p] += Number(itm.bulanan[p])
-                        })
-                        tbPenagihanAPK = tbPenagihanAPK +
-                            `<td style="text-align: center">${itemPenagihan.bulanan[p].toLocaleString()}</td>
-                            <td style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
-
-                        subtotal += Number(itemPenagihan.bulanan[p]);
-
+                    for (h = 0; h < trendWoIBFtth.length; h++) {
+                        hdRootCouseAPK = hdRootCouseAPK +
+                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                        totType[h] = 0;
+                        TotMonth[h] = 0;
+                        total[h] = 0
                     }
 
-                    $('#bodyRootCouseAPK').append(tbPenagihanAPK + `<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`);
+                    $('#rootCouseHeadAPK').append(hdRootCouseAPK + `<th colspan="2" style="text-align: center">Subtotal</th></tr>`);
 
-                    
-                });
+                    $.each(apk.detPenagihanSortir, function(k,itemType) {
+                        $.each(itemType.detail, function(key, det) {
+                            $.each(det.bulanan, function(ky, itm) {
+                                TotMonth[ky] += Number(itm)
+                                // totType[ky] += Number(itm);
+                            })
+                        })                        
+                    })                    
 
-                let totRootCouseAPK = `
-                            <tr><th class="table-dark">TOTAL</th>`;
-                                // <th class="table-dark"></th>
-                                // <th class="table-dark"></th>`;
+                    $.each(apk.detPenagihanSortir, function(k,itemType) {
+                        tbType = `
+                            <tr id="rowTypePenagihanClose_${itemType.type.replaceAll(' ','_')}" class="table-secondary">
+                                <th>${itemType.type}</th>
+                                <td></td>
+                            </tr>`;
+
+                        $('#bodyRootCouseAPK').append(tbType);
+
+                        totType.fill(0);      
+                        $.each(itemType.detail, function(key, det) {
+                            $.each(det.bulanan, function(ky, itm) {
+                                    totType[ky] += Number(itm);
+                            })    
+                        })
+                        
+                        tbType = "";
+                        subtotalType = 0
+                        for(t=0; t < totType.length; t++) {
+                            tbType = tbType + 
+                                `<th style="text-align: center">${totType[t].toLocaleString()}</th>
+                                <th style="text-align: center">${parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+
+                            subtotalType += Number(totType[t]);
+                            total[t] += Number(totType[t]);
+                            
+                        }
+                        $('#rowTypePenagihanClose_'+itemType.type).append(tbType + `<th style="text-align: center">${subtotalType.toLocaleString()}</th>`);
+
+                        $.each(itemType.detail, function(key, det) {
+                            tbPenagihanAPK = `
+                                            <tr id="rowPenagihanClose_${itemType.type.replaceAll(' ', '_')}_${det.penagihan.replaceAll(' ', '_')}">
+                                                <th></th>
+                                                <th>${det.penagihan}</th></tr>`;
+
+                            $('#bodyRootCouseAPK').append(tbPenagihanAPK);
+                            subtotal = 0;
+                            tbPenagihanAPK="";                                                       
+
+                            for (p = 0; p < trendWoIBFtth.length; p++) {
+                                tbPenagihanAPK = tbPenagihanAPK + 
+                                    `<td style="text-align: center">${det.bulanan[p].toLocaleString()}</td>
+                                    <td style="text-align: center">${parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+
+                                subtotal += Number(det.bulanan[p]);
+                            }
+                            
+                            $('#rowPenagihanClose_'+itemType.type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')).append(tbPenagihanAPK + `<td style="text-align: center">${subtotal.toLocaleString()}</td>`);
+                        })
+                    });
+                
+                    let totRootCouseAPK = `
+                            <tr class="table-dark"><th class="table-dark">TOTAL</th>
+                                <th></th>`;
                 
                     subtotal=0;
-                    for (p = 0; p < trendWoIBFtth.length; p++) {
-                        TotPenagihan[p] = 0
-                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
-                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
-                        })
-
+                    for (p = 0; p < total.length; p++) {
                         totRootCouseAPK = totRootCouseAPK +
-                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
-                            <th class="table-dark" style="text-align: center"></th>`;
+                            `<th style="text-align: center">${total[p].toLocaleString()}</th>
+                            <th style="text-align: center"></th>`;
 
-                        subtotal += Number(TotPenagihan[p]);
+                        subtotal += Number(total[p]);
                     }
 
-                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
+                    $('#bodyRootCouseAPK').append(totRootCouseAPK + `<th style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
                 }
 
             });
@@ -2618,8 +3381,6 @@
                 },
                 success: function(apk) {
 
-                    console.log(apk);
-
                     $('#rootCouseHeadAPKDetail').find("th").remove();
                     $('#bodyRootCouseAPKDetail').find("tr").remove();
                     $('#penagihanAPKDetail').find("th").remove();
@@ -2627,12 +3388,16 @@
                     $('#rootCousePenagihanAPKDetail').find("td").remove();
 
                     let subtotal;
+                    let subtotalType;
                     let TotPenagihan = [];
+                    let totType = [];
                     let TotMonth = [];
+                    let total = [];
                     let tbPenagihanAPK;
                     let tbCouseCodeAPK;
                     let tbRootCouseAPK;
                     let hdRootCouseAPK = `
+                        <th>Type WO</th>
                         <th>Penagihan</th>
                         <th>Cause Code</th>
                         <th>Root Cause</th>`;
@@ -2641,120 +3406,203 @@
                 for (h = 0; h < trendWoIBFtth.length; h++) {
                     hdRootCouseAPK = hdRootCouseAPK +
                         `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
+                    totType[h] = 0;
+                    TotMonth[h] = 0;
+                    total[h] = 0
                 }
 
                 $('#rootCouseHeadAPKDetail').append(hdRootCouseAPK + `<th colspan="2" style="text-align: center">Subtotal</th></tr>`);
 
-
-                $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
-
-                    tbPenagihanAPK = `
-                                    <tr><th class="table-secondary">${itemPenagihan.penagihan}</th>
-                                    <th class="table-secondary"></th>
-                                    <th class="table-secondary"></th>`;
-                    
-                    subtotal = 0;
-                    for (p = 0; p < trendWoIBFtth.length; p++) {
-
-                        blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
-                        thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
-                        detailCel = `rootCouseAPK|penagihan|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
-
-                        TotMonth[p]=0;
-                        $.each(apk.detPenagihanSortir, function(ky, itm) {
-                            TotMonth[p] += Number(itm.bulanan[p])
+                $.each(apk.detPenagihanSortir, function(k,itemType) {
+                    $.each(itemType.detail, function(key, det) {
+                        $.each(det.bulanan, function(ky, itm) {
+                            TotMonth[ky] += Number(itm)
+                            // totType[ky] += Number(itm);
                         })
-                        tbPenagihanAPK = tbPenagihanAPK +
-                            `<td class="table-secondary" style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</td>
-                            <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                    })                        
+                })
 
-                        subtotal += Number(itemPenagihan.bulanan[p]);
+                $.each(apk.detType, function(kt, itemType) {
 
+                    tbType = `
+                            <tr id="rowTypePenagihanCloseDetail_${itemType.wo_type.replaceAll(' ','_')}" class="table-secondary">
+                                <th>${itemType.wo_type}</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>`;
+
+                    $('#bodyRootCouseAPKDetail').append(tbType);     
+                    
+                    totType.fill(0);
+                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {
+                        if(itemPenagihan.type.toUpperCase().replaceAll(' ','_') == itemType.wo_type.toUpperCase().replaceAll(' ','_'))
+                        $.each(itemPenagihan.detail, function(key, det) {
+                            $.each(det.bulanan, function(ky, itm) {
+                                totType[ky] += Number(itm);
+                            })    
+                        })
+                    });
+                            
+                    tbType = "";
+                    subtotalType = 0
+                    for(t=0; t < trendWoIBFtth.length; t++) {
+                        blnId = new Date(trendWoIBFtth[t].bulan).getMonth();
+                        thnId = new Date(trendWoIBFtth[t].bulan).getFullYear();
+                        detailCel = `rootCouseAPK|type||${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
+
+                        tbType = tbType + 
+                            `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${totType[t].toLocaleString()}</th>
+                            <th style="text-align: center">${parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+
+                        subtotalType += Number(totType[t]);
+                        total[t] += Number(totType[t]);                            
                     }
 
-                    $('#bodyRootCouseAPKDetail').append(tbPenagihanAPK + `<td class="table-secondary" style="text-align: center">${subtotal.toLocaleString()}</td></tr>`);
+                    $('#rowTypePenagihanCloseDetail_'+itemType.wo_type.replaceAll(' ','_')).append(tbType + `<th style="text-align: center">${subtotalType.toLocaleString()}</th>`);
 
-                    $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
-                            if (itemPenagihan.penagihan == itemCouseCode.penagihan) {
-                                tbCouseCodeAPK = `
-                                    <tr><th></th>
-                                    <th class="table-info">${itemCouseCode.couse_code}</th>
-                                    <th class="table-info"></th>`;
-                                
-                                subtotalDT = 0;
-                                for (cc = 0;cc < trendWoIBFtth.length; cc++) {
-                                    blnId = new Date(trendWoIBFtth[cc].bulan).getMonth();
-                                    thnId = new Date(trendWoIBFtth[cc].bulan).getFullYear();
-                                    detailCel = `rootCouseAPK|couse_code|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${(blnId + 1)}|${thnId}`;
-                                    tbCouseCodeAPK = tbCouseCodeAPK + 
-                                    `<td class="table-info" style="text-align: center; cursor:pointer" font-weight:bold">
-                                        <span id="${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
-                                    <td class="table-info" style="text-align: center" font-weight:bold">${itemCouseCode.persen[cc].toLocaleString()}%</td>`;
+                    $.each(apk.detPenagihanSortir, function(key, itemPenagihan) {                       
+                        
 
-                                    subtotalDT += Number(itemCouseCode.bulanan[cc]);
+                        if (itemType.wo_type.toUpperCase() == itemPenagihan.type.toUpperCase()) {
+
+                            //start penagihan
+                            $.each(itemPenagihan.detail, function(kp, det) {
+
+                                tbPenagihanAPK = `
+                                            <tr id="rowPenagihanCloseDetail_${itemType.wo_type.replaceAll(' ','_')}_${det.penagihan.replaceAll(' ','_')}" class="table-primary">
+                                                <th></th>
+                                                <th>${det.penagihan}</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>`;
+
+                                $('#bodyRootCouseAPKDetail').append(tbPenagihanAPK);
+                            
+                                subtotal = 0;
+                                tbPenagihanAPK = "";
+                                for (p = 0; p < trendWoIBFtth.length; p++) {
+
+                                    blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
+                                    thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
+                                    detailCel = `rootCouseAPK|penagihan|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
+
+                                    tbPenagihanAPK = tbPenagihanAPK +                                        
+                                        `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${det.bulanan[p].toLocaleString()}</td>
+                                        '<td style="text-align: center">${parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                        // <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+
+                                    subtotal += Number(det.bulanan[p]);
+
                                 }
+                                $('#rowPenagihanCloseDetail_'+itemType.wo_type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')).append(tbPenagihanAPK + `<td style="text-align: center;">${subtotal.toLocaleString()}</td>`);
+                                //End Penagihan
 
-                                detailCelDT = `rootCouseAPK|couse_code|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|All|All`;
+                                //Start Cousecode
+                                $.each(apk.detCouseCodeSortir, function(key, itemCouseCode) {
 
-                                $('#bodyRootCouseAPKDetail').append(tbCouseCodeAPK + 
-                                `<th class="table-info" style="text-align: center" id="${detailCelDT}">${subtotalDT.toLocaleString()}</th></tr>`);
+                                    if (itemType.wo_type.toUpperCase() == itemCouseCode.type.toUpperCase()) {
 
+                                        //Start Detail Cousecode
+                                        $.each(itemCouseCode.detail, function(kc, detCouse) {
+                                            if(det.penagihan == detCouse.penagihan) {
 
-                                $.each(apk.detRootCouseSortir, function(key,
-                                    itemRootCouse) {
+                                                tbCouseCodeAPK = `
+                                                    <tr id="rowCouseCloseDetail_${itemType.wo_type.replaceAll(' ','_')}_${det.penagihan.replaceAll(' ','_')}_${detCouse.couse_code.replaceAll(' ','_')}" class="table-info">
+                                                        <th></th><th></th>
+                                                        <th>${detCouse.couse_code}</th>
+                                                        <th></th>
+                                                    </tr>`;
 
-                                    if (itemPenagihan.penagihan == itemRootCouse
-                                        .penagihan && itemCouseCode
-                                        .couse_code == itemRootCouse.couse_code
-                                    ) {
-                                        tbRootCouseAPK = `
-                                            <tr><td></td>
-                                            <td></td>
-                                            <td>${itemRootCouse.root_couse}</td>`;
-                                        
-                                        subtotalDT=0;
-                                        for (rc = 0; rc < trendWoIBFtth.length; rc++) {
-                                            blnId = new Date(trendWoIBFtth[rc].bulan).getMonth();
-                                            thnId = new Date(trendWoIBFtth[rc].bulan).getFullYear();
-                                            detailCel = `rootCouseAPK|root_couse|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}`;
-                                    
-                                            tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center; cursor:pointer" >
-                                                <span id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
-                                            <td style="text-align: center">${itemRootCouse.persen[rc].toLocaleString()}%</td>`;
+                                                $('#bodyRootCouseAPKDetail').append(tbCouseCodeAPK);
 
-                                            subtotalDT += Number(itemRootCouse.bulanan[rc]);
+                                                subtotal = 0;
+                                                tbCouseCodeAPK = "";
+                                                for (p = 0; p < trendWoIBFtth.length; p++) {
 
-                                        }
+                                                    blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
+                                                    thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
+                                                    detailCel = `rootCouseAPK|couse_code|${itemPenagihan.penagihan}|${detCouse.couse_code}|${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
 
-                                        detailCelDT = `rootCouseAPK|root_couse|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|All|All`;
+                                                    tbCouseCodeAPK = tbCouseCodeAPK +                                        
+                                                        `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${detCouse.bulanan[p].toLocaleString()}</td>
+                                                        '<td style="text-align: center">${parseFloat((detCouse.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>>`;
+                                                        // <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
-                                        $('#bodyRootCouseAPKDetail').append(tbRootCouseAPK + 
-                                            `<td style="text-align: center" id="${detailCelDT}">${subtotalDT.toLocaleString()}</td></tr>`);
+                                                    subtotal += Number(detCouse.bulanan[p]);
+
+                                                }
+                                                $('#rowCouseCloseDetail_'+itemType.wo_type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')+'_'+detCouse.couse_code.replaceAll(' ','_')).append(tbCouseCodeAPK + `<td style="text-align: center;">${subtotal.toLocaleString()}</td>`);
+                                                //End Detail Cousecode
+
+                                                //Start RootCouse
+                                                $.each(apk.detRootCouseSortir, function(key,itemRootCouse) { 
+                                                    if (itemType.wo_type.toUpperCase() == itemRootCouse.type.toUpperCase()) {
+
+                                                        $.each(itemRootCouse.detail, function(kr, detRoot) {
+                                                            if(det.penagihan.toUpperCase() == detRoot.penagihan.toUpperCase() 
+                                                                && detCouse.couse_code.toUpperCase() == detRoot.couse_code.toUpperCase()) {
+                                                            
+                                                                tbRootCouseAPK = `
+                                                                    <tr id="rowRootCloseDetail_${itemType.wo_type.replaceAll(' ','_')}_${det.penagihan.replaceAll(' ','_')}_${detCouse.couse_code.replaceAll(' ','_')}_${detRoot.root_couse.replaceAll(' ','_')}">
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <td>${detRoot.root_couse}</td>
+                                                                    </tr>`;
+
+                                                                $('#bodyRootCouseAPKDetail').append(tbRootCouseAPK);
+
+                                                                subtotal = 0;
+                                                                tbRootCouseAPK = "";
+                                                                for (p = 0; p < trendWoIBFtth.length; p++) {
+
+                                                                    blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
+                                                                    thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
+                                                                    detailCel = `rootCouseAPK|root_couse|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
+
+                                                                    tbRootCouseAPK = tbRootCouseAPK +                                        
+                                                                        `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${detRoot.bulanan[p].toLocaleString()}</td>
+                                                                        '<td style="text-align: center">${parseFloat((detRoot.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                                                        // <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+
+                                                                    subtotal += Number(detRoot.bulanan[p]);
+
+                                                                }
+                                                                $('#rowRootCloseDetail_'+itemType.wo_type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')+'_'+detCouse.couse_code.replaceAll(' ','_')+'_'+detRoot.root_couse.replaceAll(' ','_')).append(tbRootCouseAPK + `<td style="text-align: center;">${subtotal.toLocaleString()}</td>`);
+                                                                
+                                                            }
+                                                        })
+
+                                                    }
+                                                })
+
+                                            }
+                                        })
                                     }
-                                });
-                            }
-                        });
-                    
-                });
+                                })
+                            })
+                        }
+                        
+                    });
+                })
+
+                
 
                 let totRootCouseAPK = `
-                            <tr><th class="table-dark">TOTAL</th>
-                                <th class="table-dark"></th>
-                                <th class="table-dark"></th>`;
+                            <tr class="table-dark"><th class="table-dark">TOTAL</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>`;
                 
                     subtotal=0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
-                        TotPenagihan[p] = 0
-                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
-                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
-                        })
 
                         totRootCouseAPK = totRootCouseAPK +
-                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
-                            <th class="table-dark" style="text-align: center"></th>`;
+                            `<th style="text-align: center">${total[p].toLocaleString()}</th>
+                            <th style="text-align: center"></th>`;
 
-                        subtotal += Number(TotPenagihan[p]);
+                        subtotal += Number(total[p]);
                     }
 
                     $('#bodyRootCouseAPKDetail').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
@@ -2811,10 +3659,10 @@
                     $.each(trendWoFttxMT, function(key, item) {
 
                         trendMonth.push(item.bulan);
-                        trendTotFttxMT.push(item.trendFttxMTTotal);
+                        trendTotFttxMT.push(Number(item.trendFttxMTTotal));
                         // trendFttxMTDone.push(item.trendFttxMTDone);
-                        trendFttxMTPending.push(item.trendFttxMTPending);
-                        trendFttxMTCancel.push(item.trendFttxMTCancel);
+                        trendFttxMTPending.push(Number(item.trendFttxMTPending));
+                        trendFttxMTCancel.push(Number(item.trendFttxMTCancel));
 
                     });
 
@@ -3246,6 +4094,304 @@
             })
 
             $.ajax({
+                url: "{{ route('getRootCousePendingGraphMTFttxType') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(data) {
+
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var blnthn = [];
+                    var daytb;
+                    var totfttx = [];
+                    var totfttb = [];
+                    var totutp = [];
+                    var totfttxPending = [];
+                    var totfttbPending = [];
+                    var totutpPending = [];
+                    var donetb;
+                    var totFttxTypePending = 0;
+                    var totFttbTypePending = 0;
+                    var totUtpTypePending = 0;
+                    var totWo = 0;
+                    var total = 0;
+                    var totWoPending = 0;
+                    var totalPending = 0;
+
+                    //Start Total Type WO FTTX IB Pending
+                    $('#monthWoTypePending').find("th").remove();
+                    $('#monthWoTypePending').append(`<th>Type WO FTTX MT Pending</th>`)
+
+                    $('#typeFttxPending').find("td").remove();
+                    $('#typeFttxPending').find("th").remove();
+                    $('#typeFttxPending').append("<td>FTTX</td>")
+
+                    $('#typeFttbPending').find("td").remove();
+                    $('#typeFttbPending').find("th").remove();
+                    $('#typeFttbPending').append("<td>FTTB</td>")
+
+                    $('#typeUtpPending').find("td").remove();
+                    $('#typeUtpPending').find("th").remove();
+                    $('#typeUtpPending').append("<td>UTP</td>")
+
+                    $('#typeTotWoPending').find("td").remove()
+                    $('#typeTotWoPending').find("th").remove()
+                    $('#typeTotWoPending').append("<th>Total Wo</th>")
+                    //End Total Type WO FTTX IB Pending
+
+                    $.each(data, function(key, item) {
+                        blnthn.push(item.bulan);
+                        totfttx.push(Number(item.totfttx));
+                        totfttb.push(Number(item.totfttb));
+                        totutp.push(Number(item.totutp));
+                        totfttxPending.push(Number(item.totfttxpending));
+                        totfttbPending.push(Number(item.totfttbpending));
+                        totutpPending.push(Number(item.totutppending));
+
+                        //tabel total type wo fttx ib Pending
+                        let htglPending = `
+                           <th style="text-align: center; vertical-align: middle;">${item.bulan}</th>
+                        `;
+
+                        $('#monthWoTypePending').append(htglPending);
+
+                        let dtFttxPending = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttxpending.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttxPending').append(dtFttxPending);
+
+                        totFttxTypePending += Number(item.totfttxpending);
+
+                        let dtFttbPending = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttbpending.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttbPending').append(dtFttbPending);
+
+                        totFttbTypePending += Number(item.totfttbpending);
+                        totUtpTypePending += Number(item.totutppending);
+
+                        let dtUtpPending = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totutppending.toLocaleString()}</td>
+                        `;
+
+                        $('#typeUtpPending').append(dtUtpPending)
+
+                        totWoPending = Number(item.totfttxpending) + Number(item.totfttbpending) + Number(item.totutppending)
+
+                        let dtTotWoPending = `
+                            <td style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</td>
+                        `;
+
+                        $('#typeTotWoPending').append(dtTotWoPending);
+                        //End total type wo Fttx iB Pending
+                    });                    
+
+                    //Total type wo FTTX IB PENDING
+                    $('#monthWoTypePending').append(`<th style="text-align: center; vertical-align: middle;">Total</th>`)
+
+                    $('#typeFttxPending').append(`<th style="text-align: center; vertical-align: middle;">${totFttxTypePending.toLocaleString()}</th>`)
+
+                    $('#typeFttbPending').append(`<th style="text-align: center; vertical-align: middle;">${totFttbTypePending.toLocaleString()}</th>`)
+
+                    $('#typeUtpPending').append(`<th style="text-align: center; vertical-align: middle;">${totUtpTypePending.toLocaleString()}</th>`)
+
+                    totalPending = Number(totFttxTypePending) + Number(totFttbTypePending) + Number(totUtpTypePending)
+
+                    $('#typeTotWoPending').append(`<th style="text-align: center; vertical-align: middle;">${totalPending.toLocaleString()}</th>`)
+
+                    // $('#monthWoType').append(`<th>%</th>`)
+
+                    // $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woPending').append(
+                    //     `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woCancel').append(
+                    //     `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+
+                    //End Total type wo FTTX IB PENDING
+
+                    // graph line dialy //
+
+                    $('#canvasTrendTotWoTypePending').empty();
+                    $('#canvasTrendWoTypePending').empty();
+
+                    let chartTrendDialyWo = `
+					<figure class="highcharts-figure">
+					    <div id="conTrendDialyWoType_pending"></div>
+					</figure>
+				    `;
+
+                    let chartTrendDialyWoDone = `
+					<figure class="highcharts-figure">
+					    <div id="conTrendDialyWoTypePending"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTrendTotWoTypePending').append(chartTrendDialyWo);
+                    $('#canvasTrendWoTypePending').append(chartTrendDialyWoDone);
+
+                    let chartrendtWoType = Highcharts.chart('conTrendDialyWoType_pending', {
+
+                        title: {
+                            text: 'Trend Type WO FTTX MT - ' + titleBranch + ' ' +
+                                bulanReport,
+                            align: 'left'
+                        },
+
+
+                        xAxis: {
+                            categories: blnthn
+                        },
+
+                        // legend: {
+                        //     layout: 'vertical',
+                        //     align: 'right',
+                        //     verticalAlign: 'middle'
+                        // },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: [{
+                            name: 'WO FTTX',
+                            data: totfttx //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        }, {
+                            name: 'WO FTTB',
+                            data: totfttb //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        }, {
+                            name: 'WO UTP',
+                            data: totutp //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                    let maxYaxisWoType = chartrendtWoType.yAxis[0].max;
+
+                    Highcharts.chart('conTrendDialyWoTypePending', {
+
+                        title: {
+                            text: 'Trend Type WO FTTX MT Pending - ' + titleBranch + ' ' +
+                                bulanReport,
+                            align: 'left'
+                        },
+
+                        xAxis: {
+                            categories: blnthn
+                        },
+
+                        yAxis: {
+                            max: maxYaxisWoType,
+                        },
+
+                        // legend: {
+                        //     layout: 'vertical',
+                        //     align: 'right',
+                        //     verticalAlign: 'middle'
+                        // },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: [{
+                            name: 'WO FTTX',
+                            data: totfttxPending //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        }, {
+                            name: 'WO FTTB',
+                            data: totfttbPending //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        }, {
+                            name: 'WO UTP',
+                            data: totutpPending //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                }
+
+            })
+
+            $.ajax({
                 url: "{{ route('getRootCousePendingMTFttx') }}",
                 type: "GET",
                 data: {
@@ -3262,85 +4408,121 @@
                 complete: () => {
                     $("#smWOPending").hide();
                 },
-                success: function(dataRootCousePending) {
+                success: function(apk) {
 
                     $('#rootCouseHeadPending').find("tr").remove();
                     $('#rootCouseTbPending').find("tr").remove();
                     $('#totRootCousePending').find("th").remove();
 
                     let subtotal;
+                    let subtotalType;
                     var TotRootDonePending = 0;
                     let TotMonthPending =[];
+                    let totType = [];
+                    let TotMonth = [];
+                    let total = [];
                     let TotPenagihan = [];
+                    let tbType;
                     let tbRootCousePending;
                     let hdRootCousePending = `
                         <tr>
-                                <th>Action Taken FTTX MT Pending</th>
-                        </tr>`;
+                            <th>Type WO </th>
+                            <th>Action Taken FTTX MT Pending</th>`;
 
-                    $('#rootCouseHeadPending').append(hdRootCousePending);
+                    for (h= 0; h < trendWoIBFtth.length; h++) {
+                        hdRootCousePending = hdRootCousePending +
+                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
 
-                    for (b = 0; b < trendWoIBFtth.length; b++) {
-                        $('#rootCouseHeadPending').find("tr").append(
-                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-                        )
+                        totType[h] = 0;
+                        TotMonth[h] = 0;
+                        total[h] = 0
                     }
 
-                    $('#rootCouseHeadPending').find("tr").append(
-                            `<th style="text-align: center">Subtotal</th>`
-                        )
+                    $('#rootCouseHeadPending').append(hdRootCousePending +  `<th style="text-align: center">Subtotal</th></tr>`);
+                    
+                    $.each(apk.detPendingSortir, function(k,itemType) {
+                        $.each(itemType.detail, function(key, det) {
+                            $.each(det.bulanan, function(ky, itm) {
+                                TotMonth[ky] += Number(itm)
+                                // totType[ky] += Number(itm);
+                            })
+                        })                        
+                    })          
 
-                    $.each(dataRootCousePending, function(key, item) {
+                    $.each(apk.detPendingSortir, function(k,itemType) {
+                        tbType = `
+                            <tr id="rowTypePenagihanPending_${itemType.type.replaceAll(' ','_')}" class="table-secondary">
+                                <th>${itemType.type}</th>
+                                <td></td>
+                            </tr>`;
+
+                        $('#rootCouseTbPending').append(tbType);
+
+                        totType.fill(0);      
+                        $.each(itemType.detail, function(key, det) {
+                            $.each(det.bulanan, function(ky, itm) {
+                                    totType[ky] += Number(itm);
+                            })    
+                        })
                         
-                        tbRootCousePending = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                                
-                            `;
-                        subtotal=0;
-                        for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                        tbType = "";
+                        subtotalType = 0
+                        for(t=0; t < totType.length; t++) {
+                            blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                            thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                            detailCel = `pending|type||${(blnId + 1)}|${thnId}|${itemType.type}`;
 
+                            tbType = tbType + 
+                                `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${totType[t].toLocaleString()}</th>
+                                <th style="text-align: center">${parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+
+                            subtotalType += Number(totType[t]);
+                            total[t] += Number(totType[t]);
+                            
+                        }
+                        $('#rowTypePenagihanPending_'+itemType.type).append(tbType + `<th style="text-align: center">${subtotalType.toLocaleString()}</th>`);
+                        
+                        $.each(itemType.detail, function(key, det) {
+                            tbRootCousePending = `
+                                            <tr id="rowPenagihanPending_${itemType.type.replaceAll(' ', '_')}_${det.penagihan.replaceAll(' ', '_')}">
+                                                <th></th>
+                                                <th>${det.penagihan}</th></tr>`;
+
+                            $('#rootCouseTbPending').append(tbRootCousePending);
+                            subtotal = 0;
+                            tbRootCousePending="";                                                       
+
+                            for (p = 0; p < trendWoIBFtth.length; p++) {
                                 blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
                                 thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
-                                detailCel = `pending|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+                                detailCel = `pending|penagihan|${det.penagihan}|${(blnId + 1)}|${thnId}|${itemType.type}`;
 
-                                TotMonthPending[bln]=0;
-                                $.each(dataRootCousePending, function(ky,itm) {
-                                    TotMonthPending[bln] += Number(itm.bulanan[bln]);
-                                })
-                                console.log("item.bulanan : ",item.bulanan[bln])
-                                console.log("TotMonthPending : ",TotMonthPending[bln])
+                                tbRootCousePending = tbRootCousePending + 
+                                    `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${det.bulanan[p].toLocaleString()}</td>
+                                    <td style="text-align: center">${parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
-                                tbRootCousePending = tbRootCousePending +
-                                    `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
-                                    <td style="text-align: center">${parseFloat((Number(item.bulanan[bln])*100)/Number(TotMonthPending[bln])).toFixed(1).replace(/\.0$/, '')}%</td>`;
-
-                                subtotal += Number(item.bulanan[bln]);
-
-                        }
-                        
-                        $('#rootCouseTbPending').append(tbRootCousePending +`<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`);
-
+                                subtotal += Number(det.bulanan[p]);
+                            }
+                            
+                            $('#rowPenagihanPending_'+itemType.type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')).append(tbRootCousePending + `<td style="text-align: center">${subtotal.toLocaleString()}</td>`);
+                        })
                     });
 
                     let totRootCouseAPK = `
-                            <tr><th class="table-dark">TOTAL</th>`;
+                            <tr class="table-dark"><th class="table-dark">TOTAL</th>
+                                <th></th>`;
 
                     subtotal=0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
-                        TotPenagihan[p] = 0
-                        $.each(dataRootCousePending, function(key, iPenagihan) {
-                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
-                        })
 
                         totRootCouseAPK = totRootCouseAPK +
-                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
-                            <th class="table-dark" style="text-align: center"></th>`;
+                            `<th style="text-align: center">${total[p].toLocaleString()}</th>
+                            <th style="text-align: center"></th>`;
 
-                        subtotal += Number(TotPenagihan[p]);
+                        subtotal += Number(total[p]);
                     }
 
-                    $('#rootCouseTbPending').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
+                    $('#rootCouseTbPending').append(totRootCouseAPK + `<th style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
                 
 
                 }
@@ -3485,6 +4667,304 @@
 
             })
 
+            $.ajax({
+                url: "{{ route('getRootCouseCancelGraphMTFttxType') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(data) {
+
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var blnthn = [];
+                    var daytb;
+                    var totfttx = [];
+                    var totfttb = [];
+                    var totutp = [];
+                    var totfttxCancel = [];
+                    var totfttbCancel = [];
+                    var totutpCancel = [];
+                    var donetb;
+                    var totFttxTypeCancel = 0;
+                    var totFttbTypeCancel = 0;
+                    var totUtpTypeCancel = 0;
+                    var totWo = 0;
+                    var total = 0;
+                    var totWoCancel = 0;
+                    var totalCancel = 0;
+
+                    //Start Total Type WO FTTX IB Cancel
+                    $('#monthWoTypeCancel').find("th").remove();
+                    $('#monthWoTypeCancel').append(`<th>Type WO FTTX MT Cancel</th>`)
+
+                    $('#typeFttxCancel').find("td").remove();
+                    $('#typeFttxCancel').find("th").remove();
+                    $('#typeFttxCancel').append("<td>FTTX</td>")
+
+                    $('#typeFttbCancel').find("td").remove();
+                    $('#typeFttbCancel').find("th").remove();
+                    $('#typeFttbCancel').append("<td>FTTB</td>")
+
+                    $('#typeUtpCancel').find("td").remove();
+                    $('#typeUtpCancel').find("th").remove();
+                    $('#typeUtpCancel').append("<td>UTP</td>")
+
+                    $('#typeTotWoCancel').find("td").remove()
+                    $('#typeTotWoCancel').find("th").remove()
+                    $('#typeTotWoCancel').append("<th>Total Wo</th>")
+                    //End Total Type WO FTTX IB Cancel
+
+                    $.each(data, function(key, item) {
+                        blnthn.push(item.bulan);
+                        totfttx.push(Number(item.totfttx));
+                        totfttb.push(Number(item.totfttb));
+                        totutp.push(Number(item.totutp));
+                        totfttxCancel.push(Number(item.totfttxcancel));
+                        totfttbCancel.push(Number(item.totfttbcancel));
+                        totutpCancel.push(Number(item.totutpcancel));
+
+                        //tabel total type wo fttx ib Pending
+                        let htglCancel = `
+                           <th style="text-align: center; vertical-align: middle;">${item.bulan}</th>
+                        `;
+
+                        $('#monthWoTypeCancel').append(htglCancel);
+
+                        let dtFttxCancel = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttxcancel.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttxCancel').append(dtFttxCancel);
+
+                        totFttxTypeCancel += Number(item.totfttxcancel);
+
+                        let dtFttbCancel = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totfttbcancel.toLocaleString()}</td>
+                        `;
+
+                        $('#typeFttbCancel').append(dtFttbCancel);
+
+                        totFttbTypeCancel += Number(item.totfttbcancel);
+                        totUtpTypeCancel += Number(item.totutpcancel);
+
+                        let dtUtpCancel = `
+                            <td style="text-align: center; vertical-align: middle;">${item.totutpcancel.toLocaleString()}</td>
+                        `;
+
+                        $('#typeUtpCancel').append(dtUtpCancel)
+
+                        totWoCancel = Number(item.totfttxcancel) + Number(item.totfttbcancel) + Number(item.totutpcancel)
+
+                        let dtTotWoCancel = `
+                            <td style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</td>
+                        `;
+
+                        $('#typeTotWoCancel').append(dtTotWoCancel);
+                        //End total type wo Fttx iB Pending
+                    });            
+                    
+                    //Total type wo FTTX IB CANCEL
+                    $('#monthWoTypeCancel').append(`<th style="text-align: center; vertical-align: middle;">Total</th>`)
+
+                    $('#typeFttxCancel').append(`<th style="text-align: center; vertical-align: middle;">${totFttxTypeCancel.toLocaleString()}</th>`)
+
+                    $('#typeFttbCancel').append(`<th style="text-align: center; vertical-align: middle;">${totFttbTypeCancel.toLocaleString()}</th>`)
+
+                    $('#typeUtpCancel').append(`<th style="text-align: center; vertical-align: middle;">${totUtpTypeCancel.toLocaleString()}</th>`)
+
+                    totalCancel = Number(totFttxTypeCancel) + Number(totFttbTypeCancel) + Number(totUtpTypeCancel)
+
+                    $('#typeTotWoCancel').append(`<th style="text-align: center; vertical-align: middle;">${totalCancel.toLocaleString()}</th>`)
+
+                    // $('#monthWoType').append(`<th>%</th>`)
+
+                    // $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woPending').append(
+                    //     `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    // $('#woCancel').append(
+                    //     `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+
+                    //End Total type wo FTTX IB CANCEL
+
+                    // graph line dialy //
+
+                    $('#canvasTrendTotWoTypeCancel').empty();
+                    $('#canvasTrendWoTypeCancel').empty();
+
+                    let chartTrendDialyWo = `
+					<figure class="highcharts-figure">
+					    <div id="conTrendDialyWoType_cancel"></div>
+					</figure>
+				    `;
+
+                    let chartTrendDialyWoCancel = `
+					<figure class="highcharts-figure">
+					    <div id="conTrendDialyWoTypeCancel"></div>
+					</figure>
+				    `;
+
+                    $('#canvasTrendTotWoTypeCancel').append(chartTrendDialyWo);
+                    $('#canvasTrendWoTypeCancel').append(chartTrendDialyWoCancel);
+
+                    let chartrendtWoType = Highcharts.chart('conTrendDialyWoType_cancel', {
+
+                        title: {
+                            text: 'Trend Type WO FTTX MT - ' + titleBranch + ' ' +
+                                bulanReport,
+                            align: 'left'
+                        },
+
+
+                        xAxis: {
+                            categories: blnthn
+                        },
+
+                        // legend: {
+                        //     layout: 'vertical',
+                        //     align: 'right',
+                        //     verticalAlign: 'middle'
+                        // },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: [{
+                            name: 'WO FTTX',
+                            data: totfttx //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        }, {
+                            name: 'WO FTTB',
+                            data: totfttb //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        }, {
+                            name: 'WO UTP',
+                            data: totutp //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                    let maxYaxisWoType = chartrendtWoType.yAxis[0].max;
+
+                    Highcharts.chart('conTrendDialyWoTypeCancel', {
+
+                        title: {
+                            text: 'Trend Type WO FTTX MT Cancel - ' + titleBranch + ' ' +
+                                bulanReport,
+                            align: 'left'
+                        },
+
+                        xAxis: {
+                            categories: blnthn
+                        },
+
+                        yAxis: {
+                            max: maxYaxisWoType,
+                        },
+
+                        // legend: {
+                        //     layout: 'vertical',
+                        //     align: 'right',
+                        //     verticalAlign: 'middle'
+                        // },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: [{
+                            name: 'WO FTTX',
+                            data: totfttxCancel //[
+                            //43934, 48656, 65165, 81827, 112143, 142383,
+                            //171533, 165174, 155157, 161454, 154610
+                            //]
+                        }, {
+                            name: 'WO FTTB',
+                            data: totfttbCancel //[
+                            //24916, 37941, 29742, 29851, 32490, 30282,
+                            //38121, 36885, 33726, 34243, 31050
+                            //]
+                        }, {
+                            name: 'WO UTP',
+                            data: totutpCancel //[
+                            //11744, 30000, 16005, 19771, 20185, 24377,
+                            //32147, 30912, 29243, 29213, 25663
+                            //]
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                }
+
+            })
+
 
             $.ajax({
                 url: "{{ route('getRootCouseCancelMTFttx') }}",
@@ -3503,7 +4983,7 @@
                 complete: () => {
                     $("#smWOCancel").hide();
                 },
-                success: function(dataRootCouseCancel) {
+                success: function(apk) {
 
                     $('#rootCouseHeadCancel').find("tr").remove();
                     $('#rootCouseTbCancel').find("tr").remove();
@@ -3512,76 +4992,172 @@
                     let subtotal;
                     var TotRootDoneCancel = 0;
                     let TotMonthCancel = [];
+                    let totType = [];
+                    let TotMonth = [];
+                    let total = [];
                     let TotPenagihan = [];
                     let tbRootCouseCancel;
                     let hdRootCouseCancel = `
                         <tr>
-                                <th>Action Taken FTTX MT Cancel</th>
-                        </tr>`;
+                            <th>Type WO </th>
+                            <th>Action Taken FTTX MT Cancel</th>`;
 
-                    $('#rootCouseHeadCancel').append(hdRootCouseCancel);
+                    for (h= 0; h < trendWoIBFtth.length; h++) {
+                        hdRootCouseCancel = hdRootCouseCancel +
+                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[h].bulan.toLocaleString()}</th>`
 
-                    for (b = 0; b < trendWoIBFtth.length; b++) {                        
-
-                        $('#rootCouseHeadCancel').find("tr").append(
-                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
-                        )
+                        totType[h] = 0;
+                        TotMonth[h] = 0;
+                        total[h] = 0
                     }
 
-                    $('#rootCouseHeadCancel').find("tr").append(
-                            `<th style="text-align: center">Subtotal</th>`
-                        )
+                    $('#rootCouseHeadCancel').append(hdRootCouseCancel +  `<th style="text-align: center">Subtotal</th></tr>`);
+                    
+                    $.each(apk.detCancelSortir, function(k,itemType) {
+                        $.each(itemType.detail, function(key, det) {
+                            $.each(det.bulanan, function(ky, itm) {
+                                TotMonth[ky] += Number(itm)
+                                // totType[ky] += Number(itm);
+                            })
+                        })                        
+                    })     
 
-                    $.each(dataRootCouseCancel, function(key, item) {
-                        tbRootCouseCancel = `
-                            <tr>
-                                <td>${item.penagihan}</td>
-                            `;
+                    $.each(apk.detCancelSortir, function(k,itemType) {
+                        tbType = `
+                            <tr id="rowTypePenagihanCancel_${itemType.type.replaceAll(' ','_')}" class="table-secondary">
+                                <th>${itemType.type}</th>
+                                <td></td>
+                            </tr>`;
+
+                        $('#rootCouseTbCancel').append(tbType);
+
+                        totType.fill(0);      
+                        $.each(itemType.detail, function(key, det) {
+                            $.each(det.bulanan, function(ky, itm) {
+                                    totType[ky] += Number(itm);
+                            })    
+                        })
                         
-                        subtotal = 0;
-                        for (bln = 0; bln < trendWoIBFtth.length; bln++) {
-
+                        tbType = "";
+                        subtotalType = 0
+                        for(t=0; t < totType.length; t++) {
                             blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
                             thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
-                            detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+                            detailCel = `cancel|type||${(blnId + 1)}|${thnId}|${itemType.type}`;
 
-                            TotMonthCancel[bln]=0;
+                            persenTotCancel = (totType[t]*100)/TotMonth[t] || 0;
 
-                            $.each(dataRootCouseCancel, function(ky, itm) {
-                                TotMonthCancel[bln] += Number(itm.bulanan[bln]);
-                            })
+                            tbType = tbType + 
+                                `<th style="text-align: center">${totType[t].toLocaleString()}</th>
+                                <th style="text-align: center">${parseFloat(persenTotCancel).toFixed(1).replace(/\.0$/, '')}%</th>`;
 
-                            tbRootCouseCancel = tbRootCouseCancel +
-                                `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
-                                <td style="text-align: center">${item.persen[bln].toLocaleString()}%</td>`;
-
-                            subtotal += Number(item.bulanan[bln]);
-
+                            subtotalType += Number(totType[t]);
+                            total[t] += Number(totType[t]);
+                            
                         }
+                        $('#rowTypePenagihanCancel_'+itemType.type).append(tbType + `<th style="text-align: center">${subtotalType.toLocaleString()}</th>`);
+                        
+                        $.each(itemType.detail, function(key, det) {
+                            tbRootCouseCancel = `
+                                            <tr id="rowPenagihanCancel_${itemType.type.replaceAll(' ', '_')}_${det.penagihan.replaceAll(' ', '_')}">
+                                                <th></th>
+                                                <th>${det.penagihan}</th></tr>`;
 
-                        tbRootCouseCancel = tbRootCouseCancel + `<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`;
-                        $('#rootCouseTbCancel').append(tbRootCouseCancel);
+                            $('#rootCouseTbCancel').append(tbRootCouseCancel);
+                            subtotal = 0;
+                            tbRootCouseCancel="";                                                       
 
+                            for (p = 0; p < trendWoIBFtth.length; p++) {
+                                blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                                thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                                detailCel = `cancel|penagihan|${det.penagihan}|${(blnId + 1)}|${thnId}|${itemType.type}`;
+
+                                // tbRootCouseCancel = tbRootCouseCancel +
+                                //             `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
+                                //             <td style="text-align: center">${item.persen[bln].toLocaleString()}%</td>`;
+                                persenTotCancel = (det.bulanan[p]*100)/TotMonth[p] || 0;
+
+                                tbRootCouseCancel = tbRootCouseCancel + 
+                                    `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${det.bulanan[p].toLocaleString()}</td>
+                                    <td style="text-align: center">${parseFloat(persenTotCancel).toFixed(1).replace(/\.0$/, '')}%</td>`;
+
+                                subtotal += Number(det.bulanan[p]);
+                            }
+                            
+                            $('#rowPenagihanCancel_'+itemType.type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')).append(tbRootCouseCancel + `<td style="text-align: center">${subtotal.toLocaleString()}</td>`);
+                        })
                     });
 
                     let totRootCouseAPK = `
-                            <tr><th class="table-dark">TOTAL</th>`;
+                            <tr class="table-dark"><th class="table-dark">TOTAL</th>
+                                <th></th>`;
 
                     subtotal=0;
                     for (p = 0; p < trendWoIBFtth.length; p++) {
-                        TotPenagihan[p] = 0
-                        $.each(dataRootCouseCancel, function(key, iPenagihan) {
-                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
-                        })
 
                         totRootCouseAPK = totRootCouseAPK +
-                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
-                            <th class="table-dark" style="text-align: center"></th>`;
+                            `<th style="text-align: center">${total[p].toLocaleString()}</th>
+                            <th style="text-align: center"></th>`;
 
-                        subtotal += Number(TotPenagihan[p]);
+                        subtotal += Number(total[p]);
                     }
 
-                    $('#rootCouseTbCancel').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
+                    $('#rootCouseTbCancel').append(totRootCouseAPK + `<th style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
+
+
+
+
+
+                    // $.each(dataRootCouseCancel, function(key, item) {
+                    //     tbRootCouseCancel = `
+                    //         <tr>
+                    //             <td>${item.penagihan}</td>
+                    //         `;
+                        
+                    //     subtotal = 0;
+                    //     for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+
+                    //         blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                    //         thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                    //         detailCel = `cancel|penagihan|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
+                    //         TotMonthCancel[bln]=0;
+
+                    //         $.each(dataRootCouseCancel, function(ky, itm) {
+                    //             TotMonthCancel[bln] += Number(itm.bulanan[bln]);
+                    //         })
+
+                    //         tbRootCouseCancel = tbRootCouseCancel +
+                    //             `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
+                    //             <td style="text-align: center">${item.persen[bln].toLocaleString()}%</td>`;
+
+                    //         subtotal += Number(item.bulanan[bln]);
+
+                    //     }
+
+                    //     tbRootCouseCancel = tbRootCouseCancel + `<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`;
+                    //     $('#rootCouseTbCancel').append(tbRootCouseCancel);
+
+                    // });
+
+                    // let totRootCouseAPK = `
+                    //         <tr><th class="table-dark">TOTAL</th>`;
+
+                    // subtotal=0;
+                    // for (p = 0; p < trendWoIBFtth.length; p++) {
+                    //     TotPenagihan[p] = 0
+                    //     $.each(dataRootCouseCancel, function(key, iPenagihan) {
+                    //         TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                    //     })
+
+                    //     totRootCouseAPK = totRootCouseAPK +
+                    //         `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                    //         <th class="table-dark" style="text-align: center"></th>`;
+
+                    //     subtotal += Number(TotPenagihan[p]);
+                    // }
+
+                    // $('#rootCouseTbCancel').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th></tr>`);
                 
                 }
 
