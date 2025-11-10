@@ -555,6 +555,78 @@
         </div>
     </div>
 
+    {{-- section cancel start --}}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white" style="background: linear-gradient(to right, #0071f3, #15559e)">
+                <div class="card-body">
+                    <h5>Summary Root Couse Cancel WO FTTH Dismantle & Remove Device - <h5 id="CardTitle">All Branch<h5></h6>
+                    <div class="clearfix" id="smWOCancel" style="display: none">
+                        <div class="spinner-border float-right" role="status">
+                            <span class="sr-only" >Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title" id="titleTrendTotWoDisC"></h6>
+                    <canvas id="TrendTotWoDisC" ></canvas> {{-- style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title" id="titleTrendWoCancelDis"></h6>
+                    <canvas id="TrendTotWoDisCancel" ></canvas> {{-- style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body" id="canvasRootCouseAPKCancel">
+
+                    {{-- <canvas id="TrendTotWoIBFtthApart" style="align-content: center; align-items: center"></canvas> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="rootCouseCanceltable"
+                            cellspacing="0" style="font-size: 12px">
+                            <thead id="rootCouseHeadCancel">
+                            </thead>
+                            <tbody id="rootCouseTbCancel">
+                            </tbody>
+                            <tfoot>
+                                <tr id="totRootCouseCancel">
+                                    <th>Total</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- section cancel end --}}
+
 
     {{-- modal detail APK--}}
 
@@ -1348,7 +1420,7 @@
                     let isiTotalWoClose = `
                     <th>Total WO Close</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1).replace(/\.0$/, '') || 0}%</th>
                     `;
 
 
@@ -1359,7 +1431,7 @@
                     let isiTotalWoPending = `
                     <th>Total WO Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1).replace(/\.0$/, '') || 0}%</th>
                     `;
                     $('#totWoPending').append(isiTotalWoPending);
 
@@ -1368,7 +1440,7 @@
                     let isiTotalWoCancel = `
                     <th>Total WO Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1).replace(/\.0$/, '') || 0}%</th>
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
 
@@ -1432,9 +1504,11 @@
                                 TotMonthCluster[p] += Number(jmlBln.totbulanan[p]);
                             })
 
+                            CalcPersen = parseFloat((nmBranch.totbulanan[p] * 100) / TotMonthCluster[p]).toFixed(1).replace(/\.0$/, '');
+
                             tbBranchCluster = tbBranchCluster +
                                 `<th class="table-secondary" style="text-align: center">${nmBranch.totbulanan[p].toLocaleString()}</th>
-                                <th class="table-secondary" style="text-align: center">${parseFloat((nmBranch.totbulanan[p]*100)/TotMonthCluster[p]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                <th class="table-secondary" style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`;
 
                             subtotal += Number(nmBranch.totbulanan[p]);
    
@@ -1457,9 +1531,11 @@
                                         TotMonthCluster[cc] += Number(jmlBlnCL.bulanan[cc]);
                                     })
 
+                                    CalcPersen = parseFloat((itemCluster.bulanan[cc]*100)/TotMonthCluster[cc]).toFixed(1).replace(/\.0$/, '');
+
                                     tbCluster = tbCluster + 
                                     `<td style="text-align: center">${itemCluster.bulanan[cc].toLocaleString()}</td>
-                                    <td style="text-align: center">${parseFloat((itemCluster.bulanan[cc]*100)/TotMonthCluster[cc]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                    <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`;
 
                                     subtotal += Number(itemCluster.bulanan[cc]);
                                 }
@@ -1607,11 +1683,11 @@
 
                     $('#dateMonth').append(`<th>%</th>`)
 
-                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed().replace(/\.0$/, '')}%</th>`)
+                    $('#woDone').append(`<th>${parseFloat((totDone * 100) / total).toFixed().replace(/\.0$/, '') || 0}%</th>`)
                     $('#woPending').append(
-                        `<th>${parseFloat((totPending * 100) / total).toFixed().replace(/\.0$/, '')}%</th>`)
+                        `<th>${parseFloat((totPending * 100) / total).toFixed().replace(/\.0$/, '') || 0}%</th>`)
                     $('#woCancel').append(
-                        `<th>${parseFloat((totCancel * 100) / total).toFixed().replace(/\.0$/, '')}%</th>`)
+                        `<th>${parseFloat((totCancel * 100) / total).toFixed().replace(/\.0$/, '') || 0}%</th>`)
 
 
                     // graph line dialy //
@@ -2068,9 +2144,17 @@
                         blnId = new Date(trendWoIBFtth[p].bulan).getMonth();
                         thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
                         detailCel = `reason_status|reason_status|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}`;
+
+                        TotPenagihan[p] = 0
+                        $.each(apk.detPenagihanSortir, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        CalcPersen = parseFloat((itemPenagihan.bulanan[p] * 100) / TotPenagihan[p]).toFixed(1).replace(/\.0$/, '');
+
                         tbPenagihanAPK = tbPenagihanAPK +
                             `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</td>
-                            <td style="text-align: center">${itemPenagihan.persen[p]}%</td>`;
+                            <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
 
                         subtotal += Number(itemPenagihan.bulanan[p]);
 
@@ -2496,9 +2580,17 @@
                                 blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
                                 thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
                                 detailCel = `pending|reason_status|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
+                                TotPenagihan[bln] = 0
+                                $.each(dataRootCousePending, function(key, iPenagihan) {
+                                    TotPenagihan[bln] += Number(iPenagihan.bulanan[bln]);
+                                })
+
+                                CalcPersen = parseFloat((item.bulanan[bln] * 100) / TotPenagihan[bln]).toFixed(1).replace(/\.0$/, '');
+
                                 tbRootCousePending = tbRootCousePending +
                                     `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)"">${item.bulanan[bln].toLocaleString()}</td>
-                                    <td style="text-align: center">${item.persen[bln].toLocaleString()} %</td>`;
+                                    <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()} %</td>`;
 
                                 subtotal += Number(item.bulanan[bln]);
 
@@ -2534,7 +2626,448 @@
 
             });
 
+            //section cancel start//
+            $.ajax({
+                url: "{{ route('getTrendMonthlyDismantle') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                beforeSend: () => {
+                    $("#smWOCancel").show();
+                },
+                complete: () => {
+                    $("#smWOCancel").hide();
+                },
+                success: function(dataTrendMonthlyDis) {
+                    // var trendWoMt = {!! $trendMonthly !!}
+                    trendWoDis = dataTrendMonthlyDis;
+
+                    document.querySelectorAll('#titleTrendTotWoDisC').forEach(function(elem){
+                        elem.innerText = 'Trend Total WO Dismantle ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    document.querySelectorAll('#titleTrendWoCancelDis').forEach(function(elem){
+                        elem.innerText = 'Trend WO FTTH Dismantle Cancel ' + titleBranch + " - " + bulanReport; 
+                    })
+
+                    var trendMonth = [''];
+                    var trendTotDis = ['null'];
+                    // var trendDisDone = ['null'];
+                    var trendDisCancel = ['null'];
+                    // var trendDisCancel = ['null'];
+
+                    $.each(trendWoDis, function(key, item) {
+
+                        trendMonth.push(item.bulan);
+                        trendTotDis.push(item.trendDisTotal);
+                        // trendDisDone.push(item.trendDisDone);
+                        trendDisCancel.push(item.trendDisCancel);
+                        // trendDisCancel.push(item.trendDisCancel);
+
+                    });
+
+                    trendMonth.push('');
+                    trendTotDis.push('null');
+                    // trendDisDone.push('null');
+                    trendDisCancel.push('null');
+                    // trendDisCancel.push('null');
+
+
+                    //**Canvas line graph tot WO IB**//
+                    const ctxTrendTotWoDis = document.getElementById('TrendTotWoDisC');
+
+                    var graphTrendTotWoDis = Chart.getChart('TrendTotWoDisC');
+                    if (graphTrendTotWoDis) {
+                        graphTrendTotWoDis.destroy();
+                    }
+
+
+                    var ChartTrendTotWoDis = new Chart(ctxTrendTotWoDis, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendTotDis, //[3895],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();}
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });
+                    
+
+                    //**Canvas line graph tot WO IB Pending**//
+                    const ctxTrendTotWoDisCancel = document.getElementById('TrendTotWoDisCancel');
+
+                    var graphTrendTotWoDisCancel = Chart.getChart('TrendTotWoDisCancel');
+                    if (graphTrendTotWoDisCancel) {
+                        graphTrendTotWoDisCancel.destroy();
+                    }
+
+
+                    var ChartTrendTotWoDisCancel = new Chart(ctxTrendTotWoDisCancel, {
+                        type: 'line',
+                        data: {
+                            labels: trendMonth, //['Dec-23', 'Jan-24'],
+                            datasets: [{
+                                // label: '# of Votes',
+                                data: trendDisCancel, //[3082, 3597],
+                                borderWidth: 1,
+
+                            }]
+                        },
+
+                        options: {
+                            
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    display: 'auto',
+                                    formatter: function(value) {
+                                        return value.toLocaleString();},
+                                },
+                                title: {
+                                    display: 'auto',
+                                    // text: 'Trend WO Maintenance ' + titleBranch + ' ' + bulanReport,
+                                    // align: 'start',
+                                },
+
+                            },
+                            scales: {
+                                y: {
+                                    display: true, //this will remove all the x-axis grid lines
+                                    // max: maxChartTot,
+                                    // min: minChartTot,
+                                    // grace: '10%',
+                                    ticks: {
+                                            // beginAtZero: true,
+                                            stepSize: 1000,
+                                            // stepValue: 500,
+                                            // max: 6000
+                                        }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels],
+
+                    });                    
+
+                    var maxChartTot = ChartTrendTotWoDis.scales.y.max;
+                    // var minChartTotClose = ChartTrendTotWoDisClose.scales.y.min;
+                    var minChartTotCancel = ChartTrendTotWoDisCancel.scales.y.min;
+                    // var minChartTotCancel = ChartTrendTotWoDisCancel.scales.y.min;
+                    // ChartTrendTotWoDisClose.options.scales.y.max = ChartTrendTotWoDis.scales.y.max;
+                    ChartTrendTotWoDisCancel.options.scales.y.max = ChartTrendTotWoDis.scales.y.max;
+                    // ChartTrendTotWoDisCancel.options.scales.y.max = ChartTrendTotWoDis.scales.y.max;
+                    ChartTrendTotWoDis.options.scales.y.min= minChartTotCancel;
+
+                    // ChartTrendTotWoDisClose.update();
+                    ChartTrendTotWoDisCancel.update();
+                    // ChartTrendTotWoDisCancel.update();
+                    ChartTrendTotWoDis.update();
+
+                }
+
+            })
+
+            $.ajax({
+                url: "{{ route('getRootCouseCancelGraphDismantleFtth') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+
+                },
+                success: function(data) {
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    var dayGraphCancel = [];
+                    var nameGraphCancel = [];
+                    var nameDataGraphCancel = [];
+                    var objDataGraph = {};
+                    var dayApk = [];
+                    var pendingDay = [];
+                    var cancelDay = [];
+                    var donetb;
+                    var totDone = 0;
+                    var totPending = 0;
+                    var totCancel = 0;
+                    var totWo = 0;
+                    var total = 0;
+
+                    for (tg = 0; tg < data.tglGraphAPKCancel.length; tg++) {
+                        // console.log(data.tglGraphAPK[tg].tgl_ikr)
+                        dayGraphCancel.push(new Date(data.tglGraphAPKCancel[tg].tgl_ikr).getDate())
+
+
+                    }
+
+                    for (nm = 0; nm < data.nameGraphAPKCancel.length; nm++) {
+                        // console.log(data.nameGraphAPK[nm].penagihan);
+                        nameGraphCancel.push({
+                            name: data.nameGraphAPKCancel[nm].penagihan
+                        });
+                        // objDataGraph.name= data.nameGraphAPK[nm].penagihan;
+
+                        // for(dt=0;dt<data.dataGraphAPK.length;dt++){
+                        // console.log(data.dataGraphAPK[dt].data);
+                        nameGraphCancel[nm]['data'] = data.dataGraphAPKCancel[nm].data
+                        // }
+
+                    }
+
+                    // graph line dialy //
+
+                    $('#canvasRootCouseAPKCancel').empty();
+
+                    let chartRootCouseAPKDialy = `
+                    <figure class="highcharts-figure">
+                        <div id="conRooCouseAPKDialyCancel"></div>
+                    </figure>
+                    `;
+
+                    $('#canvasRootCouseAPKCancel').append(chartRootCouseAPKDialy);
+
+                    Highcharts.chart('conRooCouseAPKDialyCancel', {
+
+                        title: {
+                            text: 'Reason Status WO Dismantle Cancel Daily - ' +
+                                titleBranch + ' ' + bulanReport,
+                            align: 'left'
+                        },
+
+
+                        xAxis: {
+                            categories: dayGraphCancel
+                        },
+
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: true
+                            },
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+
+                            }
+                        },
+
+                        series: nameGraphCancel, //[{
+                        // name: 'WO Done',
+                        // data: doneDay //[
+                        //43934, 48656, 65165, 81827, 112143, 142383,
+                        //171533, 165174, 155157, 161454, 154610
+                        //]
+                        // }, {
+                        // name: 'WO Pending',
+                        // data: pendingDay //[
+                        //24916, 37941, 29742, 29851, 32490, 30282,
+                        //38121, 36885, 33726, 34243, 31050
+                        //]
+                        // }, {
+                        // name: 'WO Cancel',
+                        // data: cancelDay //[
+                        //11744, 30000, 16005, 19771, 20185, 24377,
+                        //32147, 30912, 29243, 29213, 25663
+                        //]
+                        // }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+
+                }
+
+            })
+
+            $.ajax({
+                url: "{{ route('getRootCouseCancelDismantleFtth') }}",
+                type: "GET",
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd
+                },
+                beforeSend: () => {
+                    $("#smWOCancel").show();
+                },
+                complete: () => {
+                    $("#smWOCancel").hide();
+                },
+                success: function(dataRootCouseCancel) {
+
+                    $('#rootCouseHeadCancel').find("tr").remove();
+                    $('#rootCouseTbCancel').find("tr").remove();
+                    $('#totRootCouseCancel').find("th").remove();
+
+                    let subtotal;
+                    let TotPenagihan = [];
+                    var TotRootDoneCancel = 0;
+                    let tbRootCouseCancel;
+                    let hdRootCouseCancel = `
+                        <tr>
+                                <th>Reason Status Dismantle Cancel</th>
+                        </tr>`;
+
+                    $('#rootCouseHeadCancel').append(hdRootCouseCancel);
+
+                    for (b = 0; b < trendWoIBFtth.length; b++) {
+                        $('#rootCouseHeadCancel').find("tr").append(
+                            `<th colspan="2" style="text-align: center">${trendWoIBFtth[b].bulan.toLocaleString()}</th>`
+                        )
+                    }
+
+                    $('#rootCouseHeadCancel').find("tr").append(
+                            `<th style="text-align: center">Subtotal</th>`
+                        )
+
+                    $.each(dataRootCouseCancel, function(key, item) {
+                        tbRootCouseCancel = `
+                            <tr>
+                                <td>${item.penagihan}</td>
+                                
+                            `;
+                        
+                        subtotal=0;
+                        for (bln = 0; bln < trendWoIBFtth.length; bln++) {
+                                blnId = new Date(trendWoIBFtth[bln].bulan).getMonth();
+                                thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
+                                detailCel = `cancel|reason_status|${item.penagihan}|${(blnId + 1)}|${thnId}`;
+
+                                TotPenagihan[bln] = 0
+                                $.each(dataRootCouseCancel, function(key, iPenagihan) {
+                                    TotPenagihan[bln] += Number(iPenagihan.bulanan[bln]);
+                                })
+
+                                CalcPersen = parseFloat((item.bulanan[bln] * 100) / TotPenagihan[bln]).toFixed(1).replace(/\.0$/, '');
+
+                                tbRootCouseCancel = tbRootCouseCancel +
+                                    `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)"">${item.bulanan[bln].toLocaleString()}</td>
+                                    <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()} %</td>`;
+
+                                subtotal += Number(item.bulanan[bln]);
+
+                            }
+                        
+
+                        tbRootCouseCancel = tbRootCouseCancel + `<td style="text-align: center">${subtotal.toLocaleString()}</td></tr>`;
+                        $('#rootCouseTbCancel').append(tbRootCouseCancel);
+
+                    });
+
+                    let totRootCouseAPK = `
+                            <th class="table-dark">TOTAL</th>`;
+
+                    subtotal=0;
+                    for (p = 0; p < trendWoIBFtth.length; p++) {
+                        TotPenagihan[p] = 0
+                        $.each(dataRootCouseCancel, function(key, iPenagihan) {
+                            TotPenagihan[p] += Number(iPenagihan.bulanan[p]);
+                        })
+
+                        totRootCouseAPK = totRootCouseAPK +
+                            `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                            <th class="table-dark" style="text-align: center"></th>`;
+
+                        subtotal += Number(TotPenagihan[p]);
+                    }
+
+                    $('#totRootCouseCancel').append(totRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th>`);
+
+                    
+                }
+
+            });
+            //section cancel end//
+
         });
+
+
+        
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);

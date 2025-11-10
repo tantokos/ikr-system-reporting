@@ -9,6 +9,7 @@ class ImportFtthMtTemp extends Model
 {
     use HasFactory;
 
+    protected $table = 'import_ftth_mt_temps';
     protected $fillable = [
         'pic_monitoring',
         'type_wo',
@@ -18,6 +19,7 @@ class ImportFtthMtTemp extends Model
         'nama_cust',
         'cust_address1',
         'cust_address2',
+        'cust_phone_apk',
         'type_maintenance',
         'kode_fat',
         'kode_wilayah',
@@ -45,6 +47,7 @@ class ImportFtthMtTemp extends Model
         'alasan_cancel',
         'alasan_pending',
         'detail_alasan',
+        'reason_apk',
         'permintaan_rsch',
         'respon_cst',
         'jawaban_cst',
@@ -59,12 +62,12 @@ class ImportFtthMtTemp extends Model
         'visit_novisit',
         'start_ikr_wa',
         'end_ikr_wa',
-        'validasi_start',
-        'validasi_end',
         'jam_foto_rumah',
         'jam_dispatch_foto_rumah',
         'jam_cek_fat',
         'jam_dispatch_cek_fat',
+        'validasi_start',
+        'validasi_end',
         'foto_rumah',
         'foto_selfie',
         'regist_start',
@@ -102,20 +105,20 @@ class ImportFtthMtTemp extends Model
         'ont_sn_in',
         'ont_mac_in',
         'ont_condition_in',
+        'router_condition_in',
+        'stb_condition_in',
         'router_merk_out',
         'router_sn_out',
         'router_mac_out',
         'router_merk_in',
         'router_sn_in',
         'router_mac_in',
-        'router_condition_in',
         'stb_merk_out',
         'stb_sn_out',
         'stb_mac_out',
         'stb_merk_in',
         'stb_sn_in',
         'stb_mac_in',
-        'stb_condition_in',
         'dw_out',
         'precon_out',
         'bad_precon',
@@ -137,7 +140,11 @@ class ImportFtthMtTemp extends Model
         'konfirmasi_dispatch',
         'remark_status2',
         'login',
+        'created_at',
+        'updated_at',
         'wo_type_apk',
+        'customer_type_apk',
+        'package_name_apk',
         'branch_id',
         'leadcall',
         'tek1_nik',
@@ -166,5 +173,7 @@ class ImportFtthMtTemp extends Model
         'port_fat_relokasi',
         'last_import',
         'time_last_import',
+        'update_by_doc'
+
     ];
 }

@@ -74,7 +74,7 @@ class ImportFtthDismantle implements ToModel, WithHeadingRow, WithChunkReading
             'reason_status' => $row['reason_status'],
             'root_couse' => $row['root_couse'],
             'remarks' => $row['remarks'],
-            'reschedule_date' => $row['reschedule_date'],
+            'reschedule_date' => is_null($row['reschedule_date']) ? null : $row['reschedule_date'], //is_null($row['reschedule_date']) ? null : Date::excelToDateTimeObject($row['reschedule_date'])->format('Y-m-d'),
             'respon_cst' => $row['respon_cst'],
             'jawaban_cst' => $row['jawaban_cst'],
             'permintaan_rsch' => $row['permintaan_rsch'],

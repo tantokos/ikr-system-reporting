@@ -265,6 +265,7 @@ class ImportFtthDismantleTempController extends Controller
                 return back();
 
             } catch (\Throwable $e) {
+                dd($e);
                 return $e->getMessage();
                 DB::rollback();
             }

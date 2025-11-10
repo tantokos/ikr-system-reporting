@@ -210,6 +210,7 @@ Route::group(
 
         Route::get('/getClusterBranchIBFtth', [Report_IBController::class, 'getClusterBranchIBFtth'])->name('getClusterBranchIBFtth')->middleware('auth');
 
+        Route::get('/getTabelStatusIBFtthMonthly', [Report_IBController::class, 'getTabelStatusIBFtthMonthly'])->name('getTabelStatusIBFtthMonthly')->middleware('auth');
        //====End Report IB FTTH====//
 
        //=====Start Import Dismantle FTTH======//
@@ -246,6 +247,9 @@ Route::group(
 
        Route::get('/getRootCousePendingGraphDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingGraphDismantleFtth'])->name('getRootCousePendingGraphDismantleFtth');
        Route::get('/getRootCousePendingDismantleFtth', [Report_DismantleController::class, 'getRootCousePendingDismantleFtth'])->name('getRootCousePendingDismantleFtth');
+
+       Route::get('/getRootCouseCancelGraphDismantleFtth', [Report_DismantleController::class, 'getRootCouseCancelGraphDismantleFtth'])->name('getRootCouseCancelGraphDismantleFtth');
+       Route::get('/getRootCouseCancelDismantleFtth', [Report_DismantleController::class, 'getRootCouseCancelDismantleFtth'])->name('getRootCouseCancelDismantleFtth');
 
        Route::get('/getDetailAPKDismantle', [Report_DismantleController::class, 'getDetailAPKDismantle'])->name('getDetailAPKDismantle')->middleware('auth');
        Route::get('/dataDetailAPKDismantle', [Report_DismantleController::class, 'dataDetailAPKDismantle'])->name('dataDetailAPKDismantle')->middleware('auth');

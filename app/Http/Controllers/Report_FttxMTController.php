@@ -39,7 +39,7 @@ class Report_FttxMTController extends Controller
 
         $tgl = DataFttxMtSortir::select('mt_date')->distinct()->get();
 
-        $trendMonthly = DataFttxMtSortir::select(DB::raw('date_format(mt_date, "%b-%Y") as bulan, month(mt_date) as bln, year(mt_date) as thn'))->distinct()->orderBy('bln','ASC')->orderBy('thn','ASC')->get();
+        $trendMonthly = DataFttxMtSortir::select(DB::raw('date_format(mt_date, "%b-%Y") as bulan, month(mt_date) as bln, year(mt_date) as thn'))->distinct()->orderBy('thn','DESC')->orderBy('bln','DESC')->get();
 
         return view(
             'report.reportingFttxMT',
@@ -547,9 +547,9 @@ class Report_FttxMTController extends Controller
 
             $totMTFtthMontlyDone = $totMTFtthMontlyDone->groupBy('bln','thn')->first();
 
-            $trendBulanan[$m]['totfttxdone'] = $totMTFtthMontlyDone->totfttxdone;
-            $trendBulanan[$m]['totfttbdone'] = $totMTFtthMontlyDone->totfttbdone;
-            $trendBulanan[$m]['totutpdone'] = $totMTFtthMontlyDone->totutpdone;
+            $trendBulanan[$m]['totfttxdone'] = $totMTFtthMontlyDone->totfttxdone ?? 0;
+            $trendBulanan[$m]['totfttbdone'] = $totMTFtthMontlyDone->totfttbdone ?? 0;
+            $trendBulanan[$m]['totutpdone'] = $totMTFtthMontlyDone->totutpdone ?? 0;
         }
 
         // dd($trendBulanan);
@@ -591,21 +591,21 @@ class Report_FttxMTController extends Controller
                 ->get();
 
         $PenagihanSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan')
+                            ->select('wo_type', 'penagihan')
                             ->where('status','=', 'Done')
                             ->whereIn('bulan', $inBulan)
                             ->where('tahun', $tahun)
-                            ->groupBy('id','wo_type','penagihan');
+                            ->groupBy('wo_type','penagihan');
 
         $CouseCodeSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan','couse_code')
+                            ->select('wo_type', 'penagihan','couse_code')
                             ->where('status','=', 'Done')
-                            ->groupBy('id', 'wo_type', 'penagihan','couse_code');
+                            ->groupBy('wo_type', 'penagihan','couse_code');
 
         $RootCouseSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan','couse_code','root_couse')
+                            ->select('wo_type', 'penagihan','couse_code','root_couse')
                             ->where('status','=', 'Done')
-                            ->groupBy('id', 'wo_type', 'penagihan','couse_code','root_couse');
+                            ->groupBy('wo_type', 'penagihan','couse_code','root_couse');
 
         if ($request->filterBranch != "All") {
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
@@ -856,25 +856,25 @@ class Report_FttxMTController extends Controller
                 ->get();
 
         $PenagihanSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan')
+                            ->select('wo_type', 'penagihan')
                             ->where('status','=', 'Done')
                             ->whereIn('bulan', $inBulan)
                             ->where('tahun', $tahun)
-                            ->groupBy('id','wo_type','penagihan');
+                            ->groupBy('wo_type','penagihan');
 
         $CouseCodeSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan','couse_code')
+                            ->select('wo_type', 'penagihan','couse_code')
                             ->where('status','=', 'Done')
                             ->whereIn('bulan', $inBulan)
                             ->where('tahun', $tahun)
-                            ->groupBy('id', 'wo_type', 'penagihan','couse_code');
+                            ->groupBy('wo_type', 'penagihan','couse_code');
 
         $RootCouseSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan','couse_code','root_couse')
+                            ->select('wo_type', 'penagihan','couse_code','root_couse')
                             ->where('status','=', 'Done')
                             ->whereIn('bulan', $inBulan)
                             ->where('tahun', $tahun)
-                            ->groupBy('id', 'wo_type', 'penagihan','couse_code','root_couse');
+                            ->groupBy('wo_type', 'penagihan','couse_code','root_couse');
 
         if ($request->filterBranch != "All") {
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
@@ -1079,9 +1079,9 @@ class Report_FttxMTController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=', 'MT FTTX')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
+            ->where('data_fttx_mt_sortirs.status_wo', '=', 'Done')
+            // ->where('root_couse_penagihan.type_wo','=', 'MT FTTX')
             // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_fttx_mt_sortirs.mt_date', '=', $bulan) // $bulan)
             ->whereYear('data_fttx_mt_sortirs.mt_date', '=', $tahun)
@@ -1095,7 +1095,7 @@ class Report_FttxMTController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.penagihan')->orderBy('data_fttx_mt_sortirs.penagihan')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
@@ -1111,9 +1111,9 @@ class Report_FttxMTController extends Controller
 
 
                 $jml = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','MT FTTX')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
+                    ->where('data_fttx_mt_sortirs.status_wo', '=', 'Done')
+                    // ->where('root_couse_penagihan.type_wo','=','MT FTTX')
                     // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('mt_date', '=', $tglGraph[$t])
                     // ->whereMonth('data_fttx_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -1125,7 +1125,7 @@ class Report_FttxMTController extends Controller
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_fttx_mt_sortirs.penagihan')->orderBy('data_fttx_mt_sortirs.penagihan')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
@@ -1165,9 +1165,9 @@ class Report_FttxMTController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Pending')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTX')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
+            ->where('data_fttx_mt_sortirs.status_wo', '=', 'Pending')
+            // ->where('root_couse_penagihan.type_wo','=','MT FTTX')
             // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_fttx_mt_sortirs.mt_date', '=', $bulan) // $bulan)
             ->whereYear('data_fttx_mt_sortirs.mt_date', '=', $tahun);
@@ -1182,7 +1182,7 @@ class Report_FttxMTController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.penagihan')->orderBy('data_fttx_mt_sortirs.penagihan')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
@@ -1201,9 +1201,9 @@ class Report_FttxMTController extends Controller
 
 
                 $jml = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Pending')
-                    ->where('root_couse_penagihan.type_wo','=','MT FTTX')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
+                    ->where('data_fttx_mt_sortirs.status_wo', '=', 'Pending')
+                    // ->where('root_couse_penagihan.type_wo','=','MT FTTX')
                     // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('mt_date', '=', $tglGraphPending[$t])
                     // ->whereMonth('data_fttx_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -1215,7 +1215,7 @@ class Report_FttxMTController extends Controller
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_fttx_mt_sortirs.penagihan')->orderBy('data_fttx_mt_sortirs.penagihan')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
@@ -1267,11 +1267,11 @@ class Report_FttxMTController extends Controller
                 ->get();
 
         $PenagihanSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan')
+                            ->select('wo_type', 'penagihan')
                             ->where('status','=', 'Pending')
                             ->whereIn('bulan', $inBulan)
                             ->where('tahun', $tahun)
-                            ->groupBy('id','wo_type','penagihan');
+                            ->groupBy('wo_type','penagihan');
         
 
         if ($request->filterBranch != "All") {
@@ -1453,9 +1453,9 @@ class Report_FttxMTController extends Controller
 
             $totMTFtthMontlyPending = $totMTFtthMontlyPending->groupBy('bln','thn')->first();
 
-            $trendBulanan[$m]['totfttxpending'] = $totMTFtthMontlyPending->totfttxpending;
-            $trendBulanan[$m]['totfttbpending'] = $totMTFtthMontlyPending->totfttbpending;
-            $trendBulanan[$m]['totutppending'] = $totMTFtthMontlyPending->totutppending;
+            $trendBulanan[$m]['totfttxpending'] = $totMTFtthMontlyPending->totfttxpending ?? 0;
+            $trendBulanan[$m]['totfttbpending'] = $totMTFtthMontlyPending->totfttbpending ?? 0;
+            $trendBulanan[$m]['totutppending'] = $totMTFtthMontlyPending->totutppending ?? 0;
         }
 
         // dd($trendBulanan);
@@ -1636,11 +1636,11 @@ class Report_FttxMTController extends Controller
                 ->get();
 
         $PenagihanSortir = DB::table('v_fttx_mt')
-                            ->select('id','wo_type', 'penagihan')
+                            ->select('wo_type', 'penagihan')
                             ->where('status','=', 'Cancel')
                             ->whereIn('bulan', $inBulan)
                             ->where('tahun', $tahun)
-                            ->groupBy('id','wo_type','penagihan');
+                            ->groupBy('wo_type','penagihan');
         
 
         if ($request->filterBranch != "All") {
@@ -1710,9 +1710,9 @@ class Report_FttxMTController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Cancel')
-            ->where('root_couse_penagihan.type_wo','=','MT FTTX')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
+            ->where('data_fttx_mt_sortirs.status_wo', '=', 'Cancel')
+            // ->where('root_couse_penagihan.type_wo','=','MT FTTX')
             // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_fttx_mt_sortirs.mt_date', '=', $bulan) // $bulan)
             ->whereYear('data_fttx_mt_sortirs.mt_date', '=', $tahun);
@@ -1727,7 +1727,7 @@ class Report_FttxMTController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_mt_sortirs.penagihan')->orderBy('data_fttx_mt_sortirs.penagihan')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
@@ -1746,9 +1746,9 @@ class Report_FttxMTController extends Controller
 
 
                 $jml = DataFttxMtSortir::select(DB::raw('data_fttx_mt_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Cancel')
-                    ->where('root_couse_penagihan.type_wo','=','MT FTTX')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_mt_sortirs.penagihan')
+                    ->where('data_fttx_mt_sortirs.status_wo', '=', 'Cancel')
+                    // ->where('root_couse_penagihan.type_wo','=','MT FTTX')
                     // ->whereNotIn('data_fttx_mt_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('mt_date', '=', $tglGraphCancel[$t])
                     // ->whereMonth('data_fttx_mt_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -1760,7 +1760,7 @@ class Report_FttxMTController extends Controller
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_fttx_mt_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_fttx_mt_sortirs.penagihan')->orderBy('data_fttx_mt_sortirs.penagihan')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
