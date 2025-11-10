@@ -38,7 +38,8 @@ class Report_DismantleController extends Controller
 
         $tgl = ImportFtthDismantleSortirTemp::select('visit_date')->distinct()->get();
 
-        $trendMonthly = DataFtthDismantleSortir::select(DB::raw('date_format(visit_date, "%b-%Y") as bulan'))->distinct()->get();
+        // $trendMonthly = DataFtthDismantleSortir::select(DB::raw('date_format(visit_date, "%b-%Y") as bulan'))->distinct()->get();
+        $trendMonthly = DataFtthDismantleSortir::select(DB::raw('date_format(visit_date, "%b-%Y") as bulan, month(visit_date) as bln, year(visit_date) as thn'))->distinct()->orderBy('thn','DESC')->orderBy('bln','DESC')->get();
 
         return view(
             'report.reportingFtthDismantle',
@@ -676,74 +677,6 @@ class Report_DismantleController extends Controller
         ]);
     }
 
-    public function getRootCouseAPKDismantleFtthOld(Request $request)
-    {
-        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
-        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
-
-        $startDate = $request->filterDateStart;
-        $endDate = $request->filterDateEnd;
-
-        $trendBulanan = [];
-        $detPenagihanSortir = [];
-        $detCouseCodeSortir = [];
-        $detRootCouseSortir = [];
-
-        for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }
-
-        $PenagihanSortir = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
-            ->where('root_couse_penagihan.status', '=', 'Done');
-            // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional']);
-        //->whereMonth('data_ftth_dismantle_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month) // $bulan)
-        // ->whereYear('data_ftth_dismantle_sortirs.tgl_ikr', '=', $tahun)
-        // ->groupBy('data_ftth_dismantle_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-
-        if ($request->filterSite != "All") {
-            $PenagihanSortir = $PenagihanSortir->where('site_penagihan', '=', $request->filterSite);
-        }
-        if ($request->filterBranch != "All") {
-            $PenagihanSortir = $PenagihanSortir->where('main_branch', '=', $request->filterBranch);
-        }
-
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
-
-        
-        for ($ps = 0; $ps < count($PenagihanSortir); $ps++) {
-
-            $detPenagihanSortir[$ps]['penagihan'] = $PenagihanSortir[$ps]->reason_status;
-            for ($m = 0; $m < count($trendBulanan); $m++) {
-
-                $jml = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional'])
-                    ->whereMonth('data_ftth_dismantle_sortirs.visit_date', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
-                    ->whereYear('data_ftth_dismantle_sortirs.visit_date', '=', $tahun)
-                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_ftth_dismantle_sortirs.reason_status', '=', $PenagihanSortir[$ps]->reason_status);
-
-                if ($request->filterSite != "All") {
-                    $jml = $jml->where('site_penagihan', '=', $request->filterSite);
-                }
-                if ($request->filterBranch != "All") {
-                    $jml = $jml->where('main_branch', '=', $request->filterBranch);
-                }
-
-                $jml = $jml->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
-
-                $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
-            }
-        }
-
-
-        return response()->json([
-            'detPenagihanSortir' => $detPenagihanSortir,
-            // 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
-        ]);
-    }
 
     public function getReasonStatusDismantleFtthGraph(Request $request)
     {
@@ -767,8 +700,8 @@ class Report_DismantleController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
-            ->where('root_couse_penagihan.status', '=', 'Done')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
+            ->where('data_ftth_dismantle_sortirs.status_wo', '=', 'Done')
             // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_ftth_dismantle_sortirs.visit_date', '=', $bulan) // $bulan)
             ->whereYear('data_ftth_dismantle_sortirs.visit_date', '=', $tahun);
@@ -782,7 +715,7 @@ class Report_DismantleController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('main_branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_dismantle_sortirs.reason_status')->orderBy('data_ftth_dismantle_sortirs.reason_status')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
@@ -798,8 +731,8 @@ class Report_DismantleController extends Controller
 
 
                 $jml = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
+                    ->where('data_ftth_dismantle_sortirs.status_wo', '=', 'Done')
                     // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('visit_date', '=', $tglGraph[$t])
                     // ->whereMonth('data_ftth_dismantle_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -811,7 +744,7 @@ class Report_DismantleController extends Controller
                     $jml = $jml->where('main_branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_ftth_dismantle_sortirs.reason_status')->orderBy('data_ftth_dismantle_sortirs.reason_status')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
@@ -851,9 +784,9 @@ class Report_DismantleController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
-            ->where('root_couse_penagihan.status', '=', 'Pending')
-            ->where('root_couse_penagihan.type_wo','=','Dismantle FTTH')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
+            ->where('data_ftth_dismantle_sortirs.status_wo', '=', 'Pending')
+            // ->where('root_couse_penagihan.type_wo','=','Dismantle FTTH')
             // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_ftth_dismantle_sortirs.visit_date', '=', $bulan) // $bulan)
             ->whereYear('data_ftth_dismantle_sortirs.visit_date', '=', $tahun);
@@ -868,7 +801,7 @@ class Report_DismantleController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('main_branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_dismantle_sortirs.reason_status')->orderBy('data_ftth_dismantle_sortirs.reason_status')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
@@ -887,9 +820,9 @@ class Report_DismantleController extends Controller
 
 
                 $jml = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
-                    ->where('root_couse_penagihan.status', '=', 'Pending')
-                    ->where('root_couse_penagihan.type_wo','=','Dismantle Ftth')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
+                    ->where('data_ftth_dismantle_sortirs.status_wo', '=', 'Pending')
+                    // ->where('root_couse_penagihan.type_wo','=','Dismantle Ftth')
                     // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('visit_date', '=', $tglGraphPending[$t])
                     // ->whereMonth('data_ftth_dismantle_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -901,7 +834,7 @@ class Report_DismantleController extends Controller
                     $jml = $jml->where('main_branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_ftth_dismantle_sortirs.reason_status')->orderBy('data_ftth_dismantle_sortirs.reason_status')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
@@ -997,6 +930,176 @@ class Report_DismantleController extends Controller
         }
 
         return response()->json($detPending);
+            // 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
+    }
+
+    public function getRootCouseCancelGraphDismantleFtth(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+        $tglGraphCancel = [];
+        $nameGraphCancel = [];
+        $dataGraphCancel = [];
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $tglBulan = \Carbon\CarbonPeriod::between($startDate, $endDate);
+
+        foreach ($tglBulan as $date) {
+            $tglGraphCancel[] = ['tgl_ikr' => $date->format('Y-m-d')];
+        }
+
+        $trendBulanan = [];
+        $detPenagihanSortir = [];
+        $detCouseCodeSortir = [];
+        $detRootCouseSortir = [];
+
+        $PenagihanSortir = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
+            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
+            ->where('root_couse_penagihan.status', '=', 'Cancel')
+            ->where('root_couse_penagihan.type_wo','=','Dismantle FTTH')
+            // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional'])
+            ->whereMonth('data_ftth_dismantle_sortirs.visit_date', '=', $bulan) // $bulan)
+            ->whereYear('data_ftth_dismantle_sortirs.visit_date', '=', $tahun);
+            // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
+        // ->groupBy('data_ftth_dismantle_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+
+        // if ($request->filterSite != "All") {
+            // $PenagihanSortir = $PenagihanSortir->where('site_penagihan', '=', $request->filterSite);
+        // }
+        if ($request->filterBranch != "All") {
+            $PenagihanSortir = $PenagihanSortir->where('main_branch', '=', $request->filterBranch);
+        }
+
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // dd($tglGraph);
+        // for($t=0; $t < count($tglGraph); $t++ ){
+
+        // dd($PenagihanSortir);
+
+        for ($p = 0; $p < count($PenagihanSortir); $p++) {
+            $nameGraphCancel[$p] = ['penagihan' => $PenagihanSortir[$p]->reason_status];
+        }
+
+        
+        for ($t = 0; $t < count($tglGraphCancel); $t++) {
+            for ($pn = 0; $pn < count($PenagihanSortir); $pn++) {
+
+
+                // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
+
+
+                $jml = DataFtthDismantleSortir::select(DB::raw('data_ftth_dismantle_sortirs.reason_status'))
+                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_dismantle_sortirs.reason_status')
+                    ->where('root_couse_penagihan.status', '=', 'Cancel')
+                    ->where('root_couse_penagihan.type_wo','=','Dismantle Ftth')
+                    // ->whereNotIn('data_ftth_dismantle_sortirs.type_wo', ['Dismantle', 'Additional'])
+                    ->where('visit_date', '=', $tglGraphCancel[$t])
+                    // ->whereMonth('data_ftth_dismantle_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
+                    // ->whereYear('data_ftth_dismantle_sortirs.tgl_ikr', '=', $tahun)
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
+                    ->where('data_ftth_dismantle_sortirs.reason_status', '=', $PenagihanSortir[$pn]->reason_status);
+
+                if ($request->filterBranch != "All") {
+                    $jml = $jml->where('main_branch', '=', $request->filterBranch);
+                }
+
+                $jml = $jml->groupBy('data_ftth_dismantle_sortirs.reason_status', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+
+                // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
+                // $tglGraph[$t]['jml'][$p] = $jml;
+                // $dataGraph[$p]['penagihan'][$t] = ['jumlah' => $jml];
+                $dataGraphCancel[$pn]['data'][] = $jml;
+            }
+        }
+        // }
+        // dd($tglGraph, $nameGraph, $dataGraph[0]['data'][0]);
+        // }
+        return response()->json([
+            'tglGraphAPKCancel' => $tglGraphCancel, 'dataGraphAPKCancel' => $dataGraphCancel,
+            'nameGraphAPKCancel' => $nameGraphCancel
+        ]);
+    }
+
+
+    public function getRootCouseCancelDismantleFtth(Request $request)
+    {
+
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $trendBulanan = [];
+        $detCancel = [];
+        $detCouseCodeSortir = [];
+        $detRootCouseSortir = [];
+
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            // $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+        }          
+
+        $PenagihanSortir = DB::table('v_ftth_dismantle')
+                            ->select('reason_status')
+                            ->where('status_wo','=', 'Cancel')
+                            ->groupBy('reason_status');
+
+        if ($request->filterBranch != "All") {
+            $PenagihanSortir = $PenagihanSortir->where('main_branch', '=', $request->filterBranch);
+        }
+
+        for ($m = 0; $m < count($trendBulanan); $m++) {
+
+            $Qbln = \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month;
+            $Qthn = \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->year;
+
+            $blnThn = str_replace('-','_',$trendBulanan[$m]['bulan']);
+
+            $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0) as ".$blnThn.""));
+            
+
+            if ($request->filterBranch != "All") {
+                $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_dismantle where main_branch='".$request->filterBranch."' and bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+            } else {
+                $PenagihanSortir = $PenagihanSortir->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$Qthn." then total end),0)/(select sum(total) from v_ftth_dismantle where bulan=".$Qbln." and tahun=".$Qthn."))*100 as persen_".$blnThn.""));
+            }
+
+               
+        }
+
+        $blnThnFilter = str_replace('-','_', $request->bulanTahunReport);
+
+        $PenagihanSortir= $PenagihanSortir->orderBy('persen_'.$blnThnFilter.'', 'DESC')->get();
+
+        for($psx=0; $psx < $PenagihanSortir->count(); $psx++){
+            $detCancel[$psx] = ['penagihan' => $PenagihanSortir[$psx]->reason_status];
+
+            for($tb=0; $tb < count($trendBulanan); $tb++){
+                $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+
+                $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
+                $persenBln = "persen_".$blnThn;
+
+                $detCancel[$psx]['bulanan'][$tb] = [(int)$PenagihanSortir[$psx]->$blnThn];
+                $detCancel[$psx]['persen'][$tb] = [round($PenagihanSortir[$psx]->$persenBln, 1)];
+                
+            }
+
+        }
+
+        return response()->json($detCancel);
             // 'detCouseCodeSortir' => $detCouseCodeSortir, 'detRootCouseSortir' => $detRootCouseSortir
     }
 

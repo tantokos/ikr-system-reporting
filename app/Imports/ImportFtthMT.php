@@ -26,6 +26,7 @@ class ImportFtthMT implements ToModel, WithHeadingRow, WithChunkReading
 
     public function model(array $row)
     {
+        
         return new ImportFtthMtTemp([
             'pic_monitoring' => $row['pic_monitoring'],
             'type_wo' => $row['type_wo'],
@@ -57,7 +58,7 @@ class ImportFtthMT implements ToModel, WithHeadingRow, WithChunkReading
             'root_couse' => $row['root_couse'],
             'penagihan' => $row['penagihan'],
             'alasan_tag_alarm' => $row['alasan_tag_alarm'],
-            'tgl_reschedule' => $row['tgl_reschedule'],
+            'tgl_reschedule' => $row['tgl_jam_reschedule'], //is_null($row['tgl_reschedule']) ? null : Date::excelToDateTimeObject($row['tgl_reschedule'])->format('Y-m-d'),
             'tgl_jam_reschedule' => $row['tgl_jam_reschedule'],
             'alasan_cancel' => $row['alasan_cancel'],
             'alasan_pending' => $row['alasan_pending'],
@@ -174,7 +175,7 @@ class ImportFtthMT implements ToModel, WithHeadingRow, WithChunkReading
             'sla_over' => $row['sla_over'],
             'minute' => $row['minute'],
             'status_checkin' => $row['status_checkin'],
-            'waktu_installation' => Date::excelToDateTimeObject($row['waktu_installation'])->format("H:i"),
+            'waktu_installation' => is_string($row['waktu_installation']) ? null : Date::excelToDateTimeObject($row['waktu_installation'])->format("H:i"), //$row['waktu_installation'], //Date::excelToDateTimeObject($row['waktu_installation'])->format("H:i"),
             'kode_otp' => $row['kode_otp'],
             'material_out' => $row['material_out'],
             'material_in' => $row['material_in'],

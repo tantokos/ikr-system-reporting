@@ -41,6 +41,7 @@
                                 <option value="Retail">FTTH Retail</option>
                                 <option value="Apartemen">FTTH Apartemen</option>
                                 <option value="Underground">FTTH Underground</option>
+                                <option value="Icon Plus">Icon Plus</option>
 
                             </select>
                         </div>
@@ -329,6 +330,50 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataStatusMonthly"
+                            width="100%" cellspacing="0" style="font-size: 12px">
+                            <thead>
+                                <tr id="dateMonthMonthly">
+                                    <th>WO New Installation</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">1</th> --}}
+                                    {{-- <th style="text-align: center; vertical-align: middle;">2</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="woDoneMonthly">
+                                    <td>Done</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">857</td> --}}
+                                </tr>
+                                <tr id="woPendingMonthly">
+                                    <td>New Installation Failed</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">545</td> --}}
+                                </tr>
+                                <tr id="woCancelMonthly">
+                                    <td>Cancel</td>
+                                    {{-- <td style="text-align: center; vertical-align: middle;">770</td> --}}
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr id="totWoMonthly">
+                                    <th>Total WO</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;">3,895</th> --}}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 
     <div class="row">
@@ -837,6 +882,7 @@
             let detailClikChart;
             let filSite = $('#site').val();
             let filBranch = $('#branch').val();
+            let filType = $('#typePenagihanIB').val();
 
             let detAPK = apk_id.split("|");
             
@@ -851,6 +897,7 @@
                             detThn: detAPK[4],
                             detSite: filSite,
                             detBranch: filBranch,
+                            detTypeWo: filType,
                             _token: _token
                     };
 
@@ -868,6 +915,7 @@
                             detThn: detAPK[4],
                             detSite: filSite,
                             detBranch: filBranch,
+                            // detTypeWo: filType,
                             _token: _token
                     };
 
@@ -891,6 +939,7 @@
                             detThn: detAPK[4],
                             detSite: filSite,
                             detBranch: filBranch,
+                            detTypeWo: filType,
                             _token: _token
                     };
 
@@ -908,6 +957,7 @@
                             detThn: detAPK[4],
                             detSite: filSite,
                             detBranch: filBranch,
+                            // detTypeWo: filType,
                             _token: _token
                     };
 
@@ -931,6 +981,7 @@
                             detThn: detAPK[4],
                             detSite: filSite,
                             detBranch: filBranch,
+                            detTypeWo: filType,
                             _token: _token
                     };
 
@@ -1633,7 +1684,7 @@
             }
 
             if (filSite == "All") {
-                titleSite = "All Site (Retail, Apartemen, Underground)";
+                titleSite = "All Site (Retail, Apartemen, Underground, Icon Plus)";
             } else {
                 titleSite = "Site " + filSite;
             }
@@ -1709,7 +1760,7 @@
                 success: function(dataTotalWo) {
 
                     var totWoMt = dataTotalWo;
-
+                    console.log('totWoMt : ', totWoMt)
                     var branch = [];
                     var totWo = [];
                     var totWoDone = [];
@@ -1740,24 +1791,32 @@
 
                     Highcharts.chart('containerTotWoIB', {
                         chart: {
-                            type: 'pie'
+                            type: 'pie',
+                            zooming: {
+                                type: 'xy'
+                            },
+                            panning: {
+                                enabled: true,
+                                type: 'xy'
+                            },
                         },
                         title: {
-                            text: 'Total WO FTTH ' + title1 + ' ' + bulanReport,
+                            text: 'Total WO FTTH ' + title1 + '-' + titleSite + '-' + bulanReport,
                         },
                         // tooltip: {
                         //     valueSuffix: '%'
                         // },
-                        // subtitle: {
-                        //     text:
-                        //     'MDPI'
-                        // },
+                        subtitle: {
+                            text:
+                            ''
+                        },
                         plotOptions: {
-                            series: {
+                            pie: {
                                 allowPointSelect: true,
                                 cursor: 'pointer',
                                 dataLabels: [{
                                     enabled: true,
+                                    padding: 0,
                                     distance: 30
                                 }]
                             }
@@ -1787,7 +1846,7 @@
                             type: 'pie'
                         },
                         title: {
-                            text: 'Total WO FTTH ' + title1 + ' Done ' + bulanReport,
+                            text: 'Total WO FTTH ' + title1 + '-' + titleSite + ' Done ' + bulanReport,
                         },
                         tooltip: {
                             valueSuffix: '%'
@@ -1802,6 +1861,7 @@
                                 cursor: 'pointer',
                                 dataLabels: [{
                                     enabled: true,
+                                    padding: 0,
                                     distance: 30
                                 }]
                             }
@@ -2351,11 +2411,11 @@
                     trendWoIBFtth = dataTrendMonthly;
 
                     document.querySelectorAll('#titleTrendTotWo').forEach(function(elem){
-                        elem.innerText = 'Trend Total WO FTTH ' + title1 + ' ' + titleBranch + " - " + bulanReport; 
+                        elem.innerText = 'Trend Total WO FTTH ' + title1 + '-' + titleSite + '-' + titleBranch + " - " + bulanReport; 
                     })
 
                     document.querySelectorAll('#titleTrendWoClose').forEach(function(elem){
-                        elem.innerText = 'Trend WO FTTH ' + title1 + ' Done ' + titleBranch + " - " + bulanReport; 
+                        elem.innerText = 'Trend WO FTTH ' + title1 +'-' + titleSite + ' Done ' + titleBranch + " - " + bulanReport; 
                     })
 
                     var trendMonth = [''];
@@ -2510,6 +2570,130 @@
             })
 
             $.ajax({
+                url: "{{ route('getTabelStatusIBFtthMonthly') }}",
+                type: 'GET',
+                data: {
+                    bulanTahunReport: bulanReport,
+                    filterTgl: filTglPeriode,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    filterSite: filSite,
+                    filterBranch: filBranch,
+                    filterDateStart: filPeriodeStart,
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
+
+                },
+                success: function(data) {
+
+                    // var day = new Date(tahun, bulan, 0).getDate();
+                    let monthly = [];
+                    let daytb;
+                    let doneMonthly = [];
+                    let pendingMonthly = [];
+                    let cancelMonthly = [];
+                    let donetb;
+                    let totDone = 0;
+                    let totPending = 0;
+                    let totCancel = 0;
+                    let totWo = 0;
+                    let total = 0;
+
+                    $('#dateMonthMonthly').find("th").remove();
+                    $('#dateMonthMonthly').append(`<th>Status WO ${titleBranch}</th>`)
+
+                    $('#woDoneMonthly').find("td").remove();
+                    $('#woDoneMonthly').find("th").remove();
+                    $('#woDoneMonthly').append("<td>Done</td>")
+
+                    $('#woPendingMonthly').find("td").remove();
+                    $('#woPendingMonthly').find("th").remove();
+                    $('#woPendingMonthly').append("<td>Pending</td>")
+
+                    $('#woCancelMonthly').find("td").remove();
+                    $('#woCancelMonthly').find("th").remove();
+                    $('#woCancelMonthly').append("<td>Cancel</td>")
+
+                    $('#totWoMonthly').find("td").remove()
+                    $('#totWoMonthly').find("th").remove()
+                    $('#totWoMonthly').append("<th>Total Wo</th>")
+
+
+                    $.each(data, function(key, item) {
+                        // day.push(new Date(item.tgl_ikr).getDate());
+                        monthly.push(item.bulan);
+                        doneMonthly.push(Number(item.Done));
+                        pendingMonthly.push(Number(item.Pending));
+                        cancelMonthly.push(Number(item.Cancel));
+
+                        let hMonthly = `
+                           <th>${item.bulan}</th>
+                        `;
+
+                        $('#dateMonthMonthly').append(hMonthly);
+
+                        let dtDone = `
+                            <td>${item.Done.toLocaleString()}</td>
+                        `;
+
+                        $('#woDoneMonthly').append(dtDone);
+
+                        totDone += Number(item.Done);
+
+                        let dtPending = `
+                            <td>${item.Pending.toLocaleString()}</td>
+                        `;
+
+                        $('#woPendingMonthly').append(dtPending);
+
+                        totPending += Number(item.Pending);
+                        totCancel += Number(item.Cancel);
+
+                        let dtCancel = `
+                            <td>${item.Cancel.toLocaleString()}</td>
+                        `;
+
+                        $('#woCancelMonthly').append(dtCancel)
+
+                        totWo = Number(item.Done) + Number(item.Pending) + Number(item.Cancel)
+
+                        let dtTotWo = `
+                            <td>${totWo.toLocaleString()}</td>
+                        `;
+
+                        $('#totWoMonthly').append(dtTotWo);
+
+
+                    });
+
+                    $('#dateMonthMonthly').append("<th>Total</th>")
+
+                    $('#woDoneMonthly').append(`<th>${totDone.toLocaleString()}</th>`)
+
+                    $('#woPendingMonthly').append(`<th>${totPending.toLocaleString()}</th>`)
+
+                    $('#woCancelMonthly').append(`<th>${totCancel.toLocaleString()}</th>`)
+
+                    total = Number(totDone) + Number(totPending) + Number(totCancel)
+
+                    $('#totWoMonthly').append(`<th>${total.toLocaleString()}</th>`)
+
+                    $('#dateMonthMonthly').append(`<th>%</th>`)
+
+                    $('#woDoneMonthly').append(`<th>${((totDone * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    $('#woPendingMonthly').append(
+                        `<th>${parseFloat((totPending * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                    $('#woCancelMonthly').append(
+                        `<th>${parseFloat((totCancel * 100) / total).toFixed(1).replace(/\.0$/, '')}%</th>`)
+
+
+                    
+
+                }
+
+            })
+
+            $.ajax({
                 url: "{{ route('getTabelStatusIBFtth') }}",
                 type: 'GET',
                 data: {
@@ -2642,7 +2826,7 @@
                     Highcharts.chart('conTrendDialyWo', {
 
                         title: {
-                            text: 'Status WO FTTH ' + title1 + ' - ' + titleBranch + ' ' +
+                            text: 'Status WO FTTH ' + title1 + ' - ' + titleSite + ' - ' + titleBranch + ' ' +
                                 bulanReport,
                             align: 'left'
                         },
@@ -2782,7 +2966,7 @@
                     Highcharts.chart('conRooCouseAPKDialy', {
 
                         title: {
-                            text: 'Daily Report Done WO FTTH ' + title1 + ' - ' +
+                            text: 'Daily Report Done WO FTTH ' + title1 + ' - ' + titleSite + ' - ' +
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
@@ -2974,7 +3158,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
 
                 },
                 beforeSend: () => {
@@ -2988,11 +3173,11 @@
                     trendWoIb = dataTrendMonthlyIB;
 
                     document.querySelectorAll('#titleTrendTotWoIB-pending').forEach(function(elem){
-                        elem.innerText = 'Trend Total WO FTTH New Installation ' + titleBranch + " - " + bulanReport; 
+                        elem.innerText = 'Trend Total WO FTTH ' + title1 + ' - ' + titleSite + ' Pending ' + titleBranch + " - " + bulanReport;
                     })
 
                     document.querySelectorAll('#titleTrendWoPendingIB-pending').forEach(function(elem){
-                        elem.innerText = 'Trend WO FTTH New Installation Pending ' + titleBranch + " - " + bulanReport; 
+                        elem.innerText = 'Trend Total WO FTTH ' + title1 + ' - ' + titleSite + ' Pending ' + titleBranch + " - " + bulanReport;
                     })
 
                     var trendMonth = [''];
@@ -3227,7 +3412,7 @@
                     Highcharts.chart('conRooCouseAPKDialyPending', {
 
                         title: {
-                            text: 'Daily Report Pending WO FTTH ' + title1 + ' - ' +
+                            text: 'Daily Report Pending WO FTTH ' + title1 + ' - ' + titleSite + ' - '+
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },
@@ -3402,7 +3587,8 @@
                     filterSite: filSite,
                     filterBranch: filBranch,
                     filterDateStart: filPeriodeStart,
-                    filterDateEnd: filPeriodeEnd
+                    filterDateEnd: filPeriodeEnd,
+                    typePenagihanIB: typePenagihanIB
 
                 },
                 beforeSend: () => {
@@ -3416,11 +3602,11 @@
                     trendWoIb = dataTrendMonthlyIB;
 
                     document.querySelectorAll('#titleTrendTotWoIB-Cancel').forEach(function(elem){
-                        elem.innerText = 'Trend Total WO FTTH New Installation ' + titleBranch + " - " + bulanReport; 
+                        elem.innerText = 'Trend Total WO ' + title1 + ' - ' + titleSite + ' Cancel ' + titleBranch + " - " + bulanReport; 
                     })
 
                     document.querySelectorAll('#titleTrendWoCancelIB').forEach(function(elem){
-                        elem.innerText = 'Trend WO FTTH New Installation Cancel ' + titleBranch + " - " + bulanReport; 
+                        elem.innerText = 'Trend WO ' + title1 + ' - ' + titleSite + ' Cancel ' + titleBranch + " - " + bulanReport; 
                     })
 
                     var trendMonth = [''];
@@ -3656,7 +3842,7 @@
                     Highcharts.chart('conRooCouseAPKDialyCancel', {
 
                         title: {
-                            text: 'Daily Report Cancel WO FTTH ' + title1 + ' - ' +
+                            text: 'Daily Report Cancel WO FTTH ' + title1 + ' - ' + titleSite + ' - '+
                                 titleBranch + ' ' + bulanReport,
                             align: 'left'
                         },

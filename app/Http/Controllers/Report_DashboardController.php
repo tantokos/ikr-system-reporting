@@ -71,6 +71,7 @@ class Report_DashboardController extends Controller
                             count(if(status_wo="Cancel",1,NULL)) as TotFtthMTCancel'))
             ->whereMonth('tgl_ikr','=',$MaxFtthMT->maxMonth)
             ->whereYear('tgl_ikr','=',$MaxFtthMT->maxYear)
+            ->whereIn('type_wo', ['Ftth Maintenance', 'MT'])
             ->groupBy('MonthYearFtthMT')
             ->first();
 

@@ -1672,6 +1672,13 @@
 </script>
 
     <script type="text/javascript">
+        function toTitleCase(str) {
+            return str.replace(
+                /\w\S*/g,
+                text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+            );
+        }
+
         $(document).on('click', '.closeDetailToday', function() {
             $('#canvasTotWOIB').empty();
             $('#canvasTotWOIBClose').empty();
@@ -1813,6 +1820,7 @@
                                 cursor: 'pointer',
                                 dataLabels: [{
                                     enabled: true,
+                                    padding: 0,
                                     distance: 30
                                 }]
                             }
@@ -1857,6 +1865,7 @@
                                 cursor: 'pointer',
                                 dataLabels: [{
                                     enabled: true,
+                                    padding: 0,
                                     distance: 30
                                 }]
                             }
@@ -2220,7 +2229,7 @@
                     let isiTotalWoClose = `
                     <th>Total WO Close</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoClose.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotClose.toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th style="text-align: center; vertical-align: middle;">${isNaN(persenTotClose) ? 0 : persenTotClose.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
 
 
@@ -2231,7 +2240,7 @@
                     let isiTotalWoPending = `
                     <th>Total WO Failed</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotPending.toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th style="text-align: center; vertical-align: middle;">${isNaN(persenTotPending) ? 0 : persenTotPending.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
                     $('#totWoPending').append(isiTotalWoPending);
 
@@ -2240,7 +2249,7 @@
                     let isiTotalWoCancel = `
                     <th>Total WO Cancel</th>
                         <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
-                        <th style="text-align: center; vertical-align: middle;">${persenTotCancel.toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th style="text-align: center; vertical-align: middle;">${isNaN(persenTotCancel) ? 0 : persenTotCancel.toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
                 }
@@ -2559,13 +2568,18 @@
                         // $('#totWo').append(`<th>${totcol.toLocaleString()}</th>`);
                     })
                     
+                    let dtTotWo
                     $.each(totcol, function(c, i) {
-                        $('#totWo').append(`<th>${i.toLocaleString()}</th>`);
+                        // $('#totWo').append(`<th>${i.toLocaleString()}</th>`);
+                        dtTotWo = dtTotWo + `
+                            <th>${i.toLocaleString()}</th>
+                        `;
                         total = Number(total) + Number(i);
                     })
 
+
                     $('#dateMonth').append("<th>Total</th>")
-                    $('#totWo').append(`<th>${total.toLocaleString()}</th>`)
+                    $('#totWo').append(dtTotWo + `<th>${total.toLocaleString()}</th>`)
 
                     // $.each(data, function(key, item) {
                     //     // day.push(new Date(item.tgl_ikr).getDate());
@@ -3312,9 +3326,13 @@
                         tbType = "";
                         subtotalType = 0
                         for(t=0; t < totType.length; t++) {
+
+                            CalcPersen = parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '');
+
+                            
                             tbType = tbType + 
                                 `<th style="text-align: center">${totType[t].toLocaleString()}</th>
-                                <th style="text-align: center">${parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                <th style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`;
 
                             subtotalType += Number(totType[t]);
                             total[t] += Number(totType[t]);
@@ -3333,9 +3351,12 @@
                             tbPenagihanAPK="";                                                       
 
                             for (p = 0; p < trendWoIBFtth.length; p++) {
+
+                                CalcPersen = parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '');
+                                
                                 tbPenagihanAPK = tbPenagihanAPK + 
                                     `<td style="text-align: center">${det.bulanan[p].toLocaleString()}</td>
-                                    <td style="text-align: center">${parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                    <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
 
                                 subtotal += Number(det.bulanan[p]);
                             }
@@ -3451,9 +3472,11 @@
                         thnId = new Date(trendWoIBFtth[t].bulan).getFullYear();
                         detailCel = `rootCouseAPK|type||${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
 
+                        CalcPersen = parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '');
+                        
                         tbType = tbType + 
                             `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${totType[t].toLocaleString()}</th>
-                            <th style="text-align: center">${parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                            <th style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`;
 
                         subtotalType += Number(totType[t]);
                         total[t] += Number(totType[t]);                            
@@ -3487,9 +3510,11 @@
                                     thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
                                     detailCel = `rootCouseAPK|penagihan|${itemPenagihan.penagihan}|${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
 
+                                    CalcPersen = parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '');
+                                    
                                     tbPenagihanAPK = tbPenagihanAPK +                                        
                                         `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${det.bulanan[p].toLocaleString()}</td>
-                                        '<td style="text-align: center">${parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                        '<td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
                                         // <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                     subtotal += Number(det.bulanan[p]);
@@ -3505,7 +3530,7 @@
 
                                         //Start Detail Cousecode
                                         $.each(itemCouseCode.detail, function(kc, detCouse) {
-                                            if(det.penagihan == detCouse.penagihan) {
+                                            if(det.penagihan.toUpperCase() == detCouse.penagihan.toUpperCase()) {
 
                                                 tbCouseCodeAPK = `
                                                     <tr id="rowCouseCloseDetail_${itemType.wo_type.replaceAll(' ','_')}_${det.penagihan.replaceAll(' ','_')}_${detCouse.couse_code.replaceAll(' ','_')}" class="table-info">
@@ -3524,9 +3549,11 @@
                                                     thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
                                                     detailCel = `rootCouseAPK|couse_code|${itemPenagihan.penagihan}|${detCouse.couse_code}|${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
 
+                                                    CalcPersen = parseFloat((detCouse.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '');
+                                                    
                                                     tbCouseCodeAPK = tbCouseCodeAPK +                                        
                                                         `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${detCouse.bulanan[p].toLocaleString()}</td>
-                                                        '<td style="text-align: center">${parseFloat((detCouse.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>>`;
+                                                        '<td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>>`;
                                                         // <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                                     subtotal += Number(detCouse.bulanan[p]);
@@ -3544,11 +3571,11 @@
                                                                 && detCouse.couse_code.toUpperCase() == detRoot.couse_code.toUpperCase()) {
                                                             
                                                                 tbRootCouseAPK = `
-                                                                    <tr id="rowRootCloseDetail_${itemType.wo_type.replaceAll(' ','_')}_${det.penagihan.replaceAll(' ','_')}_${detCouse.couse_code.replaceAll(' ','_')}_${detRoot.root_couse.replaceAll(' ','_')}">
+                                                                    <tr id="rowRootCloseDetail_${itemType.wo_type.replaceAll(' ','_')}_${det.penagihan.replaceAll(' ','_')}_${detCouse.couse_code.replaceAll(' ','_')}_${detRoot.root_couse.replaceAll(' ','_').replaceAll(',','')}">
                                                                         <th></th>
                                                                         <th></th>
                                                                         <th></th>
-                                                                        <td>${detRoot.root_couse}</td>
+                                                                        <td>${toTitleCase(detRoot.root_couse)}</td>
                                                                     </tr>`;
 
                                                                 $('#bodyRootCouseAPKDetail').append(tbRootCouseAPK);
@@ -3561,15 +3588,17 @@
                                                                     thnId = new Date(trendWoIBFtth[p].bulan).getFullYear();
                                                                     detailCel = `rootCouseAPK|root_couse|${itemPenagihan.penagihan}|${itemCouseCode.couse_code}|${itemRootCouse.root_couse}|${(blnId + 1)}|${thnId}|${itemType.wo_type}`;
 
+                                                                    CalcPersen = parseFloat((detRoot.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '');
+                                                                    
                                                                     tbRootCouseAPK = tbRootCouseAPK +                                        
                                                                         `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${detRoot.bulanan[p].toLocaleString()}</td>
-                                                                        '<td style="text-align: center">${parseFloat((detRoot.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                                                        '<td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
                                                                         // <td class="table-secondary" style="text-align: center">${parseFloat((itemPenagihan.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
 
                                                                     subtotal += Number(detRoot.bulanan[p]);
 
                                                                 }
-                                                                $('#rowRootCloseDetail_'+itemType.wo_type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')+'_'+detCouse.couse_code.replaceAll(' ','_')+'_'+detRoot.root_couse.replaceAll(' ','_')).append(tbRootCouseAPK + `<td style="text-align: center;">${subtotal.toLocaleString()}</td>`);
+                                                                $('#rowRootCloseDetail_'+itemType.wo_type.replaceAll(' ','_')+'_'+det.penagihan.replaceAll(' ','_')+'_'+detCouse.couse_code.replaceAll(' ','_')+'_'+detRoot.root_couse.replaceAll(' ','_').replaceAll(',','')).append(tbRootCouseAPK + `<td style="text-align: center;">${subtotal.toLocaleString()}</td>`);
                                                                 
                                                             }
                                                         })
@@ -4472,9 +4501,11 @@
                             thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
                             detailCel = `pending|type||${(blnId + 1)}|${thnId}|${itemType.type}`;
 
+                            CalcPersen = parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '');
+                            
                             tbType = tbType + 
                                 `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${totType[t].toLocaleString()}</th>
-                                <th style="text-align: center">${parseFloat((totType[t]*100)/TotMonth[t]).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                <th style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`;
 
                             subtotalType += Number(totType[t]);
                             total[t] += Number(totType[t]);
@@ -4497,9 +4528,11 @@
                                 thnId = new Date(trendWoIBFtth[bln].bulan).getFullYear();
                                 detailCel = `pending|penagihan|${det.penagihan}|${(blnId + 1)}|${thnId}|${itemType.type}`;
 
+                                CalcPersen = parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '');
+                                
                                 tbRootCousePending = tbRootCousePending + 
                                     `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${det.bulanan[p].toLocaleString()}</td>
-                                    <td style="text-align: center">${parseFloat((det.bulanan[p]*100)/TotMonth[p]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                    <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
 
                                 subtotal += Number(det.bulanan[p]);
                             }

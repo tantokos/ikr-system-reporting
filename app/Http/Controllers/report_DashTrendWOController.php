@@ -217,6 +217,12 @@ class report_DashTrendWOController extends Controller
             if ($request->filterBranch != "All") {
                 $totMtMontly = $totMtMontly->where('branch', '=', $request->filterBranch);
             }
+            if ($request->typePenagihanIB == "Additional Service STB"){
+                $totMtMontly = $totMtMontly->where('type_wo','=', $request->typePenagihanIB);
+            }
+            if ($request->typePenagihanIB == "New Installation"){
+                $totMtMontly = $totMtMontly->where('type_wo','!=', 'Additional Service STB');
+            }
 
             $totMtMontly = $totMtMontly->count();
 
@@ -233,6 +239,12 @@ class report_DashTrendWOController extends Controller
             }
             if ($request->filterBranch != "All") {
                 $totMtMontlyDone = $totMtMontlyDone->where('branch', '=', $request->filterBranch);
+            }
+            if ($request->typePenagihanIB == "Additional Service STB"){
+                $totMtMontlyDone = $totMtMontlyDone->where('type_wo','=', $request->typePenagihanIB);
+            }
+            if ($request->typePenagihanIB == "New Installation"){
+                $totMtMontlyDone = $totMtMontlyDone->where('type_wo','!=', 'Additional Service STB');
             }
 
             $totMtMontlyDone = $totMtMontlyDone->count();
@@ -251,6 +263,13 @@ class report_DashTrendWOController extends Controller
             if ($request->filterBranch != "All") {
                 $totMtMontlyPending = $totMtMontlyPending->where('branch', '=', $request->filterBranch);
             }
+            if ($request->typePenagihanIB == "Additional Service STB"){
+                $totMtMontlyPending = $totMtMontlyPending->where('type_wo','=', $request->typePenagihanIB);
+            }
+            if ($request->typePenagihanIB == "New Installation"){
+                $totMtMontlyPending = $totMtMontlyPending->where('type_wo','!=', 'Additional Service STB');
+            }
+            
 
             $totMtMontlyPending = $totMtMontlyPending->count();
 
@@ -267,6 +286,12 @@ class report_DashTrendWOController extends Controller
             }
             if ($request->filterBranch != "All") {
                 $totMtMontlyCancel = $totMtMontlyCancel->where('branch', '=', $request->filterBranch);
+            }
+            if ($request->typePenagihanIB == "Additional Service STB"){
+                $totMtMontlyCancel = $totMtMontlyCancel->where('type_wo','=', $request->typePenagihanIB);
+            }
+            if ($request->typePenagihanIB == "New Installation"){
+                $totMtMontlyCancel = $totMtMontlyCancel->where('type_wo','!=', 'Additional Service STB');
             }
 
             $totMtMontlyCancel = $totMtMontlyCancel->count();

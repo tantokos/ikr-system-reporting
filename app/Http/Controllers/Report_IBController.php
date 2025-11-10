@@ -35,7 +35,8 @@ class Report_IBController extends Controller
 
         $tgl = ImportFtthIbSortirTemp::select('tgl_ikr')->distinct()->get();
 
-        $trendMonthly = DataFtthIbSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))->distinct()->get();
+        // $trendMonthly = DataFtthIbSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan'))->distinct()->get();
+        $trendMonthly = DataFtthIbSortir::select(DB::raw('date_format(tgl_ikr, "%b-%Y") as bulan, month(tgl_ikr) as bln, year(tgl_ikr) as thn'))->distinct()->orderBy('thn','DESC')->orderBy('bln','DESC')->get();
 
         return view(
             'report.reportingFtthIB',
@@ -165,7 +166,37 @@ class Report_IBController extends Controller
                     // $branchPenagihan[$b]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
                     // $branchPenagihan[$b]->cancel = isset($totWo) ? $totWoCancel : 0;
                     // $branchPenagihan[$b]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
-            } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground")) {
+            } elseif ($branchPenagihan[$b]->nama_branch == "Icon Plus") {
+                $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->select('status_wo')->count();
+                $totWoDone = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->select('status_wo')->where('status_wo', '=', 'Done')->count();
+                $totWoPending = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->select('status_wo')->where('status_wo', '=', 'Pending')->count();
+                $totWoCancel = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->select('status_wo')->where('status_wo', '=', 'Cancel')->count();
+
+                    // $branchPenagihan[$b]->total = isset($totWo) ? $totWo : 0 ;
+                    // $branchPenagihan[$b]->persenTotal = isset($totWo) ? ($totWo * 100) / $totAllBranch : 0;
+                    // $branchPenagihan[$b]->done = isset($totWo) ? $totWoDone : 0;
+                    // $branchPenagihan[$b]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->pending = isset($totWo) ? $totWoPending : 0;
+                    // $branchPenagihan[$b]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                    // $branchPenagihan[$b]->cancel = isset($totWo) ? $totWoCancel : 0;
+                    // $branchPenagihan[$b]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
+            } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground" && $branchPenagihan[$b]->nama_branch <> "Icon Plus")) {
                 $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Retail')->where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
                     ->select('status_wo')->count();
@@ -187,7 +218,7 @@ class Report_IBController extends Controller
                     // $branchPenagihan[$b]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
                     // $branchPenagihan[$b]->cancel = isset($totWo) ? $totWoCancel : 0;
                     // $branchPenagihan[$b]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
-            } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground" && $branchPenagihan[$b]->nama_branch <> "Retail")) {
+            } elseif (($branchPenagihan[$b]->nama_branch <> "Apartemen" && $branchPenagihan[$b]->nama_branch <> "Underground" && $branchPenagihan[$b]->nama_branch <> "Icon Plus" && $branchPenagihan[$b]->nama_branch <> "Retail")) {
                 $totWo = DataFtthIbSortir::where('branch', '=', $branchPenagihan[$b]->nama_branch)
                     ->whereMonth('tgl_ikr', $bulan)->whereYear('tgl_ikr', $tahun)
                     ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
@@ -238,7 +269,7 @@ class Report_IBController extends Controller
     {
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
-        $site = ['Retail', 'Apartemen', 'Underground'];
+        $site = ['Retail', 'Apartemen', 'Underground', 'Icon Plus'];
 
         $startDate = $request->filterDateStart;
         $endDate = $request->filterDateEnd;
@@ -265,10 +296,10 @@ class Report_IBController extends Controller
             $branchPenagihan = $branchPenagihan->where('branch', '=', $request->filterBranch);
         }
         if ($request->typePenagihanIB == "Additional Service STB"){
-            $branchPenagihan = $branchPenagihan->where('penagihan','=', $request->typePenagihanIB);
+            $branchPenagihan = $branchPenagihan->where('type_wo','=', $request->typePenagihanIB);
         }
         if ($request->typePenagihanIB == "New Installation"){
-            $branchPenagihan = $branchPenagihan->where('penagihan','!=', 'Additional Service STB');
+            $branchPenagihan = $branchPenagihan->where('type_wo','!=', 'Additional Service STB');
         }
 
         $branchPenagihan = $branchPenagihan->groupBy('id','nama_branch')->get();
@@ -387,7 +418,8 @@ class Report_IBController extends Controller
                 // $branchPenagihan[$br]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
                 // $branchPenagihan[$br]->cancel = isset($totWo) ? $totWoCancel : 0;
                 // $branchPenagihan[$br]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
-            } elseif ($branchPenagihan[$br]->site_penagihan == "Underground") {
+            } 
+             elseif ($branchPenagihan[$br]->site_penagihan == "Underground") {
                 $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Underground')
                     ->whereMonth('tgl_ikr', $bulan)
                     ->whereYear('tgl_ikr', $tahun)
@@ -454,6 +486,82 @@ class Report_IBController extends Controller
                 if ($request->filterSite == "All") {
                     // $branchPenagihan[$br]->id = "12";
                     $branchPenagihan[$br]->nama_branch = "Underground";
+                }
+                // // $branchPenagihan[$br]->nama_branch = "Underground";
+                // $branchPenagihan[$br]->total = isset($totWo) ? $totWo : 0 ;
+                // $branchPenagihan[$br]->done = isset($totWo) ? $totWoDone : 0;
+                // $branchPenagihan[$br]->persenDone = isset($totWo) ? ($totWoDone * 100) / $totWo : 0;
+                // $branchPenagihan[$br]->pending = isset($totWo) ? $totWoPending : 0;
+                // $branchPenagihan[$br]->persenPending = isset($totWo) ? ($totWoPending * 100) / $totWo : 0;
+                // $branchPenagihan[$br]->cancel = isset($totWo) ? $totWoCancel : 0;
+                // $branchPenagihan[$br]->persenCancel = isset($totWo) ? ($totWoCancel * 100) / $totWo : 0;
+            } elseif ($branchPenagihan[$br]->site_penagihan == "Icon Plus") {
+                $totWo = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+                    if ($request->typePenagihanIB == "Additional Service STB"){
+                        $totWo = $totWo->where('penagihan','=', $request->typePenagihanIB);
+                    }
+                    if ($request->typePenagihanIB == "New Installation"){
+                        $totWo = $totWo->where('penagihan','!=', 'Additional Service STB');
+                    }
+
+                    $totWo = $totWo->select('status_wo')->count();
+
+                $totWoDone = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->select('status_wo')
+                    ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+                    if ($request->typePenagihanIB == "Additional Service STB"){
+                        $totWoDone = $totWoDone->where('penagihan','=', $request->typePenagihanIB);
+                    }
+                    if ($request->typePenagihanIB == "New Installation"){
+                        $totWoDone = $totWoDone->where('penagihan','!=', 'Additional Service STB');
+                    }
+
+                    $totWoDone = $totWoDone->where('status_wo', '=', 'Done')->count();
+
+                $totWoPending = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->select('status_wo')
+                    ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+                    if ($request->typePenagihanIB == "Additional Service STB"){
+                        $totWoPending = $totWoPending->where('penagihan','=', $request->typePenagihanIB);
+                    }
+                    if ($request->typePenagihanIB == "New Installation"){
+                        $totWoPending = $totWoPending->where('penagihan','!=', 'Additional Service STB');
+                    }
+
+                    $totWoPending = $totWoPending->where('status_wo', '=', 'Pending')->count();
+
+                $totWoCancel = DataFtthIbSortir::where('site_penagihan', '=', 'Icon Plus')
+                    ->whereMonth('tgl_ikr', $bulan)
+                    ->whereYear('tgl_ikr', $tahun)
+                    // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day])
+                    ->select('status_wo')
+                    ->where('branch', '=', $branchPenagihan[$br]->nama_branch);
+
+                    if ($request->typePenagihanIB == "Additional Service STB"){
+                        $totWoCancel = $totWoCancel->where('penagihan','=', $request->typePenagihanIB);
+                    }
+                    if ($request->typePenagihanIB == "New Installation"){
+                        $totWoCancel = $totWoCancel->where('penagihan','!=', 'Additional Service STB');
+                    }
+
+                    $totWoCancel = $totWoCancel->where('status_wo', '=', 'Cancel')->count();
+
+                if ($request->filterSite == "All") {
+                    // $branchPenagihan[$br]->id = "12";
+                    $branchPenagihan[$br]->nama_branch = "Icon Plus";
                 }
                 // // $branchPenagihan[$br]->nama_branch = "Underground";
                 // $branchPenagihan[$br]->total = isset($totWo) ? $totWo : 0 ;
@@ -583,12 +691,12 @@ class Report_IBController extends Controller
             $totCluster = $totCluster->where('branch', '=', $request->filterBranch);
         }
         if ($request->typePenagihanIB == "Additional Service STB"){
-            $totBranchCluster = $totBranchCluster->where('penagihan', '=', $request->typePenagihanIB);
-            $totCluster = $totCluster->where('penagihan', '=', $request->typePenagihanIB);
+            $totBranchCluster = $totBranchCluster->where('type_wo', '=', $request->typePenagihanIB);
+            $totCluster = $totCluster->where('type_wo', '=', $request->typePenagihanIB);
         }
         if ($request->typePenagihanIB == "New Installation"){
-            $totBranchCluster = $totBranchCluster->where('penagihan', '!=', 'Additional Service STB');
-            $totCluster = $totCluster->where('penagihan', '!=', 'Additional Service STB');
+            $totBranchCluster = $totBranchCluster->where('type_wo', '!=', 'Additional Service STB');
+            $totCluster = $totCluster->where('type_wo', '!=', 'Additional Service STB');
         }
 
         for ($bt = 1; $bt <= $bulan; $bt++) {
@@ -808,10 +916,10 @@ class Report_IBController extends Controller
                 $totIBFtthMontly = $totIBFtthMontly->where('branch', '=', $request->filterBranch);
             }
             if ($request->typePenagihanIB == "Additional Service STB"){
-                $totIBFtthMontly = $totIBFtthMontly->where('penagihan', '=', $request->typePenagihanIB);
+                $totIBFtthMontly = $totIBFtthMontly->where('type_wo', '=', $request->typePenagihanIB);
             }
             if ($request->typePenagihanIB == "New Installation"){
-                $totIBFtthMontly = $totIBFtthMontly->where('penagihan', '!=', 'Additional Service STB');
+                $totIBFtthMontly = $totIBFtthMontly->where('type_wo', '!=', 'Additional Service STB');
             }
 
             $totIBFtthMontly = $totIBFtthMontly->count();
@@ -830,10 +938,10 @@ class Report_IBController extends Controller
                 $totIBFtthMontlyDone = $totIBFtthMontlyDone->where('branch', '=', $request->filterBranch);
             }
             if ($request->typePenagihanIB == "Additional Service STB"){
-                $totIBFtthMontlyDone = $totIBFtthMontlyDone->where('penagihan', '=', $request->typePenagihanIB);
+                $totIBFtthMontlyDone = $totIBFtthMontlyDone->where('type_wo', '=', $request->typePenagihanIB);
             }
             if ($request->typePenagihanIB == "New Installation"){
-                $totIBFtthMontlyDone = $totIBFtthMontlyDone->where('penagihan', '!=', 'Additional Service STB');
+                $totIBFtthMontlyDone = $totIBFtthMontlyDone->where('type_wo', '!=', 'Additional Service STB');
             }
 
             $totIBFtthMontlyDone = $totIBFtthMontlyDone->count();
@@ -874,10 +982,10 @@ class Report_IBController extends Controller
                 $tblStatus = $tblStatus->where('branch', '=', $request->filterBranch);
             }
             if ($request->typePenagihanIB == "Additional Service STB"){
-                $tblStatus = $tblStatus->where('penagihan', '=', $request->typePenagihanIB);
+                $tblStatus = $tblStatus->where('type_wo', '=', $request->typePenagihanIB);
             }
             if ($request->typePenagihanIB == "New Installation"){
-                $tblStatus = $tblStatus->where('penagihan', '!=', 'Additional Service STB');
+                $tblStatus = $tblStatus->where('type_wo', '!=', 'Additional Service STB');
             }
 
             $tblStatus = $tblStatus->orderBy('tgl_ikr')
@@ -890,6 +998,64 @@ class Report_IBController extends Controller
         }
 
         return response()->json($tgl);
+    }
+
+    public function getTabelStatusIBFtthMonthly(Request $request)
+    {
+        $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
+        $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
+        $tgl = [];
+        $startDate = $request->filterDateStart;
+        $endDate = $request->filterDateEnd;
+
+        $dayMonth = \Carbon\CarbonPeriod::between($startDate, $endDate);
+
+        // foreach ($dayMonth as $date) {
+        //     $tgl[] = ['tgl_ikr' => $date->format('Y-m-d')];
+        // }
+        // dd($tgl);
+
+        for ($bt = 1; $bt <= $bulan; $bt++) {
+            if($bulan == 1) {
+                $statusBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $statusBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $statusBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            }             
+        }
+
+        for ($d = 0; $d < count($statusBulanan); $d++) {
+            $tblStatus = DataFtthIbSortir::select(DB::raw('date_format(tgl_ikr, "%Y-%m"), count(if(status_wo = "Done", 1, NULL)) as Done, 
+                                                        count(if(status_wo = "Pending", 1, NULL)) as Pending, count(if(status_wo = "Cancel", 1, NULL)) as Cancel'))
+                            ->whereMonth('tgl_ikr', \Carbon\Carbon::parse($statusBulanan[$d]['bulan'])->month)
+                            ->whereYear('tgl_ikr', (string) \Carbon\Carbon::parse($statusBulanan[$d]['bulan'])->year);
+
+            // dd($tblStatus);
+            if ($request->filterSite != "All") {
+                $tblStatus = $tblStatus->where('site_penagihan', '=', $request->filterSite);
+            }
+            if ($request->filterBranch != "All") {
+                $tblStatus = $tblStatus->where('branch', '=', $request->filterBranch);
+            }
+            if ($request->typePenagihanIB == "Additional Service STB"){
+                $tblStatus = $tblStatus->where('type_wo', '=', $request->typePenagihanIB);
+            }
+            if ($request->typePenagihanIB == "New Installation"){
+                $tblStatus = $tblStatus->where('type_wo', '!=', 'Additional Service STB');
+            }
+
+            $tblStatus = $tblStatus //->orderBy('tgl_ikr')
+                ->groupBy(DB::raw('date_format(tgl_ikr, "%Y-%m")'))->first();
+
+            // dd($tblStatus->Done);
+            $statusBulanan[$d]['Done'] = $tblStatus->Done ?? 0;
+            $statusBulanan[$d]['Pending'] = $tblStatus->Pending ?? 0;
+            $statusBulanan[$d]['Cancel'] = $tblStatus->Cancel ?? 0;
+        }
+
+        // dd($statusBulanan);
+        return response()->json($statusBulanan);
     }
 
     public function getReasonStatusIBFtthGraph(Request $request)
@@ -914,9 +1080,9 @@ class Report_IBController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','IB FTTH')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+            ->where('data_ftth_ib_sortirs.status_wo', '=', 'Done')
+            // ->where('root_couse_penagihan.type_wo','=','IB FTTH')
             ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', $bulan) // $bulan)
             ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun);
             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
@@ -936,7 +1102,8 @@ class Report_IBController extends Controller
         }
 
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->get();
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
             $nameGraph[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
@@ -946,9 +1113,9 @@ class Report_IBController extends Controller
             for ($pn = 0; $pn < count($PenagihanSortir); $pn++) {
 
                 $jml = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','IB FTTH')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+                    ->where('data_ftth_ib_sortirs.status_wo', '=', 'Done')
+                    // ->where('root_couse_penagihan.type_wo','=','IB FTTH')
                     // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('tgl_ikr', '=', $tglGraph[$t])
                     // ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -969,7 +1136,8 @@ class Report_IBController extends Controller
                     $jml = $jml->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
                 }
 
-                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                // $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->count();
 
                 $dataGraph[$pn]['data'][] = $jml;
             }
@@ -1010,9 +1178,10 @@ class Report_IBController extends Controller
         }
 
         $PenagihanSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=','IB FTTH');
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+            ->where('data_ftth_ib_sortirs.status_wo', "Done");
+            // ->where('root_couse_penagihan.status', '=', 'Done')
+            // ->where('root_couse_penagihan.type_wo','=','IB FTTH');
             // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional']);
         //->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month) // $bulan)
         // ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
@@ -1031,7 +1200,8 @@ class Report_IBController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->get();
 
         for ($ps = 0; $ps < count($PenagihanSortir); $ps++) {
 
@@ -1040,9 +1210,10 @@ class Report_IBController extends Controller
             for ($m = 0; $m < count($trendBulanan); $m++) {
 
                 $jml = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','IB FTTH')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+                    ->where('data_ftth_ib_sortirs.status_wo', 'Done')
+                    // ->where('root_couse_penagihan.status', '=', 'Done')
+                    // ->where('root_couse_penagihan.type_wo','=','IB FTTH')
                     // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
                     ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->year)
@@ -1062,7 +1233,8 @@ class Report_IBController extends Controller
                     $jml = $jml->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
                 }
 
-                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                // $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->count();
 
                 $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
             }
@@ -1084,19 +1256,19 @@ class Report_IBController extends Controller
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
-            if($request->detSite != "All") {
-                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
-            }
-            if($request->detBranch != "All") {
-                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
-            }
+            // if($request->detSite != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            // }
+            // if($request->detBranch != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            // }
 
-            if($request->detKategori == "penagihan"){
-                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
-            }
+            // if($request->detKategori == "penagihan"){
+            //     $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            // }
             
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+            // $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
 
         }
 
@@ -1106,19 +1278,19 @@ class Report_IBController extends Controller
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
-            if($request->detSite != "All") {
-                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
-            }
-            if($request->detBranch != "All") {
-                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
-            }
+            // if($request->detSite != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            // }
+            // if($request->detBranch != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            // }
 
-            if($request->detKategori == "penagihan"){
-                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
-            }
+            // if($request->detKategori == "penagihan"){
+            //     $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            // }
             
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+            // $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
 
         }
 
@@ -1128,21 +1300,53 @@ class Report_IBController extends Controller
                         ->where('bulan','=', $request->detBulan)
                         ->where('tahun','=', $request->detThn);
 
-            if($request->detSite != "All") {
-                $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
-            }
-            if($request->detBranch != "All") {
-                $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
-            }
+            // if($request->detSite != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+            // }
+            // if($request->detBranch != "All") {
+            //     $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+            // }
 
-            if($request->detKategori == "penagihan"){
-                $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
-            }
+            // if($request->detKategori == "penagihan"){
+            //     $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+            // }
+
+            // if($request->detTypeWo != "All"){
+            //     if($request->detTypeWo == "New Installation") {
+            //         $detAPKBranch=$detAPKBranch->where('type_wo', '<>', "Additional Service STB");
+            //     } elseif ($request->detTypeWo == "Additional Service STB") {
+            //         $detAPKBranch=$detAPKBranch->whereIn('type_wo', ["Additional Service STB"]);
+            //     }
+                
+            // }
             
 
-            $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
+            // $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
 
         }
+
+        if($request->detSite != "All") {
+            $detAPKBranch=$detAPKBranch->where('site_penagihan','=',$request->detSite);
+        }
+        if($request->detBranch != "All") {
+            $detAPKBranch=$detAPKBranch->where('branch','=',$request->detBranch);
+        }
+
+        if($request->detKategori == "penagihan"){
+            $detAPKBranch=$detAPKBranch->where('penagihan','=',$request->detPenagihan);
+        }
+
+        if($request->detTypeWo != "All"){
+            if($request->detTypeWo == "New Installation") {
+                $detAPKBranch=$detAPKBranch->where('type_wo', '<>', "Additional Service STB");
+            } elseif ($request->detTypeWo == "Additional Service STB") {
+                $detAPKBranch=$detAPKBranch->whereIn('type_wo', ["Additional Service STB"]);
+            }
+            
+        }
+        
+
+        $detAPKBranch=$detAPKBranch->groupBy('branch','bulan','tahun')->orderBy('total', 'DESC')->get();
 
         return response()->json(['detailBranchAPK' => $detAPKBranch]);
 
@@ -1171,6 +1375,15 @@ class Report_IBController extends Controller
             if($request->detKategori == "penagihan"){
                 $detAPK=$detAPK->where('penagihan','=',$request->detPenagihan);
             }
+
+            if($request->detTypeWo != "All"){
+                if($request->detTypeWo == "New Installation") {
+                    $detAPK=$detAPK->where('type_wo', '<>', "Additional Service STB");
+                } elseif ($request->detTypeWo == "Additional Service STB") {
+                    $detAPK=$detAPK->whereIn('type_wo', ["Additional Service STB"]);
+                }
+            
+            }
             
             $detAPK=$detAPK->get();
 
@@ -1192,6 +1405,15 @@ class Report_IBController extends Controller
             if($request->detKategori == "penagihan"){
                 $detAPK=$detAPK->where('penagihan','=',$request->detPenagihan);
             }
+
+            if($request->detTypeWo != "All"){
+                if($request->detTypeWo == "New Installation") {
+                    $detAPK=$detAPK->where('type_wo', '<>', "Additional Service STB");
+                } elseif ($request->detTypeWo == "Additional Service STB") {
+                    $detAPK=$detAPK->whereIn('type_wo', ["Additional Service STB"]);
+                }
+            
+            }
             
             $detAPK=$detAPK->get();
 
@@ -1212,6 +1434,15 @@ class Report_IBController extends Controller
             
             if($request->detKategori == "penagihan"){
                 $detAPK=$detAPK->where('penagihan','=',$request->detPenagihan);
+            }
+
+            if($request->detTypeWo != "All"){
+                if($request->detTypeWo == "New Installation") {
+                    $detAPK=$detAPK->where('type_wo', '<>', "Additional Service STB");
+                } elseif ($request->detTypeWo == "Additional Service STB") {
+                    $detAPK=$detAPK->whereIn('type_wo', ["Additional Service STB"]);
+                }
+            
             }
             
             $detAPK=$detAPK->get();
@@ -1340,6 +1571,9 @@ class Report_IBController extends Controller
 
     public function getRootCousePendingGraphIBFtth(Request $request)
     {
+        ini_set('max_execution_time', 1000);
+        ini_set('memory_limit', '5048M');
+        
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
         $tglGraphPending = [];
@@ -1360,9 +1594,9 @@ class Report_IBController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Pending')
-            ->where('root_couse_penagihan.type_wo','=','IB Ftth')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+            ->where('data_ftth_ib_sortirs.status_wo', '=', 'Pending')
+            // ->where('root_couse_penagihan.type_wo','=','IB Ftth')
             // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', $bulan) // $bulan)
             ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun);
@@ -1377,13 +1611,14 @@ class Report_IBController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
         if ($request->typePenagihanIB == "Additional Service STB"){
-            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.penagihan', '=', $request->typePenagihanIB);
+            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.type_wo', '=', $request->typePenagihanIB);
         }
         if ($request->typePenagihanIB == "New Installation"){
-            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
+            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.type_wo', '!=', 'Additional Service STB');
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->get();
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
             $nameGraphPending[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
@@ -1395,9 +1630,9 @@ class Report_IBController extends Controller
 
 
                 $jml = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Pending')
-                    ->where('root_couse_penagihan.type_wo','=','IB Ftth')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+                    ->where('data_ftth_ib_sortirs.status_wo', '=', 'Pending')
+                    // ->where('root_couse_penagihan.type_wo','=','IB Ftth')
                     // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('tgl_ikr', '=', $tglGraphPending[$t])
                     // ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
@@ -1412,13 +1647,14 @@ class Report_IBController extends Controller
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
                 if ($request->typePenagihanIB == "Additional Service STB"){
-                    $jml = $jml->where('data_ftth_ib_sortirs.penagihan', '=', $request->typePenagihanIB);
+                    $jml = $jml->where('data_ftth_ib_sortirs.type_wo', '=', $request->typePenagihanIB);
                 }
                 if ($request->typePenagihanIB == "New Installation"){
-                    $jml = $jml->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
+                    $jml = $jml->where('data_ftth_ib_sortirs.type_wo', '!=', 'Additional Service STB');
                 }
 
-                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                // $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->count();
 
                 $dataGraphPending[$pn]['data'][] = $jml;
             }
@@ -1466,8 +1702,9 @@ class Report_IBController extends Controller
         $tblRootCousePending = [];
 
         $rootCousePending = DB::table('v_ftth_ib_pending')
-                ->select('id','penagihan')
-                ->groupBy('id','penagihan');
+                ->select('penagihan')
+                ->where('tahun', $tahun)
+                ->groupBy('penagihan');
 
         
         if ($request->filterSite != "All") {
@@ -1475,6 +1712,12 @@ class Report_IBController extends Controller
         }
         if ($request->filterBranch != "All") {
             $rootCousePending = $rootCousePending->where('branch', '=', $request->filterBranch);
+        }
+        if ($request->typePenagihanIB == "Additional Service STB"){
+            $rootCousePending = $rootCousePending->where('type_wo', '=', $request->typePenagihanIB);
+        }
+        if ($request->typePenagihanIB == "New Installation"){
+            $rootCousePending = $rootCousePending->where('type_wo', '!=', 'Additional Service STB');
         }
 
         for ($x = 0; $x < count($trendBulanan); $x++) {
@@ -1638,9 +1881,9 @@ class Report_IBController extends Controller
         $detRootCouseSortir = [];
 
         $PenagihanSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('root_couse_penagihan.status', '=', 'Cancel')
-            ->where('root_couse_penagihan.type_wo','=','IB Ftth')
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+            ->where('data_ftth_ib_sortirs.status_wo', '=', 'Cancel')
+            // ->where('root_couse_penagihan.type_wo','=','IB Ftth')
             ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', $bulan) // $bulan)
             ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun);
             // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day, \Carbon\Carbon::parse($endDate)->day]);
@@ -1653,13 +1896,14 @@ class Report_IBController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
         if ($request->typePenagihanIB == "Additional Service STB"){
-            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.penagihan', '=', $request->typePenagihanIB);
+            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.type_wo', '=', $request->typePenagihanIB);
         }
         if ($request->typePenagihanIB == "New Installation"){
-            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
+            $PenagihanSortir = $PenagihanSortir->where('data_ftth_ib_sortirs.type_wo', '!=', 'Additional Service STB');
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        // $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->get();
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
             $nameGraphCancel[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
@@ -1669,9 +1913,9 @@ class Report_IBController extends Controller
             for ($pn = 0; $pn < count($PenagihanSortir); $pn++) {
 
                 $jml = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-                    ->where('root_couse_penagihan.status', '=', 'Cancel')
-                    ->where('root_couse_penagihan.type_wo','=','IB Ftth')
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
+                    ->where('data_ftth_ib_sortirs.status_wo', '=', 'Cancel')
+                    // ->where('root_couse_penagihan.type_wo','=','IB Ftth')
                     ->where('tgl_ikr', '=', $tglGraphCancel[$t])
                     ->where('data_ftth_ib_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
 
@@ -1682,13 +1926,14 @@ class Report_IBController extends Controller
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
                 if ($request->typePenagihanIB == "Additional Service STB"){
-                    $jml = $jml->where('data_ftth_ib_sortirs.penagihan', '=', $request->typePenagihanIB);
+                    $jml = $jml->where('data_ftth_ib_sortirs.type_wo', '=', $request->typePenagihanIB);
                 }
                 if ($request->typePenagihanIB == "New Installation"){
-                    $jml = $jml->where('data_ftth_ib_sortirs.penagihan', '!=', 'Additional Service STB');
+                    $jml = $jml->where('data_ftth_ib_sortirs.type_wo', '!=', 'Additional Service STB');
                 }
 
-                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                // $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_ftth_ib_sortirs.penagihan')->orderBy('data_ftth_ib_sortirs.penagihan')->count();
 
                 $dataGraphCancel[$pn]['data'][] = $jml;
             }
@@ -1735,14 +1980,21 @@ class Report_IBController extends Controller
         $tblRootCouseCancel = [];
 
         $rootCouseCancel = DB::table('v_ftth_ib_cancel')
-                ->select('id','penagihan')
-                ->groupBy('id','penagihan');
+                ->select('penagihan')
+                ->where('tahun', $tahun)
+                ->groupBy('penagihan');
 
         if ($request->filterSite != "All") {
             $rootCouseCancel = $rootCouseCancel->where('site_penagihan', '=', $request->filterSite);
         }
         if ($request->filterBranch != "All") {
             $rootCouseCancel = $rootCouseCancel->where('branch', '=', $request->filterBranch);
+        }
+        if ($request->typePenagihanIB == "Additional Service STB"){
+            $rootCouseCancel = $rootCouseCancel->where('type_wo', '=', $request->typePenagihanIB);
+        }
+        if ($request->typePenagihanIB == "New Installation"){
+            $rootCouseCancel = $rootCouseCancel->where('type_wo', '!=', 'Additional Service STB');
         }
 
         for ($x = 0; $x < count($trendBulanan); $x++) {

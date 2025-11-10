@@ -2578,7 +2578,7 @@
 
                     $('#totWo').find("td").remove()
                     $('#totWo').find("th").remove()
-                    $('#totWo').append("<th>Total Wo</th>")
+                    $('#totWo').append("<th>Total Wo</th><th></th>")
 
                     $('#bodyType').find("tr").remove();
 
@@ -3450,7 +3450,7 @@
                     
                     $.each(itemType.detail, function(k, det) {
                         tbPenagihanApk = `
-                                    <tr id="rowDetail_${itemType.type}"><td></td>
+                                    <tr id="rowDetail_${itemType.type}_${det.penagihan.replaceAll(' ','_')}"><td></td>
                                     <td>${det.penagihan}</td></tr>`;
 
                         $('#bodyRootCouseAPK').append(tbPenagihanApk);
@@ -3459,11 +3459,14 @@
                         
                         tm = 0;
                         for(m=0; m < trendWoIBFtth.length; m++) {
+
+                            CalcPersen = parseFloat((det.bulanan[trendWoIBFtth[m].bulan.replace('-','_')] * 100) / trendWoIBFtth[m].trendIBFtthDone).toFixed(1).replace(/\.0$/, '');
+                            
                             tbbulananApk = `
                                     <td style="text-align: center">${det.bulanan[trendWoIBFtth[m].bulan.replace('-','_')]}</td>
-                                    <td style="text-align: center">${parseFloat((det.bulanan[trendWoIBFtth[m].bulan.replace('-','_')] * 100) / trendWoIBFtth[m].trendIBFtthDone).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                    <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
 
-                            $('#rowDetail_'+itemType.type).append(tbbulananApk)
+                            $('#rowDetail_'+itemType.type+'_'+det.penagihan.replaceAll(' ','_')).append(tbbulananApk)
 
                             subtotal += Number(det.bulanan[trendWoIBFtth[m].bulan.replace('-','_')]);
                             TotMonthly[m] += Number(det.bulanan[trendWoIBFtth[m].bulan.replace('-','_')]); 
@@ -3481,7 +3484,7 @@
 
                         // })
 
-                        $('#rowDetail_'+itemType.type).append(`<th style="text-align: center">${subtotal.toLocaleString()}</th>`)
+                        $('#rowDetail_'+itemType.type+'_'+det.penagihan.replaceAll(' ','_')).append(`<th style="text-align: center">${subtotal.toLocaleString()}</th>`)
                     })
 
                     // for (p = 0; p < trendWoIBFtth.length; p++) {
@@ -4427,10 +4430,11 @@
                                 tm = 0;
                                 for(m=0; m < trendWoIBFtth.length; m++) {
 
+                                    CalcPersen = parseFloat((det.bulanan[trendWoIBFtth[m].bulan.replaceAll('-','_')] * 100) / TotMonthly[m]).toFixed(1).replace(/\.0$/, '');
                                     
                                     tbbulananApk = `
                                             <td style="text-align: center">${det.bulanan[trendWoIBFtth[m].bulan.replaceAll('-','_')]}</td>
-                                            <td style="text-align: center">${parseFloat((det.bulanan[trendWoIBFtth[m].bulan.replaceAll('-','_')] * 100) / TotMonthly[m]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                            <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
 
                                     $('#rowPendingDetail_'+itemType.type+'_'+det.penagihan.replaceAll(' ', '_')).append(tbbulananApk)
 
@@ -4450,8 +4454,10 @@
 
                                 subtotalType = subtotalType + Number(TotMonthlyType[x]);
 
+                                CalcPersen = parseFloat((TotMonthlyType[x] * 100) / TotMonthly[x]).toFixed(1).replace(/\.0$/, '');
+                                
                                 $('#rowPendingType_'+itemType.type).append(`<th style="text-align: center">${TotMonthlyType[x]}</th>
-                                <th style="text-align: center">${parseFloat((TotMonthlyType[x] * 100) / TotMonthly[x]).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                                <th style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`)
 
                             }
 
@@ -5008,10 +5014,11 @@
                                 tm = 0;
                                 for(m=0; m < trendWoIBFtth.length; m++) {
 
+                                    CalcPersen = parseFloat((det.bulanan[trendWoIBFtth[m].bulan.replaceAll('-','_')] * 100) / TotMonthly[m]).toFixed(1).replace(/\.0$/, '');
                                     
                                     tbbulananApk = `
                                             <td style="text-align: center">${det.bulanan[trendWoIBFtth[m].bulan.replaceAll('-','_')]}</td>
-                                            <td style="text-align: center">${parseFloat((det.bulanan[trendWoIBFtth[m].bulan.replaceAll('-','_')] * 100) / TotMonthly[m]).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                            <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</td>`;
 
                                     $('#rowCancelDetail_'+itemType.type+'_'+det.penagihan.replaceAll(' ', '_')).append(tbbulananApk)
 
@@ -5031,8 +5038,10 @@
 
                                 subtotalType = subtotalType + Number(TotMonthlyType[x]);
 
+                                CalcPersen = parseFloat((TotMonthlyType[x] * 100) / TotMonthly[x]).toFixed(1).replace(/\.0$/, '');
+                                
                                 $('#rowCancelType_'+itemType.type).append(`<th style="text-align: center">${TotMonthlyType[x]}</th>
-                                <th style="text-align: center">${parseFloat((TotMonthlyType[x] * 100) / TotMonthly[x]).toFixed(1).replace(/\.0$/, '')}%</th>`)
+                                <th style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen}%</th>`)
 
                             }
 

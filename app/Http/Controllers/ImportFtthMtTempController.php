@@ -504,7 +504,7 @@ class ImportFtthMtTempController extends Controller
 
                 return back();
 
-            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
                 return $e->getMessage();
                 DB::rollback();
             }
@@ -536,6 +536,9 @@ class ImportFtthMtTempController extends Controller
 
     public function saveImportFtthMt(Request $request)
     {
+        ini_set('max_execution_time', 1000);
+        ini_set('memory_limit', '8048M');
+        
         $akses = Auth::user()->name;
 
         switch ($request->input('action')) {

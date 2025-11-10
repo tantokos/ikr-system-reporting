@@ -29,17 +29,17 @@ class Report_FttxIBController extends Controller
             ->get();
 
         $kotamadyaPenagihan = DB::table('data_fttx_ib_sortirs')
-            ->select('area')
+            ->select('kotamadya_penagihan')
             // ->where('branch','=','Jakarta Timur')
             ->distinct()
-            ->orderBy('area')
+            ->orderBy('kotamadya_penagihan')
             ->get();
 
         // dd($kotamadyaPenagihan);
 
         $tgl = DataFttxIbSortir::select('ib_date')->distinct()->get();
 
-        $trendMonthly = DataFttxIbSortir::select(DB::raw('date_format(ib_date, "%b-%Y") as bulan, month(ib_date) as bln, year(ib_date) as thn'))->distinct()->orderBy('bln','ASC')->orderBy('thn','ASC')->get();
+        $trendMonthly = DataFttxIbSortir::select(DB::raw('date_format(ib_date, "%b-%Y") as bulan, month(ib_date) as bln, year(ib_date) as thn'))->distinct()->orderBy('thn','DESC')->orderBy('bln','DESC')->get();
 
         return view(
             'report.reportingFttxIB',
@@ -57,18 +57,18 @@ class Report_FttxIBController extends Controller
     {
 
         $kotamadyaPenagihan = DB::table('data_fttx_ib_sortirs')
-            ->select('area');
+            ->select('kotamadya_penagihan');
         // ->where('branch','=',$request->branchReport)
         // ->distinct()
         // ->orderBy('kotamadya_penagihan')
         // ->get();
 
         if ($request->branchReport != "All") {
-            $kotamadyaPenagihan = $kotamadyaPenagihan->where('area', '=', $request->branchReport);
+            $kotamadyaPenagihan = $kotamadyaPenagihan->where('kotamadya_penagihan', '=', $request->branchReport);
         }
 
         $kotamadyaPenagihan = $kotamadyaPenagihan->distinct()
-            ->orderBy('area')
+            ->orderBy('kotamadya_penagihan')
             ->get();
 
 
@@ -94,7 +94,7 @@ class Report_FttxIBController extends Controller
                     ->select('b.id', 'b.nama_branch')
                     ->whereMonth('d.ib_date','=', $bulan)
                     ->whereYear('d.ib_date','=', $tahun)
-                    ->whereNotIn('b.nama_branch',['Apartemen', 'underground'])
+                    ->whereNotIn('b.nama_branch',['Apartemen', 'underground', 'Icon Plus'])
                     ->distinct()
                     ->orderBy('b.id')->get();
         
@@ -150,7 +150,7 @@ class Report_FttxIBController extends Controller
             ->select('b.id', 'd.branch as nama_branch') //, 'd.site_penagihan')
             ->leftJoin('branches as b', 'd.branch', '=', 'b.nama_branch')
             ->whereMonth('ib_date', '=', $bulan)->whereYear('ib_date', '=', $tahun)
-            ->whereNotIn('b.nama_branch',['Apartemen','Underground']);
+            ->whereNotIn('b.nama_branch',['Apartemen','Underground', 'Icon Plus']);
             // ->whereBetween('ib_date', [$startDate, $endDate]);
 
         // if ($request->filterSite != "All") {
@@ -485,9 +485,9 @@ class Report_FttxIBController extends Controller
 
             $totIBFtthMontlyDone = $totIBFtthMontlyDone->groupBy('bln','thn')->first();
 
-            $trendBulanan[$m]['totfttxdone'] = $totIBFtthMontlyDone->totfttxdone;
-            $trendBulanan[$m]['totfttbdone'] = $totIBFtthMontlyDone->totfttbdone;
-            $trendBulanan[$m]['totutpdone'] = $totIBFtthMontlyDone->totutpdone;
+            $trendBulanan[$m]['totfttxdone'] = $totIBFtthMontlyDone->totfttxdone ?? 0;
+            $trendBulanan[$m]['totfttbdone'] = $totIBFtthMontlyDone->totfttbdone ?? 0;
+            $trendBulanan[$m]['totutpdone'] = $totIBFtthMontlyDone->totutpdone ?? 0;
         }
 
         // dd($trendBulanan);
@@ -720,10 +720,10 @@ class Report_FttxIBController extends Controller
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
 
-        $PenagihanSortir = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.action_taken'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
-            ->where('root_couse_penagihan.status', '=', 'Done')
-            ->where('root_couse_penagihan.type_wo','=', 'IB FTTX')
+        $PenagihanSortir = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.penagihan'))
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
+            ->where('data_fttx_ib_sortirs.status_wo', '=', 'Done')
+            // ->where('root_couse_penagihan.type_wo','=', 'IB FTTX')
             // ->whereNotIn('data_fttx_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_fttx_ib_sortirs.ib_date', '=', $bulan) // $bulan)
             ->whereYear('data_fttx_ib_sortirs.ib_date', '=', $tahun)
@@ -737,12 +737,12 @@ class Report_FttxIBController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_ib_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_ib_sortirs.penagihan')->orderBy('data_fttx_ib_sortirs.penagihan')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
-            $nameGraph[$p] = ['penagihan' => $PenagihanSortir[$p]->action_taken];
+            $nameGraph[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
         }
 
         for ($t = 0; $t < count($tglGraph); $t++) {
@@ -752,22 +752,22 @@ class Report_FttxIBController extends Controller
                 // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.action_taken'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
-                    ->where('root_couse_penagihan.status', '=', 'Done')
-                    ->where('root_couse_penagihan.type_wo','=','IB FTTX')
+                $jml = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.penagihan'))
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
+                    ->where('data_fttx_ib_sortirs.status_wo', '=', 'Done')
+                    // ->where('root_couse_penagihan.type_wo','=','IB FTTX')
                     // ->whereNotIn('data_fttx_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('ib_date', '=', $tglGraph[$t])
                     // ->whereMonth('data_fttx_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
                     // ->whereYear('data_fttx_ib_sortirs.tgl_ikr', '=', $tahun)
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_fttx_ib_sortirs.action_taken', '=', $PenagihanSortir[$pn]->action_taken);
+                    ->where('data_fttx_ib_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
 
                 if ($request->filterBranch != "All") {
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_fttx_ib_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_fttx_ib_sortirs.penagihan')->orderBy('data_fttx_ib_sortirs.penagihan')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
@@ -806,10 +806,10 @@ class Report_FttxIBController extends Controller
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
 
-        $PenagihanSortir = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.action_taken'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
-            ->where('root_couse_penagihan.status', '=', 'Pending')
-            ->where('root_couse_penagihan.type_wo','=','IB FTTX')
+        $PenagihanSortir = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.penagihan'))
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
+            ->where('data_fttx_ib_sortirs.status_wo', '=', 'Pending')
+            // ->where('root_couse_penagihan.type_wo','=','IB FTTX')
             // ->whereNotIn('data_fttx_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_fttx_ib_sortirs.ib_date', '=', $bulan) // $bulan)
             ->whereYear('data_fttx_ib_sortirs.ib_date', '=', $tahun);
@@ -824,14 +824,14 @@ class Report_FttxIBController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_ib_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_ib_sortirs.penagihan')->orderBy('data_fttx_ib_sortirs.penagihan')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
         
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
-            $nameGraphPending[$p] = ['penagihan' => $PenagihanSortir[$p]->action_taken];
+            $nameGraphPending[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
         }
 
         
@@ -842,22 +842,22 @@ class Report_FttxIBController extends Controller
                 // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.action_taken'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
-                    ->where('root_couse_penagihan.status', '=', 'Pending')
-                    ->where('root_couse_penagihan.type_wo','=','IB FTTX')
+                $jml = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.penagihan'))
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
+                    ->where('data_fttx_ib_sortirs.status_wo', '=', 'Pending')
+                    // ->where('root_couse_penagihan.type_wo','=','IB FTTX')
                     // ->whereNotIn('data_fttx_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('ib_date', '=', $tglGraphPending[$t])
                     // ->whereMonth('data_fttx_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
                     // ->whereYear('data_fttx_ib_sortirs.tgl_ikr', '=', $tahun)
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_fttx_ib_sortirs.action_taken', '=', $PenagihanSortir[$pn]->action_taken);
+                    ->where('data_fttx_ib_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
 
                 if ($request->filterBranch != "All") {
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_fttx_ib_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_fttx_ib_sortirs.penagihan')->orderBy('data_fttx_ib_sortirs.penagihan')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
@@ -930,9 +930,9 @@ class Report_FttxIBController extends Controller
 
             $totIBFtthMontlyPending = $totIBFtthMontlyPending->groupBy('bln','thn')->first();
 
-            $trendBulanan[$m]['totfttxpending'] = $totIBFtthMontlyPending->totfttxpending;
-            $trendBulanan[$m]['totfttbpending'] = $totIBFtthMontlyPending->totfttbpending;
-            $trendBulanan[$m]['totutppending'] = $totIBFtthMontlyPending->totutppending;
+            $trendBulanan[$m]['totfttxpending'] = $totIBFtthMontlyPending->totfttxpending ?? 0;
+            $trendBulanan[$m]['totfttbpending'] = $totIBFtthMontlyPending->totfttbpending ?? 0;
+            $trendBulanan[$m]['totutppending'] = $totIBFtthMontlyPending->totutppending ?? 0;
         }
 
         // dd($trendBulanan);
@@ -995,9 +995,9 @@ class Report_FttxIBController extends Controller
 
             $totIBFtthMontlyCancel = $totIBFtthMontlyCancel->groupBy('bln','thn')->first();
 
-            $trendBulanan[$m]['totfttxcancel'] = $totIBFtthMontlyCancel->totfttxcancel;
-            $trendBulanan[$m]['totfttbcancel'] = $totIBFtthMontlyCancel->totfttbcancel;
-            $trendBulanan[$m]['totutpcancel'] = $totIBFtthMontlyCancel->totutpcancel;
+            $trendBulanan[$m]['totfttxcancel'] = $totIBFtthMontlyCancel->totfttxcancel ?? 0;
+            $trendBulanan[$m]['totfttbcancel'] = $totIBFtthMontlyCancel->totfttbcancel ?? 0;
+            $trendBulanan[$m]['totutpcancel'] = $totIBFtthMontlyCancel->totutpcancel ?? 0;
         }
 
         // dd($trendBulanan);
@@ -1038,12 +1038,16 @@ class Report_FttxIBController extends Controller
                                 when wo_type="FTTB" then 2
                                 when wo_type="UTP" then 3 end'))
                 ->get();
+        
 
+        // dd($dtType);
         $rootCouseDone = DB::table('v_fttx_ib_done')
-                ->select('id','penagihan')
+                // ->select('id','penagihan')
+                ->select('penagihan')
                 ->whereIn('bulan', $inBulan)
                 ->where('tahun', $tahun)
-                ->groupBy('id','penagihan')->get();
+                // ->groupBy('id','penagihan')->get();
+                ->groupBy('penagihan')->get();
 
         
         for($d=0; $d < count($dtType); $d++){
@@ -1224,10 +1228,10 @@ class Report_FttxIBController extends Controller
                 ->get();
 
         $rootCousePending = DB::table('v_fttx_ib_pending')
-                ->select('id','penagihan')
+                ->select('penagihan')
                 ->whereIn('bulan', $inBulan)
                 ->where('tahun', $tahun)
-                ->groupBy('id','penagihan')->get();
+                ->groupBy('penagihan')->get();
 
         
         for($d=0; $d < count($dtType); $d++){
@@ -1382,10 +1386,12 @@ class Report_FttxIBController extends Controller
                 ->get();
 
         $rootCouseCancel = DB::table('v_fttx_ib_cancel')
-                ->select('id','penagihan')
+                ->select('penagihan')
                 ->whereIn('bulan', $inBulan)
                 ->where('tahun', $tahun)
-                ->groupBy('id','penagihan')->get();
+                ->groupBy('penagihan')
+                // ->orderBy('total','DESC')
+                ->get();
 
         
         for($d=0; $d < count($dtType); $d++){
@@ -1585,10 +1591,10 @@ class Report_FttxIBController extends Controller
         $detCouseCodeSortir = [];
         $detRootCouseSortir = [];
 
-        $PenagihanSortir = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.action_taken'))
-            ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
-            ->where('root_couse_penagihan.status', '=', 'Cancel')
-            ->where('root_couse_penagihan.type_wo','=','IB FTTX')
+        $PenagihanSortir = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.penagihan'))
+            // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
+            ->where('data_fttx_ib_sortirs.status_wo', '=', 'Cancel')
+            // ->where('root_couse_penagihan.type_wo','=','IB FTTX')
             // ->whereNotIn('data_fttx_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
             ->whereMonth('data_fttx_ib_sortirs.ib_date', '=', $bulan) // $bulan)
             ->whereYear('data_fttx_ib_sortirs.ib_date', '=', $tahun);
@@ -1603,14 +1609,14 @@ class Report_FttxIBController extends Controller
             $PenagihanSortir = $PenagihanSortir->where('branch', '=', $request->filterBranch);
         }
 
-        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_ib_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
+        $PenagihanSortir = $PenagihanSortir->groupBy('data_fttx_ib_sortirs.penagihan')->orderBy('data_fttx_ib_sortirs.penagihan')->get();
         // dd($tglGraph);
         // for($t=0; $t < count($tglGraph); $t++ ){
 
         
 
         for ($p = 0; $p < count($PenagihanSortir); $p++) {
-            $nameGraphCancel[$p] = ['penagihan' => $PenagihanSortir[$p]->action_taken];
+            $nameGraphCancel[$p] = ['penagihan' => $PenagihanSortir[$p]->penagihan];
         }
 
         
@@ -1621,22 +1627,22 @@ class Report_FttxIBController extends Controller
                 // $tglGraph[$t]['penagihan'][$p] = $PenagihanSortir[$p]->penagihan;
 
 
-                $jml = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.action_taken'))
-                    ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
-                    ->where('root_couse_penagihan.status', '=', 'Cancel')
-                    ->where('root_couse_penagihan.type_wo','=','IB FTTX')
+                $jml = DataFttxIbSortir::select(DB::raw('data_fttx_ib_sortirs.penagihan'))
+                    // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_fttx_ib_sortirs.action_taken')
+                    ->where('data_fttx_ib_sortirs.status_wo', '=', 'Cancel')
+                    // ->where('root_couse_penagihan.type_wo','=','IB FTTX')
                     // ->whereNotIn('data_fttx_ib_sortirs.type_wo', ['Dismantle', 'Additional'])
                     ->where('ib_date', '=', $tglGraphCancel[$t])
                     // ->whereMonth('data_fttx_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$m]['bulan'])->month) // $bulan)
                     // ->whereYear('data_fttx_ib_sortirs.tgl_ikr', '=', $tahun)
                     // ->whereBetween(DB::raw('day(tgl_ikr)'), [\Carbon\Carbon::parse($startDate)->day,\Carbon\Carbon::parse($endDate)->day])
-                    ->where('data_fttx_ib_sortirs.action_taken', '=', $PenagihanSortir[$pn]->action_taken);
+                    ->where('data_fttx_ib_sortirs.penagihan', '=', $PenagihanSortir[$pn]->penagihan);
 
                 if ($request->filterBranch != "All") {
                     $jml = $jml->where('branch', '=', $request->filterBranch);
                 }
 
-                $jml = $jml->groupBy('data_fttx_ib_sortirs.action_taken', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->count();
+                $jml = $jml->groupBy('data_fttx_ib_sortirs.penagihan')->orderBy('data_fttx_ib_sortirs.penagihan')->count();
 
                 // $detPenagihanSortir[$ps]['bulanan'][$m] = [$jml];
                 // $tglGraph[$t]['jml'][$p] = $jml;
