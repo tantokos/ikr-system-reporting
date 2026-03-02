@@ -883,6 +883,9 @@ class ReportController extends Controller
         $startDate = $request->filterDateStart;
         $endDate = $request->filterDateEnd;
 
+        $filBranch = $request->filterBranch;
+        $site = $request->filterSite;
+
         $rootCouseDone = DB::table('root_couse_penagihan')->select('penagihan')
                 ->where('status', '=', 'Done')
                 ->where('type_wo','=','MT FTTH')->get();
@@ -974,10 +977,47 @@ class ReportController extends Controller
         }
 
         $tblRootCousePending = [];
+        $filBranch = $request->filterBranch;
+        $site = $request->filterSite;
 
-        $rootCousePending = DB::table('v_ftth_mt_pending')
+        if($bulan == 1 ) {
+
+            $rootCousePending = DB::table('v_ftth_mt_pending')
                 ->select('penagihan')
+                ->where(function ($query) use($tahun, $filBranch, $site) {
+                    $query->where('bulan', '12')
+                        ->where('tahun', $tahun - 1)
+                        // ->where('status_wo','=', 'Done')
+                        ->when($filBranch != "All", function($qu) use($filBranch) {
+                            return $qu->where('branch', '=', $filBranch);
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                })
+                ->orWhere(function ($q) use($tahun, $bulan, $filBranch, $site) {
+                    $q->where('bulan', $bulan)
+                        ->where('tahun', $tahun)
+                        // ->where('status_wo','=', 'Done')
+                        ->when($filBranch != "All", function($qu) use($filBranch) {
+                            return $qu->where('branch', '=', $filBranch);
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                })
                 ->groupBy('penagihan');
+
+        } else {
+
+            $rootCousePending = DB::table('v_ftth_mt_pending')
+                    ->select('penagihan')
+                    ->where('tahun', $tahun)
+                    ->where('bulan', '<=', $bulan)
+                    ->groupBy('penagihan');
+        }
+
+        
 
         if ($request->filterSite != "All") {
             $rootCousePending = $rootCousePending->where('site_penagihan', '=', $request->filterSite);
@@ -1088,10 +1128,46 @@ class ReportController extends Controller
         }
 
         $tblRootCouseCancel = [];
+        $filBranch = $request->filterBranch;
+        $site = $request->filterSite;
 
-        $rootCouseCancel = DB::table('v_ftth_mt_cancel')
+        if($bulan == 1) {
+            $rootCouseCancel = DB::table('v_ftth_mt_cancel')
                 ->select('penagihan')
+                ->where(function ($query) use($tahun, $filBranch, $site) {
+                    $query->where('bulan', '12')
+                        ->where('tahun', $tahun - 1)
+                        // ->where('status_wo','=', 'Done')
+                        ->when($filBranch != "All", function($qu) use($filBranch) {
+                            return $qu->where('branch', '=', $filBranch);
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                })
+                ->orWhere(function ($q) use($tahun, $bulan, $filBranch, $site) {
+                    $q->where('bulan', $bulan)
+                        ->where('tahun', $tahun)
+                        // ->where('status_wo','=', 'Done')
+                        ->when($filBranch != "All", function($qu) use($filBranch) {
+                            return $qu->where('branch', '=', $filBranch);
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                })
                 ->groupBy('penagihan');
+
+        } else {
+
+            $rootCouseCancel = DB::table('v_ftth_mt_cancel')
+                ->select('penagihan')
+                ->where('tahun', $tahun)
+                ->where('bulan', '<=', $bulan)
+                ->groupBy('penagihan');
+
+        }
+        
 
         if ($request->filterSite != "All") {
             $rootCouseCancel = $rootCouseCancel->where('site_penagihan', '=', $request->filterSite);
