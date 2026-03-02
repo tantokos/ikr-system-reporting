@@ -310,8 +310,19 @@ class Report_FttxIBController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+            
         }
 
         for ($m = 0; $m < count($trendBulanan); $m++) {
@@ -440,8 +451,19 @@ class Report_FttxIBController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+            
         }
 
         // dd($trendBulanan);
@@ -885,9 +907,20 @@ class Report_FttxIBController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-        }
+            // $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+        }  
 
         // dd($trendBulanan);
 
@@ -950,8 +983,19 @@ class Report_FttxIBController extends Controller
         $trendBulanan = [];
         $bulantahun = \Carbon\Carbon::parse($request->bulanTahunReport)->subMonths($bulan - 1);
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            // $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
         }
 
         // dd($trendBulanan);
@@ -1021,33 +1065,99 @@ class Report_FttxIBController extends Controller
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        //     $inBulan[] = $bt; 
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-            $inBulan[] = $bt; 
-        }
+            // $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+        }  
 
         $tblRootCouseDone = [];
+        $filBranch = $request->filterBranch;
 
-        // $dtType = ["FTTX", "FTTB", "UTP"];
-        $dtType = DB::table('v_fttx_ib_done')
+        if($bulan == 1) {
+
+            $dtType = DB::table('v_fttx_ib_done')
                 ->select('wo_type')
-                ->whereIn('bulan', $inBulan)
-                ->where('tahun', $tahun)
+                ->where(function ($query) use($tahun, $filBranch) {
+                        $query->where('bulan', '12')
+                            ->where('tahun', $tahun - 1)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                        $q->where('bulan', $bulan)
+                            ->where('tahun', $tahun)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
                 ->groupBy('wo_type')
                 ->orderBy(DB::raw('case when wo_type="FTTX" then 1
                                 when wo_type="FTTB" then 2
                                 when wo_type="UTP" then 3 end'))
                 ->get();
-        
 
-        // dd($dtType);
-        $rootCouseDone = DB::table('v_fttx_ib_done')
-                // ->select('id','penagihan')
-                ->select('penagihan')
-                ->whereIn('bulan', $inBulan)
-                ->where('tahun', $tahun)
-                // ->groupBy('id','penagihan')->get();
-                ->groupBy('penagihan')->get();
+
+            $rootCouseDone = DB::table('v_fttx_ib_done')
+                ->select('wo_type', 'penagihan')
+                ->where(function ($query) use($tahun, $filBranch) {
+                        $query->where('bulan', '12')
+                            ->where('tahun', $tahun - 1)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                        $q->where('bulan', $bulan)
+                            ->where('tahun', $tahun)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                ->groupBy('wo_type', 'penagihan')->get();
+
+        } else {
+
+            // $dtType = ["FTTX", "FTTB", "UTP"];
+            $dtType = DB::table('v_fttx_ib_done')
+                    ->select('wo_type')
+                    // ->whereIn('bulan', $inBulan)
+                    ->where('tahun', $tahun)
+                    ->where('bulan', '<=', $bulan)
+                    ->groupBy('wo_type')
+                    ->orderBy(DB::raw('case when wo_type="FTTX" then 1
+                                    when wo_type="FTTB" then 2
+                                    when wo_type="UTP" then 3 end'))
+                    ->get();
+            
+
+            // dd($dtType);
+            $rootCouseDone = DB::table('v_fttx_ib_done')
+                    // ->select('id','penagihan')
+                    ->select('wo_type', 'penagihan')
+                    ->where('tahun', $tahun)
+                    ->where('bulan', '<=', $bulan)
+                    // ->whereIn('bulan', $inBulan)
+                    // ->groupBy('id','penagihan')->get();
+                    ->groupBy('penagihan')->get();
+
+        }
+        
 
         
         for($d=0; $d < count($dtType); $d++){
@@ -1058,36 +1168,40 @@ class Report_FttxIBController extends Controller
 
                 // $tblRootCouseDone[$d]['penagihan'][$p]= $rootCouseDone[$p]->penagihan;
 
-                for ($x = 0; $x < count($trendBulanan); $x++) {
+                if($rootCouseDone[$p]->wo_type == $dtType[$d]->wo_type) {
 
-                    $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
-                    // dd($Qbln, $tahun);
-                    $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
+                    for ($x = 0; $x < count($trendBulanan); $x++) {
 
-                    $jml = DB::table('v_fttx_ib_done')
-                        ->select(DB::raw('wo_type,penagihan, ifnull(sum(total),0) as done'))
-                        ->where('bulan', $Qbln)
-                        ->where('tahun', $tahun)
-                        ->where('wo_type', $dtType[$d]->wo_type)
-                        ->where('penagihan', $rootCouseDone[$p]->penagihan)
-                        ->groupBy('wo_type','penagihan', 'bulan', 'tahun');
+                        $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+                        $Qthn = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
+                        // dd($Qbln, $tahun);
+                        $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
 
-                    if ($request->filterBranch != "All") {
-                        $jml = $jml->where('branch', '=', $request->filterBranch);
+                        $jml = DB::table('v_fttx_ib_done')
+                            ->select(DB::raw('wo_type,penagihan, ifnull(sum(total),0) as done'))
+                            ->where('bulan', $Qbln)
+                            ->where('tahun', $Qthn)
+                            ->where('wo_type', $dtType[$d]->wo_type)
+                            ->where('penagihan', $rootCouseDone[$p]->penagihan)
+                            ->groupBy('wo_type','penagihan', 'bulan', 'tahun');
+
+                        if ($request->filterBranch != "All") {
+                            $jml = $jml->where('branch', '=', $request->filterBranch);
+                        }
+
+                        $jml=$jml->first();
+                        $vJml = $jml->done ?? 0;
+                        $tblRootCouseDone[$d]['detail'][$p]['penagihan'] = $rootCouseDone[$p]->penagihan;
+                        $tblRootCouseDone[$d]['detail'][$p]['bulanan'][$blnThn] = (int)$vJml;
+                        // dd($tblRootCouseDone);
+                        // $tblRootCouseDone[$d]= ['penagihgan' => $rootCouseDone[$p]->penagihan, 'bulanan' => [$jml->done ?? 0]];
+                        
+                        // dd($dtType[$d]->wo_type, $rootCouseDone[$p]->penagihan, $jml);
+                        // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+                        // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
                     }
-
-                    $jml=$jml->first();
-                    $vJml = $jml->done ?? 0;
-                    $tblRootCouseDone[$d]['detail'][$p]['penagihan'] = $rootCouseDone[$p]->penagihan;
-                    $tblRootCouseDone[$d]['detail'][$p]['bulanan'][$blnThn] = (int)$vJml;
-                    // dd($tblRootCouseDone);
-                    // $tblRootCouseDone[$d]= ['penagihgan' => $rootCouseDone[$p]->penagihan, 'bulanan' => [$jml->done ?? 0]];
-                    
-                    // dd($dtType[$d]->wo_type, $rootCouseDone[$p]->penagihan, $jml);
-                    // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-                    // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-
-                }
+                }                
             }
 
                 
@@ -1209,29 +1323,91 @@ class Report_FttxIBController extends Controller
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        //     $inBulan[] = $bt; 
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-            $inBulan[] = $bt; 
-        }
+            // $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+        }  
 
         $tblRootCouseDone = [];
+        $filBranch = $request->filterBranch;
 
-        // $dtType = ["FTTX", "FTTB", "UTP"];
-        $dtType = DB::table('v_fttx_ib_pending')
-                ->select('wo_type')
-                ->whereIn('bulan', $inBulan)
-                ->where('tahun', $tahun)
-                ->groupBy('wo_type')
-                ->orderBy(DB::raw('case when wo_type="FTTX" then 1
-                                when wo_type="FTTB" then 2
-                                when wo_type="UTP" then 3 end'))
-                ->get();
+        if($bulan == 1) {
 
-        $rootCousePending = DB::table('v_fttx_ib_pending')
-                ->select('penagihan')
-                ->whereIn('bulan', $inBulan)
-                ->where('tahun', $tahun)
-                ->groupBy('penagihan')->get();
+            $dtType = DB::table('v_fttx_ib_pending')
+                    ->select('wo_type')
+                    ->where(function ($query) use($tahun, $filBranch) {
+                        $query->where('bulan', '12')
+                            ->where('tahun', $tahun - 1)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                        $q->where('bulan', $bulan)
+                            ->where('tahun', $tahun)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->groupBy('wo_type')
+                    ->orderBy(DB::raw('case when wo_type="FTTX" then 1
+                                    when wo_type="FTTB" then 2
+                                    when wo_type="UTP" then 3 end'))
+                    ->get();
+
+            $rootCousePending = DB::table('v_fttx_ib_pending')
+                    ->select('wo_type', 'penagihan')
+                    ->where(function ($query) use($tahun, $filBranch) {
+                        $query->where('bulan', '12')
+                            ->where('tahun', $tahun - 1)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                        $q->where('bulan', $bulan)
+                            ->where('tahun', $tahun)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->groupBy('wo_type', 'penagihan')->get();
+
+        } else {
+
+            // $dtType = ["FTTX", "FTTB", "UTP"];
+            $dtType = DB::table('v_fttx_ib_pending')
+                    ->select('wo_type')
+                    ->where('tahun', $tahun)
+                    ->where('bulan', '<=', $bulan)
+                    ->groupBy('wo_type')
+                    ->orderBy(DB::raw('case when wo_type="FTTX" then 1
+                                    when wo_type="FTTB" then 2
+                                    when wo_type="UTP" then 3 end'))
+                    ->get();
+
+            $rootCousePending = DB::table('v_fttx_ib_pending')
+                    ->select('wo_type', 'penagihan')
+                    ->where('tahun', $tahun)
+                    ->where('bulan', '<=', $bulan)
+                    ->groupBy('wo_type', 'penagihan')->get();
+        }
+        
 
         
         for($d=0; $d < count($dtType); $d++){
@@ -1242,37 +1418,42 @@ class Report_FttxIBController extends Controller
 
                 // $tblRootCouseDone[$d]['penagihan'][$p]= $rootCouseDone[$p]->penagihan;
 
-                for ($x = 0; $x < count($trendBulanan); $x++) {
+                if($rootCousePending[$p]->wo_type == $dtType[$d]->wo_type) {
 
-                    $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
-                    // dd($Qbln, $tahun);
-                    $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
+                    for ($x = 0; $x < count($trendBulanan); $x++) {
 
-                    $jml = DB::table('v_fttx_ib_pending')
-                        ->select(DB::raw('wo_type,penagihan, ifnull(sum(total),0) as pending'))
-                        ->where('bulan', $Qbln)
-                        ->where('tahun', $tahun)
-                        ->where('wo_type', $dtType[$d]->wo_type)
-                        ->where('penagihan', $rootCousePending[$p]->penagihan)
-                        ->groupBy('wo_type','penagihan', 'bulan', 'tahun');
+                        $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+                        $Qthn = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
+                        // dd($Qbln, $tahun);
+                        $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
 
-                    if ($request->filterBranch != "All") {
-                        $jml = $jml->where('branch', '=', $request->filterBranch);
+                        $jml = DB::table('v_fttx_ib_pending')
+                            ->select(DB::raw('wo_type,penagihan, ifnull(sum(total),0) as pending'))
+                            ->where('bulan', $Qbln)
+                            ->where('tahun', $Qthn)
+                            ->where('wo_type', $dtType[$d]->wo_type)
+                            ->where('penagihan', $rootCousePending[$p]->penagihan)
+                            ->groupBy('wo_type','penagihan', 'bulan', 'tahun');
+
+                        if ($request->filterBranch != "All") {
+                            $jml = $jml->where('branch', '=', $request->filterBranch);
+                        }
+
+                        $jml=$jml->first();
+                        // dd($dtType, $rootCousePending,$jml);
+                        $vJml = $jml->pending ?? 0;
+                        $tblRootCousePending[$d]['detail'][$p]['penagihan'] = $rootCousePending[$p]->penagihan;
+                        $tblRootCousePending[$d]['detail'][$p]['bulanan'][$blnThn] = (int)$vJml;
+                        // dd($tblRootCouseDone);
+                        // $tblRootCouseDone[$d]= ['penagihgan' => $rootCouseDone[$p]->penagihan, 'bulanan' => [$jml->done ?? 0]];
+                        
+                        // dd($dtType[$d]->wo_type, $rootCouseDone[$p]->penagihan, $jml);
+                        // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+                        // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
                     }
-
-                    $jml=$jml->first();
-                    // dd($dtType, $rootCousePending,$jml);
-                    $vJml = $jml->pending ?? 0;
-                    $tblRootCousePending[$d]['detail'][$p]['penagihan'] = $rootCousePending[$p]->penagihan;
-                    $tblRootCousePending[$d]['detail'][$p]['bulanan'][$blnThn] = (int)$vJml;
-                    // dd($tblRootCouseDone);
-                    // $tblRootCouseDone[$d]= ['penagihgan' => $rootCouseDone[$p]->penagihan, 'bulanan' => [$jml->done ?? 0]];
-                    
-                    // dd($dtType[$d]->wo_type, $rootCouseDone[$p]->penagihan, $jml);
-                    // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-                    // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-
                 }
+                
             }
 
                 
@@ -1367,31 +1548,97 @@ class Report_FttxIBController extends Controller
         $bulan = \Carbon\Carbon::parse($request->bulanTahunReport)->month;
         $tahun = \Carbon\Carbon::parse($request->bulanTahunReport)->year;
 
+        // for ($bt = 1; $bt <= $bulan; $bt++) {
+        //     $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+        //     $inBulan[] = $bt; 
+        // }
+
         for ($bt = 1; $bt <= $bulan; $bt++) {
-            $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
-            $inBulan[] = $bt; 
-        }
+            // $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            if($bulan == 1) {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+                
+            } else {
+                $trendBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->format('M-Y')];
+            } 
+        }  
+
 
         $tblRootCouseCancel = [];
+        $filBranch = $request->filterBranch;
 
-        // $dtType = ["FTTX", "FTTB", "UTP"];
-        $dtType = DB::table('v_fttx_ib_cancel')
-                ->select('wo_type')
-                ->whereIn('bulan', $inBulan)
-                ->where('tahun', $tahun)
-                ->groupBy('wo_type')
-                ->orderBy(DB::raw('case when wo_type="FTTX" then 1
-                                when wo_type="FTTB" then 2
-                                when wo_type="UTP" then 3 end'))
-                ->get();
+        if($bulan == 1) {
 
-        $rootCouseCancel = DB::table('v_fttx_ib_cancel')
-                ->select('penagihan')
-                ->whereIn('bulan', $inBulan)
-                ->where('tahun', $tahun)
-                ->groupBy('penagihan')
-                // ->orderBy('total','DESC')
-                ->get();
+            $dtType = DB::table('v_fttx_ib_cancel')
+                    ->select('wo_type')
+                    ->where(function ($query) use($tahun, $filBranch) {
+                        $query->where('bulan', '12')
+                            ->where('tahun', $tahun - 1)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                        $q->where('bulan', $bulan)
+                            ->where('tahun', $tahun)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->groupBy('wo_type')
+                    ->orderBy(DB::raw('case when wo_type="FTTX" then 1
+                                    when wo_type="FTTB" then 2
+                                    when wo_type="UTP" then 3 end'))
+                    ->get();
+
+            $rootCouseCancel = DB::table('v_fttx_ib_cancel')
+                    ->select('wo_type', 'penagihan')
+                    ->where(function ($query) use($tahun, $filBranch) {
+                        $query->where('bulan', '12')
+                            ->where('tahun', $tahun - 1)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                        $q->where('bulan', $bulan)
+                            ->where('tahun', $tahun)
+                            // ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('branch', '=', $filBranch);
+                            });
+                    })
+                    ->groupBy('wo_type', 'penagihan')
+                    // ->orderBy('total','DESC')
+                    ->get();
+
+        } else {
+
+            // $dtType = ["FTTX", "FTTB", "UTP"];
+            $dtType = DB::table('v_fttx_ib_cancel')
+                    ->select('wo_type')
+                    ->where('bulan', '<=', $bulan)
+                    ->where('tahun', $tahun)
+                    ->groupBy('wo_type')
+                    ->orderBy(DB::raw('case when wo_type="FTTX" then 1
+                                    when wo_type="FTTB" then 2
+                                    when wo_type="UTP" then 3 end'))
+                    ->get();
+
+            $rootCouseCancel = DB::table('v_fttx_ib_cancel')
+                    // ->select('penagihan')
+                    ->select('wo_type', 'penagihan')
+                    ->where('bulan', '<=', $bulan)
+                    ->where('tahun', $tahun)
+                    ->groupBy('wo_type', 'penagihan')
+                    // ->orderBy('total','DESC')
+                    ->get();
+        
+        }      
 
         
         for($d=0; $d < count($dtType); $d++){
@@ -1402,37 +1649,42 @@ class Report_FttxIBController extends Controller
 
                 // $tblRootCouseDone[$d]['penagihan'][$p]= $rootCouseDone[$p]->penagihan;
 
-                for ($x = 0; $x < count($trendBulanan); $x++) {
+                if($rootCouseCancel[$p]->wo_type == $dtType[$d]->wo_type) {
 
-                    $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
-                    // dd($Qbln, $tahun);
-                    $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
+                    for ($x = 0; $x < count($trendBulanan); $x++) {
 
-                    $jml = DB::table('v_fttx_ib_cancel')
-                        ->select(DB::raw('wo_type,penagihan, ifnull(sum(total),0) as cancel'))
-                        ->where('bulan', $Qbln)
-                        ->where('tahun', $tahun)
-                        ->where('wo_type', $dtType[$d]->wo_type)
-                        ->where('penagihan', $rootCouseCancel[$p]->penagihan)
-                        ->groupBy('wo_type','penagihan', 'bulan', 'tahun');
+                        $Qbln = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month;
+                        $Qthn = \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->year;
+                        // dd($Qbln, $tahun);
+                        $blnThn = str_replace('-','_',$trendBulanan[$x]['bulan']);
 
-                    if ($request->filterBranch != "All") {
-                        $jml = $jml->where('branch', '=', $request->filterBranch);
+                        $jml = DB::table('v_fttx_ib_cancel')
+                            ->select(DB::raw('wo_type,penagihan, ifnull(sum(total),0) as cancel'))
+                            ->where('bulan', $Qbln)
+                            ->where('tahun', $Qthn)
+                            ->where('wo_type', $dtType[$d]->wo_type)
+                            ->where('penagihan', $rootCouseCancel[$p]->penagihan)
+                            ->groupBy('wo_type','penagihan', 'bulan', 'tahun');
+
+                        if ($request->filterBranch != "All") {
+                            $jml = $jml->where('branch', '=', $request->filterBranch);
+                        }
+
+                        $jml=$jml->first();
+                        // dd($dtType, $rootCousePending,$jml);
+                        $vJml = $jml->cancel ?? 0;
+                        $tblRootCouseCancel[$d]['detail'][$p]['penagihan'] = $rootCouseCancel[$p]->penagihan;
+                        $tblRootCouseCancel[$d]['detail'][$p]['bulanan'][$blnThn] = (int)$vJml;
+                        // dd($tblRootCouseDone);
+                        // $tblRootCouseDone[$d]= ['penagihgan' => $rootCouseDone[$p]->penagihan, 'bulanan' => [$jml->done ?? 0]];
+                        
+                        // dd($dtType[$d]->wo_type, $rootCouseDone[$p]->penagihan, $jml);
+                        // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
+                        // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
+
                     }
-
-                    $jml=$jml->first();
-                    // dd($dtType, $rootCousePending,$jml);
-                    $vJml = $jml->cancel ?? 0;
-                    $tblRootCouseCancel[$d]['detail'][$p]['penagihan'] = $rootCouseCancel[$p]->penagihan;
-                    $tblRootCouseCancel[$d]['detail'][$p]['bulanan'][$blnThn] = (int)$vJml;
-                    // dd($tblRootCouseDone);
-                    // $tblRootCouseDone[$d]= ['penagihgan' => $rootCouseDone[$p]->penagihan, 'bulanan' => [$jml->done ?? 0]];
-                    
-                    // dd($dtType[$d]->wo_type, $rootCouseDone[$p]->penagihan, $jml);
-                    // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0) as ".$blnThn.""));
-                    // $rootCouseDone = $rootCouseDone->addSelect(DB::raw("(ifnull(sum(case when bulan=".$Qbln." and tahun=".$tahun." then total end),0)/(select sum(total) from v_fttx_ib_pending where bulan=".$Qbln." and tahun=".$tahun."))*100 as persen_".$blnThn.""));
-
                 }
+                    
             }
 
                 

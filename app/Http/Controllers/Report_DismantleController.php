@@ -627,10 +627,41 @@ class Report_DismantleController extends Controller
             } 
         }  
 
-        $PenagihanSortir = DB::table('v_ftth_dismantle')
+        $filBranch = $request->filterBranch;
+
+        if($bulan == 1) {
+
+            $PenagihanSortir = DB::table('v_ftth_dismantle')
+                    ->select('reason_status')                    
+                    ->where(function ($query) use($tahun, $filBranch) {
+                        $query->where('bulan', '12')
+                            ->where('tahun', $tahun - 1)
+                            ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('main_branch', '=', $filBranch);
+                            });
+                    })
+                    ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                        $q->where('bulan', $bulan)
+                            ->where('tahun', $tahun)
+                            ->where('status_wo','=', 'Done')
+                            ->when($filBranch != "All", function($qu) use($filBranch) {
+                                return $qu->where('main_branch', '=', $filBranch);
+                            });
+                    })
+                    ->groupBy('reason_status');
+
+        } else {
+
+            $PenagihanSortir = DB::table('v_ftth_dismantle')
                             ->select('reason_status')
                             ->where('status_wo','=', 'Done')
+                            ->where('tahun', $tahun)
+                            ->where('bulan', '<=', $bulan)
                             ->groupBy('reason_status');
+
+        }
+        
 
         if ($request->filterBranch != "All") {
             $PenagihanSortir = $PenagihanSortir->where('main_branch', '=', $request->filterBranch);
@@ -884,6 +915,7 @@ class Report_DismantleController extends Controller
         $PenagihanSortir = DB::table('v_ftth_dismantle')
                             ->select('reason_status')
                             ->where('status_wo','=', 'Pending')
+                            ->where('bulan', '<=', $bulan)
                             ->groupBy('reason_status');
 
         if ($request->filterBranch != "All") {
@@ -1051,10 +1083,40 @@ class Report_DismantleController extends Controller
             } 
         }          
 
-        $PenagihanSortir = DB::table('v_ftth_dismantle')
+        $filBranch = $request->filterBranch;
+
+        if($bulan == 1) {
+
+            $PenagihanSortir = DB::table('v_ftth_dismantle')
+                            ->select('reason_status')
+                            // ->where('status_wo','=', 'Cancel')
+                            ->where(function ($query) use($tahun, $filBranch) {
+                                $query->where('bulan', '12')
+                                    ->where('tahun', $tahun - 1)
+                                    ->where('status_wo','=', 'Cancel')
+                                    ->when($filBranch != "All", function($qu) use($filBranch) {
+                                        return $qu->where('main_branch', '=', $filBranch);
+                                    });
+                            })
+                            ->orWhere(function ($q) use($tahun, $bulan, $filBranch) {
+                                $q->where('bulan', $bulan)
+                                    ->where('tahun', $tahun)
+                                    ->where('status_wo','=', 'Cancel')
+                                    ->when($filBranch != "All", function($qu) use($filBranch) {
+                                        return $qu->where('main_branch', '=', $filBranch);
+                                    });
+                            })
+                            ->groupBy('reason_status');
+
+        } else {
+
+            $PenagihanSortir = DB::table('v_ftth_dismantle')
                             ->select('reason_status')
                             ->where('status_wo','=', 'Cancel')
                             ->groupBy('reason_status');
+
+        }
+        
 
         if ($request->filterBranch != "All") {
             $PenagihanSortir = $PenagihanSortir->where('main_branch', '=', $request->filterBranch);

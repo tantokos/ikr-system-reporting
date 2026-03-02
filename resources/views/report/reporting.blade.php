@@ -823,6 +823,7 @@
                                     <th>kotamadya</th>
                                     <th>kotamadya_penagihan</th>
                                     <th>branch</th>
+                                    <th>tgl_IB</th>
                                     <th>tgl_ikr</th>
                                     {{-- <th>slot_time_leader</th> --}}
                                     <th>slot_time_apk</th>
@@ -1481,8 +1482,11 @@
                                 data: 'branch'
                             },
                             {
-                                data: 'tgl_ikr'
+                                data: 'tgl_ib'
                             },
+                            {
+                                data: 'tgl_ikr'
+                            },                            
                             {
                                 data: 'slot_time_apk'
                             },
@@ -3096,7 +3100,7 @@
             
 
             $.ajax({
-                url: "{{ route('getRootCouseAPK') }}",
+                url: "{{ route('getRootCouseAPK') }}",  
                 type: "GET",
                 data: {
                     bulanTahunReport: bulanReport,
@@ -3144,12 +3148,20 @@
                         <th style="position:sticky;left: 0;">Penagihan - Couse Code - Root Couse - Action Taken</th>`;
 
                     for (h = 0;h < trendWoMt.length; h++) {
+                        console.log('headrootcouse h - trendWoMt.length : ', h , ' - ', trendWoMt.length )
+
                         hdRootCouse = hdRootCouse +
                             `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`;
 
-                        hdRootCouseAPK = hdRootCouseAPK +
+                        if(h == (trendWoMt.length - 1)) {
+                            hdRootCouseAPK = hdRootCouseAPK +
                             `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`;
+                        } else {
+                            hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`;
                             //  <th style="text-align: center">% ${trendWoMt[h].bulan.toLocaleString()}</th>`
+                        }
+                        
                     }
 
                     $('#rootCouseHead').append(hdRootCouse + `<th colspan="2" style="text-align: center">Subtotal</th></tr>`);
@@ -3198,13 +3210,26 @@
                                     <span style="cursor:pointer" id="rootCouseAPK|penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
                                 
                                 <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+                            
+                            if(p == (trendWoMt.length - 1)) {
 
-
-                            tbPenagihanAPK = tbPenagihanAPK +
+                                tbPenagihanAPK = tbPenagihanAPK +
                                 `<td class="table-secondary" style="text-align: center; font-weight:bold">
                                     <span style="cursor:pointer" id="rootCouseAPK|penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>
 
                                 <td class="table-secondary" style="text-align: center; font-weight:bold">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+
+                            } else {
+
+                                tbPenagihanAPK = tbPenagihanAPK +
+                                `<td class="table-secondary" style="text-align: center; font-weight:bold">
+                                    <span style="cursor:pointer" id="rootCouseAPK|penagihan|${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</span></td>`;
+
+                                // <td class="table-secondary" style="text-align: center; font-weight:bold">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+
+                            }
+
+                            
 
                             subtotalSM += Number(itemPenagihan.bulanan[p]);
                             subtotalDT += Number(itemPenagihan.bulanan[p]);
@@ -3243,10 +3268,17 @@
 
                                     CalcPersen = parseFloat((itemCouseCode.bulanan[cc] * 100) / TotMonthPenagihan[cc]).toFixed(1).replace(/\.0$/, '');
 
-                                    tbCouseCodeAPK = tbCouseCodeAPK + 
-                                    `<td class="table-info" style="text-align: center" font-weight:bold">
-                                        <span style="cursor:pointer" id="rootCouseAPK|couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
-                                    <td class="table-info" style="text-align: center" font-weight:bold">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+                                    if(cc == (trendWoMt.length - 1)) {
+                                        tbCouseCodeAPK = tbCouseCodeAPK + 
+                                            `<td class="table-info" style="text-align: center" font-weight:bold">
+                                                <span style="cursor:pointer" id="rootCouseAPK|couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>
+                                            <td class="table-info" style="text-align: center" font-weight:bold">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+                                    } else {
+                                        tbCouseCodeAPK = tbCouseCodeAPK + 
+                                            `<td class="table-info" style="text-align: center" font-weight:bold">
+                                                <span style="cursor:pointer" id="rootCouseAPK|couse_code|${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</span></td>`;
+                                    }
+                                    
 
                                     subtotalDT += Number(itemCouseCode.bulanan[cc]);
                                 }
@@ -3282,10 +3314,19 @@
 
                                             CalcPersen = parseFloat((itemRootCouse.bulanan[rc] * 100) / TotMonthPenagihan[rc]).toFixed(1).replace(/\.0$/, '');
 
-                                            tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td class="table-warning" style="text-align: center" >
-                                                <span style="cursor:pointer" id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
-                                            <td class="table-warning" style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+                                            if(rc == (trendWoMt.length - 1)) {
+
+                                                tbRootCouseAPK = tbRootCouseAPK +
+                                                    `<td class="table-warning" style="text-align: center" >
+                                                        <span style="cursor:pointer" id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>
+                                                    <td class="table-warning" style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+
+                                            } else {
+                                                tbRootCouseAPK = tbRootCouseAPK +
+                                                    `<td class="table-warning" style="text-align: center" >
+                                                        <span style="cursor:pointer" id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</span></td>`;
+                                            }
+                                            
 
                                             subtotalDT += Number(itemRootCouse.bulanan[rc]);
 
@@ -3321,10 +3362,19 @@
 
                                                     CalcPersen = parseFloat((itemActionTaken.bulanan[rc] * 100) / TotMonthPenagihan[rc]).toFixed(1).replace(/\.0$/, '');
 
-                                                    tbActionTakenAPK = tbActionTakenAPK +
-                                                    `<td style="text-align: center" >
-                                                        <span style="cursor:pointer" id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemActionTaken.bulanan[rc].toLocaleString()}</span></td>
-                                                    <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+                                                    if(rc == (trendWoMt.length - 1)) {
+                                                        tbActionTakenAPK = tbActionTakenAPK +
+                                                            `<td style="text-align: center" >
+                                                                <span style="cursor:pointer" id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemActionTaken.bulanan[rc].toLocaleString()}</span></td>
+                                                            <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()}%</td>`;
+                                                    
+                                                    } else {
+                                                        tbActionTakenAPK = tbActionTakenAPK +
+                                                            `<td style="text-align: center" >
+                                                                <span style="cursor:pointer" id="rootCouseAPK|root_couse|${detailCel}" onClick="det_click(this.id)">${itemActionTaken.bulanan[rc].toLocaleString()}</span></td>`;
+
+                                                    }
+                                                    
 
                                                     subtotalDT += Number(itemActionTaken.bulanan[rc]);
 
@@ -3369,13 +3419,21 @@
                             subtotalSM += Number(iPenagihan.bulanan[p]);
                         })
 
-                        totRootCouseAPK = totRootCouseAPK + 
-                        `<th class="table-dark" style="text-align: center" >${TotPenagihan[p].toLocaleString()}</th>
-                        <th class="table-dark" style="text-align: center"></th>`;
-
                         totSumRootCouseAPK = totSumRootCouseAPK + 
-                        `<th class="table-dark" style="text-align: center">${TotSumPenagihan[p].toLocaleString()}</th>
-                        <th class="table-dark" style="text-align: center"></th>`;
+                                `<th class="table-dark" style="text-align: center">${TotSumPenagihan[p].toLocaleString()}</th>
+                                <th class="table-dark" style="text-align: center"></th>`;
+
+                        if(p == (trendWoMt.length - 1) ) {
+                            totRootCouseAPK = totRootCouseAPK + 
+                                `<th class="table-dark" style="text-align: center" >${TotPenagihan[p].toLocaleString()}</th>
+                                <th class="table-dark" style="text-align: center"></th>`;
+                            
+
+                        } else {
+                            totRootCouseAPK = totRootCouseAPK + 
+                                `<th class="table-dark" style="text-align: center" >${TotPenagihan[p].toLocaleString()}</th>`;
+                        }
+                        
                     }
 
                     $('#bodyRootCouse').append(totSumRootCouseAPK + `<th class="table-dark" style="text-align: center">${subtotalSM.toLocaleString()}</th></tr>`);
@@ -3830,7 +3888,7 @@
                                     // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
-                                            stepSize: 1000,
+                                            stepSize: 500,
                                             // stepValue: 500,
                                             // max: 6000
                                         }
@@ -3846,7 +3904,7 @@
                     var minChartTotPending = ChartTrendTotWoMTPending.scales.y.min;
                     // var minChartTotCancel = ChartTrendTotWoMTCancel.scales.y.min;
                     // ChartTrendTotWoMTClose.options.scales.y.max = ChartTrendTotWoMT.scales.y.max;
-                    ChartTrendTotWoMTPending.options.scales.y.max = ChartTrendTotMT_pending.scales.y.max;
+                    // ChartTrendTotWoMTPending.options.scales.y.max = ChartTrendTotMT_pending.scales.y.max;
                     // ChartTrendTotWoMTCancel.options.scales.y.max = ChartTrendTotWoMT.scales.y.max;
                     ChartTrendTotMT_pending.options.scales.y.min= minChartTotPending;
 
@@ -3970,7 +4028,7 @@
                                     // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
-                                            stepSize: 1000,
+                                            stepSize: 500,
                                             // stepValue: 500,
                                             // max: 6000
                                         }
@@ -3987,7 +4045,7 @@
                     var minChartTotCancel = ChartTrendTotWoMTCancel.scales.y.min;
                     // ChartTrendTotWoMTClose.options.scales.y.max = ChartTrendTotWoMT.scales.y.max;
                     // ChartTrendTotWoMTPending.options.scales.y.max = ChartTrendTotWoMT.scales.y.max;
-                    ChartTrendTotWoMTCancel.options.scales.y.max = ChartTrendTotWoMT_cancel.scales.y.max;
+                    // ChartTrendTotWoMTCancel.options.scales.y.max = ChartTrendTotWoMT_cancel.scales.y.max;
                     ChartTrendTotWoMT_cancel.options.scales.y.min= minChartTotCancel;
 
                     // ChartTrendTotWoMTClose.update();
@@ -4038,9 +4096,18 @@
                     $('#rootCouseHeadPending').append(hdRootCousePending);
 
                     for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadPending').find("tr").append(
-                            `<th colspan="2" style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
+
+                        if (b == (trendWoMt.length - 1)) {
+                            $('#rootCouseHeadPending').find("tr").append(
+                                `<th colspan="2" style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
+
+                        } else {
+                            $('#rootCouseHeadPending').find("tr").append(
+                                `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
+                        }
+                        
                     }
 
                     $('#rootCouseHeadPending').find("tr").append(
@@ -4067,9 +4134,16 @@
 
                             CalcPersen = parseFloat((item.bulanan[pn] * 100) / TotPenagihanPending[pn]).toFixed(1).replace(/\.0$/, '');
 
-                            tbRootCousePending = tbRootCousePending +
+                            if (pn == (trendWoMt.length - 1)) {
+                                tbRootCousePending = tbRootCousePending +
                                     `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[pn].toLocaleString()}</td>
                                     <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()} %</td>`;
+
+                            } else {
+                                tbRootCousePending = tbRootCousePending +
+                                    `<td style="text-align: center; cursor:pointer;" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[pn].toLocaleString()}</td>`;
+                            }
+                            
 
                             subtotal += Number(item.bulanan[pn]);
                         }
@@ -4097,9 +4171,16 @@
                             subtotal += Number(iPenagihan.bulanan[p]);
                         })
 
-                        totRootPending = totRootPending + 
-                        `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanPending[p].toLocaleString()}</th>
-                        <th class="table-dark" style="text-align: center"></th>`;
+                        if(p == (trendWoMt.length - 1)) {
+                            totRootPending = totRootPending + 
+                            `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanPending[p].toLocaleString()}</th>
+                            <th class="table-dark" style="text-align: center"></th>`;
+                        
+                        } else {
+                            totRootPending = totRootPending + 
+                            `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanPending[p].toLocaleString()}</th>`;
+                        }
+                        
                     }
 
                     $('#totRootCousePending').append(totRootPending + 
@@ -4283,9 +4364,17 @@
                     $('#rootCouseHeadCancel').append(hdRootCouseCancel);
 
                     for (b = 0; b < trendWoMt.length; b++) {
-                        $('#rootCouseHeadCancel').find("tr").append(
-                            `<th colspan="2" style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
-                        )
+                        if(b == (trendWoMt.length - 1 )) {
+                            $('#rootCouseHeadCancel').find("tr").append(
+                                `<th colspan="2" style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )    
+
+                        } else {
+                            $('#rootCouseHeadCancel').find("tr").append(
+                                `<th style="text-align: center">${trendWoMt[b].bulan.toLocaleString()}</th>`
+                            )
+                        }
+                        
                     }
 
                     $('#rootCouseHeadCancel').find("tr").append(
@@ -4311,9 +4400,16 @@
 
                             CalcPersen = parseFloat((item.bulanan[bln] * 100) / TotPenagihanCancel[bln]).toFixed(1).replace(/\.0$/, '');
 
-                            tbRootCouseCancel = tbRootCouseCancel +
+                            if(bln == (trendWoMt.length -  1)) {
+                                tbRootCouseCancel = tbRootCouseCancel +
                                 `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>
                                 <td style="text-align: center">${isNaN(CalcPersen) ? 0 : CalcPersen.toLocaleString()} %</td>`;
+                            
+                            } else {
+                                tbRootCouseCancel = tbRootCouseCancel +
+                                `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${item.bulanan[bln].toLocaleString()}</td>`;
+                            }
+                            
 
                             subtotal += Number(item.bulanan[bln]);
                         }
@@ -4342,9 +4438,16 @@
                             subtotal += Number(iPenagihan.bulanan[p]);
                         })
 
-                        totRootCancel = totRootCancel + 
-                        `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanCancel[p].toLocaleString()}</th>
-                        <th class="table-dark" style="text-align: center"></th>`;
+                        if(p == (trendWoMt.length -  1)) {
+                            totRootCancel = totRootCancel + 
+                            `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanCancel[p].toLocaleString()}</th>
+                            <th class="table-dark" style="text-align: center"></th>`;
+
+                        } else {
+                            totRootCancel = totRootCancel + 
+                            `<th class="table-dark" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${TotPenagihanCancel[p].toLocaleString()}</th>`;
+                        }
+                        
                     }
 
                     $('#totRootCouseCancel').append(totRootCancel + `<th class="table-dark" style="text-align: center">${subtotal.toLocaleString()}</th>`);
@@ -4642,8 +4745,15 @@
                         <th>Instalasi Aging - Penagihan - Root Couse</th>`;
 
                     for (h = 0;h < trendWoMt.length; h++) {
-                        hdRootCouseAPK = hdRootCouseAPK +
-                            `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+
+                        if(h == (trendWoMt.length - 1)) {
+                            hdRootCouseAPK = hdRootCouseAPK +
+                                `<th colspan="2" style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                        } else {
+                            hdRootCouseAPK = hdRootCouseAPK +
+                            `<th style="text-align: center">${trendWoMt[h].bulan.toLocaleString()}</th>`
+                        }
+                        
                     }
 
                     $('#analisHeadAPK').append(hdRootCouseAPK + `<th colspan="2" style="text-align: center">Subtotal</th></tr>`);
@@ -4672,9 +4782,15 @@
                                 
                             })
 
-                            tbPenagihanAPK = tbPenagihanAPK +
+                            if (p == (trendWoMt.length - 1)) {
+                                tbPenagihanAPK = tbPenagihanAPK +
                                 `<th class="table-secondary" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>
                                 <th class="table-secondary" style="text-align: center">${((itemPenagihan.bulanan[p] * 100) / TotMonthly[p] || 0).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                            } else {
+                                tbPenagihanAPK = tbPenagihanAPK +
+                                `<th class="table-secondary" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemPenagihan.bulanan[p].toLocaleString()}</th>`;
+                            }
+                            
 
                             subtotal+= Number(itemPenagihan.bulanan[p]);
                         }
@@ -4703,9 +4819,15 @@
                                         
                                     })
 
-                                    tbCouseCodeAPK = tbCouseCodeAPK + 
+                                    if (cc == (trendWoMt.length - 1)) {
+                                        tbCouseCodeAPK = tbCouseCodeAPK + 
                                         `<th class="table-info" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</th>
                                         <th class="table-info" style="text-align: center">${((itemCouseCode.bulanan[cc] * 100) / TotMonthly[cc] || 0).toFixed(1).replace(/\.0$/, '')}%</th>`;
+                                    } else {
+                                        tbCouseCodeAPK = tbCouseCodeAPK + 
+                                        `<th class="table-info" style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemCouseCode.bulanan[cc].toLocaleString()}</th>`;
+                                    }
+                                    
 
                                     subtotal += Number(itemCouseCode.bulanan[cc]);
 
@@ -4741,10 +4863,16 @@
                                                 
                                             })
 
+                                            if (rc == (trendWoMt.length - 1)) {
+                                                tbRootCouseAPK = tbRootCouseAPK +
+                                                `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
+                                                <td style="text-align: center">${((itemRootCouse.bulanan[rc] * 100) / TotMonthly[rc] || 0).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                            } else {
+                                                tbRootCouseAPK = tbRootCouseAPK +
+                                                `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</td>`;
 
-                                            tbRootCouseAPK = tbRootCouseAPK +
-                                            `<td style="text-align: center; cursor:pointer" id="${detailCel}" onClick="det_click(this.id)">${itemRootCouse.bulanan[rc].toLocaleString()}</td>
-                                            <td style="text-align: center">${((itemRootCouse.bulanan[rc] * 100) / TotMonthly[rc] || 0).toFixed(1).replace(/\.0$/, '')}%</td>`;
+                                            }
+                                            
 
                                             subtotal += Number(itemRootCouse.bulanan[rc]);
                                         }
@@ -4774,8 +4902,13 @@
                             
                         })
 
-                        totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
-                        <th class="table-dark" style="text-align: center"></th>`;
+                        if(p == (trendWoMt.length - 1)) {
+                            totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>
+                                <th class="table-dark" style="text-align: center"></th>`;
+                        } else {
+                            totRootCouseAPK = totRootCouseAPK + `<th class="table-dark" style="text-align: center">${TotPenagihan[p].toLocaleString()}</th>`;
+                        }
+                        
 
                         subtotal+= Number(TotPenagihan[p]);
                     }

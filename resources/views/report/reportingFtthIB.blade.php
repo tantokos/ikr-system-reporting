@@ -143,6 +143,36 @@
     </div>
 
     <div class="row">
+        {{-- <div class="col-sm-3"> --}}
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-secondary" id="dataTotWoAllNew"
+                            style="font-size: 12px; border-color:#9ca0a7;">
+                            <thead>
+                                <tr id="theadTotWoAll">
+                                    <th>WO New Installation</th>
+                                    {{-- <th style="text-align: center; vertical-align: middle;"></th> --}}
+                                </tr>
+                            </thead>
+                            <tbody id="totWoBranchAll">
+
+                            </tbody>
+                            <tfoot>
+                                <tr id="totalWoAll">
+                                    <th>Total WO</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {{-- </div> --}}
+    
+    </div>
+
+    {{-- table total wo di hidden dulu --}}
+    <div class="row" hidden>
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-body">
@@ -244,6 +274,7 @@
         </div>
 
     </div>
+    {{-- table total wo di hidden dulu --}}
 
     <div class="row">
         <div class="col-sm-12">
@@ -2113,6 +2144,7 @@
                     var totWoClose = 0;
                     var totWoPending = 0;
                     var totWoCancel = 0;
+                    var totWoAll = 0;
 
                     $('#totWoBranch').find("tr").remove();
                     $('#totWoCloseBranch').find("tr").remove();
@@ -2122,6 +2154,24 @@
                     $('#theadTotWoClose').find("th").remove();
                     $('#theadTotWoPending').find("th").remove();
                     $('#theadTotWoCancel').find("th").remove();
+
+                    $('#totWoBranchAll').find("tr").remove();
+                    $('#theadTotWoAll').find("th").remove();
+                    
+                    $('#theadTotWoAll').append(`
+                        <th>Total WO</th>
+                        <th style="text-align: center; vertical-align: middle;">${bulanReport}</th>
+                        <th style="text-align: center; vertical-align: middle;">%</th>
+                        <th style="text-align: center; vertical-align: middle;">-</th>
+                        <th style="text-align: center; vertical-align: middle;">Done</th>
+                        <th style="text-align: center; vertical-align: middle;">%</th>
+                        <th style="text-align: center; vertical-align: middle;">-</th>
+                        <th style="text-align: center; vertical-align: middle;">Pending</th>
+                        <th style="text-align: center; vertical-align: middle;">%</th>
+                        <th style="text-align: center; vertical-align: middle;">-</th>
+                        <th style="text-align: center; vertical-align: middle;">Cancel</th>
+                        <th style="text-align: center; vertical-align: middle;">%</th>
+                            `);
 
                     $('#theadTotWo').append(`
                         <th>Total WO</th>
@@ -2213,6 +2263,27 @@
                         totWoCancel = Number(totWoCancel) + Number(item.cancel);
                         $('#totWoCancelBranch').append(tbWoCancel);
 
+                        let tbTotalWoAll = `
+                            <tr>
+                                <td>${nmBranch}</td>
+                                <td style="text-align: center">${item.total.toLocaleString()}</td>
+                                <td style="text-align: center">${parseFloat(item.persenTotal).toFixed(1).replace(/\.0$/, '')}%</td>
+                                <td></td>
+                                <td style="text-align: center">${parseInt(item.done).toLocaleString()}</td>
+                                <td style="text-align: center">${parseFloat(item.persenDone).toFixed(1).replace(/\.0$/, '')}%</td>
+                                <td></td>
+                                <td style="text-align: center">${parseInt(item.pending).toLocaleString()}</td>
+                                <td style="text-align: center">${parseFloat(item.persenPending).toFixed(1).replace(/\.0$/, '')}%</td>
+                                <td></td>
+                                <td style="text-align: center">${parseInt(item.cancel).toLocaleString()}</td>
+                                <td style="text-align: center">${parseFloat(item.persenCancel).toFixed(1).replace(/\.0$/, '')}%</td>
+                            </tr>    
+                        `;
+
+                        totWoAll = Number(totWoAll) + Number(item.total);
+
+                        $('#totWoBranchAll').append(tbTotalWoAll);
+
 
                     });
 
@@ -2220,6 +2291,8 @@
                     $('#totWoClose').find("th").remove();
                     $('#totWoPending').find("th").remove();
                     $('#totWoCancel').find("th").remove();
+
+                    $('#totalWoAll').find("th").remove();
 
                     let isiTotalWo = `
                         <th>Total WO</th>
@@ -2256,6 +2329,24 @@
                         <th style="text-align: center; vertical-align: middle;">${parseFloat(persenTotCancel).toFixed(1).replace(/\.0$/, '')}%</th>
                     `;
                     $('#totWoCancel').append(isiTotalWoCancel);
+
+
+                    let isiTotalWoAll = `
+                        <th>Total WO</th>
+                        <th style="text-align: center; vertical-align: middle;">${totWo.toLocaleString()}</th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align: center; vertical-align: middle;">${parseInt(totWoClose).toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;">${parseFloat(persenTotClose).toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th></th>
+                        <th style="text-align: center; vertical-align: middle;">${totWoPending.toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;">${parseFloat(persenTotPending).toFixed(1).replace(/\.0$/, '')}%</th>
+                        <th></th>
+                        <th style="text-align: center; vertical-align: middle;">${totWoCancel.toLocaleString()}</th>
+                        <th style="text-align: center; vertical-align: middle;">${parseFloat(persenTotCancel).toFixed(1).replace(/\.0$/, '')}%</th>
+                    `;
+
+                    $('#totalWoAll').append(isiTotalWoAll);
 
                 }
 
@@ -3316,7 +3407,7 @@
                                     // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
-                                            stepSize: 1000,
+                                            stepSize: 500,
                                             // stepValue: 500,
                                             // max: 6000
                                         }
@@ -3332,7 +3423,7 @@
                     var minChartTotPending = ChartTrendTotWoIbPending.scales.y.min;
                     // var minChartTotCancel = ChartTrendTotWoIbCancel.scales.y.min;
                     // ChartTrendTotWoIbClose.options.scales.y.max = ChartTrendTotWoIb.scales.y.max;
-                    ChartTrendTotWoIbPending.options.scales.y.max = ChartTrendTotIb_pending.scales.y.max;
+                    // ChartTrendTotWoIbPending.options.scales.y.max = ChartTrendTotIb_pending.scales.y.max;
                     // ChartTrendTotWoIbCancel.options.scales.y.max = ChartTrendTotWoIb.scales.y.max;
                     ChartTrendTotIb_pending.options.scales.y.min= minChartTotPending;
 
@@ -3746,7 +3837,7 @@
                                     // grace: '10%',
                                     ticks: {
                                             // beginAtZero: true,
-                                            stepSize: 1000,
+                                            stepSize: 500,
                                             // stepValue: 500,
                                             // max: 6000
                                         }
@@ -3763,7 +3854,7 @@
                     var minChartTotCancel = ChartTrendTotWoIbCancel.scales.y.min;
                     // ChartTrendTotWoIbClose.options.scales.y.max = ChartTrendTotWoIb.scales.y.max;
                     // ChartTrendTotWoIbPending.options.scales.y.max = ChartTrendTotWoIb.scales.y.max;
-                    ChartTrendTotWoIbCancel.options.scales.y.max = ChartTrendTotWoIb.scales.y.max;
+                    // ChartTrendTotWoIbCancel.options.scales.y.max = ChartTrendTotWoIb.scales.y.max;
                     ChartTrendTotWoIb.options.scales.y.min= minChartTotCancel;
 
                     // ChartTrendTotWoIbClose.update();

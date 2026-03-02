@@ -1010,11 +1010,6 @@ class Report_IBController extends Controller
 
         $dayMonth = \Carbon\CarbonPeriod::between($startDate, $endDate);
 
-        // foreach ($dayMonth as $date) {
-        //     $tgl[] = ['tgl_ikr' => $date->format('Y-m-d')];
-        // }
-        // dd($tgl);
-
         for ($bt = 1; $bt <= $bulan; $bt++) {
             if($bulan == 1) {
                 $statusBulanan[] = ['bulan' => \Carbon\Carbon::create($tahun, $bt)->startOfMonth()->subMonth()->format('M-Y')];
@@ -1179,12 +1174,13 @@ class Report_IBController extends Controller
 
         $PenagihanSortir = DataFtthIbSortir::select(DB::raw('data_ftth_ib_sortirs.penagihan'))
             // ->join('root_couse_penagihan', 'root_couse_penagihan.penagihan', '=', 'data_ftth_ib_sortirs.penagihan')
-            ->where('data_ftth_ib_sortirs.status_wo', "Done");
+            ->where('data_ftth_ib_sortirs.status_wo', "Done")
             // ->where('root_couse_penagihan.status', '=', 'Done')
             // ->where('root_couse_penagihan.type_wo','=','IB FTTH');
             // ->whereNotIn('data_ftth_ib_sortirs.type_wo', ['Dismantle', 'Additional']);
         //->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '=', \Carbon\Carbon::parse($trendBulanan[$x]['bulan'])->month) // $bulan)
-        // ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
+        ->whereYear('data_ftth_ib_sortirs.tgl_ikr', '=', $tahun)
+        ->whereMonth('data_ftth_ib_sortirs.tgl_ikr', '<=', $bulan);
         // ->groupBy('data_ftth_ib_sortirs.penagihan', 'root_couse_penagihan.id')->orderBy('root_couse_penagihan.id')->get();
 
         if ($request->filterSite != "All") {
@@ -1701,10 +1697,52 @@ class Report_IBController extends Controller
 
         $tblRootCousePending = [];
 
-        $rootCousePending = DB::table('v_ftth_ib_pending')
+        $typeWo = $request->typePenagihanIB;
+        $site = $request->filterSite;
+
+        // dd($trendBulanan);
+        if($bulan == 1) {
+
+            $rootCousePending = DB::table('v_ftth_ib_pending')
+                ->select('penagihan')
+                ->where(function ($query) use($tahun, $typeWo, $site) {
+                    $query->where('bulan', '12')
+                        ->where('tahun', $tahun - 1)
+                        ->when($typeWo == "New Installation", function($qu) {
+                            return $qu->where('type_wo', '!=', 'Additional Service STB');
+                        })
+                        ->when($typeWo == "Additional Service STB", function($qu) {
+                            return $qu->where('type_wo', '=', 'Additional Service STB');
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                })
+                ->orWhere(function ($q) use($tahun, $bulan, $typeWo, $site) {
+                    $q->where('bulan', $bulan)
+                        ->where('tahun', $tahun)
+                        ->when($typeWo == "New Installation", function($qu) {
+                            return $qu->where('type_wo', '!=', 'Additional Service STB');
+                        })
+                        ->when($typeWo == "Additional Service STB", function($qu) {
+                            return $qu->where('type_wo', '=', 'Additional Service STB');
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                })
+                ->groupBy('penagihan');
+
+        } else {
+
+            $rootCousePending = DB::table('v_ftth_ib_pending')
                 ->select('penagihan')
                 ->where('tahun', $tahun)
+                ->where('bulan', '<=', $bulan)
                 ->groupBy('penagihan');
+
+        }
+        
 
         
         if ($request->filterSite != "All") {
@@ -1977,16 +2015,59 @@ class Report_IBController extends Controller
             
         }
 
+        
         $tblRootCouseCancel = [];
 
-        $rootCouseCancel = DB::table('v_ftth_ib_cancel')
+        $typeWo = $request->typePenagihanIB;
+        $site = $request->filterSite;
+
+        if($bulan == 1) {
+            
+
+                $rootCouseCancel = DB::table('v_ftth_ib_cancel')
                 ->select('penagihan')
-                ->where('tahun', $tahun)
+                ->where(function ($query) use($tahun, $typeWo, $site) {
+                    
+                    $query->where('bulan', '12')
+                        ->where('tahun', $tahun - 1)
+                        ->when($typeWo == "New Installation", function($qu) {
+                            return $qu->where('type_wo', '!=', 'Additional Service STB');
+                        })
+                        ->when($typeWo == "Additional Service STB", function($qu) {
+                            return $qu->where('type_wo', '=', 'Additional Service STB');
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                        // ->where('type_wo', '!=', 'Additional Service STB');
+                })
+                ->orWhere(function ($q) use($tahun, $bulan, $typeWo, $site) {
+                    $q->where('bulan', $bulan)
+                        ->where('tahun', $tahun)
+                        ->when($typeWo == "New Installation", function($qu) {
+                            return $qu->where('type_wo', '!=', 'Additional Service STB');
+                        })
+                        ->when($typeWo == "Additional Service STB", function($qu) {
+                            return $qu->where('type_wo', '=', 'Additional Service STB');
+                        })
+                        ->when($site != "All", function($qu) use($site) {
+                            return $qu->where('site_penagihan', '=', $site);
+                        });
+                })
                 ->groupBy('penagihan');
 
-        if ($request->filterSite != "All") {
-            $rootCouseCancel = $rootCouseCancel->where('site_penagihan', '=', $request->filterSite);
+        } else {
+            $rootCouseCancel = DB::table('v_ftth_ib_cancel')
+                ->select('penagihan')
+                ->where('tahun', $tahun)
+                ->where('bulan', '<=', $bulan)
+                ->groupBy('penagihan');
         }
+        
+
+        // if ($request->filterSite != "All") {
+        //     $rootCouseCancel = $rootCouseCancel->where('site_penagihan', '=', $request->filterSite);
+        // }
         if ($request->filterBranch != "All") {
             $rootCouseCancel = $rootCouseCancel->where('branch', '=', $request->filterBranch);
         }
@@ -2028,12 +2109,14 @@ class Report_IBController extends Controller
 
             for($tb=0; $tb < count($trendBulanan); $tb++){
                 $Qbln = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->month;
+                $Qthn = \Carbon\Carbon::parse($trendBulanan[$tb]['bulan'])->year;
 
                 $blnThn = str_replace('-','_',$trendBulanan[$tb]['bulan']);
                 $persenBln = "persen_".$blnThn;
 
-                $tblRootCouseCancel[$psx]['bulanan'][$tb] = [(int)$rootCouseCancel[$psx]->$blnThn];
-                $tblRootCouseCancel[$psx]['persen'][$tb] = [round($rootCouseCancel[$psx]->$persenBln, 1)];
+                
+                $tblRootCouseCancel[$psx]['bulanan'][$tb] = [(int)$rootCouseCancel[$psx]->$blnThn ?? 0];
+                $tblRootCouseCancel[$psx]['persen'][$tb] = [round($rootCouseCancel[$psx]->$persenBln ?? 0, 1)];
                 
             }
 
